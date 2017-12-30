@@ -5,31 +5,28 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\widgets;
+namespace yii\jquery;
 
 use yii\web\AssetBundle;
-use yii\web\YiiAsset;
 
 /**
- * The asset bundle for the [[ActiveForm]] widget.
+ * This asset bundle provides the base JavaScript files for the Yii Framework.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class ActiveFormAsset extends AssetBundle
+class YiiAsset extends AssetBundle
 {
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@yii/assets';
-
+    public $sourcePath = '@yii/jquery/assets';
     /**
      * @inheritdoc
      */
-    public $js = ['yii.activeForm.js'];
-
+    public $js = ['yii.js'];
     /**
      * @inheritdoc
      */
-    public $depends = [YiiAsset::class];
+    public $depends = [JqueryAsset::class];
 }

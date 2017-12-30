@@ -5,20 +5,20 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\validators;
+namespace yii\jquery;
 
 use yii\web\AssetBundle;
 
 /**
- * This asset bundle provides the javascript files needed for the [[EmailValidator]]s client validation.
+ * This asset bundle provides the [jQuery](http://jquery.com/) JavaScript library.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class PunycodeAsset extends AssetBundle
+class JqueryAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/punycode';
+    public $sourcePath = '@bower/jquery/dist';
     public $js = [
-        'punycode.js',
+        'jquery.js',
     ];
 }

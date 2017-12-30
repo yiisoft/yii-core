@@ -5,29 +5,26 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\validators;
+namespace yii\jquery;
 
 use yii\web\AssetBundle;
-use yii\web\YiiAsset;
 
 /**
- * This asset bundle provides the javascript files for client validation.
+ * This asset bundle provides the javascript files for the [[GridView]] widget.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class ValidationAsset extends AssetBundle
+class GridViewAsset extends AssetBundle
 {
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@yii/assets';
-
+    public $sourcePath = '@yii/jquery/assets';
     /**
      * @inheritdoc
      */
-    public $js = ['yii.validation.js'];
-
+    public $js = ['yii.gridView.js'];
     /**
      * @inheritdoc
      */
