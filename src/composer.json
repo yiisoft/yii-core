@@ -83,7 +83,7 @@
         ]
     },
     "bin": [
-        "yii"
+        "bin/yii"
     ],
     "extra": {
         "branch-alias": {
