@@ -1,9 +1,10 @@
 {
-    "name": "yiisoft/yii2",
-    "description": "Yii PHP Framework Version 2",
+    "name": "yiisoft/core",
+    "description": "Yii PHP Framework Core",
     "keywords": [
-        "yii2",
-        "framework"
+        "yii",
+        "framework",
+        "core"
     ],
     "homepage": "http://www.yiiframework.com/",
     "type": "library",
@@ -56,11 +57,11 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
+        "issues": "https://github.com/yiisoft/core",
         "forum": "http://www.yiiframework.com/forum/",
         "wiki": "http://www.yiiframework.com/wiki/",
         "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
+        "source": "https://github.com/yiisoft/core"
     },
     "require": {
         "php": ">=7.1.0",
@@ -79,15 +80,15 @@
         "ezyang/htmlpurifier": "version '~4.6' required at 'yii\\helpers\\HtmlPurifier' for 'html' data format support (e.g. 'yii\\i18n\\Formatter:asHtml()' and 'yii\\helpers\\StringHelper::truncateHtml()')"
     },
     "autoload": {
-        "psr-4": {"yii\\": "src"}
+        "psr-4": {
+            "yii\\": "src",
+            "yiiunit\\": "tests"
+        }
     },
     "bin": [
         "bin/yii"
     ],
     "extra": {
-        "branch-alias": {
-            "dev-master": "2.0.x-dev"
-        },
         "config-plugin": {
             "defines": "config/defines.php",
             "params": "config/params.php",

@@ -57,12 +57,22 @@ PROPOSED CHANGES
 * Moved files around for more logic organization:
     * all exceptions moved into separate dirs in all packages
     * moved web formatters to their own directory
+    * `yii\caching` -> `yii\cache`
 
 Upgrade from Yii 2.0.x
 ----------------------
 
 * PHP requirements were raised to 7.1. Make sure your code is updated accordingly.
 * memcache PECL extension support was dropped. Use memcached PECL extension instead.
+* Framework is splitted into parts:
+    * core
+    * di
+    * log
+    * cache
+    * web - require this for web application
+    * console - require this for console only application
+    * db
+    * rbac
 * Framework core requires only virtual PSR implementation packages, you are free
   to choose your logger and cache implementations.
   With more PSR implementations compatibility in future.
@@ -72,6 +82,7 @@ Upgrade from Yii 2.0.x
 * Config changed to be DI container config instead of application.
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).
+
 * Following new methods have been added to `yii\mail\MessageInterface` `addHeader()`, `setHeader()`, `getHeader()`, `setHeaders()`
   providing ability to setup custom mail headers. Make sure your provide implementation for those methods, while
   creating your own mailer solution.
