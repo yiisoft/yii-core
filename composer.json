@@ -79,7 +79,7 @@
         "ezyang/htmlpurifier": "version '~4.6' required at 'yii\\helpers\\HtmlPurifier' for 'html' data format support (e.g. 'yii\\i18n\\Formatter:asHtml()' and 'yii\\helpers\\StringHelper::truncateHtml()')"
     },
     "autoload": {
-        "psr-4": {"yii\\": ""}
+        "psr-4": {"yii\\": "src"}
     },
     "bin": [
         "bin/yii"
