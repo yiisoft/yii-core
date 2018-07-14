@@ -51,6 +51,13 @@ if you want to upgrade from version A to version C and there is
 version B between A and C, you need to follow the instructions
 for both A and B.
 
+PROPOSED CHANGES
+----------------
+
+* Moved files around for more logic organization:
+    * all exceptions moved into separate dirs in all packages
+    * moved web formatters to their own directory
+
 Upgrade from Yii 2.0.x
 ----------------------
 
