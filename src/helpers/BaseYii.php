@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii;
+namespace yii\helpers;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;

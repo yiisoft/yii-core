@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-require __DIR__ . '/BaseYii.php';
+namespace yii\helpers;
 
 /**
  * Yii is a helper class serving common framework functionalities.
@@ -16,8 +16,6 @@ require __DIR__ . '/BaseYii.php';
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Yii extends \yii\BaseYii
+class Yii extends BaseYii
 {
 }
-
-Yii::$container = new yii\di\Container();
