@@ -62,6 +62,9 @@ Upgrade from Yii 2.0.x
 * `Yii` helper is redone to clean helper without "global vars":
     * change `use Yii` to `use yii\helpers\Yii`
     * don't use `Yii::$app` instead use constructor DI to get application object
+* Config changed to be DI container config instead of application.
+* Added default application configuration and support for config assembling with
+  [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).
 * Following new methods have been added to `yii\mail\MessageInterface` `addHeader()`, `setHeader()`, `getHeader()`, `setHeaders()`
   providing ability to setup custom mail headers. Make sure your provide implementation for those methods, while
   creating your own mailer solution.
