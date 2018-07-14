@@ -56,9 +56,12 @@ Upgrade from Yii 2.0.x
 
 * PHP requirements were raised to 7.1. Make sure your code is updated accordingly.
 * memcache PECL extension support was dropped. Use memcached PECL extension instead.
-* `Yii` helper redone to clean helper without "global vars":
+* Framework core requires only virtual PSR implementation packages, you are free
+  to choose your logger and cache implementations.
+  With more PSR implementations compatibility in future.
+* `Yii` helper is redone to clean helper without "global vars":
     * change `use Yii` to `use yii\helpers\Yii`
-    * don't use `Yii::$app` use constructor DI to get application object
+    * don't use `Yii::$app` instead use constructor DI to get application object
 * Following new methods have been added to `yii\mail\MessageInterface` `addHeader()`, `setHeader()`, `getHeader()`, `setHeaders()`
   providing ability to setup custom mail headers. Make sure your provide implementation for those methods, while
   creating your own mailer solution.
