@@ -1,10 +1,9 @@
 {
     "name": "yiisoft/core",
-    "description": "Yii PHP Framework Core",
+    "description": "Yii Framework 3.0 Core",
     "keywords": [
         "yii",
-        "framework",
-        "core"
+        "framework"
     ],
     "homepage": "http://www.yiiframework.com/",
     "type": "library",
