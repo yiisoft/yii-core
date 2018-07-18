@@ -7,9 +7,9 @@
 
 namespace yii\base;
 
+use Psr\Container\ContainerInterface;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
-use yii\di\Container;
 
 /**
  * Application is the base class for all application classes.
@@ -198,7 +198,7 @@ abstract class Application extends Module
      * Note that the configuration must contain both [[id]] and [[basePath]].
      * @throws InvalidConfigException if either [[id]] or [[basePath]] configuration is missing.
      */
-    public function __construct(Container $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->app = $this;
 
