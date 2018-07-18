@@ -348,25 +348,6 @@ class BaseYii
     }
 
     /**
-     * Configures an object with the initial property values.
-     * @param object $object the object to be configured
-     * @param array $properties the property initial values given in terms of name-value pairs.
-     * @return object the object itself
-     */
-    public static function configure($object, $properties)
-    {
-        foreach ($properties as $name => $value) {
-            if (substr($name, -2) === '()') {
-                call_user_func_array([$object, substr($name, 0, -2)], $value);
-            } else {
-                $object->$name = $value;
-            }
-        }
-
-        return $object;
-    }
-
-    /**
      * Returns the public member variables of an object.
      * This method is provided such that we can get the public member variables of an object.
      * It is different from "get_object_vars()" because the latter will return private
