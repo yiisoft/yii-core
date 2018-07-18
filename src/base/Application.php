@@ -7,7 +7,9 @@
 
 namespace yii\base;
 
-use Yii;
+use yii\exceptions\InvalidConfigException;
+use yii\exceptions\InvalidArgumentException;
+use yii\di\Container;
 
 /**
  * Application is the base class for all application classes.
@@ -186,6 +188,9 @@ abstract class Application extends Module
      */
     public $loadedModules = [];
 
+    protected $container;
+
+    protected $request;
 
     /**
      * Constructor.
@@ -193,167 +198,32 @@ abstract class Application extends Module
      * Note that the configuration must contain both [[id]] and [[basePath]].
      * @throws InvalidConfigException if either [[id]] or [[basePath]] configuration is missing.
      */
-    public function __construct($config = [])
+    public function __construct(Container $container)
     {
-        Yii::$app = $this;
-        static::setInstance($this);
+        $this->app = $this;
+
+        $this->container = $container;
 
         $this->state = self::STATE_BEGIN;
-
-        $this->preInit($config);
-
-        $this->registerErrorHandler($config);
-
-        Component::__construct($config);
     }
 
-    /**
-     * Pre-initializes the application.
-     * This method is called at the beginning of the application constructor.
-     * It initializes several important application properties.
-     * If you override this method, please make sure you call the parent implementation.
-     * @param array $config the application configuration
-     * @throws InvalidConfigException if either [[id]] or [[basePath]] configuration is missing.
-     */
-    public function preInit(&$config)
+    public function getRequest()
     {
-        if (!isset($config['id'])) {
-            throw new InvalidConfigException('The "id" configuration for the Application is required.');
-        }
-        if (isset($config['basePath'])) {
-            $this->setBasePath($config['basePath']);
-            unset($config['basePath']);
-        } else {
-            throw new InvalidConfigException('The "basePath" configuration for the Application is required.');
+        if ($this->request === null) {
+            $this->request = $this->container->get('request');
         }
 
-        if (isset($config['vendorPath'])) {
-            $this->setVendorPath($config['vendorPath']);
-            unset($config['vendorPath']);
-        } else {
-            // set "@vendor"
-            $this->getVendorPath();
-        }
-        if (isset($config['runtimePath'])) {
-            $this->setRuntimePath($config['runtimePath']);
-            unset($config['runtimePath']);
-        } else {
-            // set "@runtime"
-            $this->getRuntimePath();
-        }
-
-        if (isset($config['timeZone'])) {
-            $this->setTimeZone($config['timeZone']);
-            unset($config['timeZone']);
-        }
-
-        if (isset($config['container'])) {
-            $this->setContainer($config['container']);
-            unset($config['container']);
-        }
-
-        if (isset($config['logger'])) {
-            $this->setLogger($config['logger']);
-            unset($config['logger']);
-        }
-
-        if (isset($config['profiler'])) {
-            $this->setProfiler($config['profiler']);
-            unset($config['profiler']);
-        }
-
-        // merge core components with custom components
-        foreach ($this->coreComponents() as $id => $component) {
-            if (!isset($config['components'][$id])) {
-                $config['components'][$id] = $component;
-            } elseif (is_array($config['components'][$id]) && !isset($config['components'][$id]['__class'])) {
-                $config['components'][$id]['__class'] = $component['__class'];
-            }
-        }
+        return $this->request;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function init()
+    public function getErrorHandler()
     {
-        $this->state = self::STATE_INIT;
-        $this->bootstrap();
+        return $this->container->get('errorHandler');
     }
 
-    /**
-     * Initializes extensions and executes bootstrap components.
-     * This method is called by [[init()]] after the application has been fully configured.
-     * If you override this method, make sure you also call the parent implementation.
-     */
-    protected function bootstrap()
+    public function getView()
     {
-        if ($this->extensions === null) {
-            $file = Yii::getAlias('@vendor/yiisoft/extensions.php');
-            $this->extensions = is_file($file) ? include $file : [];
-        }
-        foreach ($this->extensions as $extension) {
-            if (!empty($extension['alias'])) {
-                foreach ($extension['alias'] as $name => $path) {
-                    Yii::setAlias($name, $path);
-                }
-            }
-            if (isset($extension['bootstrap'])) {
-                $component = Yii::createObject($extension['bootstrap']);
-                if ($component instanceof BootstrapInterface) {
-                    Yii::debug('Bootstrap with ' . get_class($component) . '::bootstrap()', __METHOD__);
-                    $component->bootstrap($this);
-                } else {
-                    Yii::debug('Bootstrap with ' . get_class($component), __METHOD__);
-                }
-            }
-        }
-
-        foreach ($this->bootstrap as $mixed) {
-            $component = null;
-            if ($mixed instanceof \Closure) {
-                Yii::debug('Bootstrap with Closure', __METHOD__);
-                if (!$component = call_user_func($mixed, $this)) {
-                    continue;
-                }
-            } elseif (is_string($mixed)) {
-                if ($this->has($mixed)) {
-                    $component = $this->get($mixed);
-                } elseif ($this->hasModule($mixed)) {
-                    $component = $this->getModule($mixed);
-                } elseif (strpos($mixed, '\\') === false) {
-                    throw new InvalidConfigException("Unknown bootstrapping component ID: $mixed");
-                }
-            }
-
-            if (!isset($component)) {
-                $component = Yii::createObject($mixed);
-            }
-
-            if ($component instanceof BootstrapInterface) {
-                Yii::debug('Bootstrap with ' . get_class($component) . '::bootstrap()', __METHOD__);
-                $component->bootstrap($this);
-            } else {
-                Yii::debug('Bootstrap with ' . get_class($component), __METHOD__);
-            }
-        }
-    }
-
-    /**
-     * Registers the errorHandler component as a PHP error handler.
-     * @param array $config application config
-     */
-    protected function registerErrorHandler(&$config)
-    {
-        if (YII_ENABLE_ERROR_HANDLER) {
-            if (!isset($config['components']['errorHandler']['__class'])) {
-                echo "Error: no errorHandler component is configured.\n";
-                exit(1);
-            }
-            $this->set('errorHandler', $config['components']['errorHandler']);
-            unset($config['components']['errorHandler']);
-            $this->getErrorHandler()->register();
-        }
+        return $this->container->get('view');
     }
 
     /**
@@ -376,7 +246,10 @@ abstract class Application extends Module
     public function setBasePath($path)
     {
         parent::setBasePath($path);
-        Yii::setAlias('@app', $this->getBasePath());
+        $this->setAlias('@app', $this->getBasePath());
+        if (empty($this->getAlias('@root', false))) {
+            $this->setAlias('@root', dirname(__DIR__, 5));
+        }
     }
 
     /**
@@ -386,6 +259,10 @@ abstract class Application extends Module
      */
     public function run()
     {
+        if (YII_ENABLE_ERROR_HANDLER) {
+            $this->container->get('errorHandler')->register();
+        }
+
         try {
             $this->state = self::STATE_BEFORE_REQUEST;
             $this->trigger(self::EVENT_BEFORE_REQUEST);
@@ -441,8 +318,8 @@ abstract class Application extends Module
      */
     public function setRuntimePath($path)
     {
-        $this->_runtimePath = Yii::getAlias($path);
-        Yii::setAlias('@runtime', $this->_runtimePath);
+        $this->_runtimePath = $this->getAlias($path);
+        $this->setAlias('@runtime', $this->_runtimePath);
     }
 
     private $_vendorPath;
@@ -467,10 +344,10 @@ abstract class Application extends Module
      */
     public function setVendorPath($path)
     {
-        $this->_vendorPath = Yii::getAlias($path);
-        Yii::setAlias('@vendor', $this->_vendorPath);
-        Yii::setAlias('@bower', $this->_vendorPath . DIRECTORY_SEPARATOR . 'bower');
-        Yii::setAlias('@npm', $this->_vendorPath . DIRECTORY_SEPARATOR . 'npm');
+        $this->_vendorPath = $this->getAlias($path);
+        $this->setAlias('@vendor', $this->_vendorPath);
+        $this->setAlias('@bower', $this->_vendorPath . DIRECTORY_SEPARATOR . 'bower');
+        $this->setAlias('@npm', $this->_vendorPath . DIRECTORY_SEPARATOR . 'npm');
     }
 
     /**
@@ -498,107 +375,33 @@ abstract class Application extends Module
         date_default_timezone_set($value);
     }
 
-    /**
-     * Returns the database connection component.
-     * @return \yii\db\Connection the database connection.
-     */
-    public function getDb()
-    {
-        return $this->get('db');
-    }
 
     /**
-     * Sets up or configure the logger instance.
-     * @param \psr\log\LoggerInterface|\Closure|array|null $logger the logger object or its DI compatible configuration.
-     * @since 3.0.0
+     * Terminates the application.
+     * This method replaces the `exit()` function by ensuring the application life cycle is completed
+     * before terminating the application.
+     * @param int $status the exit status (value 0 means normal exit while other values mean abnormal exit).
+     * @param Response $response the response to be sent. If not set, the default application [[response]] component will be used.
+     * @throws ExitException if the application is in testing mode
      */
-    public function setLogger($logger)
+    public function end($status = 0, $response = null)
     {
-        Yii::setLogger($logger);
-    }
+        if ($this->state === self::STATE_BEFORE_REQUEST || $this->state === self::STATE_HANDLING_REQUEST) {
+            $this->state = self::STATE_AFTER_REQUEST;
+            $this->trigger(self::EVENT_AFTER_REQUEST);
+        }
 
-    /**
-     * Returns the logger instance.
-     * @return \psr\log\LoggerInterface the logger instance.
-     * @since 3.0.0
-     */
-    public function getLogger()
-    {
-        return Yii::getLogger();
-    }
+        if ($this->state !== self::STATE_SENDING_RESPONSE && $this->state !== self::STATE_END) {
+            $this->state = self::STATE_END;
+            $response = $response ?: $this->getResponse();
+            $response->send();
+        }
 
-    /**
-     * Sets up or configure the profiler instance.
-     * @param \yii\profile\ProfilerInterface|\Closure|array|null $profiler the profiler object or its DI compatible configuration.
-     * @since 3.0.0
-     */
-    public function setProfiler($profiler)
-    {
-        Yii::setProfiler($profiler);
-    }
+        if (YII_ENV_TEST) {
+            throw new ExitException($status);
+        }
 
-    /**
-     * Returns the profiler instance.
-     * @return \yii\profile\ProfilerInterface profiler instance.
-     * @since 3.0.0
-     */
-    public function getProfiler()
-    {
-        return Yii::getProfiler();
-    }
-
-    /**
-     * Returns the error handler component.
-     * @return \yii\web\ErrorHandler|\yii\console\ErrorHandler the error handler application component.
-     */
-    public function getErrorHandler()
-    {
-        return $this->get('errorHandler');
-    }
-
-    /**
-     * Returns the cache component.
-     * @return \yii\caching\CacheInterface the cache application component. Null if the component is not enabled.
-     */
-    public function getCache()
-    {
-        return $this->get('cache', false);
-    }
-
-    /**
-     * Returns the formatter component.
-     * @return \yii\i18n\Formatter the formatter application component.
-     */
-    public function getFormatter()
-    {
-        return $this->get('formatter');
-    }
-
-    /**
-     * Returns the request component.
-     * @return \yii\web\Request|\yii\console\Request the request component.
-     */
-    public function getRequest()
-    {
-        return $this->get('request');
-    }
-
-    /**
-     * Returns the response component.
-     * @return \yii\web\Response|\yii\console\Response the response component.
-     */
-    public function getResponse()
-    {
-        return $this->get('response');
-    }
-
-    /**
-     * Returns the view object.
-     * @return View|\yii\web\View the view application component that is used to render various view files.
-     */
-    public function getView()
-    {
-        return $this->get('view');
+        exit($status);
     }
 
     protected $aliases = [];
