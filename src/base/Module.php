@@ -700,8 +700,8 @@ class Module extends Component
      */
     public function beforeAction($action)
     {
-        $event = new ActionEvent($action, ['name' => self::EVENT_BEFORE_ACTION]);
-        $this->trigger($event);
+        $event = new ActionEvent($action);
+        $this->trigger(self::EVENT_BEFORE_ACTION, $event);
         return $event->isValid;
     }
 
@@ -728,9 +728,9 @@ class Module extends Component
      */
     public function afterAction($action, $result)
     {
-        $event = new ActionEvent($action, ['name' => self::EVENT_AFTER_ACTION]);
+        $event = new ActionEvent($action);
         $event->result = $result;
-        $this->trigger($event);
+        $this->trigger(self::EVENT_AFTER_ACTION, $event);
         return $event->result;
     }
 
