@@ -240,7 +240,7 @@ class Module extends Component
      */
     public function setBasePath($path)
     {
-        $path = Yii::getAlias($path);
+        $path = $this->app->getAlias($path);
         $p = strncmp($path, 'phar://', 7) === 0 ? $path : realpath($path);
         if ($p !== false && is_dir($p)) {
             $this->_basePath = $p;
@@ -258,7 +258,7 @@ class Module extends Component
      */
     public function getControllerPath()
     {
-        return Yii::getAlias('@' . str_replace('\\', '/', $this->controllerNamespace));
+        return $this->app->getAlias('@' . str_replace('\\', '/', $this->controllerNamespace));
     }
 
     /**
@@ -281,7 +281,7 @@ class Module extends Component
      */
     public function setViewPath($path)
     {
-        $this->_viewPath = Yii::getAlias($path);
+        $this->_viewPath = $this->app->getAlias($path);
     }
 
     /**
@@ -304,7 +304,7 @@ class Module extends Component
      */
     public function setLayoutPath($path)
     {
-        $this->_layoutPath = Yii::getAlias($path);
+        $this->_layoutPath = $this->app->getAlias($path);
     }
 
     /**
@@ -362,7 +362,7 @@ class Module extends Component
 
     /**
      * Defines path aliases.
-     * This method calls [[Yii::setAlias()]] to register the path aliases.
+     * This method calls [[$this->app->setAlias()]] to register the path aliases.
      * This method is provided so that you can define path aliases when configuring a module.
      * @property array list of path aliases to be defined. The array keys are alias names
      * (must start with `@`) and the array values are the corresponding paths or aliases.
@@ -381,7 +381,7 @@ class Module extends Component
     public function setAliases($aliases)
     {
         foreach ($aliases as $name => $alias) {
-            Yii::setAlias($name, $alias);
+            $this->app->setAlias($name, $alias);
         }
     }
 
