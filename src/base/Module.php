@@ -146,6 +146,7 @@ class Module extends Component
      */
     private $_version;
 
+    protected $app;
 
     /**
      * Constructor.
@@ -156,6 +157,7 @@ class Module extends Component
     public function __construct($id, $parent = null, $config = [])
     {
         $this->id = $id;
+        $this->app = $parent->getApp();
         $this->module = $parent;
         parent::__construct($config);
     }
@@ -525,11 +527,11 @@ class Module extends Component
         if (is_array($parts)) {
             /* @var $controller Controller */
             [$controller, $actionID] = $parts;
-            $oldController = Yii::$app->controller;
-            Yii::$app->controller = $controller;
+            $oldController = $this->app->controller;
+            $this->app->controller = $controller;
             $result = $controller->runAction($actionID, $params);
             if ($oldController !== null) {
-                Yii::$app->controller = $oldController;
+                $this->app->controller = $oldController;
             }
 
             return $result;
