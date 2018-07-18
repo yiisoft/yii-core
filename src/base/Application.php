@@ -601,114 +601,164 @@ abstract class Application extends Module
         return $this->get('view');
     }
 
-    /**
-     * Returns the URL manager for this application.
-     * @return \yii\web\UrlManager the URL manager for this application.
-     */
-    public function getUrlManager()
-    {
-        return $this->get('urlManager');
-    }
+    protected $aliases = [];
 
     /**
-     * Returns the internationalization (i18n) component.
-     * @return \yii\i18n\I18N the internationalization application component.
-     */
-    public function getI18n()
-    {
-        return $this->get('i18n');
-    }
-
-    /**
-     * Returns the mailer component.
-     * @return \yii\mail\MailerInterface the mailer application component.
-     */
-    public function getMailer()
-    {
-        return $this->get('mailer');
-    }
-
-    /**
-     * Returns the auth manager for this application.
-     * @return \yii\rbac\ManagerInterface the auth manager application component.
-     * Null is returned if auth manager is not configured.
-     */
-    public function getAuthManager()
-    {
-        return $this->get('authManager', false);
-    }
-
-    /**
-     * Returns the asset manager.
-     * @return \yii\web\AssetManager the asset manager application component.
-     */
-    public function getAssetManager()
-    {
-        return $this->get('assetManager');
-    }
-
-    /**
-     * Returns the security component.
-     * @return \yii\base\Security the security application component.
-     */
-    public function getSecurity()
-    {
-        return $this->get('security');
-    }
-
-    /**
-     * Returns the configuration of core application components.
-     * @see set()
-     */
-    public function coreComponents()
-    {
-        return [
-            'security' => ['__class' => Security::class],
-            'formatter' => ['__class' => \yii\i18n\Formatter::class],
-            'i18n' => ['__class' => \yii\i18n\I18N::class],
-            'mailer' => ['__class' => \yii\swiftmailer\Mailer::class],
-            'assetManager' => ['__class' => \yii\web\AssetManager::class],
-            'urlManager' => ['__class' => \yii\web\UrlManager::class],
-            'view' => ['__class' => \yii\web\View::class],
-        ];
-    }
-
-    /**
-     * Terminates the application.
-     * This method replaces the `exit()` function by ensuring the application life cycle is completed
-     * before terminating the application.
-     * @param int $status the exit status (value 0 means normal exit while other values mean abnormal exit).
-     * @param Response $response the response to be sent. If not set, the default application [[response]] component will be used.
-     * @throws ExitException if the application is in testing mode
-     */
-    public function end($status = 0, $response = null)
-    {
-        if ($this->state === self::STATE_BEFORE_REQUEST || $this->state === self::STATE_HANDLING_REQUEST) {
-            $this->state = self::STATE_AFTER_REQUEST;
-            $this->trigger(self::EVENT_AFTER_REQUEST);
-        }
-
-        if ($this->state !== self::STATE_SENDING_RESPONSE && $this->state !== self::STATE_END) {
-            $this->state = self::STATE_END;
-            $response = $response ?: $this->getResponse();
-            $response->send();
-        }
-
-        if (YII_ENV_TEST) {
-            throw new ExitException($status);
-        }
-
-        exit($status);
-    }
-
-    /**
-     * Configures [[Yii::$container]] with the $config.
+     * Translates a path alias into an actual path.
      *
-     * @param array $config values given in terms of name-value pairs
-     * @since 2.0.11
+     * The translation is done according to the following procedure:
+     *
+     * 1. If the given alias does not start with '@', it is returned back without change;
+     * 2. Otherwise, look for the longest registered alias that matches the beginning part
+     *    of the given alias. If it exists, replace the matching part of the given alias with
+     *    the corresponding registered path.
+     * 3. Throw an exception or return false, depending on the `$throwException` parameter.
+     *
+     * For example, by default '@yii' is registered as the alias to the Yii framework directory,
+     * say '/path/to/yii'. The alias '@yii/web' would then be translated into '/path/to/yii/web'.
+     *
+     * If you have registered two aliases '@foo' and '@foo/bar'. Then translating '@foo/bar/config'
+     * would replace the part '@foo/bar' (instead of '@foo') with the corresponding registered path.
+     * This is because the longest alias takes precedence.
+     *
+     * However, if the alias to be translated is '@foo/barbar/config', then '@foo' will be replaced
+     * instead of '@foo/bar', because '/' serves as the boundary character.
+     *
+     * Note, this method does not check if the returned path exists or not.
+     *
+     * See the [guide article on aliases](guide:concept-aliases) for more information.
+     *
+     * @param string $alias the alias to be translated.
+     * @param bool $throwException whether to throw an exception if the given alias is invalid.
+     * If this is false and an invalid alias is given, false will be returned by this method.
+     * @return string|bool the path corresponding to the alias, false if the root alias is not previously registered.
+     * @throws InvalidArgumentException if the alias is invalid while $throwException is true.
+     * @see setAlias()
      */
-    public function setContainer($config)
+    public static function getAlias($alias, $throwException = true)
     {
-        Yii::configure(Yii::$container, $config);
+        if (strncmp($alias, '@', 1)) {
+            // not an alias
+            return $alias;
+        }
+
+        $result = static::findAlias($alias);
+
+        if (is_array($result)) {
+            return $result['path'];
+        }
+
+        if ($throwException) {
+            throw new InvalidArgumentException("Invalid path alias: $alias");
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns the root alias part of a given alias.
+     * A root alias is an alias that has been registered via [[setAlias()]] previously.
+     * If a given alias matches multiple root aliases, the longest one will be returned.
+     * @param string $alias the alias
+     * @return string|bool the root alias, or false if no root alias is found
+     */
+    public static function getRootAlias($alias)
+    {
+        $result = static::findAlias($alias);
+        if (is_array($result)) {
+            $result = $result['root'];
+        }
+        return $result;
+    }
+
+    /**
+     * @param string $alias
+     * @return array|bool
+     */
+    protected static function findAlias(string $alias)
+    {
+        $pos = strpos($alias, '/');
+        $root = $pos === false ? $alias : substr($alias, 0, $pos);
+
+        if (isset(static::$aliases[$root])) {
+            if (is_string(static::$aliases[$root])) {
+                return ['root' => $root, 'path' => $pos === false ? static::$aliases[$root] : static::$aliases[$root] . substr($alias, $pos)];
+            }
+
+            foreach (static::$aliases[$root] as $name => $path) {
+                if (strpos($alias . '/', $name . '/') === 0) {
+                    return ['root' => $name, 'path' => $path . substr($alias, strlen($name))];
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Registers a path alias.
+     *
+     * A path alias is a short name representing a long path (a file path, a URL, etc.)
+     * For example, we use '@yii' as the alias of the path to the Yii framework directory.
+     *
+     * A path alias must start with the character '@' so that it can be easily differentiated
+     * from non-alias paths.
+     *
+     * Note that this method does not check if the given path exists or not. All it does is
+     * to associate the alias with the path.
+     *
+     * Any trailing '/' and '\' characters in the given path will be trimmed.
+     *
+     * See the [guide article on aliases](guide:concept-aliases) for more information.
+     *
+     * @param string $alias the alias name (e.g. "@yii"). It must start with a '@' character.
+     * It may contain the forward slash '/' which serves as boundary character when performing
+     * alias translation by [[getAlias()]].
+     * @param string $path the path corresponding to the alias. If this is null, the alias will
+     * be removed. Trailing '/' and '\' characters will be trimmed. This can be
+     *
+     * - a directory or a file path (e.g. `/tmp`, `/tmp/main.txt`)
+     * - a URL (e.g. `http://www.yiiframework.com`)
+     * - a path alias (e.g. `@yii/base`). In this case, the path alias will be converted into the
+     *   actual path first by calling [[getAlias()]].
+     *
+     * @throws InvalidArgumentException if $path is an invalid alias.
+     * @see getAlias()
+     */
+    public static function setAlias($alias, $path)
+    {
+        if (strncmp($alias, '@', 1)) {
+            $alias = '@' . $alias;
+        }
+        $pos = strpos($alias, '/');
+        $root = $pos === false ? $alias : substr($alias, 0, $pos);
+        if ($path !== null) {
+            $path = strncmp($path, '@', 1) ? rtrim($path, '\\/') : static::getAlias($path);
+            if (!isset(static::$aliases[$root])) {
+                if ($pos === false) {
+                    static::$aliases[$root] = $path;
+                } else {
+                    static::$aliases[$root] = [$alias => $path];
+                }
+            } elseif (is_string(static::$aliases[$root])) {
+                if ($pos === false) {
+                    static::$aliases[$root] = $path;
+                } else {
+                    static::$aliases[$root] = [
+                        $alias => $path,
+                        $root => static::$aliases[$root],
+                    ];
+                }
+            } else {
+                static::$aliases[$root][$alias] = $path;
+                krsort(static::$aliases[$root]);
+            }
+        } elseif (isset(static::$aliases[$root])) {
+            if (is_array(static::$aliases[$root])) {
+                unset(static::$aliases[$root][$alias]);
+            } elseif ($pos === false) {
+                unset(static::$aliases[$root]);
+            }
+        }
     }
 }
