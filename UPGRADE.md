@@ -83,6 +83,9 @@ Upgrade from Yii 2.0.x
         * use `$app->getAlias()` to resolve aliases
         * prefered way to set aliases is through configuration
     * removed `Yii::configure()`
+    * `Yii::$container` made private:
+        * don't use it explicitly
+        * use it implicitly with constructor DI
 * Config changed to be DI container config instead of application.
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).
