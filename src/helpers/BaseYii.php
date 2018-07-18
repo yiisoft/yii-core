@@ -9,11 +9,8 @@ namespace yii\helpers;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
-use yii\base\InvalidArgumentException;
-use yii\base\InvalidConfigException;
-use yii\base\UnknownClassException;
+use yii\exceptions\InvalidConfigException;
 use yii\di\Container;
-use yii\di\Instance;
 use yii\helpers\VarDumper;
 
 /**
@@ -109,87 +106,35 @@ class BaseYii
         throw new InvalidConfigException('Unsupported configuration type: ' . gettype($type));
     }
 
-    /**
-     * @var LoggerInterface logger instance.
-     */
-    private static $_logger;
-
-    /**
-     * @return LoggerInterface message logger
-     */
-    public static function getLogger()
+    public static function getCharset()
     {
-        if (self::$_logger !== null) {
-            return self::$_logger;
-        }
-
-        return self::$_logger = Instance::ensure(['__class' => Logger::class], LoggerInterface::class);
+        return static::getApp()->charset;
     }
 
-    /**
-     * Sets the logger object.
-     * @param LoggerInterface|\Closure|array|null $logger the logger object or its DI compatible configuration.
-     */
-    public static function setLogger($logger)
+    /// TODO to be removed !!!
+    public static function getApp()
     {
-        if ($logger === null) {
-            self::$_logger = null;
-            return;
-        }
-
-        if (is_array($logger)) {
-            if (!isset($logger['__class']) && is_object(self::$_logger)) {
-                static::configure(self::$_logger, $logger);
-                return;
-            }
-            $logger = array_merge(['__class' => Logger::class], $logger);
-        } elseif ($logger instanceof \Closure) {
-            $logger = call_user_func($logger);
-        }
-
-        self::$_logger = Instance::ensure($logger, LoggerInterface::class);
+        return static::get('app');
     }
 
-    /**
-     * @var ProfilerInterface profiler instance.
-     * @since 3.0.0
-     */
-    private static $_profiler;
-
-    /**
-     * @return ProfilerInterface profiler instance.
-     * @since 3.0.0
-     */
-    public static function getProfiler()
+    private static function getFactory()
     {
-        if (self::$_profiler !== null) {
-            return self::$_profiler;
-        }
-        return self::$_profiler = Instance::ensure(['__class' => Profiler::class], ProfilerInterface::class);
+        return static::get('factory');
     }
 
-    /**
-     * @param ProfilerInterface|\Closure|array|null $profiler profiler instance or its DI compatible configuration.
-     * @since 3.0.0
-     */
-    public static function setProfiler($profiler)
+    private static function getProfiler()
     {
-        if ($profiler === null) {
-            self::$_profiler = null;
-            return;
-        }
+        return static::get('profiler');
+    }
 
-        if (is_array($profiler)) {
-            if (!isset($profiler['__class']) && is_object(self::$_profiler)) {
-                static::configure(self::$_profiler, $profiler);
-                return;
-            }
-            $profiler = array_merge(['__class' => Profiler::class], $profiler);
-        } elseif ($profiler instanceof \Closure) {
-            $profiler = call_user_func($profiler);
-        }
+    private static function getLogger()
+    {
+        return static::get('logger');
+    }
 
-        self::$_profiler = Instance::ensure($profiler, ProfilerInterface::class);
+    private static function get(string $name)
+    {
+        return static::$container->get($name);
     }
 
     /**
@@ -333,8 +278,8 @@ class BaseYii
      */
     public static function t($category, $message, $params = [], $language = null)
     {
-        if (static::$app !== null) {
-            return static::$app->getI18n()->translate($category, $message, $params, $language ?: static::$app->language);
+        if (static::$container !== null) {
+            return static::get('i18n')->translate($category, $message, $params, $language ?: static::get('application')->language);
         }
 
         $placeholders = [];
