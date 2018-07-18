@@ -7,9 +7,12 @@
 
 namespace yii\base;
 
-use Yii;
+use Psr\Log\LoggerInterface;
+use yii\exceptions\ErrorException;
 use yii\helpers\VarDumper;
-use yii\web\HttpException;
+use yii\helpers\Yii;
+use yii\profile\ProfilerInterface;
+use yii\web\exceptions\HttpException;
 
 /**
  * ErrorHandler handles uncaught PHP errors and exceptions.
@@ -47,6 +50,21 @@ abstract class ErrorHandler extends Component
      */
     private $_memoryReserve;
 
+    protected $app;
+
+    protected $logger;
+
+    protected $profiler;
+
+    public function __construct(
+        Application $app,
+        LoggerInterface $logger,
+        ProfilerInterface $profiler
+    ) {
+        $this->app = $app;
+        $this->logger = $logger;
+        $this->profiler = $profiler;
+    }
 
     /**
      * Register this error handler.
@@ -103,7 +121,7 @@ abstract class ErrorHandler extends Component
             }
             $this->renderException($exception);
             if (!YII_ENV_TEST) {
-                Yii::getProfiler()->flush();
+                $this->profiler->flush();
                 $this->flushLogger();
                 exit(1);
             }
@@ -131,7 +149,7 @@ abstract class ErrorHandler extends Component
             if (PHP_SAPI === 'cli') {
                 echo $msg . "\n";
             } else {
-                echo '<pre>' . htmlspecialchars($msg, ENT_QUOTES, Yii::$app->charset) . '</pre>';
+                echo '<pre>' . htmlspecialchars($msg, ENT_QUOTES, $this->app->charset) . '</pre>';
             }
         } else {
             echo 'An internal server error occurred.';
@@ -160,7 +178,7 @@ abstract class ErrorHandler extends Component
             // load ErrorException manually here because autoloading them will not work
             // when error occurs while autoloading a class
             if (!class_exists(ErrorException::class, false)) {
-                require_once __DIR__ . '/ErrorException.php';
+                require_once __DIR__ . '/../exceptions/ErrorException.php';
             }
             $exception = new ErrorException($message, $code, $code, $file, $line);
 
@@ -190,7 +208,7 @@ abstract class ErrorHandler extends Component
         // load ErrorException manually here because autoloading them will not work
         // when error occurs while autoloading a class
         if (!class_exists(ErrorException::class, false)) {
-            require_once __DIR__ . '/ErrorException.php';
+            require_once __DIR__ . '/../exceptions/ErrorException.php';
         }
 
         $error = error_get_last();
@@ -207,7 +225,7 @@ abstract class ErrorHandler extends Component
             $this->renderException($exception);
 
             // need to explicitly flush logs because exit() next will terminate the app immediately
-            Yii::getProfiler()->flush();
+            $this->profiler->flush();
             $this->flushLogger();
             exit(1);
         }
@@ -307,12 +325,12 @@ abstract class ErrorHandler extends Component
      */
     protected function flushLogger()
     {
-        $logger = Yii::getLogger();
-        if ($logger instanceof \yii\log\Logger) {
-            $logger->flush(true);
+        if ($this->logger instanceof \yii\log\Logger) {
+            $this->logger->flush(true);
         }
         // attempt to invoke logger destructor:
-        unset($logger);
-        Yii::setLogger(null);
+        unset($this->logger);
+        // TODO how?
+        // Yii::setLogger(null);
     }
 }

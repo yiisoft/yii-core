@@ -76,6 +76,8 @@ Upgrade from Yii 2.0.x
 * Framework core requires only virtual PSR implementation packages, you are free
   to choose your logger and cache implementations.
   With more PSR implementations compatibility in future.
+* Removed `Configurable` and `init()` from `BaseObject`
+    * all classes with `init()` must be rewritten
 * `Yii` helper is redone to clean helper without "global vars":
     * change `use Yii` to `use yii\helpers\Yii`
     * don't use `Yii::$app` instead use constructor DI to get application object
