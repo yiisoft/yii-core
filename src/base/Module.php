@@ -7,8 +7,10 @@
 
 namespace yii\base;
 
-use Yii;
-use yii\di\ServiceLocator;
+use yii\exceptions\InvalidArgumentException;
+use yii\exceptions\InvalidRouteException;
+use yii\exceptions\InvalidConfigException;
+use yii\helpers\Yii;
 
 /**
  * Module is the base class for module and application classes.
@@ -39,7 +41,7 @@ use yii\di\ServiceLocator;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Module extends ServiceLocator
+class Module extends Component
 {
     /**
      * @event ActionEvent an event raised before executing a controller action.
@@ -747,16 +749,5 @@ class Module extends ServiceLocator
             $component = $this->module->get($id, $throwException);
         }
         return $component;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * Since version 2.0.13, if a component isn't defined in the module, it will be looked up in the parent module.
-     * The parent module may be the application.
-     */
-    public function has($id, $checkInstance = false)
-    {
-        return parent::has($id, $checkInstance) || (isset($this->module) && $this->module->has($id, $checkInstance));
     }
 }
