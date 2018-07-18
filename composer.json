@@ -71,6 +71,9 @@
         "psr/container-implementation": "^1.0",
         "psr/simple-cache-implementation": "^1.0"
     },
+    "replace": {
+        "yiisoft/yii2": "*"
+    },
     "require-dev": {
         "yiisoft/di": "dev-master",
         "yiisoft/log": "dev-master",
