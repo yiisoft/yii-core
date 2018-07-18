@@ -79,6 +79,9 @@ Upgrade from Yii 2.0.x
 * `Yii` helper is redone to clean helper without "global vars":
     * change `use Yii` to `use yii\helpers\Yii`
     * don't use `Yii::$app` instead use constructor DI to get application object
+    * aliases moved to `Application`:
+        * use `$app->getAlias()` to resolve aliases
+        * prefered way to set aliases is through configuration
 * Config changed to be DI container config instead of application.
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).
