@@ -86,6 +86,9 @@ Upgrade from Yii 2.0.x
     * `Yii::$container` made private:
         * don't use it explicitly
         * use it implicitly with constructor DI
+    * to use `Yii` features use `Yii::setContainer()`
+        * for it could access logger, profile and i18n
+        * else Yii functions will have generic behavior
 * Config changed to be DI container config instead of application.
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).

@@ -36,6 +36,10 @@ class BaseYii
      */
     protected static $container;
 
+    public static function setContainer(Container $container)
+    {
+        static::$container = $container;
+    }
 
     /**
      * Returns a string representing the current version of the Yii framework.
