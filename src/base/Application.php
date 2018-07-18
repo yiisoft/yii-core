@@ -438,14 +438,14 @@ abstract class Application extends Module
      * @throws InvalidArgumentException if the alias is invalid while $throwException is true.
      * @see setAlias()
      */
-    public static function getAlias($alias, $throwException = true)
+    public function getAlias($alias, $throwException = true)
     {
         if (strncmp($alias, '@', 1)) {
             // not an alias
             return $alias;
         }
 
-        $result = static::findAlias($alias);
+        $result = $this->findAlias($alias);
 
         if (is_array($result)) {
             return $result['path'];
@@ -465,9 +465,9 @@ abstract class Application extends Module
      * @param string $alias the alias
      * @return string|bool the root alias, or false if no root alias is found
      */
-    public static function getRootAlias($alias)
+    public function getRootAlias($alias)
     {
-        $result = static::findAlias($alias);
+        $result = $this->findAlias($alias);
         if (is_array($result)) {
             $result = $result['root'];
         }
@@ -478,17 +478,17 @@ abstract class Application extends Module
      * @param string $alias
      * @return array|bool
      */
-    protected static function findAlias(string $alias)
+    protected function findAlias(string $alias)
     {
         $pos = strpos($alias, '/');
         $root = $pos === false ? $alias : substr($alias, 0, $pos);
 
-        if (isset(static::$aliases[$root])) {
-            if (is_string(static::$aliases[$root])) {
-                return ['root' => $root, 'path' => $pos === false ? static::$aliases[$root] : static::$aliases[$root] . substr($alias, $pos)];
+        if (isset($this->aliases[$root])) {
+            if (is_string($this->aliases[$root])) {
+                return ['root' => $root, 'path' => $pos === false ? $this->aliases[$root] : $this->aliases[$root] . substr($alias, $pos)];
             }
 
-            foreach (static::$aliases[$root] as $name => $path) {
+            foreach ($this->aliases[$root] as $name => $path) {
                 if (strpos($alias . '/', $name . '/') === 0) {
                     return ['root' => $name, 'path' => $path . substr($alias, strlen($name))];
                 }
@@ -528,7 +528,7 @@ abstract class Application extends Module
      * @throws InvalidArgumentException if $path is an invalid alias.
      * @see getAlias()
      */
-    public static function setAlias($alias, $path)
+    public function setAlias($alias, $path)
     {
         if (strncmp($alias, '@', 1)) {
             $alias = '@' . $alias;
@@ -536,31 +536,31 @@ abstract class Application extends Module
         $pos = strpos($alias, '/');
         $root = $pos === false ? $alias : substr($alias, 0, $pos);
         if ($path !== null) {
-            $path = strncmp($path, '@', 1) ? rtrim($path, '\\/') : static::getAlias($path);
-            if (!isset(static::$aliases[$root])) {
+            $path = strncmp($path, '@', 1) ? rtrim($path, '\\/') : $this->getAlias($path);
+            if (!isset($this->aliases[$root])) {
                 if ($pos === false) {
-                    static::$aliases[$root] = $path;
+                    $this->aliases[$root] = $path;
                 } else {
-                    static::$aliases[$root] = [$alias => $path];
+                    $this->aliases[$root] = [$alias => $path];
                 }
-            } elseif (is_string(static::$aliases[$root])) {
+            } elseif (is_string($this->aliases[$root])) {
                 if ($pos === false) {
-                    static::$aliases[$root] = $path;
+                    $this->aliases[$root] = $path;
                 } else {
-                    static::$aliases[$root] = [
+                    $this->aliases[$root] = [
                         $alias => $path,
-                        $root => static::$aliases[$root],
+                        $root => $this->aliases[$root],
                     ];
                 }
             } else {
-                static::$aliases[$root][$alias] = $path;
-                krsort(static::$aliases[$root]);
+                $this->aliases[$root][$alias] = $path;
+                krsort($this->aliases[$root]);
             }
-        } elseif (isset(static::$aliases[$root])) {
-            if (is_array(static::$aliases[$root])) {
-                unset(static::$aliases[$root][$alias]);
+        } elseif (isset($this->aliases[$root])) {
+            if (is_array($this->aliases[$root])) {
+                unset($this->aliases[$root][$alias]);
             } elseif ($pos === false) {
-                unset(static::$aliases[$root]);
+                unset($this->aliases[$root]);
             }
         }
     }
