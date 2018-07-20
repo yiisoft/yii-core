@@ -241,6 +241,11 @@ abstract class Application extends Module
         return $this->container->get('view');
     }
 
+    public function getSecurity()
+    {
+        return $this->container->get('security');
+    }
+
     /**
      * Returns an ID that uniquely identifies this module among all modules within the current application.
      * Since this is an application instance, it will always return an empty string.
