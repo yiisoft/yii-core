@@ -41,6 +41,5 @@ class ActionEvent extends Event
     public function __construct($action, $config = [])
     {
         $this->action = $action;
-        parent::__construct($config);
     }
 }
