@@ -226,9 +226,14 @@ abstract class Application extends Module
         return $this->response;
     }
 
-    public function hasResponse(): bool
+    /**
+     * Returns true if service is instantiated.
+     * @param string $id service ID.
+     * @return bool true if service is instantiated.
+     */
+    public function has(string $id): bool
     {
-        return $this->response !== null;
+        return $this->container->hasInstance($id);
     }
 
     public function getErrorHandler()
