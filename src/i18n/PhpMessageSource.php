@@ -7,7 +7,8 @@
 
 namespace yii\i18n;
 
-use Yii;
+use yii\base\Application;
+use yii\helpers\Yii;
 
 /**
  * PhpMessageSource represents a message source that stores translated messages in PHP scripts.
@@ -50,6 +51,15 @@ class PhpMessageSource extends MessageSource
      */
     public $fileMap;
 
+    /**
+     * @var Application
+     */
+    protected $app;
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
 
     /**
      * Loads the message translation for the specified $language and $category.
@@ -134,7 +144,7 @@ class PhpMessageSource extends MessageSource
      */
     protected function getMessageFilePath($category, $language)
     {
-        $messageFile = Yii::getAlias($this->basePath) . "/$language/";
+        $messageFile = $this->app->getAlias($this->basePath) . "/$language/";
         if (isset($this->fileMap[$category])) {
             $messageFile .= $this->fileMap[$category];
         } else {
