@@ -7,7 +7,7 @@
 
 namespace yii\behaviors;
 
-use yii\base\InvalidCallException;
+use yii\exceptions\InvalidCallException;
 use yii\db\BaseActiveRecord;
 
 /**

@@ -9,7 +9,7 @@ namespace yii\mail;
 
 use Yii;
 use yii\base\BaseObject;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\web\View;
 
 /**

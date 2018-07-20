@@ -8,7 +8,7 @@
 namespace yii\behaviors;
 
 use yii\base\Behavior;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 use yii\base\Model;
 use yii\db\BaseActiveRecord;
 use yii\helpers\StringHelper;

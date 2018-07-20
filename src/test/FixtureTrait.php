@@ -8,7 +8,7 @@
 namespace yii\test;
 
 use Yii;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * FixtureTrait provides functionalities for loading, unloading and accessing fixtures for a test case.

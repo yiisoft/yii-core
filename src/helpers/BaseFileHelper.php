@@ -8,9 +8,9 @@
 namespace yii\helpers;
 
 use Yii;
-use yii\base\ErrorException;
-use yii\base\InvalidArgumentException;
-use yii\base\InvalidConfigException;
+use yii\exceptions\ErrorException;
+use yii\exceptions\InvalidArgumentException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * BaseFileHelper provides concrete implementation for [[FileHelper]].
@@ -608,7 +608,7 @@ class BaseFileHelper
      * @param int $mode the permission to be set for the created directory.
      * @param bool $recursive whether to create parent directories if they do not exist.
      * @return bool whether the directory is created successfully
-     * @throws \yii\base\Exception if the directory could not be created (i.e. php error due to parallel changes)
+     * @throws \yii\exceptions\Exception if the directory could not be created (i.e. php error due to parallel changes)
      */
     public static function createDirectory($path, $mode = 0775, $recursive = true)
     {
@@ -626,13 +626,13 @@ class BaseFileHelper
             }
         } catch (\Exception $e) {
             if (!is_dir($path)) {// https://github.com/yiisoft/yii2/issues/9288
-                throw new \yii\base\Exception("Failed to create directory \"$path\": " . $e->getMessage(), $e->getCode(), $e);
+                throw new \yii\exceptions\Exception("Failed to create directory \"$path\": " . $e->getMessage(), $e->getCode(), $e);
             }
         }
         try {
             return chmod($path, $mode);
         } catch (\Exception $e) {
-            throw new \yii\base\Exception("Failed to change permissions for directory \"$path\": " . $e->getMessage(), $e->getCode(), $e);
+            throw new \yii\exceptions\Exception("Failed to change permissions for directory \"$path\": " . $e->getMessage(), $e->getCode(), $e);
         }
     }
 

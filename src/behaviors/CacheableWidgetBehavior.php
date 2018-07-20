@@ -8,7 +8,7 @@
 namespace yii\behaviors;
 
 use yii\base\Behavior;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\base\Widget;
 use yii\base\WidgetEvent;
 use yii\caching\CacheInterface;

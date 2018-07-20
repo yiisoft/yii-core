@@ -9,7 +9,7 @@ namespace yii\http;
 
 use Psr\Http\Message\StreamInterface;
 use yii\base\BaseObject;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 
 /**
  * MemoryStream uses internal field as a stream source. Thus data associated with this stream exists only in

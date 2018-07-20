@@ -8,7 +8,7 @@
 namespace yii\validators;
 
 use Yii;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * CompareValidator compares the specified attribute value with another value.

@@ -8,7 +8,7 @@
 namespace yii\test;
 
 use yii\base\ArrayAccessTrait;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * BaseActiveFixture is the base class for fixture classes that support accessing fixture data as ActiveRecord objects.
@@ -43,7 +43,7 @@ abstract class BaseActiveFixture extends DbFixture implements \IteratorAggregate
      * A model name is the key of the corresponding data row in [[data]].
      * @param string $name the model name.
      * @return null|\yii\db\ActiveRecord the AR model, or null if the model cannot be found in the database
-     * @throws \yii\base\InvalidConfigException if [[modelClass]] is not set.
+     * @throws \yii\exceptions\InvalidConfigException if [[modelClass]] is not set.
      */
     public function getModel($name)
     {

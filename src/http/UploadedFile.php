@@ -10,7 +10,7 @@ namespace yii\http;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UploadedFileInterface;
 use yii\base\BaseObject;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 use yii\di\Instance;
 
 /**

@@ -9,7 +9,7 @@ namespace yii\profile;
 
 use Yii;
 use yii\base\Component;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 
 /**
  * Profiler provides profiling support. It stores profiling messages in the memory and sends them to different targets

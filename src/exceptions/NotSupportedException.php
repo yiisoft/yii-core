@@ -5,21 +5,21 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\base;
+namespace yii\exceptions;
 
 /**
- * InvalidArgumentException represents an exception caused by invalid arguments passed to a method.
+ * NotSupportedException represents an exception caused by accessing features that are not supported.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0.14
+ * @since 2.0
  */
-class InvalidArgumentException extends \BadMethodCallException
+class NotSupportedException extends Exception
 {
     /**
      * @return string the user-friendly name of this exception
      */
     public function getName()
     {
-        return 'Invalid Argument';
+        return 'Not Supported';
     }
 }

@@ -5,21 +5,21 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\base;
+namespace yii\exceptions;
 
 /**
- * UnknownMethodException represents an exception caused by accessing an unknown object method.
+ * InvalidCallException represents an exception caused by calling a method in a wrong way.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class UnknownMethodException extends \BadMethodCallException
+class InvalidCallException extends \BadMethodCallException
 {
     /**
      * @return string the user-friendly name of this exception
      */
     public function getName()
     {
-        return 'Unknown Method';
+        return 'Invalid Call';
     }
 }

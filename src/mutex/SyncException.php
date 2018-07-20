@@ -7,7 +7,7 @@
 
 namespace yii\mutex;
 
-use yii\base\Exception;
+use yii\exceptions\Exception;
 
 /**
  * Synchronize Exception

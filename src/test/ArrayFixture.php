@@ -8,7 +8,7 @@
 namespace yii\test;
 
 use yii\base\ArrayAccessTrait;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * ArrayFixture represents arbitrary fixture that can be loaded from PHP files.

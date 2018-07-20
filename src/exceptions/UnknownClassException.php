@@ -5,23 +5,21 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\base;
+namespace yii\exceptions;
 
 /**
- * Exception represents a generic exception for all purposes.
- *
- * For more details and usage information on Exception, see the [guide article on handling errors](guide:runtime-handling-errors).
+ * UnknownClassException represents an exception caused by using an unknown class.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Exception extends \Exception
+class UnknownClassException extends Exception
 {
     /**
      * @return string the user-friendly name of this exception
      */
     public function getName()
     {
-        return 'Exception';
+        return 'Unknown Class';
     }
 }

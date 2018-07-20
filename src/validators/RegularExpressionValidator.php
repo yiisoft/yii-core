@@ -8,7 +8,7 @@
 namespace yii\validators;
 
 use Yii;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * RegularExpressionValidator validates that the attribute value matches the specified [[pattern]].

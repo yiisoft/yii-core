@@ -9,7 +9,7 @@ namespace yii\data;
 
 use Yii;
 use yii\base\Component;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 
 /**
  * BaseDataProvider provides a base class that implements the [[DataProviderInterface]].

@@ -8,7 +8,7 @@
 namespace yii\validators;
 
 use Yii;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\base\Model;
 
 /**
@@ -104,7 +104,7 @@ class EachValidator extends Validator
     /**
      * Creates validator object based on the validation rule specified in [[rule]].
      * @param Model|null $model model in which context validator should be created.
-     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\exceptions\InvalidConfigException
      * @return Validator validator instance
      */
     private function createEmbeddedValidator($model)

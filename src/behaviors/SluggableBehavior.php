@@ -8,7 +8,7 @@
 namespace yii\behaviors;
 
 use Yii;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\db\BaseActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
@@ -261,7 +261,7 @@ class SluggableBehavior extends AttributeBehavior
      * @param string $baseSlug base slug value
      * @param int $iteration iteration number
      * @return string new slug value
-     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\exceptions\InvalidConfigException
      */
     protected function generateUniqueSlug($baseSlug, $iteration)
     {

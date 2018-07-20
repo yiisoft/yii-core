@@ -9,7 +9,7 @@ namespace yii\behaviors;
 
 use Yii;
 use yii\db\BaseActiveRecord;
-use yii\base\InvalidCallException;
+use yii\exceptions\InvalidCallException;
 use yii\validators\NumberValidator;
 
 /**

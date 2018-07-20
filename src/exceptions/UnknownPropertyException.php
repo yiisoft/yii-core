@@ -5,21 +5,21 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\base;
+namespace yii\exceptions;
 
 /**
- * UnknownClassException represents an exception caused by using an unknown class.
+ * UnknownPropertyException represents an exception caused by accessing unknown object properties.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class UnknownClassException extends Exception
+class UnknownPropertyException extends Exception
 {
     /**
      * @return string the user-friendly name of this exception
      */
     public function getName()
     {
-        return 'Unknown Class';
+        return 'Unknown Property';
     }
 }

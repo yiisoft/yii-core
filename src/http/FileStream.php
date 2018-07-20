@@ -11,7 +11,7 @@ use Psr\Http\Message\StreamInterface;
 use Yii;
 use yii\base\BaseObject;
 use yii\base\ErrorHandler;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * FileStream represents file stream.

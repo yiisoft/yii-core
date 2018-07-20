@@ -7,7 +7,7 @@
 
 namespace yii\i18n;
 
-use yii\base\Exception;
+use yii\exceptions\Exception;
 
 /**
  * GettextMoFile represents an MO Gettext message file.

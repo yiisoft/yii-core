@@ -7,7 +7,7 @@
 
 namespace yii\validators;
 
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * FilterValidator converts the attribute value according to a filter.

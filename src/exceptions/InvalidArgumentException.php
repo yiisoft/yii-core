@@ -5,21 +5,21 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\base;
+namespace yii\exceptions;
 
 /**
- * InvalidValueException represents an exception caused by a function returning a value of unexpected type.
+ * InvalidArgumentException represents an exception caused by invalid arguments passed to a method.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since 2.0.14
  */
-class InvalidValueException extends \UnexpectedValueException
+class InvalidArgumentException extends \BadMethodCallException
 {
     /**
      * @return string the user-friendly name of this exception
      */
     public function getName()
     {
-        return 'Invalid Return Value';
+        return 'Invalid Argument';
     }
 }

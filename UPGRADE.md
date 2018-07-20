@@ -51,14 +51,6 @@ if you want to upgrade from version A to version C and there is
 version B between A and C, you need to follow the instructions
 for both A and B.
 
-PROPOSED CHANGES
-----------------
-
-* Moved files around for more logic organization:
-    * all exceptions moved into separate dirs in all packages
-    * moved web formatters to their own directory
-    * `yii\caching` -> `yii\cache`
-
 Upgrade from Yii 2.0.x
 ----------------------
 
@@ -96,6 +88,10 @@ Upgrade from Yii 2.0.x
     * removed `ServiceLocator`
         * no components in app and modules
         * get components with DI
+* Moved files around for more logic organization:
+    * all exceptions moved into separate dirs in all packages
+    * moved web formatters to their own directory
+    * `yii\caching` -> `yii\cache`
 * Config changed to be DI container config instead of application.
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).

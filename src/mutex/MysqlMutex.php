@@ -7,7 +7,7 @@
 
 namespace yii\mutex;
 
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * MysqlMutex implements mutex "lock" mechanism via MySQL locks.

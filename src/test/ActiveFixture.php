@@ -7,7 +7,7 @@
 
 namespace yii\test;
 
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\db\TableSchema;
 
 /**
@@ -131,7 +131,7 @@ class ActiveFixture extends BaseActiveFixture
 
     /**
      * @return TableSchema the schema information of the database table associated with this fixture.
-     * @throws \yii\base\InvalidConfigException if the table does not exist
+     * @throws \yii\exceptions\InvalidConfigException if the table does not exist
      */
     public function getTableSchema()
     {

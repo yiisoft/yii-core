@@ -8,7 +8,7 @@
 namespace yii\validators;
 
 use Yii;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * UrlValidator validates that the attribute value is a valid http or https URL.

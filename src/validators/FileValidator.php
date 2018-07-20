@@ -437,7 +437,7 @@ class FileValidator extends Validator
      *
      * @param UploadedFile $file
      * @return bool whether the $file mimeType is allowed
-     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\exceptions\InvalidConfigException
      * @see mimeTypes
      * @since 2.0.8
      */

@@ -9,7 +9,7 @@ namespace yii\data;
 
 use Yii;
 use yii\base\BaseObject;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\web\Request;

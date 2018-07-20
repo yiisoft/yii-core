@@ -10,7 +10,7 @@ namespace yii\http;
 use Psr\Http\Message\UriInterface;
 use yii\base\BaseObject;
 use yii\base\ErrorHandler;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 
 /**
  * Uri represents a URI.

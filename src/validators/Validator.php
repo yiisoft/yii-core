@@ -9,7 +9,7 @@ namespace yii\validators;
 
 use Yii;
 use yii\base\Component;
-use yii\base\NotSupportedException;
+use yii\exceptions\NotSupportedException;
 
 /**
  * Validator is the base class for all validators.

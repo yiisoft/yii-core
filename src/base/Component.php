@@ -7,8 +7,9 @@
 
 namespace yii\base;
 
-use Yii;
+use yii\exceptions\UnknownMethodException;
 use yii\helpers\StringHelper;
+use yii\helpers\Yii;
 
 /**
  * Component is the base class that implements the *property*, *event* and *behavior* features.

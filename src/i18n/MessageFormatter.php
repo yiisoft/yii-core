@@ -9,7 +9,7 @@ namespace yii\i18n;
 
 use Yii;
 use yii\base\Component;
-use yii\base\NotSupportedException;
+use yii\exceptions\NotSupportedException;
 
 /**
  * MessageFormatter allows formatting messages via [ICU message format](http://userguide.icu-project.org/formatparse/messages).
@@ -195,7 +195,7 @@ class MessageFormatter extends Component
      * @param array $args arguments to replace
      * @param string $locale the locale
      * @return bool|string parsed token or false on failure
-     * @throws \yii\base\NotSupportedException when unsupported formatting is used.
+     * @throws \yii\exceptions\NotSupportedException when unsupported formatting is used.
      */
     private function parseToken($token, $args, $locale)
     {

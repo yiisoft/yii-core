@@ -9,7 +9,7 @@ namespace yii\helpers;
 
 use Yii;
 use yii\base\Arrayable;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 
 /**
  * BaseArrayHelper provides concrete implementation for [[ArrayHelper]].

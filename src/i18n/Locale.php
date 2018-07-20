@@ -9,7 +9,7 @@ namespace yii\i18n;
 
 use Yii;
 use yii\base\Component;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 
 /**
  * Locale provides various locale information via convenient methods.
