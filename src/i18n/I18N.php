@@ -7,9 +7,9 @@
 
 namespace yii\i18n;
 
-use Yii;
 use yii\base\Component;
 use yii\exceptions\InvalidConfigException;
+use yii\helpers\Yii;
 
 /**
  * I18N provides features related with internationalization (I18N) and localization (L10N).
