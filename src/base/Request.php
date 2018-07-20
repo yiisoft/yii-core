@@ -25,6 +25,15 @@ abstract class Request extends Component
     private $_scriptFile;
     private $_isConsoleRequest;
 
+    /**
+     * @var Application
+     */
+    protected $app;
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
 
     /**
      * Resolves the current request into a route and the associated parameters.
