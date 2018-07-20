@@ -246,6 +246,16 @@ abstract class Application extends Module
         return $this->container->get('security');
     }
 
+    public function getSession()
+    {
+        return $this->container->get('session');
+    }
+
+    public function getUser()
+    {
+        return $this->container->get('user');
+    }
+
     /**
      * Returns an ID that uniquely identifies this module among all modules within the current application.
      * Since this is an application instance, it will always return an empty string.
