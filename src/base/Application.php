@@ -41,7 +41,6 @@ use yii\exceptions\InvalidArgumentException;
  * @property string $timeZone The time zone used by this application.
  * @property string $uniqueId The unique ID of the module. This property is read-only.
  * @property \yii\web\UrlManager $urlManager The URL manager for this application. This property is read-only.
- * @property string $vendorPath The directory that stores vendor files. Defaults to "vendor" directory under
  * [[basePath]].
  * @property View|\yii\web\View $view The view application component that is used to render various view
  * files. This property is read-only.
@@ -338,33 +337,6 @@ abstract class Application extends Module
         $this->setAlias('@runtime', $this->_runtimePath);
     }
 
-    private $_vendorPath;
-
-    /**
-     * Returns the directory that stores vendor files.
-     * @return string the directory that stores vendor files.
-     * Defaults to "vendor" directory under [[basePath]].
-     */
-    public function getVendorPath()
-    {
-        if ($this->_vendorPath === null) {
-            $this->setVendorPath($this->getBasePath() . DIRECTORY_SEPARATOR . 'vendor');
-        }
-
-        return $this->_vendorPath;
-    }
-
-    /**
-     * Sets the directory that stores vendor files.
-     * @param string $path the directory that stores vendor files.
-     */
-    public function setVendorPath($path)
-    {
-        $this->_vendorPath = $this->getAlias($path);
-        $this->setAlias('@vendor', $this->_vendorPath);
-        $this->setAlias('@bower', $this->_vendorPath . DIRECTORY_SEPARATOR . 'bower');
-        $this->setAlias('@npm', $this->_vendorPath . DIRECTORY_SEPARATOR . 'npm');
-    }
 
     /**
      * Returns the time zone used by this application.
