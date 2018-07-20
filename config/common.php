@@ -13,7 +13,7 @@ return [
         '__class' => yii\di\Factory::class,
         '__construct()' => [
             0 => [],
-            1 => Reference::to(\yii\di\Container::class),
+            1 => Reference::to('container'),
         ],
     ],
 
