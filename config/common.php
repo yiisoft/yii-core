@@ -28,8 +28,8 @@ return [
         'name' => $params['app.name'],
         'language' => $params['app.language'],
         'aliases' => [
-            '@root'     => dirname(__DIR__, 5),
-            '@vendor'   => dirname(__DIR__, 4),
+            '@root'     => dirname(__DIR__, 4),
+            '@vendor'   => dirname(__DIR__, 3),
         ],
         'params' => $params,
     ],
