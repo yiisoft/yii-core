@@ -7,7 +7,7 @@
 
 namespace yii\base;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * Controller is the base class for classes containing controller logic.
@@ -72,18 +72,21 @@ class Controller extends Component implements ViewContextInterface
      * @var string the root directory that contains view files for this controller.
      */
     private $_viewPath;
-
+    /**
+     * @var Application the application.
+     */
+    protected $app;
 
     /**
      * @param string $id the ID of this controller.
      * @param Module $module the module that this controller belongs to.
      * @param array $config name-value pairs that will be used to initialize the object properties.
      */
-    public function __construct($id, $module, $config = [])
+    public function __construct($id, $module, Application $app)
     {
         $this->id = $id;
         $this->module = $module;
-        parent::__construct($config);
+        $this->app = $app;
     }
 
     /**
@@ -130,8 +133,8 @@ class Controller extends Component implements ViewContextInterface
 
         Yii::debug('Route to run: ' . $action->getUniqueId(), __METHOD__);
 
-        if (Yii::$app->requestedAction === null) {
-            Yii::$app->requestedAction = $action;
+        if ($this->app->requestedAction === null) {
+            $this->app->requestedAction = $action;
         }
 
         $oldAction = $this->action;
@@ -191,7 +194,7 @@ class Controller extends Component implements ViewContextInterface
             return $this->module->runAction($route, $params);
         }
 
-        return Yii::$app->runAction(ltrim($route, '/'), $params);
+        return $this->app->runAction(ltrim($route, '/'), $params);
     }
 
     /**
@@ -270,8 +273,8 @@ class Controller extends Component implements ViewContextInterface
      */
     public function beforeAction($action)
     {
-        $event = new ActionEvent($action, ['name' => self::EVENT_BEFORE_ACTION]);
-        $this->trigger($event);
+        $event = new ActionEvent($action);
+        $this->trigger(self::EVENT_BEFORE_ACTION, $event);
         return $event->isValid;
     }
 
@@ -298,9 +301,9 @@ class Controller extends Component implements ViewContextInterface
      */
     public function afterAction($action, $result)
     {
-        $event = new ActionEvent($action, ['name' => self::EVENT_AFTER_ACTION]);
+        $event = new ActionEvent($action);
         $event->result = $result;
-        $this->trigger($event);
+        $this->trigger(self::EVENT_AFTER_ACTION, $event);
         return $event->result;
     }
 
@@ -437,7 +440,7 @@ class Controller extends Component implements ViewContextInterface
     public function getView()
     {
         if ($this->_view === null) {
-            $this->_view = Yii::$app->getView();
+            $this->_view = $this->app->getView();
         }
 
         return $this->_view;
@@ -475,7 +478,7 @@ class Controller extends Component implements ViewContextInterface
      */
     public function setViewPath($path)
     {
-        $this->_viewPath = Yii::getAlias($path);
+        $this->_viewPath = $this->app->getAlias($path);
     }
 
     /**
@@ -504,9 +507,9 @@ class Controller extends Component implements ViewContextInterface
         }
 
         if (strncmp($layout, '@', 1) === 0) {
-            $file = Yii::getAlias($layout);
+            $file = $this->app->getAlias($layout);
         } elseif (strncmp($layout, '/', 1) === 0) {
-            $file = Yii::$app->getLayoutPath() . DIRECTORY_SEPARATOR . substr($layout, 1);
+            $file = $this->app->getLayoutPath() . DIRECTORY_SEPARATOR . substr($layout, 1);
         } else {
             $file = $module->getLayoutPath() . DIRECTORY_SEPARATOR . $layout;
         }
