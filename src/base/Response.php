@@ -23,6 +23,15 @@ class Response extends Component
      */
     public $exitStatus = 0;
 
+    /**
+     * @var Application
+     */
+    protected $app;
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
 
     /**
      * Sends the response to client.
