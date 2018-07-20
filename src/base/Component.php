@@ -7,6 +7,8 @@
 
 namespace yii\base;
 
+use yii\exceptions\UnknownPropertyException;
+use yii\exceptions\InvalidCallException;
 use yii\exceptions\UnknownMethodException;
 use yii\helpers\StringHelper;
 use yii\helpers\Yii;

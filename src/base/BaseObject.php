@@ -8,6 +8,9 @@
 namespace yii\base;
 
 use Yii;
+use yii\exceptions\InvalidCallException;
+use yii\exceptions\UnknownMethodException;
+use yii\exceptions\UnknownPropertyException;
 
 /**
  * BaseObject is the base class that implements the *property* feature.
