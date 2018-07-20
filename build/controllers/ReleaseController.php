@@ -8,7 +8,7 @@
 namespace yii\build\controllers;
 
 use Yii;
-use yii\base\Exception;
+use yii\exceptions\Exception;
 use yii\console\Controller;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
@@ -372,7 +372,7 @@ class ReleaseController extends Controller
      * @param array $what list of items
      * @param array $limit list of things to allow, or empty to allow any, can be `app`, `framework`, `extension`
      * @param bool $ensureGitClean
-     * @throws \yii\base\Exception
+     * @throws \yii\exceptions\Exception
      */
     protected function validateWhat(array $what, $limit = [], $ensureGitClean = true)
     {
@@ -799,7 +799,7 @@ class ReleaseController extends Controller
     {
         try {
             chdir($path);
-        } catch (\yii\base\ErrorException $e) {
+        } catch (\yii\exceptions\ErrorException $e) {
             throw new Exception('Failed to getch git tags in ' . $path . ': ' . $e->getMessage());
         }
         exec('git fetch --tags', $output, $ret);

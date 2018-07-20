@@ -459,7 +459,7 @@ abstract class UniqueValidatorTest extends DatabaseTestCase
         ]);
         $validator->validateAttribute($model, 'email');
 
-        $this->expectException('\yii\base\InvalidConfigException');
+        $this->expectException('\yii\exceptions\InvalidConfigException');
         $validator = new UniqueValidator([
             'forceMasterDb' => false,
             'targetAttribute' => ['status', 'profile_id']

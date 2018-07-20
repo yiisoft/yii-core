@@ -345,7 +345,7 @@ class ArrayHelperTest extends TestCase
     }
 
     /**
-     * @expectedException \yii\base\InvalidArgumentException
+     * @expectedException \yii\exceptions\InvalidArgumentException
      */
     public function testMultisortInvalidArgumentExceptionDirection()
     {
@@ -354,7 +354,7 @@ class ArrayHelperTest extends TestCase
     }
 
     /**
-     * @expectedException \yii\base\InvalidArgumentException
+     * @expectedException \yii\exceptions\InvalidArgumentException
      */
     public function testMultisortInvalidArgumentExceptionSortFlag()
     {
@@ -1184,7 +1184,7 @@ class ArrayHelperTest extends TestCase
     }
 
     /**
-     * @expectedException \yii\base\InvalidArgumentException
+     * @expectedException \yii\exceptions\InvalidArgumentException
      * @expectedExceptionMessage Argument $haystack must be an array or implement Traversable
      */
     public function testInException()
@@ -1205,7 +1205,7 @@ class ArrayHelperTest extends TestCase
     }
 
     /**
-     * @expectedException \yii\base\InvalidArgumentException
+     * @expectedException \yii\exceptions\InvalidArgumentException
      * @expectedExceptionMessage Argument $needles must be an array or implement Traversable
      */
     public function testIsSubsetException()

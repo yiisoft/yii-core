@@ -9,7 +9,7 @@ namespace yiiunit\framework;
 
 use Psr\Log\LogLevel;
 use Yii;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 use yii\BaseYii;
 use yii\di\Container;
 use yii\log\Logger;
@@ -117,7 +117,7 @@ class BaseYiiTest extends TestCase
         $this->assertTrue($object instanceof Singer);
         $this->assertSame('Michael', $object->firstName);
 
-        $this->expectException(\yii\base\InvalidConfigException::class);
+        $this->expectException(\yii\exceptions\InvalidConfigException::class);
         $this->expectExceptionMessage('Object configuration must be an array containing a "__class" element.');
         $object = Yii::createObject([
             'firstName' => 'John',
@@ -151,7 +151,7 @@ class BaseYiiTest extends TestCase
 
     public function testCreateObjectEmptyArrayException()
     {
-        $this->expectException(\yii\base\InvalidConfigException::class);
+        $this->expectException(\yii\exceptions\InvalidConfigException::class);
         $this->expectExceptionMessage('Object configuration must be an array containing a "__class" element.');
 
         Yii::createObject([]);
@@ -159,7 +159,7 @@ class BaseYiiTest extends TestCase
 
     public function testCreateObjectInvalidConfigException()
     {
-        $this->expectException(\yii\base\InvalidConfigException::class);
+        $this->expectException(\yii\exceptions\InvalidConfigException::class);
         $this->expectExceptionMessage('Unsupported configuration type: ' . gettype(null));
 
         Yii::createObject(null);

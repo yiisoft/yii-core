@@ -67,7 +67,7 @@ class BaseObjectTest extends TestCase
     public function testGetProperty()
     {
         $this->assertSame('default', $this->object->Text);
-        $this->expectException('yii\base\UnknownPropertyException');
+        $this->expectException('yii\exceptions\UnknownPropertyException');
         $value2 = $this->object->Caption;
     }
 
@@ -76,13 +76,13 @@ class BaseObjectTest extends TestCase
         $value = 'new value';
         $this->object->Text = $value;
         $this->assertEquals($value, $this->object->Text);
-        $this->expectException('yii\base\UnknownPropertyException');
+        $this->expectException('yii\exceptions\UnknownPropertyException');
         $this->object->NewMember = $value;
     }
 
     public function testSetReadOnlyProperty()
     {
-        $this->expectException('yii\base\InvalidCallException');
+        $this->expectException('yii\exceptions\InvalidCallException');
         $this->object->object = 'test';
     }
 
@@ -113,13 +113,13 @@ class BaseObjectTest extends TestCase
 
     public function testUnsetReadOnlyProperty()
     {
-        $this->expectException('yii\base\InvalidCallException');
+        $this->expectException('yii\exceptions\InvalidCallException');
         unset($this->object->object);
     }
 
     public function testCallUnknownMethod()
     {
-        $this->expectException('yii\base\UnknownMethodException');
+        $this->expectException('yii\exceptions\UnknownMethodException');
         $this->object->unknownMethod();
     }
 
@@ -149,7 +149,7 @@ class BaseObjectTest extends TestCase
 
     public function testReadingWriteOnlyProperty()
     {
-        $this->expectException('yii\base\InvalidCallException');
+        $this->expectException('yii\exceptions\InvalidCallException');
         $this->expectExceptionMessage('Getting write-only property: yiiunit\framework\base\NewObject::writeOnly');
         $this->object->writeOnly;
     }

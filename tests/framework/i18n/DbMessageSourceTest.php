@@ -117,9 +117,9 @@ class DbMessageSourceTest extends I18NTest
     }
 
     /**
-     * @throws \yii\base\InvalidArgumentException
+     * @throws \yii\exceptions\InvalidArgumentException
      * @throws \yii\db\Exception
-     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\exceptions\InvalidConfigException
      * @return \yii\db\Connection
      */
     public static function getConnection()

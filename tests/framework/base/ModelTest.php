@@ -445,7 +445,7 @@ class ModelTest extends TestCase
 
     public function testCreateValidators()
     {
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('yii\exceptions\InvalidConfigException');
         $this->expectExceptionMessage('Invalid validation rule: a rule must specify both attribute names and validator type.');
 
         $invalid = new InvalidRulesModel();
@@ -479,7 +479,7 @@ class ModelTest extends TestCase
     {
         $model = include 'stub/AnonymousModelClass.php';
 
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('yii\exceptions\InvalidConfigException');
         $this->expectExceptionMessage('The "formName()" method should be explicitly defined for anonymous models');
 
         $model->formName();

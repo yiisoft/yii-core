@@ -171,12 +171,12 @@ class JsonTest extends TestCase
 
         // exception
         $json = '{"a":1,"b":2';
-        $this->expectException('yii\base\InvalidArgumentException');
+        $this->expectException('yii\exceptions\InvalidArgumentException');
         Json::decode($json);
     }
 
     /**
-     * @expectedException \yii\base\InvalidArgumentException
+     * @expectedException \yii\exceptions\InvalidArgumentException
      * @expectedExceptionMessage Invalid JSON data.
      */
     public function testDecodeInvalidArgumentException()
@@ -190,7 +190,7 @@ class JsonTest extends TestCase
         try {
             $json = "{'a': '1'}";
             Json::decode($json);
-        } catch (\yii\base\InvalidArgumentException $e) {
+        } catch (\yii\exceptions\InvalidArgumentException $e) {
             $this->assertSame(BaseJson::$jsonErrorMessages['JSON_ERROR_SYNTAX'], $e->getMessage());
         }
 
@@ -200,7 +200,7 @@ class JsonTest extends TestCase
             $data = ['a' => $fp];
             Json::encode($data);
             fclose($fp);
-        } catch (\yii\base\InvalidArgumentException $e) {
+        } catch (\yii\exceptions\InvalidArgumentException $e) {
             $this->assertSame(BaseJson::$jsonErrorMessages['JSON_ERROR_UNSUPPORTED_TYPE'], $e->getMessage());
         }
     }

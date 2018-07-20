@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\validators;
 
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\validators\CompareValidator;
 use yiiunit\data\validators\models\FakedValidationModel;
 use yiiunit\TestCase;
@@ -27,7 +27,7 @@ class CompareValidatorTest extends TestCase
 
     public function testValidateValueException()
     {
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('yii\exceptions\InvalidConfigException');
         $val = new CompareValidator();
         $val->validate('val');
     }

@@ -148,7 +148,7 @@ class HtmlTest extends TestCase
                 ],
             ],
         ]);
-        $this->expectException(\yii\base\InvalidConfigException::class);
+        $this->expectException(\yii\exceptions\InvalidConfigException::class);
         $this->expectExceptionMessage('yii\web\Request::$cookieValidationKey must be configured with a secret key.');
         Html::csrfMetaTags();
     }
@@ -1550,7 +1550,7 @@ EOD;
     public function testAttributeNameValidation($name, $expected)
     {
         if (!isset($expected)) {
-            $this->expectException('yii\base\InvalidArgumentException');
+            $this->expectException('yii\exceptions\InvalidArgumentException');
             Html::getAttributeName($name);
         } else {
             $this->assertEquals($expected, Html::getAttributeName($name));
@@ -1564,7 +1564,7 @@ EOD;
      */
     public function testAttributeNameException($name)
     {
-        $this->expectException('yii\base\InvalidArgumentException');
+        $this->expectException('yii\exceptions\InvalidArgumentException');
         Html::getAttributeName($name);
     }
 
@@ -1597,7 +1597,7 @@ EOD;
     }
 
     /**
-     * @expectedException \yii\base\InvalidArgumentException
+     * @expectedException \yii\exceptions\InvalidArgumentException
      * @expectedExceptionMessage Attribute name must contain word characters only.
      */
     public function testGetAttributeValueInvalidArgumentException()
@@ -1632,7 +1632,7 @@ EOD;
     }
 
     /**
-     * @expectedException \yii\base\InvalidArgumentException
+     * @expectedException \yii\exceptions\InvalidArgumentException
      * @expectedExceptionMessage Attribute name must contain word characters only.
      */
     public function testGetInputNameInvalidArgumentExceptionAttribute()
@@ -1642,7 +1642,7 @@ EOD;
     }
 
     /**
-     * @expectedException \yii\base\InvalidArgumentException
+     * @expectedException \yii\exceptions\InvalidArgumentException
      * @expectedExceptionMessageRegExp /(.*)formName\(\) cannot be empty for tabular inputs.$/
      */
     public function testGetInputNameInvalidArgumentExceptionFormName()

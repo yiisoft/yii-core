@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\rbac;
 
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 use yii\rbac\BaseManager;
 use yii\rbac\Item;
 use yii\rbac\Permission;
@@ -618,7 +618,7 @@ abstract class ManagerTestCase extends TestCase
 
     public function testDefaultRolesWithClosureReturningNonArrayValue()
     {
-        $this->expectException('yii\base\InvalidValueException');
+        $this->expectException('yii\exceptions\InvalidValueException');
         $this->expectExceptionMessage('Default roles closure must return an array');
         $this->auth->defaultRoles = function () {
             return 'test';
@@ -627,7 +627,7 @@ abstract class ManagerTestCase extends TestCase
 
     public function testDefaultRolesWithNonArrayValue()
     {
-        $this->expectException('yii\base\InvalidArgumentException');
+        $this->expectException('yii\exceptions\InvalidArgumentException');
         $this->expectExceptionMessage('Default roles must be either an array or a callable');
         $this->auth->defaultRoles = 'test';
     }

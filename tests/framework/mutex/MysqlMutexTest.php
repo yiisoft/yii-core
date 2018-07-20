@@ -25,7 +25,7 @@ class MysqlMutexTest extends DatabaseTestCase
 
     /**
      * @return MysqlMutex
-     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\exceptions\InvalidConfigException
      */
     protected function createMutex()
     {

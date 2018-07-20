@@ -21,7 +21,7 @@ class FileMutexTest extends TestCase
 
     /**
      * @return FileMutex
-     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\exceptions\InvalidConfigException
      */
     protected function createMutex()
     {

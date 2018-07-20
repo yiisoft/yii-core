@@ -133,7 +133,7 @@ class PhpManagerTest extends ManagerTestCase
     }
 
     /**
-     * @expectedException \yii\base\InvalidArgumentException
+     * @expectedException \yii\exceptions\InvalidArgumentException
      */
     public function testOverwriteName()
     {

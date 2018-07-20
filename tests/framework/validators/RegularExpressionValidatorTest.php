@@ -55,7 +55,7 @@ class RegularExpressionValidatorTest extends TestCase
 
     public function testInitException()
     {
-        $this->expectException('yii\base\InvalidConfigException');
+        $this->expectException('yii\exceptions\InvalidConfigException');
         $val = new RegularExpressionValidator();
         $val->validate('abc');
     }

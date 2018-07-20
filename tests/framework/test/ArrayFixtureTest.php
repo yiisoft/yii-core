@@ -48,7 +48,7 @@ class ArrayFixtureTest extends TestCase
     }
 
     /**
-     * @expectedException \yii\base\InvalidConfigException
+     * @expectedException \yii\exceptions\InvalidConfigException
      */
     public function testWrongDataFileException()
     {

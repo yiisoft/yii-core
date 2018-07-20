@@ -10,7 +10,7 @@ namespace yiiunit\framework\helpers;
 use DateTime;
 use IntlDateFormatter;
 use Yii;
-use yii\base\Exception;
+use yii\exceptions\Exception;
 use yii\helpers\FormatConverter;
 use yii\i18n\Formatter;
 use yiiunit\framework\i18n\IntlTestHelper;

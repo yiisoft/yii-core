@@ -25,7 +25,7 @@ class PgsqlMutexTest extends DatabaseTestCase
 
     /**
      * @return PgsqlMutex
-     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\exceptions\InvalidConfigException
      */
     protected function createMutex()
     {

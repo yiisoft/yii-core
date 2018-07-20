@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\data;
 
-use yii\base\InvalidCallException;
+use yii\exceptions\InvalidCallException;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
 use yiiunit\data\ar\ActiveRecord;

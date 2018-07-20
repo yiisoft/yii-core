@@ -19,7 +19,7 @@ trait MutexTestTrait
 
     /**
      * @return Mutex
-     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\exceptions\InvalidConfigException
      */
     abstract protected function createMutex();
 

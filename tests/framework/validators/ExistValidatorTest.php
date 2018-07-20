@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\validators;
 
-use yii\base\Exception;
+use yii\exceptions\Exception;
 use yii\validators\ExistValidator;
 use yiiunit\data\ar\ActiveRecord;
 use yiiunit\data\ar\Order;
@@ -34,7 +34,7 @@ abstract class ExistValidatorTest extends DatabaseTestCase
             $val->validate('ref');
             $this->fail('Exception should have been thrown at this time');
         } catch (Exception $e) {
-            $this->assertInstanceOf('yii\base\InvalidConfigException', $e);
+            $this->assertInstanceOf('yii\exceptions\InvalidConfigException', $e);
             $this->assertEquals('The "targetClass" property must be set.', $e->getMessage());
         }
         // combine to save the time creating a new db-fixture set (likely ~5 sec)
@@ -43,7 +43,7 @@ abstract class ExistValidatorTest extends DatabaseTestCase
             $val->validate('ref');
             $this->fail('Exception should have been thrown at this time');
         } catch (Exception $e) {
-            $this->assertInstanceOf('yii\base\InvalidConfigException', $e);
+            $this->assertInstanceOf('yii\exceptions\InvalidConfigException', $e);
             $this->assertEquals('The "targetAttribute" property must be configured as a string.', $e->getMessage());
         }
     }
@@ -252,7 +252,7 @@ abstract class ExistValidatorTest extends DatabaseTestCase
         ]);
         $validator->validateAttribute($model, 'id');
 
-        $this->expectException('\yii\base\InvalidConfigException');
+        $this->expectException('\yii\exceptions\InvalidConfigException');
         $validator = new ExistValidator([
             'forceMasterDb' => false,
             'targetRelation' => 'references',

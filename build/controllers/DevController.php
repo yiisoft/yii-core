@@ -8,7 +8,7 @@
 namespace yii\build\controllers;
 
 use Yii;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 use yii\console\Controller;
 use yii\helpers\Console;
 use yii\helpers\FileHelper;

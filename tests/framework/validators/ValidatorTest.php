@@ -191,7 +191,7 @@ class ValidatorTest extends TestCase
 
     public function testValidateValue()
     {
-        $this->expectException('yii\base\NotSupportedException');
+        $this->expectException('yii\exceptions\NotSupportedException');
         $this->expectExceptionMessage(TestValidator::class . ' does not support validateValue().');
         $val = new TestValidator();
         $val->validate('abc');

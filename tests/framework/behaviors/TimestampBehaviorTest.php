@@ -207,7 +207,7 @@ class TimestampBehaviorTest extends TestCase
         ];
         $model = new ActiveRecordTimestamp();
 
-        $this->expectException(\yii\base\InvalidCallException::class);
+        $this->expectException(\yii\exceptions\InvalidCallException::class);
 
         $model->touch('created_at');
     }
