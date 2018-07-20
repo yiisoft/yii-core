@@ -192,6 +192,8 @@ abstract class Application extends Module
 
     protected $request;
 
+    protected $response;
+
     /**
      * Constructor.
      * @param array $config name-value pairs that will be used to initialize the object properties.
@@ -214,6 +216,16 @@ abstract class Application extends Module
         }
 
         return $this->request;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    public function hasResponse(): bool
+    {
+        return $this->response !== null;
     }
 
     public function getErrorHandler()
@@ -268,19 +280,19 @@ abstract class Application extends Module
             $this->trigger(self::EVENT_BEFORE_REQUEST);
 
             $this->state = self::STATE_HANDLING_REQUEST;
-            $response = $this->handleRequest($this->getRequest());
+            $this->response = $this->handleRequest($this->getRequest());
 
             $this->state = self::STATE_AFTER_REQUEST;
             $this->trigger(self::EVENT_AFTER_REQUEST);
 
             $this->state = self::STATE_SENDING_RESPONSE;
-            $response->send();
+            $this->response->send();
 
             $this->state = self::STATE_END;
 
-            return $response->exitStatus;
+            return $this->response->exitStatus;
         } catch (ExitException $e) {
-            $this->end($e->statusCode, $response ?? null);
+            $this->end($e->statusCode, $this->response ?? null);
             return $e->statusCode;
         }
     }
@@ -393,8 +405,8 @@ abstract class Application extends Module
 
         if ($this->state !== self::STATE_SENDING_RESPONSE && $this->state !== self::STATE_END) {
             $this->state = self::STATE_END;
-            $response = $response ?: $this->getResponse();
-            $response->send();
+            $this->response = $response ?: $this->getResponse();
+            $this->response->send();
         }
 
         if (YII_ENV_TEST) {
