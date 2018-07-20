@@ -8,9 +8,9 @@
 namespace yii\http;
 
 use ArrayIterator;
-use Yii;
 use yii\base\BaseObject;
 use yii\exceptions\InvalidCallException;
+use yii\helpers\Yii;
 
 /**
  * CookieCollection maintains the cookies available in the current request.
@@ -43,10 +43,9 @@ class CookieCollection extends BaseObject implements \IteratorAggregate, \ArrayA
      * an array of name-value pairs.
      * @param array $config name-value pairs that will be used to initialize the object properties
      */
-    public function __construct($cookies = [], $config = [])
+    public function __construct($cookies = [])
     {
         $this->_cookies = $cookies;
-        parent::__construct($config);
     }
 
     /**
