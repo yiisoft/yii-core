@@ -334,6 +334,7 @@ abstract class Application extends Module
     private $_runtimePath;
 
     /**
+     * TODO: remove completely, use alias instead.
      * Returns the directory that stores runtime files.
      * @return string the directory that stores runtime files.
      * Defaults to the "runtime" subdirectory under [[basePath]].
@@ -341,7 +342,7 @@ abstract class Application extends Module
     public function getRuntimePath()
     {
         if ($this->_runtimePath === null) {
-            $this->setRuntimePath($this->getBasePath() . DIRECTORY_SEPARATOR . 'runtime');
+            $this->_runtimePath = $this->getAlias('@runtime');
         }
 
         return $this->_runtimePath;

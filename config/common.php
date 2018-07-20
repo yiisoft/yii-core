@@ -30,6 +30,7 @@ return [
         'aliases' => [
             '@root'     => dirname(__DIR__, 4),
             '@vendor'   => dirname(__DIR__, 3),
+            '@runtime'  => '@root/runtime',
         ],
         'params' => $params,
     ],
