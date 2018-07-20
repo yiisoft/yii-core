@@ -279,7 +279,7 @@ class BaseYii
     public static function t($category, $message, $params = [], $language = null)
     {
         if (static::$container !== null) {
-            return static::get('i18n')->translate($category, $message, $params, $language ?: static::get('application')->language);
+            return static::get('i18n')->translate($category, $message, $params, $language ?: static::getApp()->language);
         }
 
         $placeholders = [];

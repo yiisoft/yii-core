@@ -7,8 +7,8 @@
 
 namespace yii\helpers;
 
-use Yii;
 use yii\exceptions\InvalidArgumentException;
+use yii\helpers\Yii;
 
 /**
  * BaseUrl provides concrete implementation for [[Url]].
@@ -126,24 +126,24 @@ class BaseUrl
      */
     protected static function normalizeRoute($route)
     {
-        $route = Yii::getAlias((string) $route);
+        $route = Yii::getApp()->getAlias((string) $route);
         if (strncmp($route, '/', 1) === 0) {
             // absolute route
             return ltrim($route, '/');
         }
 
         // relative route
-        if (Yii::$app->controller === null) {
+        if (Yii::getApp()->controller === null) {
             throw new InvalidArgumentException("Unable to resolve the relative route: $route. No active controller is available.");
         }
 
         if (strpos($route, '/') === false) {
             // empty or an action ID
-            return $route === '' ? Yii::$app->controller->getRoute() : Yii::$app->controller->getUniqueId() . '/' . $route;
+            return $route === '' ? Yii::getApp()->controller->getRoute() : Yii::getApp()->controller->getUniqueId() . '/' . $route;
         }
 
         // relative to module
-        return ltrim(Yii::$app->controller->module->getUniqueId() . '/' . $route, '/');
+        return ltrim(Yii::getApp()->controller->module->getUniqueId() . '/' . $route, '/');
     }
 
     /**
@@ -214,9 +214,9 @@ class BaseUrl
             return static::toRoute($url, $scheme);
         }
 
-        $url = Yii::getAlias($url);
+        $url = Yii::getApp()->getAlias($url);
         if ($url === '') {
-            $url = Yii::$app->getRequest()->getUrl();
+            $url = Yii::getApp()->getRequest()->getUrl();
         }
 
         if ($scheme === false) {
@@ -300,9 +300,9 @@ class BaseUrl
         $url = static::to($url);
 
         if ($name === null) {
-            Yii::$app->getUser()->setReturnUrl($url);
+            Yii::getApp()->getUser()->setReturnUrl($url);
         } else {
-            Yii::$app->getSession()->set($name, $url);
+            Yii::getApp()->getSession()->set($name, $url);
         }
     }
 
@@ -319,10 +319,10 @@ class BaseUrl
     public static function previous($name = null)
     {
         if ($name === null) {
-            return Yii::$app->getUser()->getReturnUrl();
+            return Yii::getApp()->getUser()->getReturnUrl();
         }
 
-        return Yii::$app->getSession()->get($name);
+        return Yii::getApp()->getSession()->get($name);
     }
 
     /**
@@ -340,8 +340,8 @@ class BaseUrl
      */
     public static function canonical()
     {
-        $params = Yii::$app->controller->actionParams;
-        $params[0] = Yii::$app->controller->getRoute();
+        $params = Yii::getApp()->controller->actionParams;
+        $params[0] = Yii::getApp()->controller->getRoute();
 
         return static::getUrlManager()->createAbsoluteUrl($params);
     }
@@ -360,7 +360,7 @@ class BaseUrl
      */
     public static function home($scheme = false)
     {
-        $url = Yii::$app->getHomeUrl();
+        $url = Yii::getApp()->getHomeUrl();
 
         if ($scheme !== false) {
             $url = static::getUrlManager()->getHostInfo() . $url;
@@ -427,8 +427,8 @@ class BaseUrl
      */
     public static function current(array $params = [], $scheme = false)
     {
-        $currentParams = Yii::$app->getRequest()->getQueryParams();
-        $currentParams[0] = '/' . Yii::$app->controller->getRoute();
+        $currentParams = Yii::getApp()->getRequest()->getQueryParams();
+        $currentParams[0] = '/' . Yii::getApp()->controller->getRoute();
         $route = array_replace_recursive($currentParams, $params);
         return static::toRoute($route, $scheme);
     }
@@ -439,6 +439,6 @@ class BaseUrl
      */
     protected static function getUrlManager()
     {
-        return static::$urlManager ?: Yii::$app->getUrlManager();
+        return static::$urlManager ?: Yii::getApp()->getUrlManager();
     }
 }

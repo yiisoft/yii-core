@@ -7,7 +7,6 @@
 
 namespace yii\helpers;
 
-use Yii;
 use yii\exceptions\InvalidArgumentException;
 use yii\base\Model;
 use yii\db\ActiveRecordInterface;
@@ -108,7 +107,7 @@ class BaseHtml
      */
     public static function encode($content, $doubleEncode = true)
     {
-        return htmlspecialchars($content, ENT_QUOTES | ENT_SUBSTITUTE, Yii::$app ? Yii::$app->charset : 'UTF-8', $doubleEncode);
+        return htmlspecialchars($content, ENT_QUOTES | ENT_SUBSTITUTE, Yii::getApp() ? Yii::getApp()->charset : 'UTF-8', $doubleEncode);
     }
 
     /**
@@ -299,7 +298,7 @@ class BaseHtml
      */
     public static function csrfMetaTags()
     {
-        $request = Yii::$app->getRequest();
+        $request = Yii::getApp()->getRequest();
         if ($request instanceof Request && $request->enableCsrfValidation) {
             return static::tag('meta', '', ['name' => 'csrf-param', 'content' => $request->csrfParam]) . "\n    "
                 . static::tag('meta', '', ['name' => 'csrf-token', 'content' => $request->getCsrfToken()]) . "\n";
@@ -333,7 +332,7 @@ class BaseHtml
 
         $hiddenInputs = [];
 
-        $request = Yii::$app->getRequest();
+        $request = Yii::getApp()->getRequest();
         if ($request instanceof Request) {
             if (strcasecmp($method, 'get') && strcasecmp($method, 'post')) {
                 // simulate PUT, DELETE, etc. via POST
