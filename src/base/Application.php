@@ -220,6 +220,10 @@ abstract class Application extends Module
 
     public function getResponse()
     {
+        if ($this->response === null) {
+            $this->response = $this->container->get('response');
+        }
+
         return $this->response;
     }
 
