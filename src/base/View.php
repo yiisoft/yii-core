@@ -7,8 +7,11 @@
 
 namespace yii\base;
 
-use Yii;
+use yii\exceptions\ViewNotFoundException;
+use yii\exceptions\InvalidCallException;
+use yii\exceptions\ErrorException;
 use yii\helpers\FileHelper;
+use yii\helpers\Yii;
 use yii\widgets\Block;
 use yii\widgets\ContentDecorator;
 use yii\widgets\FragmentCache;
@@ -99,6 +102,20 @@ class View extends Component implements DynamicContentAwareInterface
      */
     private $_viewFiles = [];
 
+    /**
+     * @var Application
+     */
+    protected $app;
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
+
+    public function getApp()
+    {
+        return $this->app;
+    }
 
     /**
      * Initializes the view component.
@@ -162,14 +179,14 @@ class View extends Component implements DynamicContentAwareInterface
     {
         if (strncmp($view, '@', 1) === 0) {
             // e.g. "@app/views/main"
-            $file = Yii::getAlias($view);
+            $file = $this->app->getAlias($view);
         } elseif (strncmp($view, '//', 2) === 0) {
             // e.g. "//layouts/main"
-            $file = Yii::$app->getViewPath() . DIRECTORY_SEPARATOR . ltrim($view, '/');
+            $file = $this->app->getViewPath() . DIRECTORY_SEPARATOR . ltrim($view, '/');
         } elseif (strncmp($view, '/', 1) === 0) {
             // e.g. "/site/index"
-            if (Yii::$app->controller !== null) {
-                $file = Yii::$app->controller->module->getViewPath() . DIRECTORY_SEPARATOR . ltrim($view, '/');
+            if ($this->app->controller !== null) {
+                $file = $this->app->controller->module->getViewPath() . DIRECTORY_SEPARATOR . ltrim($view, '/');
             } else {
                 throw new InvalidCallException("Unable to locate view file for view '$view': no active controller.");
             }
@@ -213,7 +230,7 @@ class View extends Component implements DynamicContentAwareInterface
      */
     public function renderFile($viewFile, $params = [], $context = null)
     {
-        $viewFile = $requestedFile = Yii::getAlias($viewFile);
+        $viewFile = $requestedFile = $this->app->getAlias($viewFile);
 
         if ($this->theme !== null) {
             $viewFile = $this->theme->applyTo($viewFile);
@@ -288,7 +305,7 @@ class View extends Component implements DynamicContentAwareInterface
             'viewFile' => $viewFile,
             'params' => $params,
         ]);
-        $this->trigger($event);
+        $this->trigger(self::EVENT_BEFORE_RENDER, $event);
 
         return $event->isValid;
     }
@@ -311,7 +328,7 @@ class View extends Component implements DynamicContentAwareInterface
                 'params' => $params,
                 'output' => $output,
             ]);
-            $this->trigger($event);
+            $this->trigger(self::EVENT_AFTER_RENDER, $event);
             $output = $event->output;
         }
     }
@@ -366,7 +383,7 @@ class View extends Component implements DynamicContentAwareInterface
      * @param array $params the parameters (name-value pairs) that will be extracted and made
      * available in the $statement context. The parameters will be stored in the cache and be reused
      * each time $statement is executed. You should make sure, that these are safely serializable.
-     * @throws \yii\exceptions\ErrorException if the statement throws an exception in eval()
+     * @throws ErrorException if the statement throws an exception in eval()
      * @return string the placeholder of the dynamic content, or the dynamic content if there is no
      * active content cache currently.
      */

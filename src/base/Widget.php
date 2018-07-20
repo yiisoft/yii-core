@@ -8,7 +8,8 @@
 namespace yii\base;
 
 use ReflectionClass;
-use Yii;
+use yii\base\Application;
+use yii\helpers\Yii;
 
 /**
  * Widget is the base class for widgets.
@@ -60,15 +61,14 @@ class Widget extends Component implements ViewContextInterface
      */
     public static $stack = [];
 
+    protected $app;
 
     /**
-     * Initializes the object.
-     * This method is called at the end of the constructor.
      * The default implementation will trigger an [[EVENT_INIT]] event.
      */
-    public function init()
+    public function __construct(Application $app)
     {
-        parent::init();
+        $this->app = $app;
         $this->trigger(self::EVENT_INIT);
     }
 
@@ -188,7 +188,7 @@ class Widget extends Component implements ViewContextInterface
     public function getView()
     {
         if ($this->_view === null) {
-            $this->_view = Yii::$app->getView();
+            $this->_view = $this->app->getView();
         }
 
         return $this->_view;
@@ -286,8 +286,8 @@ class Widget extends Component implements ViewContextInterface
      */
     public function beforeRun()
     {
-        $event = new WidgetEvent(['name' => self::EVENT_BEFORE_RUN]);
-        $this->trigger($event);
+        $event = new WidgetEvent();
+        $this->trigger(self::EVENT_BEFORE_RUN, $event);
         return $event->isValid;
     }
 
@@ -314,9 +314,9 @@ class Widget extends Component implements ViewContextInterface
      */
     public function afterRun($result)
     {
-        $event = new WidgetEvent(['name' => self::EVENT_AFTER_RUN]);
+        $event = new WidgetEvent();
         $event->result = $result;
-        $this->trigger($event);
+        $this->trigger(self::EVENT_AFTER_RUN, $event);
         return $event->result;
     }
 }
