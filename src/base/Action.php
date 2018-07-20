@@ -7,7 +7,7 @@
 
 namespace yii\base;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * Action is the base class for all controller action classes.
@@ -47,6 +47,7 @@ class Action extends Component
      */
     public $controller;
 
+    protected $app;
 
     /**
      * Constructor.
@@ -55,11 +56,11 @@ class Action extends Component
      * @param Controller $controller the controller that owns this action
      * @param array $config name-value pairs that will be used to initialize the object properties
      */
-    public function __construct($id, $controller, $config = [])
+    public function __construct($id, $controller, Application $app)
     {
         $this->id = $id;
         $this->controller = $controller;
-        parent::__construct($config);
+        $this->app = $app;
     }
 
     /**
@@ -87,8 +88,8 @@ class Action extends Component
         }
         $args = $this->controller->bindActionParams($this, $params);
         Yii::debug('Running action: ' . get_class($this) . '::run()', __METHOD__);
-        if (Yii::$app->requestedParams === null) {
-            Yii::$app->requestedParams = $args;
+        if ($this->app->requestedParams === null) {
+            $this->app->requestedParams = $args;
         }
         if ($this->beforeRun()) {
             $result = $this->run(...$args);
