@@ -8,7 +8,7 @@
 namespace yii\http;
 
 use Psr\Http\Message\StreamInterface;
-use yii\di\Instance;
+use yii\helpers\Yii;
 
 /**
  * MessageTrait provides set of methods to satisfy [[\Psr\Http\Message\MessageInterface]].
@@ -304,7 +304,7 @@ trait MessageTrait
                 $body = $this->_body;
             }
 
-            $this->_body = Instance::ensure($body, StreamInterface::class);
+            $this->_body = Yii::instanceOf($body, StreamInterface::class);
         }
         return $this->_body;
     }

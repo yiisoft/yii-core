@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use yii\exceptions\InvalidConfigException;
 use yii\di\Container;
+use yii\di\Reference;
 use yii\helpers\VarDumper;
 
 /**
@@ -104,6 +105,79 @@ class BaseYii
         }
 
         throw new InvalidConfigException('Unsupported configuration type: ' . gettype($type));
+    }
+
+    /**
+     * Resolves the specified reference into the actual object and makes sure it is of the specified type.
+     *
+     * The reference may be specified as a string or an Reference object. If the former,
+     * it will be treated as a component ID, a class/interface name or an alias, depending on the container type.
+     *
+     * If you do not specify a container, the method will first try `Yii::$app` followed by `Yii::$container`.
+     *
+     * For example,
+     *
+     * ```php
+     * use yii\db\Connection;
+     *
+     * // returns Yii::$app->db
+     * $db = Yii::instanceOf('db', Connection::class);
+     * // returns an instance of Connection using the given configuration
+     * $db = Yii::instanceOf(['dsn' => 'sqlite:path/to/my.db'], Connection::class);
+     * ```
+     *
+     * @param object|string|array|static $reference an object or a reference to the desired object.
+     * You may specify a reference in terms of a component ID or an Reference object.
+     * Starting from version 2.0.2, you may also pass in a configuration array for creating the object.
+     * If the "class" value is not specified in the configuration array, it will use the value of `$type`.
+     * @param string $type the class/interface name to be checked. If null, type check will not be performed.
+     * @param ServiceLocator|Container $container the container. This will be passed to [[get()]].
+     * @return object the object referenced by the Reference, or `$reference` itself if it is an object.
+     * @throws InvalidConfigException if the reference is invalid
+     */
+    public static function instanceOf($reference, $type = null, $container = null)
+    {
+        if (is_array($reference)) {
+            $class = $type;
+            if (isset($reference['__class'])) {
+                $class = $reference['__class'];
+                unset($reference['__class']);
+            }
+
+            if (empty($container)) {
+                $container = static::$container;
+            }
+            $component = $container->get($class, [], $reference);
+            if ($type === null || $component instanceof $type) {
+                return $component;
+            }
+
+            throw new InvalidConfigException('Invalid data type: ' . $class . '. ' . $type . ' is expected.');
+        } elseif (empty($reference)) {
+            throw new InvalidConfigException('The required component is not specified.');
+        }
+
+        if (is_string($reference)) {
+            $reference = new Reference($reference);
+        } elseif ($type === null || $reference instanceof $type) {
+            return $reference;
+        }
+
+        if ($reference instanceof Reference) {
+            try {
+                $container->get($reference);
+            } catch (\ReflectionException $e) {
+                throw new InvalidConfigException('Failed to instantiate component or class "' . $reference->id . '".', 0, $e);
+            }
+            if ($type === null || $component instanceof $type) {
+                return $component;
+            }
+
+            throw new InvalidConfigException('"' . $reference->id . '" refers to a ' . get_class($component) . " component. $type is expected.");
+        }
+
+        $valueType = is_object($reference) ? get_class($reference) : gettype($reference);
+        throw new InvalidConfigException("Invalid data type: $valueType. $type is expected.");
     }
 
     public static function getCharset()
