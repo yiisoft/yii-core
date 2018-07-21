@@ -7,7 +7,7 @@
 
 namespace yii\base;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * Request represents a request that is handled by an [[Application]].

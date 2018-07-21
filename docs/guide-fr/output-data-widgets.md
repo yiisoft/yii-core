@@ -312,7 +312,7 @@ Pour ajouter la fonctionnalité de recherche au modèle `Post`, nous pouvons cr�
 
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

@@ -92,7 +92,7 @@ de création et d'utilisation d'actions a été expliqué dans la section [Hello
 
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\EntryForm;
 

@@ -187,7 +187,7 @@ As subseções acima descreveram como anexar um manipulador para um evento a *n�
 Por exemplo, um objeto [Active Record](db-active-record.md) irá disparar um evento [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] sempre que inserir um novo registro no banco de dados. A fim de acompanhar as inserções feitas por *cada* objeto [Active Record](db-active-record.md), você pode usar o seguinte código:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use yii\db\ActiveRecord;
 
@@ -236,7 +236,7 @@ O evento global requer um *singleton* acessível globalmente, tal como a própri
 Para criar o evento global, um evento *remetente* chama o método singleton `trigger()` para disparar o evento, em vez de chamar o método `trigger()` do *remetente* . Da mesma forma, os manipuladores de eventos são anexados ao evento no *singleton* . Por exemplo:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use app\components\Foo;
 

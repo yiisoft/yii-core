@@ -7,7 +7,7 @@
 
 namespace yii\validators;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * BooleanValidator checks if the attribute value is a boolean value.

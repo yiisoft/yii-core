@@ -18,7 +18,7 @@ El siguiente ejemplo muestra un controlador `post` con dos acciones: `view` y `c
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use app\models\Post;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

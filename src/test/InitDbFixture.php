@@ -7,7 +7,7 @@
 
 namespace yii\test;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * InitDbFixture represents the initial state needed for DB-related tests.

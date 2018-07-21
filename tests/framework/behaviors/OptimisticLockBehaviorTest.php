@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\behaviors;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\behaviors\OptimisticLockBehavior;
 use yii\web\Request;
 use yii\db\ActiveRecord;

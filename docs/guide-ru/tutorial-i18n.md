@@ -326,7 +326,7 @@ echo Yii::t('not_specified_category', 'message from unspecified category');
 
 namespace app\modules\users;
 
-use Yii;
+use yii\helpers\Yii;
 
 class Module extends \yii\base\Module
 {
@@ -375,7 +375,7 @@ class Module extends \yii\base\Module
 namespace app\widgets\menu;
 
 use yii\base\Widget;
-use Yii;
+use yii\helpers\Yii;
 
 class Menu extends Widget
 {

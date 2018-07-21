@@ -27,7 +27,7 @@ section for more details about the class file naming convention.
 
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 
 class EntryForm extends Model
@@ -88,7 +88,7 @@ of creating and using actions was explained in the [Saying Hello](start-hello.md
 
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\EntryForm;
 

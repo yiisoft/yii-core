@@ -78,7 +78,7 @@ El siguiente ejemplo muestra un filtro que registra el tiempo de ejecución de u
 ```php
 namespace app\components;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ActionFilter;
 
 class ActionTimeFilter extends ActionFilter

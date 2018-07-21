@@ -34,7 +34,7 @@ Com a configuração acima, o número de linhas de código fonte para ser exibid
 Como já informado, o manipulador de erro transforma todos os erros não fatais do PHP em exceções capturáveis. Isto significa que você pode usar o seguinte código para lidar com erros do PHP:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ErrorException;
 
 try {
@@ -91,7 +91,7 @@ Você pode criar a ação `site/error` da seguinte forma,
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 
 class SiteController extends Controller

@@ -7,7 +7,7 @@
 
 namespace yii\i18n;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * GettextPoFile represents a PO Gettext message file.

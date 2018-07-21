@@ -8,7 +8,7 @@
 namespace yiiunit\framework\http;
 
 use Psr\Http\Message\StreamInterface;
-use Yii;
+use yii\helpers\Yii;
 use yii\http\FileStream;
 use yii\http\MemoryStream;
 use yii\http\UploadedFile;

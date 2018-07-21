@@ -7,7 +7,7 @@
 
 namespace yii\http;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\BaseObject;
 
 /**

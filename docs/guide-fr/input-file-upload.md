@@ -76,7 +76,7 @@ Maintenant dans une action de contrôleur, écrivez le code de câblage entre le
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
 use yii\http\UploadedFile;
@@ -164,7 +164,7 @@ Pour finir, dans l'action du contrôleur, vous devez appeler `UploadedFile::getI
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
 use yii\http\UploadedFile;

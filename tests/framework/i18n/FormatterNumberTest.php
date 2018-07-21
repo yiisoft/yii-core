@@ -8,7 +8,7 @@
 namespace yiiunit\framework\i18n;
 
 use NumberFormatter;
-use Yii;
+use yii\helpers\Yii;
 use yii\i18n\Formatter;
 use yiiunit\TestCase;
 

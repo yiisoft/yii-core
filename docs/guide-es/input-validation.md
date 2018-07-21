@@ -420,7 +420,7 @@ Debajo hay un ejemplo de cómo podrías utilizar la clase del validador de arrib
 ```php
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use app\components\validators\CountryValidator;
 

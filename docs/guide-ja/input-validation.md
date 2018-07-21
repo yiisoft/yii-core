@@ -451,7 +451,7 @@ class CountryValidator extends Validator
 ```php
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use app\components\validators\CountryValidator;
 

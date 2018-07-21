@@ -516,7 +516,7 @@ If you want to translate the messages for a module and avoid using a single tran
 
 namespace app\modules\users;
 
-use Yii;
+use yii\helpers\Yii;
 
 class Module extends \yii\base\Module
 {
@@ -564,7 +564,7 @@ The same rule as applied for Modules above can be applied for widgets too, for e
 namespace app\widgets\menu;
 
 use yii\base\Widget;
-use Yii;
+use yii\helpers\Yii;
 
 class Menu extends Widget
 {

@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\http;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\helpers\FileHelper;
 use yii\http\FileStream;
 use yiiunit\TestCase;

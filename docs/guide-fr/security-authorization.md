@@ -219,7 +219,7 @@ Si la hiérarchie de vos permissions ne change pas du tout et que vous avez un n
 <?php
 namespace app\commands;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\console\Controller;
 
 class RbacController extends Controller
@@ -439,7 +439,7 @@ Supposons que dans la table des utilisateurs, il existe en colonne `group` qui u
 ```php
 namespace app\rbac;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\rbac\Rule;
 
 /**

@@ -9,7 +9,7 @@ namespace yiiunit\framework\profile;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Yii;
+use yii\helpers\Yii;
 use yii\profile\LogTarget;
 use yiiunit\TestCase;
 

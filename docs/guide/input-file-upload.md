@@ -87,7 +87,7 @@ Now in a controller action, write the code to wire up the model and the view to 
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
 use yii\http\UploadedFile;
@@ -184,7 +184,7 @@ And finally in the controller action, you should call `UploadedFile::getInstance
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
 
@@ -215,7 +215,7 @@ in case you have a form, which allows user to update his profile information, it
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UserProfileForm;
 

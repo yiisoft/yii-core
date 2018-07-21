@@ -7,7 +7,7 @@
 
 namespace yii\base;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * StaticInstanceTrait provides methods to satisfy [[StaticInstanceInterface]] interface.

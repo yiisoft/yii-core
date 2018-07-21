@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\base;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\BaseObject;
 use yii\base\Controller;
 use yii\base\Module;

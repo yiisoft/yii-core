@@ -426,7 +426,7 @@ Si vous voulez traduire les messages d'un module et éviter d'avoir un unique fi
 
 namespace app\modules\users;
 
-use Yii;
+use yii\helpers\Yii;
 
 class Module extends \yii\base\Module
 {
@@ -474,7 +474,7 @@ La règle applicable aux modules présentée ci-dessus s'applique également aux
 namespace app\widgets\menu;
 
 use yii\base\Widget;
-use Yii;
+use yii\helpers\Yii;
 
 class Menu extends Widget
 {

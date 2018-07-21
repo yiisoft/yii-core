@@ -57,7 +57,7 @@
 можете использовать класс `yii\imagine\Image`, который содержится в расширении `yiisoft/yii2-imagine`.
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\imagine\Image;
 
 // генерация миниатюры изображения

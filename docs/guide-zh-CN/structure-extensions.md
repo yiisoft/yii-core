@@ -55,7 +55,7 @@
 提供的 `yii\imagine\Image` 类：
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\imagine\Image;
 
 // generate a thumbnail image

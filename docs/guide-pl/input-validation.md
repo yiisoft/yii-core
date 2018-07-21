@@ -414,7 +414,7 @@ Poniżej znajduje się przykład użycia powyższej klasy walidatora w modelu.
 ```php
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use app\components\validators\CountryValidator;
 

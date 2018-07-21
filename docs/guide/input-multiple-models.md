@@ -15,7 +15,7 @@ First, the controller action for collecting the user and profile data can be wri
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

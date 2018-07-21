@@ -207,7 +207,7 @@ $foo->off(Foo::EVENT_HELLO);
 [アクティブ・レコード](db-active-record.md) オブジェクトによって行われる挿入を追跡するには、次のコードが使えます：
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use yii\db\ActiveRecord;
 
@@ -338,7 +338,7 @@ Yiiは、いわゆる *グローバル・イベント* をサポートしてい�
 `trigger()` メソッドを呼び出してイベントをトリガします。同じく、イベント・ハンドラも、シングルトンのイベントにアタッチされます。たとえば:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use app\components\Foo;
 
@@ -364,7 +364,7 @@ Yii::$app->trigger('bar', new Event(['sender' => new Foo]));
 例えば、
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 
 $foo = new Foo();
 
@@ -378,7 +378,7 @@ $foo->on('foo.event.*', function ($event) {
 
 ```php
 use yii\base\Event;
-use Yii;
+use yii\helpers\Yii;
 
 Event::on('app\models\*', 'before*', function ($event) {
     // 名前空間 'app\models' の全てのクラスで、名前が 'before' で始まる全てのイベントに対してトリガされる
@@ -390,7 +390,7 @@ Event::on('app\models\*', 'before*', function ($event) {
 
 ```php
 use yii\base\Event;
-use Yii;
+use yii\helpers\Yii;
 
 Event::on('*', '*', function ($event) {
     // 全てのクラスの全てのイベントに対してトリガされる
@@ -407,7 +407,7 @@ Event::on('*', '*', function ($event) {
 通常のイベント名でアタッチされたハンドラは、パターンに合致する場合であっても、デタッチされません。例えば、
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 
 $foo = new Foo();
 

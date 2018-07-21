@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\i18n;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use yii\console\ExitCode;
 use yii\db\Connection;

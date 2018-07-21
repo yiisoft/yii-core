@@ -26,7 +26,7 @@ Po więcej szczegółów odnośnie konwencji nazewnictwa plików zajrzyj do sekc
 
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 
 class EntryForm extends Model
@@ -85,7 +85,7 @@ Następnie musisz utworzyć akcję o nazwie `entry` w kontrolerze `site`,  któr
 
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\EntryForm;
 

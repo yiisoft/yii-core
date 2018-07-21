@@ -8,7 +8,7 @@
 namespace yiiunit\framework\base;
 
 use Psr\Log\NullLogger;
-use Yii;
+use yii\helpers\Yii;
 use yii\base\BootstrapInterface;
 use yii\base\Component;
 use yii\base\Module;

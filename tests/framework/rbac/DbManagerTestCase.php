@@ -8,7 +8,7 @@
 namespace yiiunit\framework\rbac;
 
 use Psr\Log\LogLevel;
-use Yii;
+use yii\helpers\Yii;
 use yii\caching\ArrayCache;
 use yii\caching\Cache;
 use yii\console\Application;

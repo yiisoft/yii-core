@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\behaviors;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\BaseObject;
 use yii\base\Event;
 use yii\behaviors\BlameableBehavior;

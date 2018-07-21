@@ -8,7 +8,7 @@
 namespace yii\http;
 
 use Psr\Http\Message\StreamInterface;
-use Yii;
+use yii\helpers\Yii;
 use yii\base\BaseObject;
 use yii\base\ErrorHandler;
 use yii\exceptions\InvalidConfigException;

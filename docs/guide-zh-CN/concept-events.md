@@ -207,7 +207,7 @@ $foo->off(Foo::EVENT_HELLO);
 要追踪每个[活动记录](db-active-record.md)对象的新增记录完成情况，应如下写代码：
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use yii\db\ActiveRecord;
 
@@ -339,7 +339,7 @@ Event::off('app\interfaces\DanceEventInterface', DanceEventInterface::EVENT_DANC
 类似地，事件处理器被附加到单例的事件。如：
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use app\components\Foo;
 
@@ -365,7 +365,7 @@ Yii::$app->trigger('bar', new Event(['sender' => new Foo]));
 例如：
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 
 $foo = new Foo();
 
@@ -379,7 +379,7 @@ $foo->on('foo.event.*', function ($event) {
 
 ```php
 use yii\base\Event;
-use Yii;
+use yii\helpers\Yii;
 
 Event::on('app\models\*', 'before*', function ($event) {
     // 触发命名空间 'app\models' 中的任何类的任何事件，名称以 'before' 开头。
@@ -391,7 +391,7 @@ Event::on('app\models\*', 'before*', function ($event) {
 
 ```php
 use yii\base\Event;
-use Yii;
+use yii\helpers\Yii;
 
 Event::on('*', '*', function ($event) {
     // 触发任何类的任何事件
@@ -408,7 +408,7 @@ Event::on('*', '*', function ($event) {
 而为常规事件名称附加的处理程序将保留，即使它们与模式匹配。 例如：
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 
 $foo = new Foo();
 

@@ -328,7 +328,7 @@ AppAsset::register($this);  // $this はビュー・オブジェクトを表す
 namespace app\assets;
 
 use yii\web\AssetBundle;
-use Yii;
+use yii\helpers\Yii;
 
 class SophisticatedAssetBundle extends AssetBundle
 {
@@ -350,7 +350,7 @@ class SophisticatedAssetBundle extends AssetBundle
 
 ```php
 use app\assets\SophisticatedAssetBundle;
-use Yii;
+use yii\helpers\Yii;
 
 $bundle = SophisticatedAssetBundle::register(Yii::$app->view);
 $bundle->js[] = 'i18n/' . Yii::$app->language . '.js'; // 動的に追加されるファイル
@@ -433,7 +433,7 @@ return [
 namespace app\assets;
 
 use yii\web\AssetBundle;
-use Yii;
+use yii\helpers\Yii;
 
 class LanguageAssetBundle extends AssetBundle
 {

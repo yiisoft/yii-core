@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\behaviors;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Connection;

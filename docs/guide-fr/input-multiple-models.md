@@ -10,7 +10,7 @@ Tout d'abord, l'action de contrôleur pour la collecte des données de connexion
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

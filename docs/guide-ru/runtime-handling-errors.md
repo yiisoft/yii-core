@@ -34,7 +34,7 @@ return [
 Это означает что можно поступать с ошибками следующим образом:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ErrorException;
 
 try {
@@ -100,7 +100,7 @@ throw new NotFoundHttpException();
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 
 class SiteController extends Controller

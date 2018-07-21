@@ -7,7 +7,7 @@
 
 namespace yii\build\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\console\Controller;
 use yii\helpers\Console;
 use yii\helpers\FileHelper;

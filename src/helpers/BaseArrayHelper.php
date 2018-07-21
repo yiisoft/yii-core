@@ -7,7 +7,7 @@
 
 namespace yii\helpers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Arrayable;
 use yii\exceptions\InvalidArgumentException;
 

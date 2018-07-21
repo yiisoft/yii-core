@@ -7,7 +7,7 @@
 
 namespace yii\data;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\BaseObject;
 use yii\web\Link;
 use yii\web\Linkable;

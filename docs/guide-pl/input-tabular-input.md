@@ -30,7 +30,7 @@ Zacznijmy od akcji kontrolera:
 
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use yii\web\Controller;
 use app\models\Setting;

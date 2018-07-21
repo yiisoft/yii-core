@@ -87,7 +87,7 @@ use yii\widgets\ActiveForm;
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
 use yii\http\UploadedFile;
@@ -181,7 +181,7 @@ use yii\widgets\ActiveForm;
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
 use yii\http\UploadedFile;

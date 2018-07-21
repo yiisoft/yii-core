@@ -112,7 +112,7 @@ Par exemple :
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use app\models\Post;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

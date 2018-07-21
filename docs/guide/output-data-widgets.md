@@ -390,7 +390,7 @@ To add the search capability for the `Post` model, we can create a `PostSearch` 
 
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

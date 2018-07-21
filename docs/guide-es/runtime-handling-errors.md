@@ -35,7 +35,7 @@ Como se ha mencionado, el gestor de errores convierte todos los errores de PHP n
 Esto significa que se puede usar el siguiente código para tratar los errores PHP:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ErrorException;
 
 try {
@@ -105,7 +105,7 @@ Se puede crear una acción `site/error` como se hace a continuación,
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 
 class SiteController extends Controller

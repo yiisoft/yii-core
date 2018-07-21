@@ -7,7 +7,7 @@
 
 namespace yii\test;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\exceptions\InvalidConfigException;
 
 /**

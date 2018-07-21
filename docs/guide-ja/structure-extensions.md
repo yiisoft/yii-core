@@ -55,7 +55,7 @@ Composer は依存関係を管理するものですから、あるパッケー�
 次の例は、`yiisoft/yii2-imagine` エクステンションによって提供される `yii\imagine\Image` クラスをどのようにして使うことが出来るかを示すものです。
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\imagine\Image;
 
 // サムネール画像を生成する

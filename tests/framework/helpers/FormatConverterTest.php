@@ -9,7 +9,7 @@ namespace yiiunit\framework\helpers;
 
 use DateTime;
 use IntlDateFormatter;
-use Yii;
+use yii\helpers\Yii;
 use yii\exceptions\Exception;
 use yii\helpers\FormatConverter;
 use yii\i18n\Formatter;

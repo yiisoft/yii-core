@@ -9,7 +9,7 @@ namespace yii\profile;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
-use Yii;
+use yii\helpers\Yii;
 use yii\di\Instance;
 
 /**

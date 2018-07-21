@@ -15,7 +15,7 @@ Yii のモデルとフォームのサポートを使えば、単一のモデル�
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

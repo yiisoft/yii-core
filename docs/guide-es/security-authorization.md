@@ -264,7 +264,7 @@ Si la jerarquía de permisos no cambia en absoluto y tienes un número fijo de u
 <?php
 namespace app\commands;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\console\Controller;
 
 class RbacController extends Controller
@@ -460,7 +460,7 @@ Puede configurar los datos RBAC de la siguiente manera,
 ```php
 namespace app\rbac;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\rbac\Rule;
 
 /**

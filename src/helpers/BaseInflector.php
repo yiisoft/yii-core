@@ -7,7 +7,7 @@
 
 namespace yii\helpers;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * BaseInflector provides concrete implementation for [[Inflector]].

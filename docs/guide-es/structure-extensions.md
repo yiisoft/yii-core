@@ -60,7 +60,7 @@ Ahora ya podemos usar las extensiones instaladas como si fueran parte de nuestra
 muestra como se puede usar la clase `yii\imagine\Image` proporcionada por la extensión `yiisoft/yii2-imagine`:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\imagine\Image;
 
 // genera una miniatura (thumbnail) de la imagen

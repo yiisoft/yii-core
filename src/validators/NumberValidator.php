@@ -7,7 +7,7 @@
 
 namespace yii\validators;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\helpers\StringHelper;
 
 /**

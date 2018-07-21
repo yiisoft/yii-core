@@ -7,7 +7,7 @@
 
 namespace yii\base;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Link;
 use yii\web\Linkable;

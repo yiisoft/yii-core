@@ -35,7 +35,7 @@ As aforementioned, the error handler turns all non-fatal PHP errors into catchab
 use the following code to deal with PHP errors:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ErrorException;
 
 try {
@@ -105,7 +105,7 @@ You can create the `site/error` action as follows,
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 
 class SiteController extends Controller

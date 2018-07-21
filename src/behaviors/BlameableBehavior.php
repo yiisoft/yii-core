@@ -7,7 +7,7 @@
 
 namespace yii\behaviors;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\db\BaseActiveRecord;
 
 /**

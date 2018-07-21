@@ -18,7 +18,7 @@ Ví dụ dưới mô tả Controller `post` cùng với 2 action là : `view` v�
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use app\models\Post;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

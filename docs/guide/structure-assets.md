@@ -328,7 +328,7 @@ make library translation work. This can be achieved overriding [[yii\web\AssetBu
 namespace app\assets;
 
 use yii\web\AssetBundle;
-use Yii;
+use yii\helpers\Yii;
 
 class SophisticatedAssetBundle extends AssetBundle
 {
@@ -350,7 +350,7 @@ For example:
 
 ```php
 use app\assets\SophisticatedAssetBundle;
-use Yii;
+use yii\helpers\Yii;
 
 $bundle = SophisticatedAssetBundle::register(Yii::$app->view);
 $bundle->js[] = 'i18n/' . Yii::$app->language . '.js'; // dynamic file added
@@ -433,7 +433,7 @@ Here are the examples, where mapping set via [[yii\web\AssetManager::bundles]] m
 namespace app\assets;
 
 use yii\web\AssetBundle;
-use Yii;
+use yii\helpers\Yii;
 
 class LanguageAssetBundle extends AssetBundle
 {

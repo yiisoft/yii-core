@@ -83,7 +83,7 @@ W akcji kontrolera musimy połączyć model oraz widok aby zaimplementować prze
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
 use yii\http\UploadedFile;
@@ -173,7 +173,7 @@ do `UploadForm::imageFiles`.
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
 use yii\http\UploadedFile;

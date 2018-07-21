@@ -13,7 +13,7 @@ Na początek, akcja w kontrolerze do zbierania danych użytkownika oraz danych p
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

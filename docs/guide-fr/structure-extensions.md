@@ -40,7 +40,7 @@ Après l'installation, vous devriez apercevoir le dossier  `yiisoft/yii2-imagine
 Vous pouvez désormais utiliser les extensions installées comme si elles faisaient partie de votre application. L'exemple suivant montre comment vous pouvez utiliser la classe `yii\imagine\Image` que l'extension `yiisoft/yii2-imagine` fournit :
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\imagine\Image;
 
 // generate a thumbnail image

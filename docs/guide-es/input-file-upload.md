@@ -87,7 +87,7 @@ Ahora, en una acción del controlador, escribe el código que una el modelo y la
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
 use yii\http\UploadedFile;
@@ -183,7 +183,7 @@ Y finalmente en la acción del controlador, debes llamar `UploadedFile::getInsta
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\UploadForm;
 use yii\http\UploadedFile;

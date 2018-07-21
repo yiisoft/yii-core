@@ -222,7 +222,7 @@ Se a sua hierarquia de permissões não se altera e você tem um número fixo de
 <?php
 namespace app\commands;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\console\Controller;
 
 class RbacController extends Controller
@@ -403,7 +403,7 @@ Você pretende ter duas roles RBAC `admin` and `author` para representar as perm
 ```php
 namespace app\rbac;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\rbac\Rule;
 
 /**

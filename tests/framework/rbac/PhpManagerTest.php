@@ -28,7 +28,7 @@ function time()
 
 namespace yiiunit\framework\rbac;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * @group rbac

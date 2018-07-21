@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\helpers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\DynamicModel;
 use yii\helpers\Html;
 use yii\helpers\Url;

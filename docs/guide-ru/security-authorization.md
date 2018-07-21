@@ -258,7 +258,7 @@ return [
 <?php
 namespace app\commands;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\console\Controller;
 
 class RbacController extends Controller
@@ -498,7 +498,7 @@ public function behaviors()
 ```php
 namespace app\rbac;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\rbac\Rule;
 
 /**

@@ -7,7 +7,7 @@
 
 namespace yii\mutex;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\exceptions\InvalidConfigException;
 use yii\helpers\FileHelper;
 

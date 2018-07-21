@@ -7,7 +7,7 @@
 
 namespace yii\i18n;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * GettextMessageSource represents a message source that is based on GNU Gettext.

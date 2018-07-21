@@ -35,7 +35,7 @@ return [
 これは、次のようなコードを使って PHP エラーを処理することが出来るということを意味します。
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ErrorException;
 
 try {
@@ -105,7 +105,7 @@ return [
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 
 class SiteController extends Controller

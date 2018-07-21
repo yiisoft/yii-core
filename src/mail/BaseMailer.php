@@ -7,7 +7,7 @@
 
 namespace yii\mail;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Component;
 
 /**

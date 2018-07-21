@@ -213,7 +213,7 @@ de datos. Para poder registrar las inserciones efectuadas por *todos* los objeto
 [Active Record](db-active-record.md), se puede usar el siguiente código:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use yii\db\ActiveRecord;
 
@@ -272,7 +272,7 @@ el evento, en lugar de llamar al propio método `trigger()` del remitente. De fo
 adjuntan al evento del Singleton. Por ejemplo:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use app\components\Foo;
 

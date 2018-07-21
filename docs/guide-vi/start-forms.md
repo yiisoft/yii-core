@@ -86,7 +86,7 @@ Tiếp theo, trong controller `site` bạn sẽ tạo action là `entry` action 
 
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\EntryForm;
 

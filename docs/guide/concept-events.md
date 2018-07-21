@@ -207,7 +207,7 @@ event whenever it inserts a new record into the database. In order to track inse
 [Active Record](db-active-record.md) object, you may use the following code:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use yii\db\ActiveRecord;
 
@@ -338,7 +338,7 @@ To create the global event, an event sender calls the Singleton's `trigger()` me
 to trigger the event, instead of calling the sender's own `trigger()` method. Similarly, the event handlers are attached to the event on the Singleton. For example:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use app\components\Foo;
 
@@ -364,7 +364,7 @@ Since 2.0.14 you can setup event handler for multiple events matching wildcard p
 For example:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 
 $foo = new Foo();
 
@@ -378,7 +378,7 @@ Wildcard patterns can be used for class-level events as well. For example:
 
 ```php
 use yii\base\Event;
-use Yii;
+use yii\helpers\Yii;
 
 Event::on('app\models\*', 'before*', function ($event) {
     // triggered for any class in namespace 'app\models' for any event, which name starts on 'before'
@@ -390,7 +390,7 @@ This allows you catching all application events by single handler using followin
 
 ```php
 use yii\base\Event;
-use Yii;
+use yii\helpers\Yii;
 
 Event::on('*', '*', function ($event) {
     // triggered for any event at any class
@@ -407,7 +407,7 @@ during detaching of event handler will detach only the handler specified for thi
 attached for regular event names will remain even if they match the pattern. For example:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 
 $foo = new Foo();
 

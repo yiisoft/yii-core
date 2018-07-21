@@ -451,7 +451,7 @@ Below is an example of how you could use the above validator class within your m
 ```php
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use app\components\validators\CountryValidator;
 

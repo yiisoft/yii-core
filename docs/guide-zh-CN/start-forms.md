@@ -27,7 +27,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 
 class EntryForm extends Model
@@ -88,7 +88,7 @@ if ($model->validate()) {
 
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\EntryForm;
 

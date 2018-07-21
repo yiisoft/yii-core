@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\base;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Action;
 use yii\base\ActionFilter;
 use yii\base\Controller;

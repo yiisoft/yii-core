@@ -56,7 +56,7 @@ L'exemple qui suit montre un filtre qui enregistre dans un journal le temps d'ex
 ```php
 namespace app\components;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ActionFilter;
 
 class ActionTimeFilter extends ActionFilter

@@ -356,7 +356,7 @@ Ci-dessous, nous présentons un exemple de comment utiliser la classe de validat
 ```php
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 use app\components\validators\CountryValidator;
 

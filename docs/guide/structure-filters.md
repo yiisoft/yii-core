@@ -74,7 +74,7 @@ The following example shows a filter that logs the action execution time:
 ```php
 namespace app\components;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ActionFilter;
 
 class ActionTimeFilter extends ActionFilter

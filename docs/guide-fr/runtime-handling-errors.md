@@ -30,7 +30,7 @@ Avec la configuration qui précède, le nombre de lignes de code source à affic
 Comme cela a déjà été dit, le gestionnaire d'erreur transforme toutes les erreurs PHP non fatales en exception susceptibles d'être interceptées. Cela signifie que vous pouvez utiliser le code suivant pour vous servir de cette gestion d'erreurs :
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ErrorException;
 
 try {
@@ -86,7 +86,7 @@ Vous pouvez créer une action `site/error` comme ceci :
 ```php
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 
 class SiteController extends Controller

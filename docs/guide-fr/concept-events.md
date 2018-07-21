@@ -181,7 +181,7 @@ Par exemple, un objet [Active Record](db-active-record.md) déclenche un événe
 à chaque fois qu'il insère un nouvel enregistrement dans la base de données. Afin de suivre les insertions faites par tous les objets [Active Record](db-active-record.md), vous pouvez utiliser le code suivant :
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use yii\db\ActiveRecord;
 
@@ -303,7 +303,7 @@ Yii prend en charge ce qu'on appelle les *événements globaux*, qui est une ast
 Pour créer l'événement global, un émetteur d'événement appelle la méthode `trigger()`  du singleton pour déclencher l'événement au lieu d'appeler la méthode `trigger()` propre à l'émetteur. De façon similaire, les gestionnaires d'événement sont attachés à l'événement sur le singleton. Par exemple :
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Event;
 use app\components\Foo;
 

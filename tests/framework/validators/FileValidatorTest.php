@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\validators;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\helpers\FileHelper;
 use yii\validators\FileValidator;
 use yii\http\UploadedFile;

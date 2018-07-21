@@ -26,7 +26,7 @@ untuk penjelasan lengkap mengenai penamaan file class.
 
 namespace app\models;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Model;
 
 class EntryForm extends Model
@@ -87,7 +87,7 @@ membuat dan menggunakan _action_ dijelaskan pada bagian [Mengatakan Hello](start
 
 namespace app\controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\web\Controller;
 use app\models\EntryForm;
 

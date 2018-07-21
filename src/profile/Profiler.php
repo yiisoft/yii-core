@@ -7,7 +7,7 @@
 
 namespace yii\profile;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\Component;
 use yii\exceptions\InvalidArgumentException;
 

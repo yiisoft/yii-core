@@ -7,7 +7,7 @@
 
 namespace yii\helpers;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * BaseStringHelper provides concrete implementation for [[StringHelper]].

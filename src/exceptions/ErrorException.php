@@ -7,7 +7,7 @@
 
 namespace yii\exceptions;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * ErrorException represents a PHP error.

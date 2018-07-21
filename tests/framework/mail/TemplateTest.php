@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\mail;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\View;
 use yii\helpers\FileHelper;
 use yii\mail\BaseMessage;

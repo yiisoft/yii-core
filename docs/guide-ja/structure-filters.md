@@ -74,7 +74,7 @@ public function behaviors()
 ```php
 namespace app\components;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ActionFilter;
 
 class ActionTimeFilter extends ActionFilter

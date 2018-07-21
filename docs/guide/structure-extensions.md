@@ -55,7 +55,7 @@ Now you can use the installed extensions like they are part of your application.
 how you can use the `yii\imagine\Image` class provided by the `yiisoft/yii2-imagine` extension:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\imagine\Image;
 
 // generate a thumbnail image

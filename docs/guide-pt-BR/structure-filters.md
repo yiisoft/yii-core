@@ -89,7 +89,7 @@ O exemplo a seguir mostra um filtro que guarda o log do tempo de execução das 
 ```php
 namespace app\components;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\base\ActionFilter;
 
 class ActionTimeFilter extends ActionFilter

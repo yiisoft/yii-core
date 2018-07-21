@@ -7,7 +7,7 @@
 
 namespace yiiunit\framework\profile;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\helpers\FileHelper;
 use yii\profile\FileTarget;
 use yii\profile\Profiler;

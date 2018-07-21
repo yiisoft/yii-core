@@ -68,7 +68,7 @@ exemplo a seguir mostra como você pode usar a classe `yii\imagine\Image`
 fornecido pela extensão `yiisoft/yii2-imagine`:
 
 ```php
-use Yii;
+use yii\helpers\Yii;
 use yii\imagine\Image;
 
 // gera uma imagem thumbnail 

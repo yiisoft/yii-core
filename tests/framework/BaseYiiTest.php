@@ -8,7 +8,7 @@
 namespace yiiunit\framework;
 
 use Psr\Log\LogLevel;
-use Yii;
+use yii\helpers\Yii;
 use yii\exceptions\InvalidArgumentException;
 use yii\BaseYii;
 use yii\di\Container;

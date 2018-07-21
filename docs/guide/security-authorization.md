@@ -345,7 +345,7 @@ APIs offered by `authManager`:
 <?php
 namespace app\commands;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\console\Controller;
 
 class RbacController extends Controller
@@ -623,7 +623,7 @@ You can set up the RBAC data as follows, first create a class:
 ```php
 namespace app\rbac;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\rbac\Rule;
 
 /**
