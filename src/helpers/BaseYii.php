@@ -254,20 +254,8 @@ class BaseYii
     /**
      * Translates a message to the specified language.
      *
-     * This is a shortcut method of [[\yii\i18n\I18N::translate()]].
-     *
-     * The translation will be conducted according to the message category and the target language will be used.
-     *
-     * You can add parameters to a translation message that will be substituted with the corresponding value after
-     * translation. The format for this is to use curly brackets around the parameter name as you can see in the following example:
-     *
-     * ```php
-     * $username = 'Alexander';
-     * echo \Yii::t('app', 'Hello, {username}!', ['username' => $username]);
-     * ```
-     *
-     * Further formatting of message parameters is supported using the [PHP intl extensions](http://www.php.net/manual/en/intro.intl.php)
-     * message formatter. See [[\yii\i18n\I18N::translate()]] for more details.
+     * Uses @see \yii\base\Application::t() if container is set.
+     * Else leaves message not translated, only params are substituted.
      *
      * @param string $category the message category.
      * @param string $message the message to be translated.
@@ -279,7 +267,7 @@ class BaseYii
     public static function t($category, $message, $params = [], $language = null)
     {
         if (static::$container !== null) {
-            return static::get('i18n')->translate($category, $message, $params, $language ?: static::getApp()->language);
+            return static::getApp()->t($category, $message, $params, $language);
         }
 
         $placeholders = [];

@@ -236,6 +236,35 @@ abstract class Application extends Module
         return $this->container->hasInstance($id);
     }
 
+    /**
+     * Translates a message to the specified language.
+     *
+     * This is a shortcut method of [[\yii\i18n\I18N::translate()]].
+     *
+     * The translation will be conducted according to the message category and the target language will be used.
+     *
+     * You can add parameters to a translation message that will be substituted with the corresponding value after
+     * translation. The format for this is to use curly brackets around the parameter name as you can see in the following example:
+     *
+     * ```php
+     * $username = 'Alexander';
+     * echo \Yii::t('app', 'Hello, {username}!', ['username' => $username]);
+     * ```
+     *
+     * Further formatting of message parameters is supported using the [PHP intl extensions](http://www.php.net/manual/en/intro.intl.php)
+     * message formatter. See [[\yii\i18n\I18N::translate()]] for more details.
+     *
+     * @param string $category the message category.
+     * @param string $message the message to be translated.
+     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
+     * @param string $language the language code (e.g. `en-US`, `en`). If this is null, the current language will be used.
+     * @return string the translated message.
+     */
+    public function t($category, $message, $params = [], $language = null)
+    {
+        return $this->container->get('i18n')->translate($category, $message, $params, $language ?: $this->language);
+    }
+
     public function getErrorHandler()
     {
         return $this->container->get('errorHandler');

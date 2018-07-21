@@ -76,6 +76,8 @@ Upgrade from Yii 2.0.x
     * aliases moved to `Application`:
         * use `$app->getAlias()` to resolve aliases
         * prefered way to set aliases is through configuration
+    * added and used `Application::t()`
+        * prefer `$this->app->t()` over `Yii::t()`
     * removed `Yii::configure()`
     * `Yii::$container` made private:
         * don't use it explicitly
