@@ -7,7 +7,7 @@
 
 namespace yii\base;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * InlineAction represents an action that is defined as a controller method.
@@ -34,10 +34,10 @@ class InlineAction extends Action
      * @param string $actionMethod the controller method that this inline action is associated with
      * @param array $config name-value pairs that will be used to initialize the object properties
      */
-    public function __construct($id, $controller, $actionMethod, $config = [])
+    public function __construct($id, $controller, $actionMethod)
     {
         $this->actionMethod = $actionMethod;
-        parent::__construct($id, $controller, $config);
+        parent::__construct($id, $controller);
     }
 
     /**
@@ -50,8 +50,8 @@ class InlineAction extends Action
     {
         $args = $this->controller->bindActionParams($this, $params);
         Yii::debug('Running action: ' . get_class($this->controller) . '::' . $this->actionMethod . '()', __METHOD__);
-        if (Yii::$app->requestedParams === null) {
-            Yii::$app->requestedParams = $args;
+        if ($this->app->requestedParams === null) {
+            $this->app->requestedParams = $args;
         }
 
         return $this->controller->{$this->actionMethod}(...$args);

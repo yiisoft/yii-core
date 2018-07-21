@@ -47,8 +47,6 @@ class Action extends Component
      */
     public $controller;
 
-    protected $app;
-
     /**
      * Constructor.
      *
@@ -56,11 +54,11 @@ class Action extends Component
      * @param Controller $controller the controller that owns this action
      * @param array $config name-value pairs that will be used to initialize the object properties
      */
-    public function __construct($id, $controller, Application $app)
+    public function __construct($id, $controller)
     {
         $this->id = $id;
         $this->controller = $controller;
-        $this->app = $app;
+        $this->app = $controller->getApp();
     }
 
     /**

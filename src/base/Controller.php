@@ -89,6 +89,11 @@ class Controller extends Component implements ViewContextInterface
         $this->app = $app;
     }
 
+    public function getApp()
+    {
+        return $this->app;
+    }
+
     /**
      * Declares external actions for the controller.
      *
