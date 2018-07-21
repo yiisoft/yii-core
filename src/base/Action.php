@@ -46,6 +46,10 @@ class Action extends Component
      * @var Controller|\yii\web\Controller|\yii\console\Controller the controller that owns this action
      */
     public $controller;
+    /**
+     * @var Application
+     */
+    protected $app;
 
     /**
      * Constructor.
