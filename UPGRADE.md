@@ -90,10 +90,16 @@ Upgrade from Yii 2.0.x
     * removed `ServiceLocator`
         * no components in app and modules
         * get components with DI
-* Moved files around for more logic organization:
-    * all exceptions moved into separate dirs in all packages
-    * moved web formatters to their own directory
-    * `yii\caching` -> `yii\cache`
+* Moved files around for more logic organization and more readable directories:
+    * globally:
+        * all exceptions moved into separate dirs in all packages
+    * app:
+        * moved web server root dir to `public` (was web)
+    * yii-web:
+        * moved web formatters to their own directory
+    * cache:
+        * renamed `yii\caching` -> `yii\cache`
+        * moved cache dependencies to own directory
 * Config changed to be DI container config instead of application.
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).
