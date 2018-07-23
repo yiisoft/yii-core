@@ -86,6 +86,8 @@ Upgrade from Yii 2.0.x
         * for it could access logger, profile and i18n
         * else Yii functions will have generic behavior
     * removed `Yii::$logger` and `Yii::$profiler`, use DI instead
+    * constant definitions moved to `config/defines.php`
+        * `YII_DEBUG` defaults to `YII_ENV_DEV`
 * Simplified `Application` and `Module`:
     * removed `ServiceLocator`
         * no components in app and modules
