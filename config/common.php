@@ -27,11 +27,11 @@ return [
         'id' => $params['app.id'],
         'name' => $params['app.name'],
         'language' => $params['app.language'],
-        'aliases' => [
+        'aliases' => array_merge($aliases, [
             '@root'     => dirname(__DIR__, 4),
             '@vendor'   => dirname(__DIR__, 3),
             '@runtime'  => '@root/runtime',
-        ],
+        ]),
         'params' => $params,
     ],
 
