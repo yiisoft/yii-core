@@ -7,7 +7,6 @@
 
 namespace yii\base;
 
-use yii\helpers\Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Link;
 use yii\web\Linkable;
@@ -70,7 +69,7 @@ trait ArrayableTrait
      */
     public function fields()
     {
-        $fields = array_keys(Yii::getObjectVars($this));
+        $fields = array_keys(ArrayHelper::getObjectVars($this));
         return array_combine($fields, $fields);
     }
 
