@@ -680,7 +680,7 @@ class BaseArrayHelper
     public static function htmlEncode($data, $valuesOnly = true, $charset = null)
     {
         if ($charset === null) {
-            $charset = Yii::$app ? Yii::$app->charset : 'UTF-8';
+            $charset = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
         }
         $d = [];
         foreach ($data as $key => $value) {
