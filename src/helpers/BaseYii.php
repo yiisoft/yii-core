@@ -180,15 +180,12 @@ class BaseYii
         throw new InvalidConfigException("Invalid data type: $valueType. $type is expected.");
     }
 
-    public static function getCharset()
-    {
-        return static::getApp()->charset;
-    }
-
-    /// TODO to be removed !!!
+    /**
+     * @deprecated 3.0.0 Use DI instead.
+     */
     public static function getApp()
     {
-        return static::get('app');
+        return static::$container ? static::$container->get('app') : null;
     }
 
     private static function getFactory()
