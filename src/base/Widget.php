@@ -28,23 +28,6 @@ use yii\helpers\Yii;
 class Widget extends Component implements ViewContextInterface
 {
     /**
-     * @event Event an event that is triggered when the widget is initialized via [[init()]].
-     * @since 2.0.11
-     */
-    const EVENT_INIT = 'init';
-    /**
-     * @event WidgetEvent an event raised right before executing a widget.
-     * You may set [[WidgetEvent::isValid]] to be false to cancel the widget execution.
-     * @since 2.0.11
-     */
-    const EVENT_BEFORE_RUN = 'beforeRun';
-    /**
-     * @event WidgetEvent an event raised right after executing a widget.
-     * @since 2.0.11
-     */
-    const EVENT_AFTER_RUN = 'afterRun';
-
-    /**
      * @var int a counter used to generate [[id]] for widgets.
      * @internal
      */
@@ -64,12 +47,12 @@ class Widget extends Component implements ViewContextInterface
     protected $app;
 
     /**
-     * The default implementation will trigger an [[EVENT_INIT]] event.
+     * The default implementation will trigger an [[WidgetEvent::BEFORE_INIT]] event.
      */
     public function __construct(Application $app)
     {
         $this->app = $app;
-        $this->trigger(self::EVENT_INIT);
+        $this->trigger(WidgetEvent::BEFORE_INIT);
     }
 
     /**
@@ -263,7 +246,7 @@ class Widget extends Component implements ViewContextInterface
     /**
      * This method is invoked right before the widget is executed.
      *
-     * The method will trigger the [[EVENT_BEFORE_RUN]] event. The return value of the method
+     * The method will trigger the [[WidgetEvent::BEFORE_RUN]] event. The return value of the method
      * will determine whether the widget should continue to run.
      *
      * When overriding this method, make sure you call the parent implementation like the following:
@@ -286,15 +269,13 @@ class Widget extends Component implements ViewContextInterface
      */
     public function beforeRun()
     {
-        $event = new WidgetEvent();
-        $this->trigger(self::EVENT_BEFORE_RUN, $event);
-        return $event->isValid;
+        return $this->trigger(WidgetEvent::beforeRun());
     }
 
     /**
      * This method is invoked right after a widget is executed.
      *
-     * The method will trigger the [[EVENT_AFTER_RUN]] event. The return value of the method
+     * The method will trigger the [[WidgetEvent::AFTER_RUN]] event. The return value of the method
      * will be used as the widget return value.
      *
      * If you override this method, your code should look like the following:
@@ -314,9 +295,6 @@ class Widget extends Component implements ViewContextInterface
      */
     public function afterRun($result)
     {
-        $event = new WidgetEvent();
-        $event->result = $result;
-        $this->trigger(self::EVENT_AFTER_RUN, $event);
-        return $event->result;
+        return $this->trigger(WidgetEvent::afterRun($result));
     }
 }

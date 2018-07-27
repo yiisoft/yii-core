@@ -7,6 +7,7 @@
 
 namespace yii\base;
 
+use yii\base\Event;
 use yii\exceptions\UnknownPropertyException;
 use yii\exceptions\InvalidCallException;
 use yii\exceptions\UnknownMethodException;
@@ -606,8 +607,9 @@ class Component extends BaseObject
      * This method represents the happening of an event. It invokes
      * all attached handlers for the event including class-level handlers.
      * @param Event|string $event the event instance or name. If string name passed, a default [[Event]] object will be created.
+     * @return true whether to continue action
      */
-    public function trigger($name, $event = null)
+    public function trigger($event)
     {
         $this->ensureBehaviors();
 
@@ -642,13 +644,13 @@ class Component extends BaseObject
                 call_user_func($handler[0], $event);
                 // stop further handling if the event is handled
                 if ($event->isPropagationStopped()) {
-                    return;
+                    return $event->getReturn();
                 }
             }
         }
 
         // invoke class-level attached handlers
-        Event::trigger($this, $event);
+        return Event::trigger($this, $event);
     }
 
     /**

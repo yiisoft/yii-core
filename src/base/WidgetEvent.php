@@ -18,13 +18,38 @@ namespace yii\base;
 class WidgetEvent extends Event
 {
     /**
-     * @var mixed the widget result. Event handlers may modify this property to change the widget result.
+     * @event Event an event that is triggered when the widget is initialized via [[init()]].
+     * @since 2.0.11
      */
-    public $result;
+    const BEFORE_INIT = 'init';
     /**
-     * @var bool whether to continue running the widget. Event handlers of
-     * [[Widget::EVENT_BEFORE_RUN]] may set this property to decide whether
-     * to continue running the current widget.
+     * @event WidgetEvent an event raised right before executing a widget.
+     * You may set [[WidgetEvent::isValid]] to be false to cancel the widget execution.
+     * @since 2.0.11
      */
-    public $isValid = true;
+    const BEFORE_RUN = 'beforeRun';
+    /**
+     * @event WidgetEvent an event raised right after executing a widget.
+     * @since 2.0.11
+     */
+    const AFTER_RUN = 'afterRun';
+
+    /**
+     * Creates BEFORE_RUN event.
+     * @return self created event
+     */
+    public static function beforeRun(): self
+    {
+        return new static(static::BEFORE_RUN);
+    }
+
+    /**
+     * Creates AFTER_RUN event with result.
+     * @param mixed $result widget return result.
+     * @return self created event
+     */
+    public static function afterRun($result): self
+    {
+        return (new static(static::AFTER_RUN))->setResult($result);
+    }
 }

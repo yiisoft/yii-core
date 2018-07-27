@@ -18,28 +18,51 @@ namespace yii\base;
 class ActionEvent extends Event
 {
     /**
-     * @var Action the action currently being executed
+     * @event raised before executing a controller action.
+     * You may set [[ActionEvent::isValid]] to `false` to cancel the action execution.
      */
-    public $action;
+    const BEFORE = 'beforeAction';
     /**
-     * @var mixed the action result. Event handlers may modify this property to change the action result.
+     * @event raised after executing a controller action.
      */
-    public $result;
-    /**
-     * @var bool whether to continue running the action. Event handlers of
-     * [[Controller::EVENT_BEFORE_ACTION]] may set this property to decide whether
-     * to continue running the current action.
-     */
-    public $isValid = true;
-
+    const AFTER = 'afterAction';
 
     /**
-     * Constructor.
-     * @param Action $action the action associated with this action event.
-     * @param array $config name-value pairs that will be used to initialize the object properties
+     * @param string $name event name
+     * @param Action $action the action associated with this event.
      */
-    public function __construct($action, $config = [])
+    public function __construct(string $name, Action $action)
     {
-        $this->action = $action;
+        parent::__construct($name, $action);
+    }
+
+    /**
+     * Creates AFTER_RUN event with result.
+     * @param Action $action the action this event is fired on.
+     * @param mixed $result action result.
+     * @return self created event
+     */
+    public static function before(Action $action): self
+    {
+        return new static(static::BEFORE, $action);
+    }
+
+    /**
+     * Creates AFTER_RUN event with result.
+     * @param Action $action the action this event is fired on.
+     * @param mixed $result action result.
+     * @return self created event
+     */
+    public static function after(Action $action, $result): self
+    {
+        return (new static(static::AFTER, $action))->setResult($result);
+    }
+
+    /**
+     * @return Action the action associated with this event.
+     */
+    public function getAction(): Action
+    {
+        return $this->getTarget();
     }
 }

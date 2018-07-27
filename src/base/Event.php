@@ -37,9 +37,17 @@ class Event extends BaseObject
      */
     private $_name;
     /**
-     * @var object|null the target/context from which event was triggered.
+     * @var object|null the target associated with the event.
      */
     private $_target;
+    /**
+     * @var mixed result associated with the target.
+     */
+    private $_result;
+    /**
+     * @var object|null the context (component) from which event was triggered.
+     */
+    private $_context;
     /**
      * @var bool whether the propagation of this event is stopped.
      */
@@ -49,6 +57,14 @@ class Event extends BaseObject
      * Note that this varies according to which event handler is currently executing.
      */
     private $_params = [];
+    /**
+     * @var bool whether to continue action (rendering the view file).
+     * Event handlers of [[View::EVENT_BEFORE_RENDER]] may set this property
+     * to decide whether to continue rendering the current view file.
+     */
+    public $isValid = true;
+
+    protected $_hasResult = false;
 
     /**
      * @var array contains all globally registered event handlers.
@@ -60,6 +76,30 @@ class Event extends BaseObject
      */
     private static $_eventWildcards = [];
 
+    /**
+     * @param string $name event name.
+     * @param object|null $target the target associated with the event.
+     * @param array $params parameters.
+     */
+    public function __construct(string $name, $target = null, array $params = [])
+    {
+        $this->_name = $name;
+        $this->_target = $target;
+        $this->_params = $params;
+    }
+
+    /**
+     * Set result associated with this event.
+     * @param mixed $result result associated with this event.
+     * @return self
+     */
+    public function setResult($result): self
+    {
+        $this->_result = $result;
+        $this->_hasResult = true;
+
+        return $this;
+    }
 
     /**
      * Returns event name.
@@ -72,16 +112,6 @@ class Event extends BaseObject
             $this->_name = $this->defaultName();
         }
         return $this->_name;
-    }
-
-    /**
-     * Sets the event name.
-     * @param string $name event name.
-     * @since 3.0.0
-     */
-    public function setName($name)
-    {
-        $this->_name = $name;
     }
 
     /**
@@ -366,14 +396,14 @@ class Event extends BaseObject
      * for the specified class and all its parent classes.
      * @param string|object $class the object or the fully qualified class name specifying the class-level event.
      * @param Event|string $event the event instance or name. If string name passed, a default [[Event]] object will be created.
+     * @return mixed event isValid or event result
      */
     public static function trigger($class, $event)
     {
-        if (is_object($event)) {
-            $name = $event->getName();
-        } else {
-            $name = $event;
+        if (!is_object($event)) {
+            $event = new static($event);
         }
+        $name = $event->getName();
 
         $wildcardEventHandlers = [];
         foreach (self::$_eventWildcards as $nameWildcard => $classHandlers) {
@@ -384,13 +414,9 @@ class Event extends BaseObject
         }
 
         if (empty(self::$_events[$name]) && empty($wildcardEventHandlers)) {
-            return;
+            return $event->getReturn();
         }
 
-        if (!is_object($event)) {
-            $event = new static();
-            $event->setName($name);
-        }
         $event->stopPropagation(false);
 
         if (is_object($class)) {
@@ -425,9 +451,16 @@ class Event extends BaseObject
                 $event->setParams($handler[1]);
                 call_user_func($handler[0], $event);
                 if ($event->isPropagationStopped()) {
-                    return;
+                    return $event->getReturn();
                 }
             }
         }
+
+        return $event->getReturn();
+    }
+
+    public function getReturn()
+    {
+        return $this->_hasResult ? $this->_result : $this->isValid;
     }
 }

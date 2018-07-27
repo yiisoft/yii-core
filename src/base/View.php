@@ -32,23 +32,6 @@ use yii\widgets\FragmentCache;
 class View extends Component implements DynamicContentAwareInterface
 {
     /**
-     * @event Event an event that is triggered by [[beginPage()]].
-     */
-    const EVENT_BEGIN_PAGE = 'beginPage';
-    /**
-     * @event Event an event that is triggered by [[endPage()]].
-     */
-    const EVENT_END_PAGE = 'endPage';
-    /**
-     * @event ViewEvent an event that is triggered by [[renderFile()]] right before it renders a view file.
-     */
-    const EVENT_BEFORE_RENDER = 'beforeRender';
-    /**
-     * @event ViewEvent an event that is triggered by [[renderFile()]] right after it renders a view file.
-     */
-    const EVENT_AFTER_RENDER = 'afterRender';
-
-    /**
      * @var ViewContextInterface the context under which the [[renderFile()]] method is being invoked.
      */
     public $context;
@@ -292,44 +275,30 @@ class View extends Component implements DynamicContentAwareInterface
 
     /**
      * This method is invoked right before [[renderFile()]] renders a view file.
-     * The default implementation will trigger the [[EVENT_BEFORE_RENDER]] event.
+     * The default implementation will trigger the [[ViewEvent::BEFORE_RENDER]] event.
      * If you override this method, make sure you call the parent implementation first.
      * @param string $viewFile the view file to be rendered.
      * @param array $params the parameter array passed to the [[render()]] method.
      * @return bool whether to continue rendering the view file.
      */
-    public function beforeRender($viewFile, $params)
+    public function beforeRender(string $viewFile, array $params): bool
     {
-        $event = new ViewEvent([
-            'name' => self::EVENT_BEFORE_RENDER,
-            'viewFile' => $viewFile,
-            'params' => $params,
-        ]);
-        $this->trigger(self::EVENT_BEFORE_RENDER, $event);
-
-        return $event->isValid;
+        return $this->trigger(ViewEvent::beforeRender($viewFile, $params));
     }
 
     /**
      * This method is invoked right after [[renderFile()]] renders a view file.
-     * The default implementation will trigger the [[EVENT_AFTER_RENDER]] event.
+     * The default implementation will trigger the [[ViewEvent::AFTER_RENDER]] event.
      * If you override this method, make sure you call the parent implementation first.
      * @param string $viewFile the view file being rendered.
      * @param array $params the parameter array passed to the [[render()]] method.
      * @param string $output the rendering result of the view file. Updates to this parameter
      * will be passed back and returned by [[renderFile()]].
      */
-    public function afterRender($viewFile, $params, &$output)
+    public function afterRender(string $viewFile, array $params, &$output): void
     {
-        if ($this->hasEventHandlers(self::EVENT_AFTER_RENDER)) {
-            $event = new ViewEvent([
-                'name' => self::EVENT_BEFORE_RENDER,
-                'viewFile' => $viewFile,
-                'params' => $params,
-                'output' => $output,
-            ]);
-            $this->trigger(self::EVENT_AFTER_RENDER, $event);
-            $output = $event->output;
+        if ($this->hasEventHandlers(ViewEvent::AFTER_RENDER)) {
+            $output = $this->trigger(ViewEvent::afterRender($viewFile, $params, $output));
         }
     }
 
@@ -586,7 +555,7 @@ class View extends Component implements DynamicContentAwareInterface
         ob_start();
         ob_implicit_flush(false);
 
-        $this->trigger(self::EVENT_BEGIN_PAGE);
+        $this->trigger(ViewEvent::BEGIN_PAGE);
     }
 
     /**
@@ -594,7 +563,7 @@ class View extends Component implements DynamicContentAwareInterface
      */
     public function endPage()
     {
-        $this->trigger(self::EVENT_END_PAGE);
+        $this->trigger(ViewEvent::END_PAGE);
         ob_end_flush();
     }
 }

@@ -44,16 +44,6 @@ use yii\helpers\Yii;
 class Module extends Component
 {
     /**
-     * @event ActionEvent an event raised before executing a controller action.
-     * You may set [[ActionEvent::isValid]] to be `false` to cancel the action execution.
-     */
-    const EVENT_BEFORE_ACTION = 'beforeAction';
-    /**
-     * @event ActionEvent an event raised after executing a controller action.
-     */
-    const EVENT_AFTER_ACTION = 'afterAction';
-
-    /**
      * @var array custom module parameters (name => value).
      */
     public $params = [];
@@ -698,11 +688,9 @@ class Module extends Component
      * @param Action $action the action to be executed.
      * @return bool whether the action should continue to be executed.
      */
-    public function beforeAction($action)
+    public function beforeAction(Action $action)
     {
-        $event = new ActionEvent($action);
-        $this->trigger(self::EVENT_BEFORE_ACTION, $event);
-        return $event->isValid;
+        return $this->trigger(ActionEvent::before($action));
     }
 
     /**
@@ -726,12 +714,9 @@ class Module extends Component
      * @param mixed $result the action return result.
      * @return mixed the processed action result.
      */
-    public function afterAction($action, $result)
+    public function afterAction(Action $action, $result)
     {
-        $event = new ActionEvent($action);
-        $event->result = $result;
-        $this->trigger(self::EVENT_AFTER_ACTION, $event);
-        return $event->result;
+        return $this->trigger(ActionEvent::after($action, $result));
     }
 
     /**
