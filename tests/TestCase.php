@@ -62,6 +62,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function mockApplication($config = [], $appClass = \yii\console\Application::class)
     {
+        if (empty($config)) {
+            return;
+        }
         throw new \Exception('NO APP MOCKING NEEDED IN ' . __METHOD__);
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
@@ -72,7 +75,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected function mockWebApplication($config = [], $appClass = \yii\web\Application::class)
     {
-        throw new \Exception('NO APP MOCKING NEEDED IN ' . __METHOD__);
+        throw new \Exception('WEB APP TESTS MUST BE MOVED TO yii-web IN ' . __METHOD__);
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
