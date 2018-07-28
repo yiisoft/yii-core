@@ -9,6 +9,7 @@ namespace yii\helpers;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
+use yii\base\Application;
 use yii\exceptions\InvalidConfigException;
 use yii\di\Container;
 use yii\di\Reference;
@@ -94,13 +95,19 @@ class BaseYii
     {
         if (is_string($type)) {
             return static::get('factory')->create($type, [], $params);
-        } elseif (is_array($type) && isset($type['__class'])) {
+        }
+
+        if (is_array($type) && isset($type['__class'])) {
             $class = $type['__class'];
             unset($type['__class']);
             return static::get('factory')->create($class, $type, $params);
-        } elseif (is_callable($type, true)) {
+        }
+
+        if (is_callable($type, true)) {
             return static::get('injector')->invoke($type, $params);
-        } elseif (is_array($type)) {
+        }
+
+        if (is_array($type)) {
             throw new InvalidConfigException('Object configuration must be an array containing a "__class" element.');
         }
 
@@ -131,7 +138,7 @@ class BaseYii
      * Starting from version 2.0.2, you may also pass in a configuration array for creating the object.
      * If the "class" value is not specified in the configuration array, it will use the value of `$type`.
      * @param string $type the class/interface name to be checked. If null, type check will not be performed.
-     * @param ServiceLocator|Container $container the container. This will be passed to [[get()]].
+     * @param Container $container the container. This will be passed to [[get()]].
      * @return object the object referenced by the Reference, or `$reference` itself if it is an object.
      * @throws InvalidConfigException if the reference is invalid
      */
@@ -144,7 +151,7 @@ class BaseYii
                 unset($reference['__class']);
             }
 
-            if (empty($container)) {
+            if ($container === null) {
                 $container = static::$container;
             }
             $component = $container->get($class, [], $reference);
@@ -153,7 +160,9 @@ class BaseYii
             }
 
             throw new InvalidConfigException('Invalid data type: ' . $class . '. ' . $type . ' is expected.');
-        } elseif (empty($reference)) {
+        }
+
+        if (empty($reference)) {
             throw new InvalidConfigException('The required component is not specified.');
         }
 
@@ -182,6 +191,7 @@ class BaseYii
 
     /**
      * @deprecated 3.0.0 Use DI instead.
+     * @return Application
      */
     public static function getApp()
     {
