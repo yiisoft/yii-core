@@ -77,7 +77,11 @@
     "require-dev": {
         "yiisoft/di": "dev-master",
         "yiisoft/log": "dev-master",
-        "yiisoft/cache": "dev-master"
+        "yiisoft/cache": "dev-master",
+        "yiisoft/yii-console": "dev-master",
+        "yiisoft/yii-web": "dev-master",
+        "phpunit/phpunit": "^7.2",
+        "hiqdev/composer-config-plugin": "1.0.x-dev"
     },
     "suggest": {
         "yiisoft/di": "DI container implementation",
@@ -98,7 +102,11 @@
         "config-plugin": {
             "defines": "config/defines.php",
             "params": "config/params.php",
-            "common": "config/common.php"
+            "common": "config/common.php",
+            "tests": [
+                "$console",
+                "config/common.php"
+            ]
         }
     }
 }

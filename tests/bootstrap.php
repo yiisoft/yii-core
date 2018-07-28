@@ -5,27 +5,29 @@
  * @license http://www.yiiframework.com/license/
  */
 
+use hiqdev\composer\config\Builder;
+use yii\di\Container;
+use yii\helpers\Yii;
+
 // ensure we get report on all possible php errors
-error_reporting(-1);
+error_reporting(E_ALL);
 
 define('YII_ENABLE_ERROR_HANDLER', false);
 define('YII_DEBUG', true);
 define('YII_ENV', 'test');
+
 $_SERVER['SCRIPT_NAME'] = '/' . __DIR__;
 $_SERVER['SCRIPT_FILENAME'] = __FILE__;
 
-// require composer autoloader if available
-$composerAutoload = __DIR__ . '/../vendor/autoload.php';
-if (is_file($composerAutoload)) {
+(function () {
+    $composerAutoload = __DIR__ . '/../vendor/autoload.php';
+    if (!is_file($composerAutoload)) {
+        die('You need to set up the project dependencies using Composer');
+    }
+
     require_once $composerAutoload;
-}
-require_once __DIR__ . '/../framework/Yii.php';
 
-Yii::setAlias('@yii/tests', __DIR__);
+    $container = new Container(require Builder::path('tests'));
 
-if (getenv('TEST_RUNTIME_PATH')) {
-    Yii::setAlias('@yii/tests/runtime', getenv('TEST_RUNTIME_PATH'));
-    Yii::setAlias('@runtime', getenv('TEST_RUNTIME_PATH'));
-}
-
-require_once __DIR__ . '/TestCase.php';
+    Yii::setContainer($container);
+})();

@@ -18,7 +18,7 @@ class ChangeLogTest extends TestCase
     public function changeProvider()
     {
 
-        $lines = explode("\n", file_get_contents(__DIR__ . '/../../framework/CHANGELOG.md'));
+        $lines = explode("\n", file_get_contents(__DIR__ . '/../../CHANGELOG.md'));
 
         // Don't check last 1500 lines, they are old and often don't obey the standard.
         $lastIndex = count($lines) - 1500;

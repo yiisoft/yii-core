@@ -7,8 +7,9 @@
 
 namespace yii\tests;
 
-use yii\helpers\Yii;
+use yii\base\Application;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Yii;
 
 /**
  * This is the base class for all yii framework unit tests.
@@ -16,6 +17,14 @@ use yii\helpers\ArrayHelper;
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     public static $params;
+
+    protected $app;
+
+    protected function setUp()
+    {
+        $this->app = Yii::getApp();
+        parent::setUp();
+    }
 
     /**
      * Returns a test configuration param from /data/config.php.
@@ -25,6 +34,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     public static function getParam($name, $default = null)
     {
+        die('NOT NEEDED ANYMORE ' . __METHOD__);
         if (static::$params === null) {
             static::$params = require __DIR__ . '/data/config.php';
         }
@@ -40,18 +50,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     {
         parent::tearDown();
         $this->destroyApplication();
-        Yii::setLogger(null);
-        Yii::$container = new \yii\di\Container();
     }
 
     /**
-     * Populates Yii::$app with a new application
      * The application will be destroyed on tearDown() automatically.
      * @param array $config The application configuration, if needed
      * @param string $appClass name of the application class to create
      */
     protected function mockApplication($config = [], $appClass = \yii\console\Application::class)
     {
+        die('NO APP MOCKING NEEDED IN ' . __METHOD__);
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
@@ -61,6 +69,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected function mockWebApplication($config = [], $appClass = \yii\web\Application::class)
     {
+        die('NO APP MOCKING NEEDED IN ' . __METHOD__);
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
@@ -90,14 +99,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Destroys application in Yii::$app by setting it to null.
+     * TODO how to destory application?
      */
     protected function destroyApplication()
     {
-        if (Yii::$app && Yii::$app->has('session', true)) {
-            Yii::$app->session->close();
+        if ($this->app && $this->app->has('session')) {
+            $this->session->close();
         }
-        Yii::$app = null;
+        $this->app = null;
     }
 
     /**
