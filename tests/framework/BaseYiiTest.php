@@ -10,7 +10,7 @@ namespace yii\tests\framework;
 use Psr\Log\LogLevel;
 use yii\helpers\Yii;
 use yii\exceptions\InvalidArgumentException;
-use yii\BaseYii;
+use yii\helpers\BaseYii;
 use yii\di\Container;
 use yii\log\Logger;
 use yii\profile\Profiler;
@@ -41,7 +41,7 @@ class BaseYiiTest extends TestCase
 
     public function testAlias()
     {
-        $this->assertEquals(YII2_PATH, Yii::getAlias('@yii'));
+        $this->assertEquals(YII_PATH, Yii::getAlias('@yii'));
 
         Yii::$aliases = [];
         $this->assertFalse(Yii::getAlias('@yii', false));
@@ -163,79 +163,6 @@ class BaseYiiTest extends TestCase
         $this->expectExceptionMessage('Unsupported configuration type: ' . gettype(null));
 
         Yii::createObject(null);
-    }
-
-    /**
-     * @covers \yii\BaseYii::setLogger()
-     * @covers \yii\BaseYii::getLogger()
-     */
-    public function testSetupLogger()
-    {
-        $logger = new Logger();
-        BaseYii::setLogger($logger);
-
-        $this->assertSame($logger, BaseYii::getLogger());
-
-        BaseYii::setLogger(null);
-        $defaultLogger = BaseYii::getLogger();
-        $this->assertInstanceOf(Logger::class, $defaultLogger);
-
-        BaseYii::setLogger(['flushInterval' => 789]);
-        $logger = BaseYii::getLogger();
-        $this->assertSame($defaultLogger, $logger);
-        $this->assertEquals(789, $logger->flushInterval);
-
-        BaseYii::setLogger(function() {
-            return new Logger();
-        });
-        $this->assertNotSame($defaultLogger, BaseYii::getLogger());
-
-        BaseYii::setLogger(null);
-        $defaultLogger = BaseYii::getLogger();
-        BaseYii::setLogger([
-            '__class' => Logger::class,
-            'flushInterval' => 987,
-        ]);
-        $logger = BaseYii::getLogger();
-        $this->assertNotSame($defaultLogger, $logger);
-        $this->assertEquals(987, $logger->flushInterval);
-    }
-
-    /**
-     * @covers \yii\BaseYii::setProfiler()
-     * @covers \yii\BaseYii::getProfiler()
-     */
-    public function testSetupProfiler()
-    {
-        $profiler = new Profiler();
-        BaseYii::setProfiler($profiler);
-
-        $this->assertSame($profiler, BaseYii::getProfiler());
-
-        $this->assertEmpty($profiler->messages);
-        $messages = ['test' => 1, 'test2'=> 'test'];
-        BaseYii::setProfiler(['messages' => $messages]);
-        $this->assertSame($profiler, BaseYii::getProfiler());
-        $this->assertEquals(1, $profiler->messages['test']);
-        $this->assertEquals('test', $profiler->messages['test2']);
-
-
-        BaseYii::setProfiler(null);
-        $defaultProfiler = BaseYii::getProfiler();
-        $this->assertInstanceOf(Profiler::class, $defaultProfiler);
-
-        BaseYii::setProfiler(function() {
-            return new Profiler();
-        });
-        $this->assertNotSame($defaultProfiler, BaseYii::getProfiler());
-
-        BaseYii::setProfiler(null);
-        $defaultProfiler = BaseYii::getProfiler();
-        BaseYii::setProfiler([
-            '__class' => Profiler::class,
-        ]);
-        $profiler = BaseYii::getProfiler();
-        $this->assertNotSame($defaultProfiler, $profiler);
     }
 
     /**
