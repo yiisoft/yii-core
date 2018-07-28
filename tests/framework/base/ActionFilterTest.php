@@ -10,7 +10,7 @@ namespace yii\tests\framework\base;
 use yii\helpers\Yii;
 use yii\base\Action;
 use yii\base\ActionFilter;
-use yii\base\Controller;
+use yii\web\Controller;
 use yii\web\User;
 use yii\tests\TestCase;
 
@@ -22,64 +22,60 @@ class ActionFilterTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockApplication();
     }
 
     public function testFilter()
     {
         // no filters
-        $controller = new FakeController('fake', Yii::$app);
+        $controller = new FakeController('fake', $this->app);
+
         $this->assertNull($controller->result);
         $result = $controller->runAction('test');
         $this->assertEquals('x', $result);
         $this->assertNull($controller->result);
 
         // all filters pass
-        $controller = new FakeController('fake', Yii::$app, [
-            'behaviors' => [
-                'filter1' => Filter1::class,
-                'filter3' => Filter3::class,
-            ],
-        ]);
+        $controller = new FakeController('fake', $this->app);
+        $controller->behaviors = [
+            'filter1' => Filter1::class,
+            'filter3' => Filter3::class,
+        ];
         $this->assertNull($controller->result);
         $result = $controller->runAction('test');
         $this->assertEquals('x-3-1', $result);
         $this->assertEquals([1, 3], $controller->result);
 
         // a filter stops in the middle
-        $controller = new FakeController('fake', Yii::$app, [
-            'behaviors' => [
-                'filter1' => Filter1::class,
-                'filter2' => Filter2::class,
-                'filter3' => Filter3::class,
-            ],
-        ]);
+        $controller = new FakeController('fake', $this->app);
+        $controller->behaviors = [
+            'filter1' => Filter1::class,
+            'filter2' => Filter2::class,
+            'filter3' => Filter3::class,
+        ];
         $this->assertNull($controller->result);
         $result = $controller->runAction('test');
         $this->assertNull($result);
         $this->assertEquals([1, 2], $controller->result);
 
         // the first filter stops
-        $controller = new FakeController('fake', Yii::$app, [
-            'behaviors' => [
-                'filter2' => Filter2::class,
-                'filter1' => Filter1::class,
-                'filter3' => Filter3::class,
-            ],
-        ]);
+        $controller = new FakeController('fake', $this->app);
+        $controller->behaviors = [
+            'filter2' => Filter2::class,
+            'filter1' => Filter1::class,
+            'filter3' => Filter3::class,
+        ];
         $this->assertNull($controller->result);
         $result = $controller->runAction('test');
         $this->assertNull($result);
         $this->assertEquals([2], $controller->result);
 
         // the last filter stops
-        $controller = new FakeController('fake', Yii::$app, [
-            'behaviors' => [
-                'filter1' => Filter1::class,
-                'filter3' => Filter3::class,
-                'filter2' => Filter2::class,
-            ],
-        ]);
+        $controller = new FakeController('fake', $this->app);
+        $controller->behaviors = [
+            'filter1' => Filter1::class,
+            'filter3' => Filter3::class,
+            'filter2' => Filter2::class,
+        ];
         $this->assertNull($controller->result);
         $result = $controller->runAction('test');
         $this->assertNull($result);
@@ -90,12 +86,12 @@ class ActionFilterTest extends TestCase
     public function actionFilterProvider()
     {
         return [
-            [['__class' => \yii\filters\AccessControl::class, 'user' => \yii\tests\framework\base\MockUser::class]],
-            [\yii\filters\ContentNegotiator::class],
-            [\yii\filters\Cors::class],
-            [\yii\filters\HttpCache::class],
-            [\yii\filters\PageCache::class],
-            [\yii\filters\RateLimiter::class],
+            [['__class' => \yii\web\filters\AccessControl::class, 'user' => \yii\tests\framework\base\MockUser::class]],
+            [\yii\web\filters\ContentNegotiator::class],
+            [\yii\web\filters\Cors::class],
+            [\yii\web\filters\HttpCache::class],
+            [\yii\web\filters\PageCache::class],
+            [\yii\web\filters\RateLimiter::class],
         ];
     }
 
@@ -105,15 +101,13 @@ class ActionFilterTest extends TestCase
      */
     public function testActive($filterClass)
     {
-        $this->mockWebApplication();
-
         /** @var $filter ActionFilter */
         $filter = Yii::createObject($filterClass);
         $reflection = new \ReflectionClass($filter);
         $method = $reflection->getMethod('isActive');
         $method->setAccessible(true);
 
-        $controller = new \yii\web\Controller('test', Yii::$app);
+        $controller = new Controller('test', $this->app);
 
         // active by default
         $this->assertTrue($method->invokeArgs($filter, [new Action('index', $controller)]));
@@ -140,14 +134,12 @@ class ActionFilterTest extends TestCase
      */
     public function testActiveWildcard()
     {
-        $this->mockWebApplication();
-
         $filter = new ActionFilter();
         $reflection = new \ReflectionClass($filter);
         $method = $reflection->getMethod('isActive');
         $method->setAccessible(true);
 
-        $controller = new \yii\web\Controller('test', Yii::$app);
+        $controller = new Controller('test', $this->app);
 
         $filter->only = ['test/*'];
         $filter->except = [];
@@ -161,7 +153,7 @@ class ActionFilterTest extends TestCase
     }
 }
 
-class FakeController extends Controller
+class FakeController extends \yii\base\Controller
 {
     public $result;
     public $behaviors = [];
