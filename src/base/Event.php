@@ -102,6 +102,15 @@ class Event extends BaseObject
     }
 
     /**
+     * Get result associated with this event.
+     * @return mixed result associated with this event.
+     */
+    public function getResult()
+    {
+        return $this->_result;
+    }
+
+    /**
      * Returns event name.
      * @return string event name.
      * @since 3.0.0
