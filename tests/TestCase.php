@@ -34,7 +34,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     public static function getParam($name, $default = null)
     {
-        die('NOT NEEDED ANYMORE ' . __METHOD__);
+        throw new \Exception('NOT NEEDED ANYMORE ' . __METHOD__);
         if (static::$params === null) {
             static::$params = require __DIR__ . '/data/config.php';
         }
@@ -59,7 +59,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function mockApplication($config = [], $appClass = \yii\console\Application::class)
     {
-        die('NO APP MOCKING NEEDED IN ' . __METHOD__);
+        throw new \Exception('NO APP MOCKING NEEDED IN ' . __METHOD__);
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
@@ -69,7 +69,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected function mockWebApplication($config = [], $appClass = \yii\web\Application::class)
     {
-        die('NO APP MOCKING NEEDED IN ' . __METHOD__);
+        throw new \Exception('NO APP MOCKING NEEDED IN ' . __METHOD__);
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
