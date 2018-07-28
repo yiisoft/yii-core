@@ -88,6 +88,7 @@ Upgrade from Yii 2.0.x
     * removed `Yii::$logger` and `Yii::$profiler`, use DI instead
     * constant definitions moved to `config/defines.php`
         * `YII_DEBUG` defaults to `YII_ENV_DEV`
+        * `YII2_PATH` renamed to `YII_PATH`
     * `getObjectVars()` moved to ArrayHelper
 * Simplified `Application` and `Module`:
     * removed `ServiceLocator`

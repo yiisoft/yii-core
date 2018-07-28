@@ -45,7 +45,7 @@ class PhpDocController extends Controller
      *
      * See https://github.com/yiisoft/yii2/wiki/Core-framework-code-style#documentation for details.
      *
-     * @param string $root the directory to parse files from. Defaults to YII2_PATH.
+     * @param string $root the directory to parse files from. Defaults to YII_PATH.
      */
     public function actionProperty($root = null)
     {
@@ -76,7 +76,7 @@ class PhpDocController extends Controller
     /**
      * Fix some issues with PHPDoc in files.
      *
-     * @param string $root the directory to parse files from. Defaults to YII2_PATH.
+     * @param string $root the directory to parse files from. Defaults to YII_PATH.
      */
     public function actionFix($root = null)
     {
@@ -156,7 +156,7 @@ class PhpDocController extends Controller
         }
 
         if ($root === null) {
-            $root = \dirname(YII2_PATH);
+            $root = \dirname(YII_PATH);
             $extensionPath = "$root/extensions";
             $this->setUpExtensionAliases($extensionPath);
 
