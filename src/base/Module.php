@@ -144,12 +144,16 @@ class Module extends Component
      * @param Module $parent the parent module (if any).
      * @param array $config name-value pairs that will be used to initialize the object properties.
      */
-    public function __construct($id, $parent = null, $config = [])
+    public function __construct($id, Module $parent)
     {
         $this->id = $id;
         $this->app = $parent->getApp();
         $this->module = $parent;
-        parent::__construct($config);
+    }
+
+    public function getApp()
+    {
+        return $this->app;
     }
 
     /**

@@ -208,6 +208,11 @@ abstract class Application extends Module
         $this->state = self::STATE_BEGIN;
     }
 
+    public function getApp()
+    {
+        return $this;
+    }
+
     public function getRequest()
     {
         if ($this->request === null) {
