@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\behaviors;
+namespace yii\tests\framework\behaviors;
 
 use yii\base\Behavior;
 use yii\base\Model;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * Unit test for cloning behaviors when objects are cloned.

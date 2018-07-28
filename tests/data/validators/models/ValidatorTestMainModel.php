@@ -5,9 +5,9 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\validators\models;
+namespace yii\tests\data\validators\models;
 
-use yiiunit\data\ar\ActiveRecord;
+use yii\tests\data\ar\ActiveRecord;
 
 class ValidatorTestMainModel extends ActiveRecord
 {

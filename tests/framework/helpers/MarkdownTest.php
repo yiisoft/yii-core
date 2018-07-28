@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\helpers;
+namespace yii\tests\framework\helpers;
 
 use yii\helpers\Markdown;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * Description of MarkdownTest.

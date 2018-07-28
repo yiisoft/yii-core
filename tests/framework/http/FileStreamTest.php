@@ -5,12 +5,12 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\http;
+namespace yii\tests\framework\http;
 
 use yii\helpers\Yii;
 use yii\helpers\FileHelper;
 use yii\http\FileStream;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 class FileStreamTest extends TestCase
 {
@@ -26,7 +26,7 @@ class FileStreamTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->testFilePath = Yii::getAlias('@yiiunit/runtime') . DIRECTORY_SEPARATOR . 'file-stream-test-' . getmypid();
+        $this->testFilePath = Yii::getAlias('@yii/tests/runtime') . DIRECTORY_SEPARATOR . 'file-stream-test-' . getmypid();
         FileHelper::createDirectory($this->testFilePath);
     }
 

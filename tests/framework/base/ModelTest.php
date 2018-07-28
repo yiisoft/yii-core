@@ -5,14 +5,14 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
 use yii\base\Model;
-use yiiunit\data\base\InvalidRulesModel;
-use yiiunit\data\base\RulesModel;
-use yiiunit\data\base\Singer;
-use yiiunit\data\base\Speaker;
-use yiiunit\TestCase;
+use yii\tests\data\base\InvalidRulesModel;
+use yii\tests\data\base\RulesModel;
+use yii\tests\data\base\Singer;
+use yii\tests\data\base\Speaker;
+use yii\tests\TestCase;
 
 /**
  * @group base

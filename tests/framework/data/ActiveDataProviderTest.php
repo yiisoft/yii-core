@@ -5,17 +5,17 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\data;
+namespace yii\tests\framework\data;
 
 use yii\exceptions\InvalidCallException;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
-use yiiunit\data\ar\ActiveRecord;
-use yiiunit\data\ar\Customer;
-use yiiunit\data\ar\Item;
-use yiiunit\data\ar\Order;
-use yiiunit\framework\db\DatabaseTestCase;
-use yiiunit\framework\db\UnqueryableQueryMock;
+use yii\tests\data\ar\ActiveRecord;
+use yii\tests\data\ar\Customer;
+use yii\tests\data\ar\Item;
+use yii\tests\data\ar\Order;
+use yii\tests\framework\db\DatabaseTestCase;
+use yii\tests\framework\db\UnqueryableQueryMock;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>

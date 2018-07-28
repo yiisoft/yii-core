@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\behaviors;
+namespace yii\tests\framework\behaviors;
 
 use yii\helpers\Yii;
 use yii\base\BaseObject;
@@ -13,7 +13,7 @@ use yii\base\Event;
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * Unit test for [[\yii\behaviors\BlameableBehavior]].
@@ -38,7 +38,7 @@ class BlameableBehaviorTest extends TestCase
                     'dsn' => 'sqlite::memory:',
                 ],
                 'user' => [
-                    '__class' => \yiiunit\framework\behaviors\UserMock::class,
+                    '__class' => \yii\tests\framework\behaviors\UserMock::class,
                 ],
             ],
         ]);

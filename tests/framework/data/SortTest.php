@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\data;
+namespace yii\tests\framework\data;
 
 use yii\data\Sort;
 use yii\web\UrlManager;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>

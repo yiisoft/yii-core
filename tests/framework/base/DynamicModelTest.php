@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
 use yii\base\DynamicModel;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group base

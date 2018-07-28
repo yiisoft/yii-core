@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\modules\magic\controllers;
+namespace yii\tests\data\modules\magic\controllers;
 
 class ETagController extends \yii\console\Controller
 {

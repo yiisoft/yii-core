@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\helpers;
+namespace yii\tests\framework\helpers;
 
 use yii\helpers\Yii;
 use yii\base\Action;
@@ -13,8 +13,8 @@ use yii\base\Module;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\widgets\Menu;
-use yiiunit\framework\filters\stubs\UserIdentity;
-use yiiunit\TestCase;
+use yii\tests\framework\filters\stubs\UserIdentity;
+use yii\tests\TestCase;
 
 /**
  * UrlTest.

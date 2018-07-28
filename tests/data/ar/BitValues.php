@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\ar;
+namespace yii\tests\data\ar;
 
 /**
  * @see https://github.com/yiisoft/yii2/issues/9006

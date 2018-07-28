@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\modules\magic;
+namespace yii\tests\data\modules\magic;
 
 class Module extends \yii\base\Module
 {

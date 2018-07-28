@@ -5,14 +5,14 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\validators;
+namespace yii\tests\framework\validators;
 
 use yii\helpers\Yii;
 use yii\helpers\FileHelper;
 use yii\validators\FileValidator;
 use yii\http\UploadedFile;
-use yiiunit\data\validators\models\FakedValidationModel;
-use yiiunit\TestCase;
+use yii\tests\data\validators\models\FakedValidationModel;
+use yii\tests\TestCase;
 
 /**
  * @group validators
@@ -339,7 +339,7 @@ class FileValidatorTest extends TestCase
                 continue;
             }
             $name = $param['clientFilename'] ?? $rndString();
-            $tempName = \Yii::getAlias('@yiiunit/runtime/validators/file/tmp/') . $name;
+            $tempName = \Yii::getAlias('@yii/tests/runtime/validators/file/tmp/') . $name;
             if (is_readable($tempName)) {
                 $size = filesize($tempName);
             } else {
@@ -379,7 +379,7 @@ class FileValidatorTest extends TestCase
      */
     protected function getRealTestFile($fileName)
     {
-        $filePath = \Yii::getAlias('@yiiunit/framework/validators/data/mimeType/') . $fileName;
+        $filePath = \Yii::getAlias('@yii/tests/framework/validators/data/mimeType/') . $fileName;
 
         return new UploadedFile([
             'clientFilename' => $fileName,
@@ -523,7 +523,7 @@ class FileValidatorTest extends TestCase
     {
         $validator = new FileValidator(['extensions' => (array) $allowedExtensions]);
         $file = $this->getRealTestFile($fileName);
-        $filePath = \Yii::getAlias('@yiiunit/framework/validators/data/mimeType/') . $fileName;
+        $filePath = \Yii::getAlias('@yii/tests/framework/validators/data/mimeType/') . $fileName;
 
         $detectedMimeType = FileHelper::getMimeType($filePath, null, false);
         $this->assertTrue($validator->validate($file), "Mime type detected was \"$detectedMimeType\". Consider adding it to MimeTypeController::\$aliases.");

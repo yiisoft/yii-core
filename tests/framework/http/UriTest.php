@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\http;
+namespace yii\tests\framework\http;
 
 use yii\http\Uri;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 class UriTest extends TestCase
 {

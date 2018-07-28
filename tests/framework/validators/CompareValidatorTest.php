@@ -5,12 +5,12 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\validators;
+namespace yii\tests\framework\validators;
 
 use yii\exceptions\InvalidConfigException;
 use yii\validators\CompareValidator;
-use yiiunit\data\validators\models\FakedValidationModel;
-use yiiunit\TestCase;
+use yii\tests\data\validators\models\FakedValidationModel;
+use yii\tests\TestCase;
 
 /**
  * @group validators

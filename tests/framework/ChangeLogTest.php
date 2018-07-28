@@ -5,9 +5,9 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework;
+namespace yii\tests\framework;
 
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * ChangeLogTest.

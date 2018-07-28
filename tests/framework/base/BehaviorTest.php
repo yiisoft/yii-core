@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
 use yii\base\Behavior;
 use yii\base\Component;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 class BarClass extends Component
 {

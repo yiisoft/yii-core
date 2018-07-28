@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\rbac;
+namespace yii\tests\framework\rbac;
 
 use yii\caching\Cache;
 use yii\caching\FileCache;
@@ -28,7 +28,7 @@ class PgSQLManagerCacheTest extends DbManagerTestCase
     {
         return new DbManager([
             'db' => $this->getConnection(),
-            'cache' => new Cache(['handler' => new FileCache(['cachePath' => '@yiiunit/runtime/cache'])]),
+            'cache' => new Cache(['handler' => new FileCache(['cachePath' => '@yii/tests/runtime/cache'])]),
             'defaultRoles' => ['myDefaultRole'],
         ]);
     }

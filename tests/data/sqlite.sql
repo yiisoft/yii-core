@@ -175,8 +175,8 @@ CREATE TABLE "dossier" (
 
 CREATE VIEW "animal_view" AS SELECT * FROM "animal";
 
-INSERT INTO "animal" ("type") VALUES ('yiiunit\data\ar\Cat');
-INSERT INTO "animal" ("type") VALUES ('yiiunit\data\ar\Dog');
+INSERT INTO "animal" ("type") VALUES ('yii\tests\data\ar\Cat');
+INSERT INTO "animal" ("type") VALUES ('yii\tests\data\ar\Dog');
 
 INSERT INTO "profile" (description) VALUES ('profile customer 1');
 INSERT INTO "profile" (description) VALUES ('profile customer 3');

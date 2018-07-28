@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\rbac;
+namespace yii\tests\data\rbac;
 
 class UserID
 {

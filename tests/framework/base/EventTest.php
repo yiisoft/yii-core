@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
 use yii\base\Component;
 use yii\base\Event;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group base
@@ -54,7 +54,7 @@ class EventTest extends TestCase
         Event::on(ActiveRecord::class, 'save', function ($event) {
             $this->counter += 3;
         });
-        Event::on('yiiunit\framework\base\SomeInterface', SomeInterface::EVENT_SUPER_EVENT, function ($event) {
+        Event::on('yii\tests\framework\base\SomeInterface', SomeInterface::EVENT_SUPER_EVENT, function ($event) {
             $this->counter += 5;
         });
         $this->assertEquals(0, $this->counter);
@@ -88,11 +88,11 @@ class EventTest extends TestCase
     {
         $this->assertFalse(Event::hasHandlers(Post::class, 'save'));
         $this->assertFalse(Event::hasHandlers(ActiveRecord::class, 'save'));
-        $this->assertFalse(Event::hasHandlers('yiiunit\framework\base\SomeInterface', SomeInterface::EVENT_SUPER_EVENT));
+        $this->assertFalse(Event::hasHandlers('yii\tests\framework\base\SomeInterface', SomeInterface::EVENT_SUPER_EVENT));
         Event::on(Post::class, 'save', function ($event) {
             $this->counter += 1;
         });
-        Event::on('yiiunit\framework\base\SomeInterface', SomeInterface::EVENT_SUPER_EVENT, function ($event) {
+        Event::on('yii\tests\framework\base\SomeInterface', SomeInterface::EVENT_SUPER_EVENT, function ($event) {
             $this->counter++;
         });
         $this->assertTrue(Event::hasHandlers(Post::class, 'save'));
@@ -104,7 +104,7 @@ class EventTest extends TestCase
         });
         $this->assertTrue(Event::hasHandlers(User::class, 'save'));
         $this->assertTrue(Event::hasHandlers(ActiveRecord::class, 'save'));
-        $this->assertTrue(Event::hasHandlers('yiiunit\framework\base\SomeInterface', SomeInterface::EVENT_SUPER_EVENT));
+        $this->assertTrue(Event::hasHandlers('yii\tests\framework\base\SomeInterface', SomeInterface::EVENT_SUPER_EVENT));
     }
 
     /**

@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\http;
+namespace yii\tests\framework\http;
 
 use yii\http\MemoryStream;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 class MemoryStreamTest extends TestCase
 {

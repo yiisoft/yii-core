@@ -5,12 +5,12 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\data;
+namespace yii\tests\framework\data;
 
 use yii\base\DynamicModel;
 use yii\data\DataFilter;
-use yiiunit\data\base\Singer;
-use yiiunit\TestCase;
+use yii\tests\data\base\Singer;
+use yii\tests\TestCase;
 
 /**
  * @group data

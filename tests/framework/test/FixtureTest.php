@@ -5,18 +5,18 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\test;
+namespace yii\tests\framework\test;
 
 use yii\test\Fixture;
 use yii\test\FixtureTrait;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group fixture
  */
 class Fixture1 extends Fixture
 {
-    public $depends = ['yiiunit\framework\test\Fixture2'];
+    public $depends = ['yii\tests\framework\test\Fixture2'];
 
     public function load()
     {
@@ -31,7 +31,7 @@ class Fixture1 extends Fixture
 
 class Fixture2 extends Fixture
 {
-    public $depends = ['yiiunit\framework\test\Fixture3'];
+    public $depends = ['yii\tests\framework\test\Fixture3'];
     public function load()
     {
         MyTestCase::$load .= '2';

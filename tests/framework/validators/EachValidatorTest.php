@@ -5,14 +5,14 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\validators;
+namespace yii\tests\framework\validators;
 
 use yii\db\ArrayExpression;
 use yii\validators\EachValidator;
-use yiiunit\data\base\ArrayAccessObject;
-use yiiunit\data\base\TraversableObject;
-use yiiunit\data\validators\models\FakedValidationModel;
-use yiiunit\TestCase;
+use yii\tests\data\base\ArrayAccessObject;
+use yii\tests\data\base\TraversableObject;
+use yii\tests\data\validators\models\FakedValidationModel;
+use yii\tests\TestCase;
 
 /**
  * @group validators

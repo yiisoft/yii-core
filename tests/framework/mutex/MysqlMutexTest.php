@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\mutex;
+namespace yii\tests\framework\mutex;
 
 use yii\mutex\MysqlMutex;
-use yiiunit\framework\db\DatabaseTestCase;
+use yii\tests\framework\db\DatabaseTestCase;
 
 /**
  * Class MysqlMutexTest.

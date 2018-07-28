@@ -5,14 +5,14 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
 use yii\helpers\Yii;
 use yii\base\Action;
 use yii\base\ActionFilter;
 use yii\base\Controller;
 use yii\web\User;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group base
@@ -90,7 +90,7 @@ class ActionFilterTest extends TestCase
     public function actionFilterProvider()
     {
         return [
-            [['__class' => \yii\filters\AccessControl::class, 'user' => \yiiunit\framework\base\MockUser::class]],
+            [['__class' => \yii\filters\AccessControl::class, 'user' => \yii\tests\framework\base\MockUser::class]],
             [\yii\filters\ContentNegotiator::class],
             [\yii\filters\Cors::class],
             [\yii\filters\HttpCache::class],

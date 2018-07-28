@@ -7,8 +7,8 @@
 
 // override information about intl
 
-namespace yiiunit\framework\i18n {
-    use yiiunit\TestCase;
+namespace yii\tests\framework\i18n {
+    use yii\tests\TestCase;
 
     class IntlTestHelper
     {
@@ -41,7 +41,7 @@ namespace yiiunit\framework\i18n {
 }
 
 namespace yii\i18n {
-    use yiiunit\framework\i18n\IntlTestHelper;
+    use yii\tests\framework\i18n\IntlTestHelper;
 
     if (!function_exists('yii\i18n\extension_loaded')) {
         function extension_loaded($name)
@@ -56,7 +56,7 @@ namespace yii\i18n {
 }
 
 namespace yii\helpers {
-    use yiiunit\framework\i18n\IntlTestHelper;
+    use yii\tests\framework\i18n\IntlTestHelper;
 
     if (!function_exists('yii\helpers\extension_loaded')) {
         function extension_loaded($name)
@@ -71,7 +71,7 @@ namespace yii\helpers {
 }
 
 namespace yii\validators {
-    use yiiunit\framework\i18n\IntlTestHelper;
+    use yii\tests\framework\i18n\IntlTestHelper;
 
     if (!function_exists('yii\validators\extension_loaded')) {
         function extension_loaded($name)

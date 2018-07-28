@@ -7,7 +7,7 @@
 
 require_once __DIR__ . '/../../../framework/requirements/YiiRequirementChecker.php';
 
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * Test case for [[YiiRequirementChecker]].

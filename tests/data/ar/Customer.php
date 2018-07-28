@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\ar;
+namespace yii\tests\data\ar;
 
 use yii\db\ActiveQuery;
-use yiiunit\framework\db\ActiveRecordTest;
+use yii\tests\framework\db\ActiveRecordTest;
 
 /**
  * Class Customer.

@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit;
+namespace yii\tests;
 
 use yii\helpers\Yii;
 use yii\helpers\ArrayHelper;

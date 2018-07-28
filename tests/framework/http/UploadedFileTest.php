@@ -5,14 +5,14 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\http;
+namespace yii\tests\framework\http;
 
 use Psr\Http\Message\StreamInterface;
 use yii\helpers\Yii;
 use yii\http\FileStream;
 use yii\http\MemoryStream;
 use yii\http\UploadedFile;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group http
@@ -53,7 +53,7 @@ class UploadedFileTest extends TestCase
     {
         $uploadedFile = new UploadedFile();
         $uploadedFile->setError(UPLOAD_ERR_OK);
-        $uploadedFile->tempFilename = tempnam(Yii::getAlias('@yiiunit/runtime'), 'tmp-');
+        $uploadedFile->tempFilename = tempnam(Yii::getAlias('@yii/tests/runtime'), 'tmp-');
         file_put_contents($uploadedFile->tempFilename, '0123456789');
 
         $stream = $uploadedFile->getStream();

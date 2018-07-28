@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
 use yii\base\BaseObject;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group base
@@ -150,7 +150,7 @@ class BaseObjectTest extends TestCase
     public function testReadingWriteOnlyProperty()
     {
         $this->expectException('yii\exceptions\InvalidCallException');
-        $this->expectExceptionMessage('Getting write-only property: yiiunit\framework\base\NewObject::writeOnly');
+        $this->expectExceptionMessage('Getting write-only property: yii\tests\framework\base\NewObject::writeOnly');
         $this->object->writeOnly;
     }
 }

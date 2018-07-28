@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\modules\magic\controllers\subFolder;
+namespace yii\tests\data\modules\magic\controllers\subFolder;
 
 class SubController extends \yii\console\Controller
 {

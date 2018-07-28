@@ -1,9 +1,9 @@
 <?php
 
-namespace yiiunit\framework\helpers;
+namespace yii\tests\framework\helpers;
 
 use yii\helpers\IpHelper;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * Class IpHelperTest

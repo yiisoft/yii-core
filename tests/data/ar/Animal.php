@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\ar;
+namespace yii\tests\data\ar;
 
 /**
  * Class Animal.
@@ -36,7 +36,7 @@ class Animal extends ActiveRecord
 
     /**
      * @param type $row
-     * @return \yiiunit\data\ar\Animal
+     * @return \yii\tests\data\ar\Animal
      */
     public static function instantiate($row)
     {

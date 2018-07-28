@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\i18n;
+namespace yii\tests\framework\i18n;
 
 use yii\helpers\Yii;
 use yii\base\Event;
@@ -13,7 +13,7 @@ use yii\console\ExitCode;
 use yii\db\Connection;
 use yii\i18n\DbMessageSource;
 use yii\i18n\I18N;
-use yiiunit\framework\console\controllers\EchoMigrateController;
+use yii\tests\framework\console\controllers\EchoMigrateController;
 
 /**
  * @group i18n
@@ -54,7 +54,7 @@ class DbMessageSourceTest extends I18NTest
         if (Yii::$app === null) {
             new \yii\console\Application([
                 'id' => 'Migrator',
-                'basePath' => '@yiiunit',
+                'basePath' => '@yii/tests',
                 'controllerMap' => [
                     'migrate' => EchoMigrateController::class,
                 ],

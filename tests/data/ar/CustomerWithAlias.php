@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\data\ar;
+namespace yii\tests\data\ar;
 
 /**
  * Class Customer.

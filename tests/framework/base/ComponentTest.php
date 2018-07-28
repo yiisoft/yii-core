@@ -5,12 +5,12 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
 use yii\base\Behavior;
 use yii\base\Component;
 use yii\base\Event;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 function globalEventHandler(Event $event)
 {
@@ -309,7 +309,7 @@ class ComponentTest extends TestCase
     public function testStopEvent()
     {
         $component = new NewComponent();
-        $component->on('click', 'yiiunit\framework\base\globalEventHandler2');
+        $component->on('click', 'yii\tests\framework\base\globalEventHandler2');
         $component->on('click', [$this->component, 'myEventHandler']);
         $component->raiseEvent();
         $this->assertTrue($component->eventHandled);
@@ -394,7 +394,7 @@ class ComponentTest extends TestCase
     public function testSetReadOnlyProperty()
     {
         $this->expectException('\yii\exceptions\InvalidCallException');
-        $this->expectExceptionMessage('Setting read-only property: yiiunit\framework\base\NewComponent::object');
+        $this->expectExceptionMessage('Setting read-only property: yii\tests\framework\base\NewComponent::object');
         $this->component->object = 'z';
     }
 
@@ -423,7 +423,7 @@ class ComponentTest extends TestCase
     public function testWriteOnlyProperty()
     {
         $this->expectException('\yii\exceptions\InvalidCallException');
-        $this->expectExceptionMessage('Getting write-only property: yiiunit\framework\base\NewComponent::writeOnly');
+        $this->expectExceptionMessage('Getting write-only property: yii\tests\framework\base\NewComponent::writeOnly');
         $this->component->writeOnly;
     }
 

@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\helpers;
+namespace yii\tests\framework\helpers;
 
 use yii\helpers\Yii;
 use yii\helpers\Console;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 use yii\base\DynamicModel;
 
 /**

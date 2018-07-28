@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\data;
+namespace yii\tests\framework\data;
 
 use yii\data\SqlDataProvider;
-use yiiunit\framework\db\DatabaseTestCase;
+use yii\tests\framework\db\DatabaseTestCase;
 
 /**
  * @group data

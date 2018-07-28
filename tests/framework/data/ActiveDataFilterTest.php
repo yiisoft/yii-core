@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\data;
+namespace yii\tests\framework\data;
 
 use yii\base\DynamicModel;
 use yii\data\ActiveDataFilter;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 class ActiveDataFilterTest extends TestCase
 {

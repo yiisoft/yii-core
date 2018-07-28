@@ -5,16 +5,16 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\validators;
+namespace yii\tests\framework\validators;
 
 use yii\exceptions\Exception;
 use yii\validators\ExistValidator;
-use yiiunit\data\ar\ActiveRecord;
-use yiiunit\data\ar\Order;
-use yiiunit\data\ar\OrderItem;
-use yiiunit\data\validators\models\ValidatorTestMainModel;
-use yiiunit\data\validators\models\ValidatorTestRefModel;
-use yiiunit\framework\db\DatabaseTestCase;
+use yii\tests\data\ar\ActiveRecord;
+use yii\tests\data\ar\Order;
+use yii\tests\data\ar\OrderItem;
+use yii\tests\data\validators\models\ValidatorTestMainModel;
+use yii\tests\data\validators\models\ValidatorTestRefModel;
+use yii\tests\framework\db\DatabaseTestCase;
 
 abstract class ExistValidatorTest extends DatabaseTestCase
 {

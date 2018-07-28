@@ -5,15 +5,15 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\mail;
+namespace yii\tests\framework\mail;
 
 use yii\helpers\Yii;
 use yii\base\View;
 use yii\helpers\FileHelper;
 use yii\mail\BaseMessage;
 use yii\mail\Template;
-use yiiunit\data\mail\TestMessage;
-use yiiunit\TestCase;
+use yii\tests\data\mail\TestMessage;
+use yii\tests\TestCase;
 
 /**
  * @group mail
@@ -74,7 +74,7 @@ class TemplateTest extends TestCase
      */
     protected function getTestFilePath()
     {
-        return Yii::getAlias('@yiiunit/runtime') . DIRECTORY_SEPARATOR . basename(get_class($this)) . '_' . getmypid();
+        return Yii::getAlias('@yii/tests/runtime') . DIRECTORY_SEPARATOR . basename(get_class($this)) . '_' . getmypid();
     }
 
     // Tests :

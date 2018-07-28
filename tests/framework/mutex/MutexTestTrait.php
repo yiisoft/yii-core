@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\mutex;
+namespace yii\tests\framework\mutex;
 
 use yii\mutex\Mutex;
 use yii\mutex\SyncException;

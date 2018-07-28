@@ -5,13 +5,13 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\profile;
+namespace yii\tests\framework\profile;
 
 use yii\helpers\Yii;
 use yii\helpers\FileHelper;
 use yii\profile\FileTarget;
 use yii\profile\Profiler;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 class FileTargetTest extends TestCase
 {

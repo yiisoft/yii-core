@@ -5,13 +5,13 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\mail;
+namespace yii\tests\framework\mail;
 
 use yii\helpers\Yii;
 use yii\mail\Composer;
 use yii\base\View;
 use yii\mail\Template;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group mail

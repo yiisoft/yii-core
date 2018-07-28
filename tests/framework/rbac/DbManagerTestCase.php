@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\rbac;
+namespace yii\tests\framework\rbac;
 
 use Psr\Log\LogLevel;
 use yii\helpers\Yii;
@@ -18,9 +18,9 @@ use yii\rbac\Assignment;
 use yii\rbac\DbManager;
 use yii\rbac\Permission;
 use yii\rbac\Role;
-use yiiunit\data\rbac\UserID;
-use yiiunit\framework\console\controllers\EchoMigrateController;
-use yiiunit\framework\log\ArrayTarget;
+use yii\tests\data\rbac\UserID;
+use yii\tests\framework\console\controllers\EchoMigrateController;
+use yii\tests\framework\log\ArrayTarget;
 
 /**
  * DbManagerTestCase.
@@ -42,7 +42,7 @@ abstract class DbManagerTestCase extends ManagerTestCase
         if (Yii::$app === null) {
             new Application([
                 'id' => 'Migrator',
-                'basePath' => '@yiiunit',
+                'basePath' => '@yii/tests',
                 'controllerMap' => [
                     'migrate' => EchoMigrateController::class,
                 ],

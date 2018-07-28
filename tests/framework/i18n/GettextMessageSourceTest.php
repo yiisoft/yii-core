@@ -5,9 +5,9 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\i18n;
+namespace yii\tests\framework\i18n;
 
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group i18n

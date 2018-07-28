@@ -5,13 +5,13 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\profile;
+namespace yii\tests\framework\profile;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use yii\helpers\Yii;
 use yii\profile\LogTarget;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 class LogTargetTest extends TestCase
 {

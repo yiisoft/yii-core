@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\base;
+namespace yii\tests\data\base;
 
 /**
  * TraversableObject

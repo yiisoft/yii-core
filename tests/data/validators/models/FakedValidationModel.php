@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\validators\models;
+namespace yii\tests\data\validators\models;
 
 use yii\base\Model;
 

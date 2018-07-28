@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\helpers;
+namespace yii\tests\framework\helpers;
 
 use yii\helpers\VarDumper;
-use yiiunit\data\helpers\CustomDebugInfo;
-use yiiunit\TestCase;
+use yii\tests\data\helpers\CustomDebugInfo;
+use yii\tests\TestCase;
 
 /**
  * @group helpers

@@ -5,14 +5,14 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\http;
+namespace yii\tests\framework\http;
 
 use Psr\Http\Message\MessageInterface;
 use yii\base\BaseObject;
 use yii\http\FileStream;
 use yii\http\MemoryStream;
 use yii\http\MessageTrait;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 class MessageTraitTest extends TestCase
 {

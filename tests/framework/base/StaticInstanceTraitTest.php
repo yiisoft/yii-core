@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
-use yiiunit\data\base\Singer;
-use yiiunit\data\base\Speaker;
-use yiiunit\TestCase;
+use yii\tests\data\base\Singer;
+use yii\tests\data\base\Speaker;
+use yii\tests\TestCase;
 
 class StaticInstanceTraitTest extends TestCase
 {

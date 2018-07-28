@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\test;
+namespace yii\tests\framework\test;
 
 use yii\test\ArrayFixture;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group fixture
@@ -28,7 +28,7 @@ class ArrayFixtureTest extends TestCase
 
     public function testLoadUnloadParticularFile()
     {
-        $this->_fixture->dataFile = '@yiiunit/framework/test/data/array_fixture.php';
+        $this->_fixture->dataFile = '@yii/tests/framework/test/data/array_fixture.php';
         $this->assertEmpty($this->_fixture->data, 'fixture data should be empty');
 
         $this->_fixture->load();

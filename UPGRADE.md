@@ -106,6 +106,8 @@ Upgrade from Yii 2.0.x
 * Config changed to be DI container config instead of application.
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).
+* Tests:
+    * Renamed `yiiunit` namespace to `yii\tests`
 
 * Following new methods have been added to `yii\mail\MessageInterface` `addHeader()`, `setHeader()`, `getHeader()`, `setHeaders()`
   providing ability to setup custom mail headers. Make sure your provide implementation for those methods, while

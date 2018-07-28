@@ -5,14 +5,14 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\helpers;
+namespace yii\tests\framework\helpers;
 
 use yii\base\DynamicModel;
 use yii\helpers\BaseJson;
 use yii\helpers\Json;
 use yii\web\JsExpression;
-use yiiunit\framework\web\Post;
-use yiiunit\TestCase;
+use yii\tests\framework\web\Post;
+use yii\tests\TestCase;
 
 /**
  * @group helpers

@@ -5,9 +5,9 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\serialize;
+namespace yii\tests\framework\serialize;
 
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group serialize

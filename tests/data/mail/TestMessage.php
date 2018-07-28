@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\data\mail;
+namespace yii\tests\data\mail;
 
 use yii\mail\BaseMessage;
 

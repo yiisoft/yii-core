@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\cache;
+namespace yii\tests\data\cache;
 
 use yii\caching\Dependency;
 

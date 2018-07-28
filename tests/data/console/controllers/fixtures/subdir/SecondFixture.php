@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\console\controllers\fixtures\subdir;
+namespace yii\tests\data\console\controllers\fixtures\subdir;
 
 use yii\test\Fixture;
-use yiiunit\data\console\controllers\fixtures\FixtureStorage;
+use yii\tests\data\console\controllers\fixtures\FixtureStorage;
 
 class SecondFixture extends Fixture
 {

@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit;
+namespace yii\tests;
 
 /**
  * Class ResultPrinter overrides \PHPUnit\TextUI\ResultPrinter constructor

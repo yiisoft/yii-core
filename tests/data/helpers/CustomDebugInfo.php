@@ -5,12 +5,12 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\helpers;
+namespace yii\tests\data\helpers;
 
 /**
  * CustomDebugInfo serves for the testing of `__debugInfo()` PHP magic method.
  *
- * @see \yiiunit\framework\helpers\VarDumperTest
+ * @see \yii\tests\framework\helpers\VarDumperTest
  */
 class CustomDebugInfo
 {

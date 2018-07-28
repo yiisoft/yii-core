@@ -1,7 +1,7 @@
 <?php
-namespace yiiunit\framework\helpers;
+namespace yii\tests\framework\helpers;
 
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 use yii\helpers\BaseConsole;
 
 /**

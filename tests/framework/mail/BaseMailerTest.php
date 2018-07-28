@@ -5,13 +5,13 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\mail;
+namespace yii\tests\framework\mail;
 
 use yii\helpers\Yii;
 use yii\helpers\FileHelper;
-use yiiunit\data\mail\TestMailer;
-use yiiunit\data\mail\TestMessage;
-use yiiunit\TestCase;
+use yii\tests\data\mail\TestMailer;
+use yii\tests\data\mail\TestMessage;
+use yii\tests\TestCase;
 
 /**
  * @group mail
@@ -44,7 +44,7 @@ class BaseMailerTest extends TestCase
      */
     protected function getTestFilePath()
     {
-        return Yii::getAlias('@yiiunit/runtime') . DIRECTORY_SEPARATOR . basename(get_class($this)) . '_' . getmypid();
+        return Yii::getAlias('@yii/tests/runtime') . DIRECTORY_SEPARATOR . basename(get_class($this)) . '_' . getmypid();
     }
 
     /**
@@ -148,7 +148,7 @@ class BaseMailerTest extends TestCase
         $this->assertFalse($mailer->useFileTransport);
         $this->assertEquals('@runtime/mail', $mailer->fileTransportPath);
 
-        $mailer->fileTransportPath = '@yiiunit/runtime/mail';
+        $mailer->fileTransportPath = '@yii/tests/runtime/mail';
         $mailer->useFileTransport = true;
         $mailer->fileTransportCallback = function () {
             return 'message.txt';

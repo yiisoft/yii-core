@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\mutex;
+namespace yii\tests\framework\mutex;
 
 use yii\mutex\FileMutex;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * Class FileMutexTest.
@@ -27,7 +27,7 @@ class FileMutexTest extends TestCase
     {
         return \Yii::createObject([
             '__class' => FileMutex::class,
-            'mutexPath' => '@yiiunit/runtime/mutex',
+            'mutexPath' => '@yii/tests/runtime/mutex',
         ]);
     }
 

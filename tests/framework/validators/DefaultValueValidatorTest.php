@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\validators;
+namespace yii\tests\framework\validators;
 
 use yii\validators\DefaultValueValidator;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group validators

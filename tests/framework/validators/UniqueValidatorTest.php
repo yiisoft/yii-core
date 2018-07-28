@@ -5,20 +5,20 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\validators;
+namespace yii\tests\framework\validators;
 
 use yii\helpers\Yii;
 use yii\validators\UniqueValidator;
-use yiiunit\data\ar\ActiveRecord;
-use yiiunit\data\ar\Customer;
-use yiiunit\data\ar\Document;
-use yiiunit\data\ar\Order;
-use yiiunit\data\ar\OrderItem;
-use yiiunit\data\ar\Profile;
-use yiiunit\data\validators\models\FakedValidationModel;
-use yiiunit\data\validators\models\ValidatorTestMainModel;
-use yiiunit\data\validators\models\ValidatorTestRefModel;
-use yiiunit\framework\db\DatabaseTestCase;
+use yii\tests\data\ar\ActiveRecord;
+use yii\tests\data\ar\Customer;
+use yii\tests\data\ar\Document;
+use yii\tests\data\ar\Order;
+use yii\tests\data\ar\OrderItem;
+use yii\tests\data\ar\Profile;
+use yii\tests\data\validators\models\FakedValidationModel;
+use yii\tests\data\validators\models\ValidatorTestMainModel;
+use yii\tests\data\validators\models\ValidatorTestRefModel;
+use yii\tests\framework\db\DatabaseTestCase;
 
 abstract class UniqueValidatorTest extends DatabaseTestCase
 {

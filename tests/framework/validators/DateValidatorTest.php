@@ -5,13 +5,13 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\validators;
+namespace yii\tests\framework\validators;
 
 use IntlDateFormatter;
 use yii\validators\DateValidator;
-use yiiunit\data\validators\models\FakedValidationModel;
-use yiiunit\framework\i18n\IntlTestHelper;
-use yiiunit\TestCase;
+use yii\tests\data\validators\models\FakedValidationModel;
+use yii\tests\framework\i18n\IntlTestHelper;
+use yii\tests\TestCase;
 
 /**
  * @group validators

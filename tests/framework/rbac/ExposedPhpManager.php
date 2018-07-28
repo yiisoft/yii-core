@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\rbac;
+namespace yii\tests\framework\rbac;
 
 use yii\rbac\PhpManager;
 

@@ -5,38 +5,38 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\test;
+namespace yii\tests\framework\test;
 
 use yii\test\ActiveFixture;
 use yii\test\FixtureTrait;
-use yiiunit\data\ar\ActiveRecord;
-use yiiunit\data\ar\Customer;
-use yiiunit\framework\db\DatabaseTestCase;
+use yii\tests\data\ar\ActiveRecord;
+use yii\tests\data\ar\Customer;
+use yii\tests\framework\db\DatabaseTestCase;
 
 class ProfileFixture extends ActiveFixture
 {
-    public $modelClass = 'yiiunit\data\ar\Profile';
+    public $modelClass = 'yii\tests\data\ar\Profile';
 }
 
 class CustomerFixture extends ActiveFixture
 {
-    public $modelClass = 'yiiunit\data\ar\Customer';
+    public $modelClass = 'yii\tests\data\ar\Customer';
 
     public $depends = [
-        'yiiunit\framework\test\ProfileFixture',
+        'yii\tests\framework\test\ProfileFixture',
     ];
 }
 
 class CustomDirectoryFixture extends ActiveFixture
 {
-    public $modelClass = 'yiiunit\data\ar\Customer';
+    public $modelClass = 'yii\tests\data\ar\Customer';
 
     public $dataDirectory = '@app/framework/test/custom';
 }
 
 class AnimalFixture extends ActiveFixture
 {
-    public $modelClass = 'yiiunit\data\ar\Animal';
+    public $modelClass = 'yii\tests\data\ar\Animal';
 }
 
 class BaseDbTestCase

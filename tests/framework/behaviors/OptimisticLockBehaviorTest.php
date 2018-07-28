@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\behaviors;
+namespace yii\tests\framework\behaviors;
 
 use yii\helpers\Yii;
 use yii\behaviors\OptimisticLockBehavior;
@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
 use yii\db\Connection;
 use yii\db\Expression;
 use yii\db\ExpressionInterface;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * Unit test for [[\yii\behaviors\OptimisticLockBehavior]].

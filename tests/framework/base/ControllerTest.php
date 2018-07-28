@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
 use yii\helpers\Yii;
 use yii\base\Controller;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group base

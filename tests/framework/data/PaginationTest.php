@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\data;
+namespace yii\tests\framework\data;
 
 use yii\data\Pagination;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group data

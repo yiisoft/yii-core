@@ -16,8 +16,8 @@ namespace yii\base {
      */
     function function_exists($name)
     {
-        if (isset(\yiiunit\framework\base\SecurityTest::$functions[$name])) {
-            return \yiiunit\framework\base\SecurityTest::$functions[$name];
+        if (isset(\yii\tests\framework\base\SecurityTest::$functions[$name])) {
+            return \yii\tests\framework\base\SecurityTest::$functions[$name];
         }
 
         return \function_exists($name);
@@ -32,18 +32,18 @@ namespace yii\base {
      */
     function fopen($filename, $mode)
     {
-        if (\yiiunit\framework\base\SecurityTest::$fopen !== null) {
-            return \yiiunit\framework\base\SecurityTest::$fopen;
+        if (\yii\tests\framework\base\SecurityTest::$fopen !== null) {
+            return \yii\tests\framework\base\SecurityTest::$fopen;
         }
 
         return \fopen($filename, $mode);
     }
     function fread($handle, $length)
     {
-        if (\yiiunit\framework\base\SecurityTest::$fread !== null) {
-            return \yiiunit\framework\base\SecurityTest::$fread;
+        if (\yii\tests\framework\base\SecurityTest::$fread !== null) {
+            return \yii\tests\framework\base\SecurityTest::$fread;
         }
-        if (\yiiunit\framework\base\SecurityTest::$fopen !== null) {
+        if (\yii\tests\framework\base\SecurityTest::$fopen !== null) {
             return $length < 8 ? \str_repeat('s', $length) : 'test1234';
         }
 
@@ -51,10 +51,10 @@ namespace yii\base {
     }
 } // closing namespace yii\base;
 
-namespace yiiunit\framework\base {
+namespace yii\tests\framework\base {
 
 use yii\base\Security;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group base
@@ -1230,4 +1230,4 @@ TEXT;
         ];
     }
 }
-} // closing namespace yiiunit\framework\base;
+} // closing namespace yii\tests\framework\base;

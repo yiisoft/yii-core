@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework;
+namespace yii\tests\framework;
 
 use Psr\Log\LogLevel;
 use yii\helpers\Yii;
@@ -14,8 +14,8 @@ use yii\BaseYii;
 use yii\di\Container;
 use yii\log\Logger;
 use yii\profile\Profiler;
-use yiiunit\data\base\Singer;
-use yiiunit\TestCase;
+use yii\tests\data\base\Singer;
+use yii\tests\TestCase;
 
 /**
  * BaseYiiTest.

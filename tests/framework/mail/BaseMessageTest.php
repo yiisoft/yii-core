@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\mail;
+namespace yii\tests\framework\mail;
 
 use yii\helpers\Yii;
-use yiiunit\data\mail\TestMailer;
-use yiiunit\TestCase;
+use yii\tests\data\mail\TestMailer;
+use yii\tests\TestCase;
 
 /**
  * @group mail

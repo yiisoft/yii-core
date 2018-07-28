@@ -5,13 +5,13 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
 use yii\helpers\Yii;
 use yii\base\BaseObject;
 use yii\base\Controller;
 use yii\base\Module;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group base
@@ -27,7 +27,7 @@ class ModuleTest extends TestCase
     public function testControllerPath()
     {
         $module = new TestModule('test');
-        $this->assertEquals('yiiunit\framework\base\controllers', $module->controllerNamespace);
+        $this->assertEquals('yii\tests\framework\base\controllers', $module->controllerNamespace);
         $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR . 'controllers', str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $module->controllerPath));
     }
 
@@ -124,7 +124,7 @@ class ModuleTest extends TestCase
     public function testCreateControllerByID()
     {
         $module = new TestModule('test');
-        $module->controllerNamespace = 'yiiunit\framework\base';
+        $module->controllerNamespace = 'yii\tests\framework\base';
 
         $route = 'module-test';
         $this->assertInstanceOf(ModuleTestController::class, $module->createControllerByID($route));
@@ -152,8 +152,8 @@ class ModuleTest extends TestCase
 class TestModule extends \yii\base\Module
 {
     public $controllerMap = [
-        'test-controller1' => 'yiiunit\framework\base\ModuleTestController',
-        'test-controller2' => 'yiiunit\framework\base\ModuleTestController',
+        'test-controller1' => 'yii\tests\framework\base\ModuleTestController',
+        'test-controller2' => 'yii\tests\framework\base\ModuleTestController',
     ];
 }
 

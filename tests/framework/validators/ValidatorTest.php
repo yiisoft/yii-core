@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\validators;
+namespace yii\tests\framework\validators;
 
 use yii\base\DynamicModel;
 use yii\validators\BooleanValidator;
@@ -13,10 +13,10 @@ use yii\validators\InlineValidator;
 use yii\validators\NumberValidator;
 use yii\validators\RequiredValidator;
 use yii\validators\Validator;
-use yiiunit\data\validators\models\FakedValidationModel;
-use yiiunit\data\validators\models\ValidatorTestFunctionModel;
-use yiiunit\data\validators\TestValidator;
-use yiiunit\TestCase;
+use yii\tests\data\validators\models\FakedValidationModel;
+use yii\tests\data\validators\models\ValidatorTestFunctionModel;
+use yii\tests\data\validators\TestValidator;
+use yii\tests\TestCase;
 
 /**
  * @group validators

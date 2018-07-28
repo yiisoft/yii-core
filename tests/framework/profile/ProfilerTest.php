@@ -5,12 +5,12 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\profile;
+namespace yii\tests\framework\profile;
 
 use yii\profile\LogTarget;
 use yii\profile\Profiler;
 use yii\profile\Target;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group profile

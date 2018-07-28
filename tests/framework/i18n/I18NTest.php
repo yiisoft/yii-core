@@ -5,13 +5,13 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\i18n;
+namespace yii\tests\framework\i18n;
 
 use yii\helpers\Yii;
 use yii\base\Event;
 use yii\i18n\I18N;
 use yii\i18n\PhpMessageSource;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @author Carsten Brandt <mail@cebe.cc>
@@ -38,7 +38,7 @@ class I18NTest extends TestCase
             'translations' => [
                 'test' => [
                     '__class' => $this->getMessageSourceClass(),
-                    'basePath' => '@yiiunit/data/i18n/messages',
+                    'basePath' => '@yii/tests/data/i18n/messages',
                 ],
             ],
         ]);
@@ -72,7 +72,7 @@ class I18NTest extends TestCase
             'translations' => [
                 '*' => [
                     '__class' => $this->getMessageSourceClass(),
-                    'basePath' => '@yiiunit/data/i18n/messages',
+                    'basePath' => '@yii/tests/data/i18n/messages',
                     'fileMap' => [
                         'test' => 'test.php',
                         'foo' => 'test.php',
@@ -106,7 +106,7 @@ class I18NTest extends TestCase
         $i18n = new I18N([
             'translations' => [
                 '*' => new PhpMessageSource([
-                        'basePath' => '@yiiunit/data/i18n/messages',
+                        'basePath' => '@yii/tests/data/i18n/messages',
                         'sourceLanguage' => 'de-DE',
                         'fileMap' => [
                             'test' => 'test.php',

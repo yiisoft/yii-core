@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\ar;
+namespace yii\tests\data\ar;
 
 /**
  * ProfileWithConstructor.

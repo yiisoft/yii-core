@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\helpers;
+namespace yii\tests\framework\helpers;
 
 use DateTime;
 use IntlDateFormatter;
@@ -13,8 +13,8 @@ use yii\helpers\Yii;
 use yii\exceptions\Exception;
 use yii\helpers\FormatConverter;
 use yii\i18n\Formatter;
-use yiiunit\framework\i18n\IntlTestHelper;
-use yiiunit\TestCase;
+use yii\tests\framework\i18n\IntlTestHelper;
+use yii\tests\TestCase;
 
 /**
  * @group helpers

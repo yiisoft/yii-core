@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\base;
+namespace yii\tests\framework\base;
 
 use Psr\Log\NullLogger;
 use yii\helpers\Yii;
@@ -13,7 +13,7 @@ use yii\base\BootstrapInterface;
 use yii\base\Component;
 use yii\base\Module;
 use yii\log\Logger;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @group base
@@ -66,7 +66,7 @@ class ApplicationTest extends TestCase
             ],
         ]);
         $this->assertSame('Bootstrap with yii\base\Component', Yii::getLogger()->messages[0][1]);
-        $this->assertSame('Bootstrap with yiiunit\framework\base\BootstrapComponentMock::bootstrap()', Yii::getLogger()->messages[1][1]);
+        $this->assertSame('Bootstrap with yii\tests\framework\base\BootstrapComponentMock::bootstrap()', Yii::getLogger()->messages[1][1]);
         $this->assertSame('Loading module: moduleX', Yii::getLogger()->messages[2][1]);
         $this->assertSame('Bootstrap with yii\base\Module', Yii::getLogger()->messages[3][1]);
         $this->assertSame('Bootstrap with Closure', Yii::getLogger()->messages[4][1]);

@@ -5,10 +5,10 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\i18n;
+namespace yii\tests\framework\i18n;
 
 use yii\i18n\MessageFormatter;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * @author Carsten Brandt <mail@cebe.cc>

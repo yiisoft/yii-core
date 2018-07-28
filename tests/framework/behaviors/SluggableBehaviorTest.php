@@ -5,13 +5,13 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\framework\behaviors;
+namespace yii\tests\framework\behaviors;
 
 use yii\helpers\Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Connection;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * Unit test for [[\yii\behaviors\SluggableBehavior]].

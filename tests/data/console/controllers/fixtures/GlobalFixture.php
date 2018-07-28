@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yiiunit\data\console\controllers\fixtures;
+namespace yii\tests\data\console\controllers\fixtures;
 
 use yii\test\Fixture;
 

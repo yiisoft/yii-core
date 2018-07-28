@@ -1,11 +1,11 @@
 <?php
 
-namespace yiiunit\framework\behaviors;
+namespace yii\tests\framework\behaviors;
 
 use PHPUnit_Framework_MockObject_MockObject;
 use yii\base\Widget;
 use yii\behaviors\CacheableWidgetBehavior;
-use yiiunit\TestCase;
+use yii\tests\TestCase;
 
 /**
  * Unit test for [[\yii\behaviors\CacheableWidgetBehavior]].
