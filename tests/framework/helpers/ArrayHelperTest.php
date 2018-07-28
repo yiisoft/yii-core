@@ -11,6 +11,7 @@ use yii\base\Arrayable;
 use yii\base\BaseObject;
 use yii\data\Sort;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Yii;
 use yii\tests\TestCase;
 
 class Post1
@@ -36,7 +37,7 @@ class Post3 extends BaseObject
     /** @var BaseObject */
     public $subObject;
 
-    public function init()
+    public function __construct()
     {
         $this->subObject = new Post2();
     }
@@ -281,7 +282,8 @@ class ArrayHelperTest extends TestCase
     public function testMultisortUseSort()
     {
         // single key
-        $sort = new Sort([
+        $sort = Yii::createObject([
+            '__class' => Sort::class,
             'attributes' => ['name', 'age'],
             'defaultOrder' => ['name' => SORT_ASC],
             'params' => [],
@@ -299,7 +301,8 @@ class ArrayHelperTest extends TestCase
         $this->assertEquals(['name' => 'c', 'age' => 2], $array[2]);
 
         // multiple keys
-        $sort = new Sort([
+        $sort = Yii::createObject([
+            '__class' => Sort::class,
             'attributes' => ['name', 'age'],
             'defaultOrder' => ['name' => SORT_ASC, 'age' => SORT_DESC],
             'params' => [],
