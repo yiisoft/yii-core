@@ -23,9 +23,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected $app;
 
+    protected $container;
+
     protected function setUp()
     {
         $this->app = Yii::getApp();
+        $this->container = $this->app->getContainer();
         parent::setUp();
     }
 

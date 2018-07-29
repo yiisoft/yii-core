@@ -215,6 +215,11 @@ abstract class Application extends Module
         return $this;
     }
 
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
     public function getRequest()
     {
         if ($this->request === null) {

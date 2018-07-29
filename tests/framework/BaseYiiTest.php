@@ -28,60 +28,56 @@ class BaseYiiTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->aliases = Yii::$aliases;
+        //$this->aliases = Yii::$aliases;
     }
 
     protected function tearDown()
     {
         parent::tearDown();
-        Yii::$aliases = $this->aliases;
-        Yii::setLogger(null);
-        Yii::setProfiler(null);
+        //Yii::$aliases = $this->aliases;
     }
 
     public function testAlias()
     {
-        $this->assertEquals(YII_PATH, Yii::getAlias('@yii'));
+        $this->assertEquals(YII_PATH, $this->app->getAlias('@yii'));
 
-        Yii::$aliases = [];
-        $this->assertFalse(Yii::getAlias('@yii', false));
+        $this->assertFalse($this->app->getAlias('@nonexisting', false));
 
         $aliasNotBeginsWithAt = 'alias not begins with @';
-        $this->assertEquals($aliasNotBeginsWithAt, Yii::getAlias($aliasNotBeginsWithAt));
+        $this->assertEquals($aliasNotBeginsWithAt, $this->app->getAlias($aliasNotBeginsWithAt));
 
-        Yii::setAlias('@yii', '/yii/framework');
-        $this->assertEquals('/yii/framework', Yii::getAlias('@yii'));
-        $this->assertEquals('/yii/framework/test/file', Yii::getAlias('@yii/test/file'));
-        Yii::setAlias('yii/gii', '/yii/gii');
-        $this->assertEquals('/yii/framework', Yii::getAlias('@yii'));
-        $this->assertEquals('/yii/framework/test/file', Yii::getAlias('@yii/test/file'));
-        $this->assertEquals('/yii/gii', Yii::getAlias('@yii/gii'));
-        $this->assertEquals('/yii/gii/file', Yii::getAlias('@yii/gii/file'));
+        $this->app->setAlias('@yii', '/yii/framework');
+        $this->assertEquals('/yii/framework', $this->app->getAlias('@yii'));
+        $this->assertEquals('/yii/framework/test/file', $this->app->getAlias('@yii/test/file'));
+        $this->app->setAlias('yii/gii', '/yii/gii');
+        $this->assertEquals('/yii/framework', $this->app->getAlias('@yii'));
+        $this->assertEquals('/yii/framework/test/file', $this->app->getAlias('@yii/test/file'));
+        $this->assertEquals('/yii/gii', $this->app->getAlias('@yii/gii'));
+        $this->assertEquals('/yii/gii/file', $this->app->getAlias('@yii/gii/file'));
 
-        Yii::setAlias('@tii', '@yii/test');
-        $this->assertEquals('/yii/framework/test', Yii::getAlias('@tii'));
+        $this->app->setAlias('@tii', '@yii/test');
+        $this->assertEquals('/yii/framework/test', $this->app->getAlias('@tii'));
 
-        Yii::setAlias('@yii', null);
-        $this->assertFalse(Yii::getAlias('@yii', false));
-        $this->assertEquals('/yii/gii/file', Yii::getAlias('@yii/gii/file'));
+        $this->app->setAlias('@yii', null);
+        $this->assertFalse($this->app->getAlias('@yii', false));
+        $this->assertEquals('/yii/gii/file', $this->app->getAlias('@yii/gii/file'));
 
-        Yii::setAlias('@some/alias', '/www');
-        $this->assertEquals('/www', Yii::getAlias('@some/alias'));
+        $this->app->setAlias('@some/alias', '/www');
+        $this->assertEquals('/www', $this->app->getAlias('@some/alias'));
 
         $erroneousAlias = '@alias_not_exists';
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Invalid path alias: %s', $erroneousAlias));
-        Yii::getAlias($erroneousAlias, true);
+        $this->app->getAlias($erroneousAlias, true);
     }
 
     public function testGetRootAlias()
     {
-        Yii::$aliases = [];
-        Yii::setAlias('@yii', '/yii/framework');
-        $this->assertEquals('@yii', Yii::getRootAlias('@yii'));
-        $this->assertEquals('@yii', Yii::getRootAlias('@yii/test/file'));
-        Yii::setAlias('@yii/gii', '/yii/gii');
-        $this->assertEquals('@yii/gii', Yii::getRootAlias('@yii/gii'));
+        $this->app->setAlias('@yii', '/yii/framework');
+        $this->assertEquals('@yii', $this->app->getRootAlias('@yii'));
+        $this->assertEquals('@yii', $this->app->getRootAlias('@yii/test/file'));
+        $this->app->setAlias('@yii/gii', '/yii/gii');
+        $this->assertEquals('@yii/gii', $this->app->getRootAlias('@yii/gii'));
     }
 
     /*
@@ -89,22 +85,21 @@ class BaseYiiTest extends TestCase
      */
     public function testSetAlias()
     {
-        Yii::$aliases = [];
-        Yii::setAlias('@yii/gii', '/yii/gii');
-        $this->assertEquals('/yii/gii', Yii::getAlias('@yii/gii'));
-        Yii::setAlias('@yii/tii', '/yii/tii');
-        $this->assertEquals('/yii/tii', Yii::getAlias('@yii/tii'));
+        $this->app->setAlias('@yii/gii', '/yii/gii');
+        $this->assertEquals('/yii/gii', $this->app->getAlias('@yii/gii'));
+        $this->app->setAlias('@yii/tii', '/yii/tii');
+        $this->assertEquals('/yii/tii', $this->app->getAlias('@yii/tii'));
     }
 
     public function testGetVersion()
     {
-        $this->assertTrue((bool) preg_match('~\d+\.\d+(?:\.\d+)?(?:-\w+)?~', \Yii::getVersion()));
+        $this->assertTrue((bool) preg_match('~\d+\.\d+(?:\.\d+)?(?:-\w+)?~', $this->app->getVersion()));
     }
 
     public function testCreateObject()
     {
         $object = Yii::createObject([
-            'class' => Singer::class,
+            '__class' => Singer::class,
             'firstName' => 'John',
         ]);
         $this->assertTrue($object instanceof Singer);
@@ -129,8 +124,6 @@ class BaseYiiTest extends TestCase
      */
     public function testCreateObjectCallable()
     {
-        Yii::$container = new Container();
-
         // Test passing in of normal params combined with DI params.
         $this->assertNotEmpty(Yii::createObject(function (Singer $singer, $a) {
             return $a === 'a';
@@ -166,8 +159,6 @@ class BaseYiiTest extends TestCase
     }
 
     /**
-     * @depends testSetupLogger
-     *
      * @covers \yii\BaseYii::info()
      * @covers \yii\BaseYii::warning()
      * @covers \yii\BaseYii::debug()
@@ -178,7 +169,7 @@ class BaseYiiTest extends TestCase
         $logger = $this->getMockBuilder(Logger::class)
             ->setMethods(['log'])
             ->getMock();
-        BaseYii::setLogger($logger);
+        $this->container->set('logger', $logger);
 
         $logger->expects($this->exactly(4))
             ->method('log')
@@ -220,7 +211,7 @@ class BaseYiiTest extends TestCase
         $logger = $this->getMockBuilder(Logger::class)
             ->setMethods(['log'])
             ->getMock();
-        BaseYii::setLogger($logger);
+        $this->container->set('logger', $logger);
         $throwable = new \Exception('test');
 
         $logger
@@ -235,8 +226,6 @@ class BaseYiiTest extends TestCase
     }
 
     /**
-     * @depends testSetupProfiler
-     *
      * @covers \yii\BaseYii::beginProfile()
      * @covers \yii\BaseYii::endProfile()
      */
@@ -245,7 +234,7 @@ class BaseYiiTest extends TestCase
         $profiler = $this->getMockBuilder('yii\profile\Profiler')
             ->setMethods(['begin', 'end'])
             ->getMock();
-        BaseYii::setProfiler($profiler);
+        $this->container->set('profiler', $profiler);
 
         $profiler->expects($this->exactly(2))
             ->method('begin')
