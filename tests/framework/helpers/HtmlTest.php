@@ -21,18 +21,16 @@ class HtmlTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockApplication([
-            'components' => [
-                'request' => [
-                    '__class' => \yii\web\Request::class,
-                    'url' => '/test',
-                    'scriptUrl' => '/index.php',
-                    'hostInfo' => 'http://www.example.com',
-                    'enableCsrfValidation' => false,
-                ],
-                'response' => [
-                    '__class' => \yii\web\Response::class,
-                ],
+        $this->container->setMultiple([
+            'request' => [
+                '__class' => \yii\web\Request::class,
+                'url' => '/test',
+                'scriptUrl' => '/index.php',
+                'hostInfo' => 'http://www.example.com',
+                'enableCsrfValidation' => false,
+            ],
+            'response' => [
+                '__class' => \yii\web\Response::class,
             ],
         ]);
     }
@@ -108,12 +106,10 @@ class HtmlTest extends TestCase
 
     public function testCsrfMetaTagsDisableCsrfValidation()
     {
-        $this->mockApplication([
-            'components' => [
-                'request' => [
-                    '__class' => \yii\web\Request::class,
-                    'enableCsrfValidation' => false,
-                ],
+        $this->container->setMultiple([
+            'request' => [
+                '__class' => \yii\web\Request::class,
+                'enableCsrfValidation' => false,
             ],
         ]);
         $this->assertEquals('', Html::csrfMetaTags());
@@ -121,16 +117,14 @@ class HtmlTest extends TestCase
 
     public function testCsrfMetaTagsEnableCsrfValidation()
     {
-        $this->mockApplication([
-            'components' => [
-                'request' => [
-                    '__class' => \yii\web\Request::class,
-                    'enableCsrfValidation' => true,
-                    'cookieValidationKey' => 'key',
-                ],
-                'response' => [
-                    '__class' => \yii\web\Response::class,
-                ],
+        $this->container->setMultiple([
+            'request' => [
+                '__class' => \yii\web\Request::class,
+                'enableCsrfValidation' => true,
+                'cookieValidationKey' => 'key',
+            ],
+            'response' => [
+                '__class' => \yii\web\Response::class,
             ],
         ]);
         $pattern = '<meta name="csrf-param" content="_csrf">%A<meta name="csrf-token" content="%s">';
@@ -140,12 +134,10 @@ class HtmlTest extends TestCase
 
     public function testCsrfMetaTagsEnableCsrfValidationWithoutCookieValidationKey()
     {
-        $this->mockApplication([
-            'components' => [
-                'request' => [
-                    '__class' => \yii\web\Request::class,
-                    'enableCsrfValidation' => true,
-                ],
+        $this->container->setMultiple([
+            'request' => [
+                '__class' => \yii\web\Request::class,
+                'enableCsrfValidation' => true,
             ],
         ]);
         $this->expectException(\yii\exceptions\InvalidConfigException::class);

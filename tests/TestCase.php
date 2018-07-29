@@ -65,15 +65,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function mockApplication($config = [], $appClass = \yii\console\Application::class)
     {
-        if (empty($config)) {
+        if ($this->app && empty($config)) {
             return;
         }
-        throw new \Exception('NO APP MOCKING NEEDED IN ' . __METHOD__);
-        new $appClass(ArrayHelper::merge([
-            'id' => 'testapp',
-            'basePath' => __DIR__,
-            'vendorPath' => $this->getVendorPath(),
-        ], $config));
+        $def = $this->container->getDefinition('app');
+        $this->container->set('app', array_merge($def, $config));
+        $this->app = $this->container->get('app');
+        var_dump($this->app);die;
     }
 
     protected function mockWebApplication($config = [], $appClass = \yii\web\Application::class)
