@@ -28,12 +28,14 @@ class BaseYiiTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
+        $this->mockApplication();
         //$this->aliases = Yii::$aliases;
     }
 
     protected function tearDown()
     {
         parent::tearDown();
+        $this->destroyApplication();
         //Yii::$aliases = $this->aliases;
     }
 

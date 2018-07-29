@@ -25,6 +25,7 @@ class FormatConverterTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
+        $this->mockApplication();
 
         IntlTestHelper::setIntlStatus($this);
 

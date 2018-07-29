@@ -25,11 +25,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected $container;
 
-    protected function setUp()
+    protected $defaultAppConfig;
+
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
-        $this->app = Yii::getApp();
-        $this->container = $this->app->getContainer();
-        parent::setUp();
+        parent::__construct($name, $data, $dataName);
+        $this->container = Yii::getContainer();
+        $this->defaultAppConfig = $this->container->getDefinition('app');
     }
 
     /**
@@ -68,10 +70,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         if ($this->app && empty($config)) {
             return;
         }
-        $def = $this->container->getDefinition('app');
-        $this->container->set('app', array_merge($def, $config));
+        $this->container->set('app', array_merge($this->defaultAppConfig, $config));
         $this->app = $this->container->get('app');
-        var_dump($this->app);die;
     }
 
     protected function mockWebApplication($config = [], $appClass = \yii\web\Application::class)

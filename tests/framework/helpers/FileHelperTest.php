@@ -24,6 +24,7 @@ class FileHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+        $this->mockApplication();
 
         $this->testFilePath = $this->app->getAlias('@yii/tests/runtime') . DIRECTORY_SEPARATOR . get_class($this);
         $this->createDir($this->testFilePath);
