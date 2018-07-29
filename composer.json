@@ -80,6 +80,7 @@
         "yiisoft/cache": "dev-master",
         "yiisoft/yii-console": "dev-master",
         "yiisoft/yii-web": "dev-master",
+        "ezyang/htmlpurifier": "^4.6",
         "phpunit/phpunit": "^7.2",
         "hiqdev/composer-config-plugin": "1.0.x-dev"
     },
@@ -87,7 +88,7 @@
         "yiisoft/di": "DI container implementation",
         "yiisoft/log": "Logging implementation",
         "yiisoft/cache": "Caching implementation",
-        "ezyang/htmlpurifier": "version '~4.6' required at 'yii\\helpers\\HtmlPurifier' for 'html' data format support (e.g. 'yii\\i18n\\Formatter:asHtml()' and 'yii\\helpers\\StringHelper::truncateHtml()')"
+        "ezyang/htmlpurifier": "version '^4.6' required at 'yii\\helpers\\HtmlPurifier' for 'html' data format support (e.g. 'yii\\i18n\\Formatter:asHtml()' and 'yii\\helpers\\StringHelper::truncateHtml()')"
     },
     "autoload": {
         "psr-4": {
