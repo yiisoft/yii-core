@@ -606,7 +606,7 @@ class BaseInflector
      */
     private static function encoding()
     {
-        return isset(Yii::$app) ? Yii::$app->charset : 'UTF-8';
+        return Yii::getApp() !== null ? Yii::getApp()->charset : 'UTF-8';
     }
 
 }

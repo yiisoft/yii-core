@@ -28,10 +28,8 @@ class FormatConverterTest extends TestCase
 
         IntlTestHelper::setIntlStatus($this);
 
-        $this->mockApplication([
-            'timeZone' => 'UTC',
-            'language' => 'ru-RU',
-        ]);
+        $this->app->timeZone = 'UTC';
+        $this->app->language = 'ru-RU';
     }
 
     protected function tearDown()
@@ -139,7 +137,8 @@ class FormatConverterTest extends TestCase
 
     public function testIntlOneDigitIcu()
     {
-        $formatter = new Formatter(['locale' => 'en-US']);
+        $formatter = new Formatter($this->app);
+        $formatter->locale = 'en-US';
         $this->assertEquals('24.8.2014', $formatter->asDate('2014-8-24', 'php:d.n.Y'));
         $this->assertEquals('24.8.2014', $formatter->asDate('2014-8-24', 'd.M.yyyy'));
         $this->assertEquals('24.8.2014', $formatter->asDate('2014-8-24', 'd.L.yyyy'));
@@ -147,7 +146,8 @@ class FormatConverterTest extends TestCase
 
     public function testOneDigitIcu()
     {
-        $formatter = new Formatter(['locale' => 'en-US']);
+        $formatter = new Formatter($this->app);
+        $formatter->locale = 'en-US';
         $this->assertEquals('24.8.2014', $formatter->asDate('2014-8-24', 'php:d.n.Y'));
         $this->assertEquals('24.8.2014', $formatter->asDate('2014-8-24', 'd.M.yyyy'));
         $this->assertEquals('24.8.2014', $formatter->asDate('2014-8-24', 'd.L.yyyy'));
@@ -158,7 +158,8 @@ class FormatConverterTest extends TestCase
         $this->assertEquals('d M Y \г.', FormatConverter::convertDateIcuToPhp("dd MMM y 'г'.", 'date', 'ru-RU'));
         $this->assertEquals("dd M yy 'г'.", FormatConverter::convertDateIcuToJui("dd MMM y 'г'.", 'date', 'ru-RU'));
 
-        $formatter = new Formatter(['locale' => 'ru-RU']);
+        $formatter = new Formatter($this->app);
+        $formatter->locale = 'ru-RU';
         // There is a dot after month name in updated ICU data and no dot in old data. Both are acceptable.
         // See https://github.com/yiisoft/yii2/issues/9906
         $this->assertRegExp('/24 авг\.? 2014 г\./', $formatter->asDate('2014-8-24', "dd MMM y 'г'."));
@@ -195,11 +196,15 @@ class FormatConverterTest extends TestCase
     {
         $time = time();
 
-        $formatter = new Formatter(['locale' => 'en-US']);
+        $formatter = new Formatter($this->app);
+        $formatter->locale = 'en-US';
         $this->assertEquals(date('c', $time), $formatter->asDatetime($time, 'php:c'));
 
         date_default_timezone_set('Europe/Moscow');
-        $formatter = new Formatter(['locale' => 'ru-RU', 'timeZone' => 'Europe/Moscow']);
+
+        $formatter = new Formatter($this->app);
+        $formatter->locale = 'ru-RU';
+        $formatter->timeZone = 'Europe/Moscow';
         $this->assertEquals(date('c', $time), $formatter->asDatetime($time, 'php:c'));
     }
 }

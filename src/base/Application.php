@@ -10,6 +10,8 @@ namespace yii\base;
 use Psr\Container\ContainerInterface;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
+use yii\web\Session;
+use yii\web\User;
 
 /**
  * Application is the base class for all application classes.
@@ -275,21 +277,33 @@ abstract class Application extends Module
         return $this->container->get('errorHandler');
     }
 
+    /**
+     * @return View
+     */
     public function getView()
     {
         return $this->container->get('view');
     }
 
+    /**
+     * @return Security
+     */
     public function getSecurity()
     {
         return $this->container->get('security');
     }
 
+    /**
+     * @return Session
+     */
     public function getSession()
     {
         return $this->container->get('session');
     }
 
+    /**
+     * @return User
+     */
     public function getUser()
     {
         return $this->container->get('user');

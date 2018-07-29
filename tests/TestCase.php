@@ -18,6 +18,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     public static $params;
 
+    /**
+     * @var Application
+     */
     protected $app;
 
     protected function setUp()

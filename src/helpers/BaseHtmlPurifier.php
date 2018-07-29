@@ -156,8 +156,8 @@ class BaseHtmlPurifier
         }
 
         $configInstance = \HTMLPurifier_Config::create($config instanceof \Closure ? null : $config);
-        if (Yii::$app !== null) {
-            $configInstance->set('Cache.SerializerPath', Yii::$app->getRuntimePath());
+        if (Yii::getApp() !== null) {
+            $configInstance->set('Cache.SerializerPath', Yii::getApp()->getRuntimePath());
             $configInstance->set('Cache.SerializerPermissions', 0775);
         }
 

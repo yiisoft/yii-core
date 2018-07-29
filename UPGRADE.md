@@ -242,6 +242,7 @@ Upgrade from Yii 2.0.x
   symbols with `_`.
 * `yii\i18n\MessageFormatter::parse()` method was removed. If you have a rare case where it's used copy-paste it from
   2.0 branch to your project. 
+* `yii\helpers\Markdown` was removed. Use `cebe/markdown` composer package directly. 
 
 
 Upgrade from Yii 2.0.15

@@ -207,7 +207,7 @@ class ConsoleTest extends TestCase
 
     public function testErrorSummary()
     {
-        $model = new TestConsoleModel();
+        $model = new TestConsoleModel(['name']);
         $model->name = 'not_an_integer';
         $model->addError('name', 'Error message. Here are some chars: < >');
         $model->addError('name', 'Error message. Here are even more chars: ""');

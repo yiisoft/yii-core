@@ -105,7 +105,7 @@ class BaseStringHelper
     public static function truncate($string, $length, $suffix = '...', $encoding = null, $asHtml = false)
     {
         if ($encoding === null) {
-            $encoding = Yii::$app ? Yii::$app->charset : 'UTF-8';
+            $encoding = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
         }
         if ($asHtml) {
             return static::truncateHtml($string, $length, $suffix, $encoding);
@@ -219,7 +219,7 @@ class BaseStringHelper
             return strncmp($string, $with, $bytes) === 0;
 
         }
-        $encoding = Yii::$app ? Yii::$app->charset : 'UTF-8';
+        $encoding = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
         return mb_strtolower(mb_substr($string, 0, $bytes, '8bit'), $encoding) === mb_strtolower($with, $encoding);
     }
 
@@ -246,7 +246,7 @@ class BaseStringHelper
             return substr_compare($string, $with, -$bytes, $bytes) === 0;
         }
 
-        $encoding = Yii::$app ? Yii::$app->charset : 'UTF-8';
+        $encoding = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
         return mb_strtolower(mb_substr($string, -$bytes, mb_strlen($string, '8bit'), '8bit'), $encoding) === mb_strtolower($with, $encoding);
     }
 

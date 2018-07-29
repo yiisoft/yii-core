@@ -6,6 +6,7 @@
  */
 
 use yii\helpers\FileHelper;
+use yii\helpers\Yii;
 use yii\tests\TestCase;
 
 /**
@@ -22,7 +23,9 @@ class FileHelperTest extends TestCase
 
     public function setUp()
     {
-        $this->testFilePath = Yii::getAlias('@yii/tests/runtime') . DIRECTORY_SEPARATOR . get_class($this);
+        parent::setUp();
+
+        $this->testFilePath = $this->app->getAlias('@yii/tests/runtime') . DIRECTORY_SEPARATOR . get_class($this);
         $this->createDir($this->testFilePath);
         if (!file_exists($this->testFilePath)) {
             $this->markTestIncomplete('Unit tests runtime directory should have writable permissions!');
@@ -31,8 +34,6 @@ class FileHelperTest extends TestCase
         if (!$this->isChmodReliable()) {
             $this->markTestInComplete('Unit tests runtime directory should be local!');
         }
-
-        parent::setUp();
 
         // destroy application, Helper must work without Yii::$app
         $this->destroyApplication();
@@ -102,7 +103,7 @@ class FileHelperTest extends TestCase
      */
     protected function getMode($file)
     {
-        return substr(sprintf('%o', fileperms($file)), -4);
+        return substr(sprintf('%04o', fileperms($file)), -4);
     }
 
     /**
@@ -139,7 +140,7 @@ class FileHelperTest extends TestCase
      */
     protected function assertFileMode($expectedMode, $fileName, $message = '')
     {
-        $expectedMode = sprintf('%o', $expectedMode);
+        $expectedMode = sprintf('%04o', $expectedMode);
         $this->assertEquals($expectedMode, $this->getMode($fileName), $message);
     }
 

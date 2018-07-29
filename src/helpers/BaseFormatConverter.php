@@ -97,7 +97,7 @@ class BaseFormatConverter
      * @param string $pattern date format pattern in ICU format.
      * @param string $type 'date', 'time', or 'datetime'.
      * @param string $locale the locale to use for converting ICU short patterns `short`, `medium`, `long` and `full`.
-     * If not given, `Yii::$app->language` will be used.
+     * If not given, `Yii::getApp()->language` will be used.
      * @return string The converted date format pattern.
      */
     public static function convertDateIcuToPhp($pattern, $type = 'date', $locale = null)
@@ -105,7 +105,7 @@ class BaseFormatConverter
         if (isset(self::$_icuShortFormats[$pattern])) {
             if (extension_loaded('intl')) {
                 if ($locale === null) {
-                    $locale = Yii::$app->language;
+                    $locale = Yii::getApp()->language;
                 }
                 if ($type === 'date') {
                     $formatter = new IntlDateFormatter($locale, self::$_icuShortFormats[$pattern], IntlDateFormatter::NONE);
@@ -354,7 +354,7 @@ class BaseFormatConverter
      * @param string $pattern date format pattern in ICU format.
      * @param string $type 'date', 'time', or 'datetime'.
      * @param string $locale the locale to use for converting ICU short patterns `short`, `medium`, `long` and `full`.
-     * If not given, `Yii::$app->language` will be used.
+     * If not given, `Yii::getApp()->language` will be used.
      * @return string The converted date format pattern.
      */
     public static function convertDateIcuToJui($pattern, $type = 'date', $locale = null)
@@ -362,7 +362,7 @@ class BaseFormatConverter
         if (isset(self::$_icuShortFormats[$pattern])) {
             if (extension_loaded('intl')) {
                 if ($locale === null) {
-                    $locale = Yii::$app->language;
+                    $locale = Yii::getApp()->language;
                 }
                 if ($type === 'date') {
                     $formatter = new IntlDateFormatter($locale, self::$_icuShortFormats[$pattern], IntlDateFormatter::NONE);

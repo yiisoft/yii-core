@@ -120,14 +120,14 @@ class BaseYii
      * The reference may be specified as a string or an Reference object. If the former,
      * it will be treated as a component ID, a class/interface name or an alias, depending on the container type.
      *
-     * If you do not specify a container, the method will first try `Yii::$app` followed by `Yii::$container`.
+     * If you do not specify a container, the method will first try `Yii::getApp()` followed by `Yii::$container`.
      *
      * For example,
      *
      * ```php
      * use yii\db\Connection;
      *
-     * // returns Yii::$app->db
+     * // returns Yii::getApp()->db
      * $db = Yii::instanceOf('db', Connection::class);
      * // returns an instance of Connection using the given configuration
      * $db = Yii::instanceOf(['dsn' => 'sqlite:path/to/my.db'], Connection::class);
@@ -191,7 +191,7 @@ class BaseYii
 
     /**
      * @deprecated 3.0.0 Use DI instead.
-     * @return Application
+     * @return Application|null
      */
     public static function getApp()
     {
