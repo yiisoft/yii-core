@@ -37,7 +37,7 @@ class PhpMessageSource extends MessageSource
     /**
      * @var string the base path for all translated messages. Defaults to '@app/messages'.
      */
-    public $basePath = '@app/messages';
+    public $basePath = '@yii/messages';
     /**
      * @var array mapping between message categories and the corresponding message file paths.
      * The file paths are relative to [[basePath]]. For example,
