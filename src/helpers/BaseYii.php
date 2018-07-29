@@ -190,6 +190,14 @@ class BaseYii
     }
 
     /**
+     * @return Container|null
+     */
+    public static function getContainer()
+    {
+        return static::$container;
+    }
+
+    /**
      * @deprecated 3.0.0 Use DI instead.
      * @return Application|null
      */
