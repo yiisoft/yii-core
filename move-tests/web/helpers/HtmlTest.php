@@ -21,7 +21,7 @@ class HtmlTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->container->setMultiple([
+        $this->container->setAll([
             'request' => [
                 '__class' => \yii\web\Request::class,
                 'url' => '/test',
@@ -106,7 +106,7 @@ class HtmlTest extends TestCase
 
     public function testCsrfMetaTagsDisableCsrfValidation()
     {
-        $this->container->setMultiple([
+        $this->container->setAll([
             'request' => [
                 '__class' => \yii\web\Request::class,
                 'enableCsrfValidation' => false,
@@ -117,7 +117,7 @@ class HtmlTest extends TestCase
 
     public function testCsrfMetaTagsEnableCsrfValidation()
     {
-        $this->container->setMultiple([
+        $this->container->setAll([
             'request' => [
                 '__class' => \yii\web\Request::class,
                 'enableCsrfValidation' => true,
@@ -134,7 +134,7 @@ class HtmlTest extends TestCase
 
     public function testCsrfMetaTagsEnableCsrfValidationWithoutCookieValidationKey()
     {
-        $this->container->setMultiple([
+        $this->container->setAll([
             'request' => [
                 '__class' => \yii\web\Request::class,
                 'enableCsrfValidation' => true,
