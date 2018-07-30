@@ -277,7 +277,123 @@ abstract class Application extends Module
         return $this->container->get('i18n')->translate($category, $message, $params, $language ?: $this->language);
     }
 
-    public function getErrorHandler()
+    /**
+     * Logs a debug message.
+     * Trace messages are logged mainly for development purpose to see
+     * the execution work flow of some code.
+     * @param mixed $message the message to be logged.
+     * @param string $category the category of the message.
+     */
+    public static function debug($message, string $category = 'application'): void
+    {
+        $this->log(LogLevel::DEBUG, $message, $category);
+    }
+
+    /**
+     * Logs an error message.
+     * An error message is typically logged when an unrecoverable error occurs
+     * during the execution of an application.
+     * @param string|array $message the message to be logged.
+     * @param string $category the category of the message.
+     */
+    public static function error($message, string $category = 'application'): void
+    {
+        $this->log(LogLevel::ERROR, $message, $category);
+    }
+
+    /**
+     * Logs a warning message.
+     * A warning message is typically logged when an error occurs while the execution
+     * can still continue.
+     * @param string|array $message the message to be logged.
+     * @param string $category the category of the message.
+     */
+    public static function warning($message, string $category = 'application'): void
+    {
+        $this->log(LogLevel::WARNING, $message, $category);
+    }
+
+    /**
+     * Logs an informative message.
+     * An informative message is typically logged by an application to keep record of
+     * something important (e.g. an administrator logs in).
+     * @param string|array $message the message to be logged.
+     * @param string $category the category of the message.
+     */
+    public static function info($message, string $category = 'application'): void
+    {
+        $this->log(LogLevel::INFO, $message, $category);
+    }
+
+    /**
+     * Logs given message through `logger` service.
+     *
+     * @param string $level log level.
+     * @param mixed $message the message to be logged. This can be a simple string or a more
+     * complex data structure, such as array.
+     * @param string $category the category of the message.
+     * @since 3.0.0
+     */
+    public static function log(string $level, $message, $category = 'application'): void
+    {
+        $this->getLogger()->log($level, $message, ['category' => $category]);
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger(): LoggerInterface
+    {
+        return $this->container->get('logger');
+    }
+
+    /**
+     * Marks the beginning of a code block for profiling.
+     *
+     * This has to be matched with a call to [[endProfile]] with the same category name.
+     * The begin- and end- calls must also be properly nested. For example,
+     *
+     * ```php
+     * \Yii::beginProfile('block1');
+     * // some code to be profiled
+     *     \Yii::beginProfile('block2');
+     *     // some other code to be profiled
+     *     \Yii::endProfile('block2');
+     * \Yii::endProfile('block1');
+     * ```
+     * @param string $token token for the code block
+     * @param string $category the category of this log message
+     * @see endProfile()
+     */
+    public static function beginProfile(string $token, string $category = 'application'): void
+    {
+        $this->getProfiler()->begin($token, ['category' => $category]);
+    }
+
+    /**
+     * Marks the end of a code block for profiling.
+     *
+     * @param string $token token for the code block
+     * @param string $category the category of this log message
+     * @see beginProfile()
+     */
+    public static function endProfile(string $token, string $category = 'application'): void
+    {
+        $this->getProfiler()->end($token, ['category' => $category]);
+    }
+
+    /**
+     * @return ProfilerInterface
+     */
+    public function getProfiler(): ProfilerInterface
+    {
+        return $this->container->get('profiler');
+    }
+
+    /**
+     * @return ErrorHandler
+     */
+    public function getErrorHandler(): ErrorHandler
     {
         return $this->container->get('errorHandler');
     }
