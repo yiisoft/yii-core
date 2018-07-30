@@ -216,18 +216,17 @@ class BaseYii
         return static::get('profiler');
     }
 
-    private static function getLogger()
-    {
-        return static::get('logger');
-    }
-
     private static function get(string $name)
     {
         return static::$container->get($name);
     }
 
     /**
-     * Logs a message with category.
+     * Logs given message with level and category.
+     *
+     * Uses `logger` service if container is available.
+     * Else logs message with PHP built-in `error_log`.
+     *
      * @param string $level log level.
      * @param mixed $message the message to be logged. This can be a simple string or a more
      * complex data structure, such as array.
@@ -236,18 +235,15 @@ class BaseYii
      */
     public static function log($level, $message, $category = 'application')
     {
-        $context = ['category' => $category];
-        if (!is_string($message)) {
-            if ($message instanceof \Throwable) {
-                // exceptions are string-convertable, thus should be passed as it is to the logger
-                // if exception instance is given to produce a stack trace, it MUST be in a key named "exception".
-                $context['exception'] = $message;
-            } else {
-                // exceptions may not be serializable if in the call stack somewhere is a Closure
-                $message = VarDumper::export($message);
-            }
+        if (LogLevel::DEBUG === $level && !YII_DEBUG) {
+            return;
         }
-        static::getLogger()->log($level, $message, $context);
+
+        if (static::$container !== null) {
+            return static::$container->get('logger')->log($level, $message, ['category' => $category]);
+        }
+
+        error_log($message);
     }
 
     /**
@@ -261,9 +257,7 @@ class BaseYii
      */
     public static function debug($message, $category = 'application')
     {
-        if (YII_DEBUG) {
-            static::log(LogLevel::DEBUG, $message, $category);
-        }
+        static::log(LogLevel::DEBUG, $message, $category);
     }
 
     /**
