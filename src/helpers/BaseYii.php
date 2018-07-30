@@ -211,11 +211,6 @@ class BaseYii
         return static::get('factory');
     }
 
-    private static function getProfiler()
-    {
-        return static::get('profiler');
-    }
-
     private static function get(string $name)
     {
         return static::$container->get($name);
@@ -302,6 +297,9 @@ class BaseYii
     /**
      * Marks the beginning of a code block for profiling.
      *
+     * Uses `profiler` service if container is available.
+     * Else logs warning message only.
+     *
      * This has to be matched with a call to [[endProfile]] with the same category name.
      * The begin- and end- calls must also be properly nested. For example,
      *
@@ -319,19 +317,30 @@ class BaseYii
      */
     public static function beginProfile($token, $category = 'application')
     {
-        static::getProfiler()->begin($token, ['category' => $category]);
+        if (static::$container !== null) {
+            static::$container->get('profiler')->begin($token, ['category' => $category]);
+        } else {
+            static::warning('Profiling not available without container');
+        }
     }
 
     /**
      * Marks the end of a code block for profiling.
-     * This has to be matched with a previous call to [[beginProfile]] with the same category name.
+     *
+     * Uses `profiler` service if container is available.
+     * Else logs warning message only.
+     *
      * @param string $token token for the code block
      * @param string $category the category of this log message
      * @see beginProfile()
      */
     public static function endProfile($token, $category = 'application')
     {
-        static::getProfiler()->end($token, ['category' => $category]);
+        if (static::$container !== null) {
+            static::$container->get('profiler')->end($token, ['category' => $category]);
+        } else {
+            static::warning('Profiling not available without container');
+        }
     }
 
     /**
