@@ -7,13 +7,11 @@
 
 namespace yii\helpers;
 
-use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use yii\base\Application;
 use yii\exceptions\InvalidConfigException;
 use yii\di\Container;
 use yii\di\Reference;
-use yii\helpers\VarDumper;
 
 /**
  * BaseYii is the core helper class for the Yii framework.
@@ -35,7 +33,12 @@ class BaseYii
      */
     protected static $container;
 
-    public static function setContainer(Container $container)
+    /**
+     * Sets default container to be used where needed.
+     *
+     * @param Container $container
+     */
+    public static function setContainer(Container $container): void
     {
         static::$container = $container;
     }
@@ -44,13 +47,13 @@ class BaseYii
      * Returns a string representing the current version of the Yii framework.
      * @return string the version of Yii framework
      */
-    public static function getVersion()
+    public static function getVersion(): string
     {
         return '3.0.0-dev';
     }
 
     /**
-     * Creates a new object using the given configuration.
+     * Creates a new object using the given configuration and constructor arguments.
      *
      * You may view this method as an enhanced version of the `new` operator.
      * The method supports creating an object based on a class name, a configuration array or
@@ -72,10 +75,10 @@ class BaseYii
      * ]);
      *
      * // create an object with two constructor parameters
-     * $object = \Yii::createObject('MyClass', [$param1, $param2]);
+     * $object = Yii::createObject('MyClass', [$param1, $param2]);
      * ```
      *
-     * Using [[\yii\di\Container|dependency injection container]], this method can also identify
+     * Using [[Container|dependency injection container]], this method can also identify
      * dependent objects, instantiate them and inject them into the newly created object.
      *
      * @param string|array|callable $type the object type. This can be specified in one of the following forms:
@@ -87,6 +90,7 @@ class BaseYii
      *   The callable should return a new instance of the object being created.
      *
      * @param array $params the constructor parameters
+     * @param Container $container the container, default one will be used if not given
      * @return object the created object
      * @throws InvalidConfigException if the configuration is invalid.
      * @see \yii\di\Container
