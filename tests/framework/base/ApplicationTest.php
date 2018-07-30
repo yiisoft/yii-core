@@ -22,21 +22,14 @@ class ApplicationTest extends TestCase
 {
     public function testContainerSettingsAffectBootstrap()
     {
-        $this->mockApplication([
-            'container' => [
-                'definitions' => [
-                    Logger::class => NullLogger::class
-                ],
+        $this->container->setAll([
+            'logger' => [
+                '__class' => NullLogger::class,
             ],
-            'components' => [
-                'log' => [
-                    '__class' => Logger::class
-                ],
-            ],
-            'bootstrap' => ['log'],
         ]);
+        $this->mockApplication();
 
-        $this->assertInstanceOf(NullLogger::class, Yii::$app->log);
+        $this->assertInstanceOf(NullLogger::class, $this->app->getLogger());
     }
 
     public function testBootstrap()

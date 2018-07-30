@@ -201,7 +201,7 @@ class Sort extends BaseObject implements Initable
     /**
      * Normalizes the [[attributes]] property.
      */
-    public function init()
+    public function init(): void
     {
         $attributes = [];
         foreach ($this->attributes as $name => $attribute) {
