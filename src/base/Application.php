@@ -284,7 +284,7 @@ abstract class Application extends Module
      * @param mixed $message the message to be logged.
      * @param string $category the category of the message.
      */
-    public static function debug($message, string $category = 'application'): void
+    public function debug($message, string $category = 'application'): void
     {
         $this->log(LogLevel::DEBUG, $message, $category);
     }
@@ -296,7 +296,7 @@ abstract class Application extends Module
      * @param string|array $message the message to be logged.
      * @param string $category the category of the message.
      */
-    public static function error($message, string $category = 'application'): void
+    public function error($message, string $category = 'application'): void
     {
         $this->log(LogLevel::ERROR, $message, $category);
     }
@@ -308,7 +308,7 @@ abstract class Application extends Module
      * @param string|array $message the message to be logged.
      * @param string $category the category of the message.
      */
-    public static function warning($message, string $category = 'application'): void
+    public function warning($message, string $category = 'application'): void
     {
         $this->log(LogLevel::WARNING, $message, $category);
     }
@@ -320,7 +320,7 @@ abstract class Application extends Module
      * @param string|array $message the message to be logged.
      * @param string $category the category of the message.
      */
-    public static function info($message, string $category = 'application'): void
+    public function info($message, string $category = 'application'): void
     {
         $this->log(LogLevel::INFO, $message, $category);
     }
@@ -334,7 +334,7 @@ abstract class Application extends Module
      * @param string $category the category of the message.
      * @since 3.0.0
      */
-    public static function log(string $level, $message, $category = 'application'): void
+    public function log(string $level, $message, $category = 'application'): void
     {
         $this->getLogger()->log($level, $message, ['category' => $category]);
     }
@@ -365,7 +365,7 @@ abstract class Application extends Module
      * @param string $category the category of this log message
      * @see endProfile()
      */
-    public static function beginProfile(string $token, string $category = 'application'): void
+    public function beginProfile(string $token, string $category = 'application'): void
     {
         $this->getProfiler()->begin($token, ['category' => $category]);
     }
@@ -377,7 +377,7 @@ abstract class Application extends Module
      * @param string $category the category of this log message
      * @see beginProfile()
      */
-    public static function endProfile(string $token, string $category = 'application'): void
+    public function endProfile(string $token, string $category = 'application'): void
     {
         $this->getProfiler()->end($token, ['category' => $category]);
     }
