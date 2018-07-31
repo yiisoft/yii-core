@@ -224,13 +224,14 @@ class BaseYii
      * Logs given message with level and category.
      *
      * Uses `logger` service if container is available.
-     * Else logs message with PHP built-in `error_log`.
+     * Else logs message with PHP built-in `error_log()`.
      *
      * @param string $level log level.
      * @param mixed $message the message to be logged. This can be a simple string or a more
      * complex data structure, such as array.
      * @param string $category the category of the message.
      * @since 3.0.0
+     * @see Psr\Log\LoggerInterface::log()
      */
     public static function log($level, $message, $category = 'application')
     {
@@ -249,10 +250,11 @@ class BaseYii
      * Logs a debug message.
      * Trace messages are logged mainly for development purpose to see
      * the execution work flow of some code.
-     * @param string|array $message the message to be logged. This can be a simple string or a more
-     * complex data structure, such as array.
+     *
+     * @param mixed $message the message to be logged.
      * @param string $category the category of the message.
      * @since 2.0.14
+     * @see log()
      */
     public static function debug($message, $category = 'application')
     {
@@ -263,9 +265,10 @@ class BaseYii
      * Logs an error message.
      * An error message is typically logged when an unrecoverable error occurs
      * during the execution of an application.
-     * @param string|array $message the message to be logged. This can be a simple string or a more
-     * complex data structure, such as array.
+     *
+     * @param mixed $message the message to be logged.
      * @param string $category the category of the message.
+     * @see log()
      */
     public static function error($message, $category = 'application')
     {
@@ -276,9 +279,10 @@ class BaseYii
      * Logs a warning message.
      * A warning message is typically logged when an error occurs while the execution
      * can still continue.
-     * @param string|array $message the message to be logged. This can be a simple string or a more
-     * complex data structure, such as array.
+     *
+     * @param mixed $message the message to be logged.
      * @param string $category the category of the message.
+     * @see log()
      */
     public static function warning($message, $category = 'application')
     {
@@ -289,9 +293,10 @@ class BaseYii
      * Logs an informative message.
      * An informative message is typically logged by an application to keep record of
      * something important (e.g. an administrator logs in).
-     * @param string|array $message the message to be logged. This can be a simple string or a more
-     * complex data structure, such as array.
+     *
+     * @param mixed $message the message to be logged.
      * @param string $category the category of the message.
+     * @see log()
      */
     public static function info($message, $category = 'application')
     {
@@ -304,20 +309,9 @@ class BaseYii
      * Uses `profiler` service if container is available.
      * Else logs warning message only.
      *
-     * This has to be matched with a call to [[endProfile]] with the same category name.
-     * The begin- and end- calls must also be properly nested. For example,
-     *
-     * ```php
-     * \Yii::beginProfile('block1');
-     * // some code to be profiled
-     *     \Yii::beginProfile('block2');
-     *     // some other code to be profiled
-     *     \Yii::endProfile('block2');
-     * \Yii::endProfile('block1');
-     * ```
      * @param string $token token for the code block
      * @param string $category the category of this log message
-     * @see endProfile()
+     * @see \yii\profile\ProfilerInterface::begin()
      */
     public static function beginProfile($token, $category = 'application')
     {
@@ -336,7 +330,7 @@ class BaseYii
      *
      * @param string $token token for the code block
      * @param string $category the category of this log message
-     * @see beginProfile()
+     * @see \yii\profile\ProfilerInterface::end()
      */
     public static function endProfile($token, $category = 'application')
     {
