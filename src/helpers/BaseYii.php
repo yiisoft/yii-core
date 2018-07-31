@@ -7,11 +7,11 @@
 
 namespace yii\helpers;
 
+use Psr\Container\ContainerInterface;
 use Psr\Log\LogLevel;
 use yii\base\Application;
+use yii\di\FactoryInterface;
 use yii\exceptions\InvalidConfigException;
-use yii\di\Container;
-use yii\di\Reference;
 
 /**
  * BaseYii is the core helper class for the Yii framework.
@@ -25,20 +25,20 @@ use yii\di\Reference;
 class BaseYii
 {
     /**
-     * @var Container the dependency injection (DI) container used by [[createObject()]].
-     * You may use [[Container::set()]] to set up the needed dependencies of classes and
+     * @var ContainerInterface the dependency injection (DI) container used by [[createObject()]].
+     * You may use [[ContainerInterface::set()]] to set up the needed dependencies of classes and
      * their initial property values.
      * @see createObject()
-     * @see Container
+     * @see ContainerInterface
      */
     protected static $container;
 
     /**
      * Sets default container to be used where needed.
      *
-     * @param Container $container
+     * @param ContainerInterface $container
      */
-    public static function setContainer(Container $container): void
+    public static function setContainer(ContainerInterface $container): void
     {
         static::$container = $container;
     }
@@ -53,150 +53,56 @@ class BaseYii
     }
 
     /**
-     * Creates a new object using the given configuration and constructor arguments.
+     * Creates a new object using the given configuration and constructor parameters.
      *
-     * You may view this method as an enhanced version of the `new` operator.
-     * The method supports creating an object based on a class name, a configuration array or
-     * an anonymous function.
-     *
-     * Below are some usage examples:
-     *
-     * ```php
-     * // create an object using a class name
-     * $object = Yii::createObject(\yii\db\Connection::class);
-     *
-     * // create an object using a configuration array
-     * $object = Yii::createObject([
-     *     '__class' => \yii\db\Connection::class,
-     *     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
-     *     'username' => 'root',
-     *     'password' => '',
-     *     'charset' => 'utf8',
-     * ]);
-     *
-     * // create an object with two constructor parameters
-     * $object = Yii::createObject('MyClass', [$param1, $param2]);
-     * ```
-     *
-     * Using [[Container|dependency injection container]], this method can also identify
-     * dependent objects, instantiate them and inject them into the newly created object.
-     *
-     * @param string|array|callable $type the object type. This can be specified in one of the following forms:
-     *
-     * - a string: representing the class name of the object to be created
-     * - a configuration array: the array must contain a `class` element which is treated as the object class,
-     *   and the rest of the name-value pairs will be used to initialize the corresponding object properties
-     * - a PHP callable: either an anonymous function or an array representing a class method (`[$class or $object, $method]`).
-     *   The callable should return a new instance of the object being created.
-     *
-     * @param array $params the constructor parameters
-     * @param Container $container the container, default one will be used if not given
-     * @return object the created object
-     * @throws InvalidConfigException if the configuration is invalid.
-     * @see \yii\di\Container
+     * @param string|array|callable $config the object configuration.
+     * @param array $params the constructor parameters.
+     * @param ContainerInterface $container the container, default one will be used if not given.
+     * @return object the created object.
+     * @see \yii\di\Factory::create()
      */
-    public static function createObject($type, array $params = [])
+    public static function createObject($config, array $params = [], ContainerInterface $container = null)
     {
-        if (is_string($type)) {
-            return static::get('factory')->create($type, [], $params);
-        }
-
-        if (is_array($type) && isset($type['__class'])) {
-            $class = $type['__class'];
-            unset($type['__class']);
-            return static::get('factory')->create($class, $type, $params);
-        }
-
-        if (is_callable($type, true)) {
-            return static::get('injector')->invoke($type, $params);
-        }
-
-        if (is_array($type)) {
-            throw new InvalidConfigException('Object configuration must be an array containing a "__class" element.');
-        }
-
-        throw new InvalidConfigException('Unsupported configuration type: ' . gettype($type));
+        return static::getFactory($container)->create($config, $params);
     }
 
     /**
      * Resolves the specified reference into the actual object and makes sure it is of the specified type.
      *
-     * The reference may be specified as a string or an Reference object. If the former,
-     * it will be treated as a component ID, a class/interface name or an alias, depending on the container type.
-     *
-     * If you do not specify a container, the method will first try `Yii::getApp()` followed by `Yii::$container`.
-     *
-     * For example,
-     *
-     * ```php
-     * use yii\db\Connection;
-     *
-     * // returns Yii::getApp()->db
-     * $db = Yii::instanceOf('db', Connection::class);
-     * // returns an instance of Connection using the given configuration
-     * $db = Yii::instanceOf(['dsn' => 'sqlite:path/to/my.db'], Connection::class);
-     * ```
-     *
-     * @param object|string|array|static $reference an object or a reference to the desired object.
-     * You may specify a reference in terms of a component ID or an Reference object.
-     * Starting from version 2.0.2, you may also pass in a configuration array for creating the object.
-     * If the "class" value is not specified in the configuration array, it will use the value of `$type`.
+     * @param object|string|array|\yii\di\Reference $reference an object, configuration or a reference to the desired object.
      * @param string $type the class/interface name to be checked. If null, type check will not be performed.
-     * @param Container $container the container. This will be passed to [[get()]].
+     * @param ContainerInterface $container the container. This will be passed to [[get()]].
      * @return object the object referenced by the Reference, or `$reference` itself if it is an object.
-     * @throws InvalidConfigException if the reference is invalid
+     * @see \yii\di\Factory::ensure()
      */
-    public static function instanceOf($reference, $type = null, $container = null)
+    public static function ensureObject($reference, string $type = null, ContainerInterface $container = null)
     {
-        if (is_array($reference)) {
-            $class = $type;
-            if (isset($reference['__class'])) {
-                $class = $reference['__class'];
-                unset($reference['__class']);
-            }
-
-            if ($container === null) {
-                $container = static::$container;
-            }
-            $component = $container->get($class, [], $reference);
-            if ($type === null || $component instanceof $type) {
-                return $component;
-            }
-
-            throw new InvalidConfigException('Invalid data type: ' . $class . '. ' . $type . ' is expected.');
-        }
-
-        if (empty($reference)) {
-            throw new InvalidConfigException('The required component is not specified.');
-        }
-
-        if (is_string($reference)) {
-            $reference = new Reference($reference);
-        } elseif ($type === null || $reference instanceof $type) {
-            return $reference;
-        }
-
-        if ($reference instanceof Reference) {
-            try {
-                $container->get($reference);
-            } catch (\ReflectionException $e) {
-                throw new InvalidConfigException('Failed to instantiate component or class "' . $reference->id . '".', 0, $e);
-            }
-            if ($type === null || $component instanceof $type) {
-                return $component;
-            }
-
-            throw new InvalidConfigException('"' . $reference->id . '" refers to a ' . get_class($component) . " component. $type is expected.");
-        }
-
-        $valueType = is_object($reference) ? get_class($reference) : gettype($reference);
-        throw new InvalidConfigException("Invalid data type: $valueType. $type is expected.");
+        return static::getFactory($container)->ensure($reference, $type);
     }
 
     /**
-     * @return Container|null
+     * Returns factory.
+     *
+     * @param ContainerInterface $container
+     * @return FactoryInterface
+     * @throws InvalidConfigException if no factory can be found
      */
-    public static function getContainer()
+    private static function getFactory(ContainerInterface $container = null): FactoryInterface
+    {
+        if ($container === null) {
+            $container = static::$container;
+        }
+        if ($container === null || !$container->has('factory')) {
+            throw new InvalidConfigException('No factory can be found');
+        }
+
+        return $container->get('factory');
+    }
+
+    /**
+     * @return ContainerInterface|null
+     */
+    public static function getContainer(): ?ContainerInterface
     {
         return static::$container;
     }
@@ -205,19 +111,9 @@ class BaseYii
      * @deprecated 3.0.0 Use DI instead.
      * @return Application|null
      */
-    public static function getApp()
+    public static function getApp(): ?Application
     {
         return static::$container ? static::$container->get('app') : null;
-    }
-
-    private static function getFactory()
-    {
-        return static::get('factory');
-    }
-
-    private static function get(string $name)
-    {
-        return static::$container->get($name);
     }
 
     /**
