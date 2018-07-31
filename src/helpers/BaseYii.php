@@ -34,13 +34,14 @@ class BaseYii
     protected static $container;
 
     /**
-     * Sets default container to be used where needed.
+     * Sets the DI container to be used to find services.
      *
      * @param ContainerInterface $container
+     * @return ContainerInterface the given container
      */
-    public static function setContainer(ContainerInterface $container): void
+    public static function setContainer(ContainerInterface $container): ContainerInterface
     {
-        static::$container = $container;
+        return static::$container = $container;
     }
 
     /**
