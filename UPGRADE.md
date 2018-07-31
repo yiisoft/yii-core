@@ -104,7 +104,11 @@ Upgrade from Yii 2.0.x
     * cache:
         * renamed `yii\caching` -> `yii\cache`
         * moved cache dependencies to own directory
-* Config changed to be DI container config instead of application.
+* DI:
+    * Config changed to be DI container config instead of application.
+    * Removed `yii\di\Instance` class:
+        * Use `yii\di\Reference` instead
+        * Use `Factory::ensure()` or `Yii::ensureObject()` instead of `Instance::ensure()`
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).
 * Tests:

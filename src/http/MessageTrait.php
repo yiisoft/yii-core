@@ -304,7 +304,7 @@ trait MessageTrait
                 $body = $this->_body;
             }
 
-            $this->_body = Yii::instanceOf($body, StreamInterface::class);
+            $this->_body = Yii::ensureObject($body, StreamInterface::class);
         }
         return $this->_body;
     }
