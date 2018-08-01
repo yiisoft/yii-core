@@ -94,7 +94,7 @@ class BaseYii
             $container = static::$container;
         }
         if ($container === null || !$container->has('factory')) {
-            throw new InvalidConfigException('No factory can be found');
+            throw new InvalidConfigException("No 'factory' service can be found");
         }
 
         return $container->get('factory');
@@ -136,7 +136,7 @@ class BaseYii
             return;
         }
 
-        if (static::$container !== null) {
+        if (static::$container !== null && static::$container->has('logger')) {
             return static::$container->get('logger')->log($level, $message, ['category' => $category]);
         }
 
@@ -212,10 +212,10 @@ class BaseYii
      */
     public static function beginProfile($token, $category = 'application')
     {
-        if (static::$container !== null) {
+        if (static::$container !== null && static::$container->has('profiler')) {
             static::$container->get('profiler')->begin($token, ['category' => $category]);
         } else {
-            static::warning('Profiling not available without container');
+            static::warning("No 'profiler' service can be found");
         }
     }
 
@@ -231,10 +231,10 @@ class BaseYii
      */
     public static function endProfile($token, $category = 'application')
     {
-        if (static::$container !== null) {
+        if (static::$container !== null && static::$container->has('profiler')) {
             static::$container->get('profiler')->end($token, ['category' => $category]);
         } else {
-            static::warning('Profiling not available without container');
+            static::warning("No 'profiler' service can be found");
         }
     }
 
