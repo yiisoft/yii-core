@@ -101,10 +101,9 @@
             "defines": "config/defines.php",
             "params": "config/params.php",
             "common": "config/common.php",
-            "tests": [
-                "$console",
-                "config/common.php"
-            ]
+            "console": "$common",
+            "web": "$common",
+            "tests": ["$console", "config/tests.php"]
         }
     }
 }
