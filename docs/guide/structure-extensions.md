@@ -11,7 +11,7 @@ other people your great work.
   that can be used without Yii, we will refer to them using the term "package" or "library".
 
 
-## Package naming <span id="package-naming"></span>
+## Package naming
 
 The idea is to name `yii-stuff` only the packages that require Yii framework (`yiisoft/core`)
 directly or through dependencies.
