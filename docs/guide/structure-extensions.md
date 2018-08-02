@@ -11,6 +11,24 @@ other people your great work.
   that can be used without Yii, we will refer to them using the term "package" or "library".
 
 
+## Package naming <span id="package-naming"></span>
+
+The idea is to name `yii-stuff` only the packages that require Yii framework (`yiisoft/core`)
+directly or through dependencies.
+Packages not requiring `yiisoft/core` and able to be used separately should be named without `yii-` prefix.
+Packages that are able to work without Yii but providing more functions with Yii should be named
+without `yii-` prefix but should suggest corresponding Yii packages in `composer.json`.
+
+So: `di`, `log`, `cache`, `db`, `rbac`, and the `core`.
+But: `yii-web`, `yii-console`, `yii-debug` and so on.
+
+At the moment only the `yiisoft/di` is really actually `yiisoft/core` free.
+Other packages will be made independent of `yiisoft/core` later.
+
+Version number should not be stated in a package name.
+Version should only be stated in `composer.json` requirements.
+So no more `yii2` prefix, use `yii-`.
+
 ## Using Extensions <span id="using-extensions"></span>
 
 To use an extension, you need to install it first. Most extensions are distributed as [Composer](https://getcomposer.org/)

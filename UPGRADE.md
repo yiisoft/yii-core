@@ -1,47 +1,72 @@
-Upgrading Instructions for Yii Framework 2.0
+Upgrading Instructions for Yii Framework 3.0
 ============================================
 
-This file contains the upgrade notes for Yii 2.0. These notes highlight changes that
+This file contains the upgrade notes for Yii 3.0. These notes highlight changes that
 could break your application when you upgrade Yii from one version to another.
-Even though we try to ensure backwards compabitilty (BC) as much as possible, sometimes
+Even though we try to ensure backwards compatibility (BC) as much as possible, sometimes
 it is not possible or very complicated to avoid it and still create a good solution to
-a problem. You may also want to check out the [versioning policy](https://github.com/yiisoft/yii2/blob/master/docs/internals/versions.md)
-for further details.
+a problem. Upgrade to Yii 3.0 might require substantial changes to your application and extensions.
+But the changes are bearable and require "refactoring" not "rewrite".
+All the "Yes, it is" cool stuff and soul still in place.
 
-Upgrading in general is as simple as updating your dependency in your composer.json and
-running `composer update`. In a big application however there may be more things to consider,
-which are explained in the following.
+Changes in short:
 
-> Note: This document assumes you have composer [installed globally](http://www.yiiframework.com/doc-2.0/guide-start-installation.html#installing-composer)
-so that you can run the `composer` command. If you have a `composer.phar` file inside of your project you need to
-replace `composer` with `php composer.phar` in the following.
+* PHP requirements were raised to 7.1. Make sure your code is updated accordingly.
+* Yii switches to [semver](https://semver.org/) since 3.0.
+* Framework package is renamed and split into parts:
+    * `core` - this package, the framework core
+    * [di] - [PSR-11] compatible Dependency Injection container
+    * [log] - [PSR-3] compatible logging library
+    * [cache] - [PSR-16] compatible caching library
+    * [db] - DataBase abstraction and ActiveRecord
+    * [rbac] - Role Base Access Control library
+    * [yii-web] - web application
+    * [yii-rest] - REST API application
+    * [yii-console] - console application
+    * [yii-jquery] - JQuery extension
+    * [yii-maskedinput] - Masked input field widget
+    * [yii-captcha] - CAPTCHA extension
+    * [yii-mssql] - MSSQL Server DB extension
+    * [yii-oracle] - Oracle DB extension
+    * some links broken - `yii2-` packages will be renamed to `yii-`
+    * also please see [Package naming convention]
+* More PSR compatibility
+* Framework core requires only virtual PSR implementation packages, you are free
+  to choose your logger and cache implementations.
+  With more PSR implementations compatibility in future.
+* Dropped Yii own class autoloader in favor of the one provided with Composer.
+* Removed `ServiceLocator` from `Application` and `Module`, DI container used instead.
+* All the configuration made explicit in `config` folders of all the packages
+  and recommended to be used with [composer-config-plugin].
+* [yii\base\Configurable] interface and logic is removed in favour of DI and [yii\di\Initable] interface.
+* No advanced app anymore. Basic application became [yii-app].
+* Application nesting allowed due to explicit configuration and [composer-config-plugin].
+
+[di]:                           https://github.com/yiisoft/di
+[log]:                          https://github.com/yiisoft/log
+[cache]:                        https://github.com/yiisoft/cache
+[yii-web]:                      https://github.com/yiisoft/yii-web
+[yii-console]:                  https://github.com/yiisoft/yii-console
+[db]:                           https://github.com/yiisoft/db
+[rbac]:                         https://github.com/yiisoft/rbac
+[yii-app]:                      https://github.com/yiisoft/yii-app
+[yii-jquery]:                   https://github.com/yiisoft/yii-jquery
+[yii-maskedinput]:              https://github.com/yiisoft/yii-maskedinput
+[yii-captcha]:                  https://github.com/yiisoft/yii-captcha
+[yii-rest]:                     https://github.com/yiisoft/yii-rest
+[yii-mssql]:                    https://github.com/yiisoft/yii-mssql
+[yii-oracle]:                   https://github.com/yiisoft/yii-oracle
+[recommended entry script]:     https://github.com/yiisoft/app-template/blob/master/public/index.php
+[Package naming convention]:    https://github.com/yiisoft/core/blob/master/docs/guide/structure-extensions.md#package-naming
+[PSR-3]:                        https://www.php-fig.org/psr/psr-3/
+[PSR-11]:                       https://www.php-fig.org/psr/psr-11/
+[PSR-16]:                       https://www.php-fig.org/psr/psr-16/
+[composer-config-plugin]:       https://github.com/hiqdev/composer-config-plugin
+[yii\base\Configurable]:        https://github.com/yiisoft/yii2/blob/master/framework/base/Configurable.php
+[yii\di\Initable]:              https://github.com/yiisoft/di/blob/master/src/Initable.php
 
 > Tip: Upgrading dependencies of a complex software project always comes at the risk of breaking something, so make sure
 you have a backup (you should be doing this anyway ;) ).
-
-In case you use [composer asset plugin](https://github.com/fxpio/composer-asset-plugin) instead of the currently recommended
-[asset-packagist.org](https://asset-packagist.org) to install Bower and NPM assets, make sure it is upgraded to the latest version as well. To ensure best stability you should also upgrade composer in this step:
-
-    composer self-update
-    composer global require "fxp/composer-asset-plugin:^1.4.1" --no-plugins
-
-The simple way to upgrade Yii, for example to version 2.0.10 (replace this with the version you want) will be running `composer require`:
-
-    composer require "yiisoft/yii2:~2.0.10" --update-with-dependencies
-
-This command will only upgrade Yii and its direct dependencies, if necessary. Without `--update-with-dependencies` the
-upgrade might fail when the Yii version you chose has slightly different dependencies than the version you had before.
-`composer require` will by default not update any other packages as a safety feature.
-
-Another way to upgrade is to change the `composer.json` file to require the new Yii version and then
-run `composer update` by specifying all packages that are allowed to be updated.
-
-    composer update yiisoft/yii2 yiisoft/yii2-composer bower-asset/inputmask
-
-The above command will only update the specified packages and leave the versions of all other dependencies intact.
-This helps to update packages step by step without causing a lot of package version changes that might break in some way.
-If you feel lucky you can of course update everything to the latest version by running `composer update` without
-any restrictions.
 
 After upgrading you should check whether your application still works as expected and no tests are broken.
 See the following notes on which changes to consider when upgrading from one version to another.
@@ -55,60 +80,52 @@ Upgrade from Yii 2.0.x
 ----------------------
 
 * PHP requirements were raised to 7.1. Make sure your code is updated accordingly.
-* memcache PECL extension support was dropped. Use memcached PECL extension instead.
-* Framework is splitted into parts:
-    * core
-    * di
-    * log
-    * cache
-    * web - require this for web application
-    * console - require this for console only application
-    * db
-    * rbac
-* Framework core requires only virtual PSR implementation packages, you are free
-  to choose your logger and cache implementations.
-  With more PSR implementations compatibility in future.
+* `memcache` PECL extension support was dropped. Use `memcached` PECL extension instead.
 * Removed `Configurable` and `init()` from `BaseObject`
-    * all classes with `init()` must be rewritten
-* `Yii` helper is redone to clean helper without "global vars":
+    * `__construct(array $config = [])` is not supported
+    * use [yii\di\Initable] interface if you want `init()` function to be called by DI
+      after construction of your class object
+* `Yii` helper is redone and doesn't provide "global vars" anymore:
     * change `use Yii` to `use yii\helpers\Yii`
     * don't use `Yii::$app` instead use constructor DI to get application object
+        * use `Yii::getApp()` if everything else fails
     * aliases moved to `Application`:
-        * use `$app->getAlias()` to resolve aliases
+        * use `$this->app->getAlias()` to resolve aliases
         * prefered way to set aliases is through configuration
     * added and used `Application::t()`
         * prefer `$this->app->t()` over `Yii::t()`
     * removed `Yii::configure()`
+        * use `yii\di\AbstractContainer::configure()` if everything else fails
     * `Yii::$container` made private:
         * don't use it explicitly
-        * use it implicitly with constructor DI
+        * use container implicitly with constructor DI
     * to use `Yii` features use `Yii::setContainer()`
-        * for it could access logger, profile and i18n
+        * for it could access logger, profiler and i18n
         * else Yii functions will have generic behavior
+        * see [recommended entry script]
     * removed `Yii::$logger` and `Yii::$profiler`, use DI instead
     * constant definitions moved to `config/defines.php`
         * `YII_DEBUG` defaults to `YII_ENV_DEV`
         * `YII2_PATH` renamed to `YII_PATH`
-    * `getObjectVars()` moved to ArrayHelper
-* Simplified `Application` and `Module`:
-    * removed `ServiceLocator`
-        * no components in app and modules
-        * get components with DI
+    * `getObjectVars()` moved to `ArrayHelper`
+* Removed `ServiceLocator` from `Application` and `Module`:
+    * no own components in app and modules
+    * get services implicitly with DI
 * Moved files around for more logic organization and more readable directories:
     * globally:
         * all exceptions moved into separate dirs in all packages
-    * app:
+    * yii-app:
         * moved web server root dir to `public` (was web)
     * yii-web:
         * moved web formatters to their own directory
     * cache:
-        * renamed `yii\caching` -> `yii\cache`
+        * renamed namespace `yii\caching` -> `yii\cache`
         * moved cache dependencies to own directory
 * DI:
     * Config changed to be DI container config instead of application.
     * Removed `yii\di\Instance` class:
         * Use `yii\di\Reference` instead
-        * Use `Factory::ensure()` or `Yii::ensureObject()` instead of `Instance::ensure()`
+        * Use `yii\di\Factory::ensure()` or `Yii::ensureObject()` instead of `Instance::ensure()`
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).
 * Tests:
@@ -148,7 +165,7 @@ Upgrade from Yii 2.0.x
   Mail view rendering is now encapsulated into `yii\mail\Template` class.
 * Properties `view`, `viewPath`, `htmlLayout` and `textLayout` have been moved from `yii\mail\BaseMailer` to `yii\mail\Composer` class,
   which now encapsulates message composition.
-* Interface of `yii\log\Logger` has been changed according to PSR-3 `Psr\Log\LoggerInterface`.
+* Interface of `yii\log\Logger` has been changed according to [PSR-3] `Psr\Log\LoggerInterface`.
   Make sure you update your code accordingly in case you invoke `Logger` methods directly.
 * Constants `yii\log\Logger::LEVEL_ERROR`, `yii\log\Logger::LEVEL_WARNING` and so on have been removed.
   Use constants from `Psr\Log\LogLevel` instead.
@@ -175,7 +192,7 @@ Upgrade from Yii 2.0.x
   instance is available via `yii\captcha\CaptchaAction::$driver` field. All image settings now should be passed to
   the driver fields instead of action. Automatic detection of the rendering driver is no longer supported.
 * `yii\captcha\Captcha::checkRequirements()` method has been removed.
-* All cache related classes interface has been changed according to PSR-16 "Simple Cache" specification. Make sure you
+* All cache related classes interface has been changed according to [PSR-16] "Simple Cache" specification. Make sure you
   change your invocations for the cache methods accordingly. The most notable changes affects methods `get()` and `getMultiple()`
   as they now accept `$default` argument, which value will be returned in case there is no value in the cache. This makes
   the default return value to be `null` instead of `false`.
