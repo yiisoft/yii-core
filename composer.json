@@ -96,9 +96,6 @@
             "yii\\tests\\": "tests"
         }
     },
-    "bin": [
-        "bin/yii"
-    ],
     "extra": {
         "config-plugin": {
             "defines": "config/defines.php",
