@@ -5,45 +5,44 @@ This file contains the upgrade notes for Yii 3.0. These notes highlight changes 
 could break your application when you upgrade Yii from one version to another.
 Even though we try to ensure backwards compatibility (BC) as much as possible, sometimes
 it is not possible or very complicated to avoid it and still create a good solution to
-a problem. Upgrade to Yii 3.0 might require substantial changes to your application and extensions.
-But the changes are bearable and require "refactoring" not "rewrite".
-All the "Yes, it is" cool stuff and soul still in place.
+a problem. While upgrade to Yii 3.0 might require substantial changes to both your application and extensions,
+the changes are bearable and require "refactoring", not "rewrite".
+All the "Yes, it is" cool stuff and Yii soul are still in place.
 
-Changes in short:
+Changes summary:
 
 * PHP requirements were raised to 7.1. Make sure your code is updated accordingly.
 * Yii switches to [semver](https://semver.org/) since 3.0.
-* Framework GitHub repository and Packagist package is renamed and split into parts:
-    * [yiisoft/core] - this package, the framework core
+* Framework GitHub repository and Packagist package are renamed and split into parts:
+    * [yiisoft/core] - this package, the framework core.
     * Yii 2.0 development stays at [yiisoft/yii2] repository.
-      Bug and security fixes are expected but not new features.
-      PRs and maintainers are very welcome.
-    * [yiisoft/di] - [PSR-11] compatible Dependency Injection container
-    * [yiisoft/log] - [PSR-3] compatible logging library
-    * [yiisoft/cache] - [PSR-16] compatible caching library
-    * [yiisoft/db] - DataBase abstraction and ActiveRecord
-    * [yiisoft/rbac] - Role Base Access Control library
-    * [yiisoft/yii-web] - web application
-    * [yiisoft/yii-rest] - REST API application
-    * [yiisoft/yii-console] - console application
-    * [yiisoft/yii-jquery] - JQuery extension
-    * [yiisoft/yii-maskedinput] - Masked input field widget
-    * [yiisoft/yii-captcha] - CAPTCHA extension
-    * [yiisoft/yii-mssql] - MSSQL Server DB extension
-    * [yiisoft/yii-oracle] - Oracle DB extension
-    * some links broken - `yii2-` packages will be renamed to `yii-`
-    * also please see [Package naming convention]
-* More PSR compatibility
+      Bug and security fixes are expected. New features abd enhancements are not accepted.
+      Pull requests and maintainers are very welcome.
+    * [yiisoft/di] - [PSR-11] compatible Dependency Injection container.
+    * [yiisoft/log] - [PSR-3] compatible logging library.
+    * [yiisoft/cache] - [PSR-16] compatible caching library.
+    * [yiisoft/db] - DataBase abstraction and ActiveRecord.
+    * [yiisoft/rbac] - Role Base Access Control library.
+    * [yiisoft/yii-web] - web application.
+    * [yiisoft/yii-rest] - REST API application.
+    * [yiisoft/yii-console] - console application.
+    * [yiisoft/yii-jquery] - JQuery extension.
+    * [yiisoft/yii-maskedinput] - Masked input field widget.
+    * [yiisoft/yii-captcha] - CAPTCHA extension.
+    * [yiisoft/yii-mssql] - MSSQL Server DB extension.
+    * [yiisoft/yii-oracle] - Oracle DB extension.
+    * Please check [Package naming convention] to get an idea about package names.
+* More PSR compatibility.
 * Framework core requires only virtual PSR implementation packages, you are free
   to choose your logger and cache implementations.
-  With more PSR implementations compatibility in future.
+  More PSR implementations compatibility is expected later.
 * Dropped Yii own class autoloader in favor of the one provided with Composer.
-* Removed `ServiceLocator` from `Application` and `Module`, DI container used instead.
+* Removed `ServiceLocator` from `Application` and `Module`, DI container is used instead.
 * All the configuration made explicit in `config` folders of all the packages
   and recommended to be used with [composer-config-plugin].
-* [yii\base\Configurable] interface and logic is removed in favour of DI and [yii\di\Initable] interface.
+* [yii\base\Configurable] interface and logic are removed in favour of DI and [yii\di\Initable] interface.
 * No advanced app anymore. Basic application became [yii-app].
-* Application nesting allowed due to explicit configuration and [composer-config-plugin].
+* Application nesting is allowed due to explicit configuration and [composer-config-plugin].
 
 [yiisoft/yii2]:                 https://github.com/yiisoft/yii2
 [yiisoft/core]:                 https://github.com/yiisoft/core
@@ -71,7 +70,7 @@ Changes in short:
 [yii\di\Initable]:              https://github.com/yiisoft/di/blob/master/src/Initable.php
 
 > Tip: Upgrading dependencies of a complex software project always comes at the risk of breaking something, so make sure
-you have a backup (you should be doing this anyway ;) ).
+you have a backup. You should back up anyway ;)
 
 After upgrading you should check whether your application still works as expected and no tests are broken.
 See the following notes on which changes to consider when upgrading from one version to another.
