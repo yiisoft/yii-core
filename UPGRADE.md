@@ -13,21 +13,24 @@ Changes in short:
 
 * PHP requirements were raised to 7.1. Make sure your code is updated accordingly.
 * Yii switches to [semver](https://semver.org/) since 3.0.
-* Framework package is renamed and split into parts:
-    * `core` - this package, the framework core
-    * [di] - [PSR-11] compatible Dependency Injection container
-    * [log] - [PSR-3] compatible logging library
-    * [cache] - [PSR-16] compatible caching library
-    * [db] - DataBase abstraction and ActiveRecord
-    * [rbac] - Role Base Access Control library
-    * [yii-web] - web application
-    * [yii-rest] - REST API application
-    * [yii-console] - console application
-    * [yii-jquery] - JQuery extension
-    * [yii-maskedinput] - Masked input field widget
-    * [yii-captcha] - CAPTCHA extension
-    * [yii-mssql] - MSSQL Server DB extension
-    * [yii-oracle] - Oracle DB extension
+* Framework GitHub repository and Packagist package is renamed and split into parts:
+    * [yiisoft/core] - this package, the framework core
+    * Yii 2.0 development stays at [yiisoft/yii2] repository.
+      Bug and security fixes are expected but not new features.
+      PRs and maintainers are very welcome.
+    * [yiisoft/di] - [PSR-11] compatible Dependency Injection container
+    * [yiisoft/log] - [PSR-3] compatible logging library
+    * [yiisoft/cache] - [PSR-16] compatible caching library
+    * [yiisoft/db] - DataBase abstraction and ActiveRecord
+    * [yiisoft/rbac] - Role Base Access Control library
+    * [yiisoft/yii-web] - web application
+    * [yiisoft/yii-rest] - REST API application
+    * [yiisoft/yii-console] - console application
+    * [yiisoft/yii-jquery] - JQuery extension
+    * [yiisoft/yii-maskedinput] - Masked input field widget
+    * [yiisoft/yii-captcha] - CAPTCHA extension
+    * [yiisoft/yii-mssql] - MSSQL Server DB extension
+    * [yiisoft/yii-oracle] - Oracle DB extension
     * some links broken - `yii2-` packages will be renamed to `yii-`
     * also please see [Package naming convention]
 * More PSR compatibility
@@ -42,20 +45,22 @@ Changes in short:
 * No advanced app anymore. Basic application became [yii-app].
 * Application nesting allowed due to explicit configuration and [composer-config-plugin].
 
-[di]:                           https://github.com/yiisoft/di
-[log]:                          https://github.com/yiisoft/log
-[cache]:                        https://github.com/yiisoft/cache
-[yii-web]:                      https://github.com/yiisoft/yii-web
-[yii-console]:                  https://github.com/yiisoft/yii-console
-[db]:                           https://github.com/yiisoft/db
-[rbac]:                         https://github.com/yiisoft/rbac
-[yii-app]:                      https://github.com/yiisoft/yii-app
-[yii-jquery]:                   https://github.com/yiisoft/yii-jquery
-[yii-maskedinput]:              https://github.com/yiisoft/yii-maskedinput
-[yii-captcha]:                  https://github.com/yiisoft/yii-captcha
-[yii-rest]:                     https://github.com/yiisoft/yii-rest
-[yii-mssql]:                    https://github.com/yiisoft/yii-mssql
-[yii-oracle]:                   https://github.com/yiisoft/yii-oracle
+[yiisoft/yii2]:                 https://github.com/yiisoft/yii2
+[yiisoft/core]:                 https://github.com/yiisoft/core
+[yiisoft/di]:                   https://github.com/yiisoft/di
+[yiisoft/log]:                  https://github.com/yiisoft/log
+[yiisoft/cache]:                https://github.com/yiisoft/cache
+[yiisoft/yii-web]:              https://github.com/yiisoft/yii-web
+[yiisoft/yii-console]:          https://github.com/yiisoft/yii-console
+[yiisoft/db]:                   https://github.com/yiisoft/db
+[yiisoft/rbac]:                 https://github.com/yiisoft/rbac
+[yiisoft/yii-app]:              https://github.com/yiisoft/yii-app
+[yiisoft/yii-jquery]:           https://github.com/yiisoft/yii-jquery
+[yiisoft/yii-maskedinput]:      https://github.com/yiisoft/yii-maskedinput
+[yiisoft/yii-captcha]:          https://github.com/yiisoft/yii-captcha
+[yiisoft/yii-rest]:             https://github.com/yiisoft/yii-rest
+[yiisoft/yii-mssql]:            https://github.com/yiisoft/yii-mssql
+[yiisoft/yii-oracle]:           https://github.com/yiisoft/yii-oracle
 [recommended entry script]:     https://github.com/yiisoft/app-template/blob/master/public/index.php
 [Package naming convention]:    https://github.com/yiisoft/core/blob/master/docs/guide/structure-extensions.md#package-naming
 [PSR-3]:                        https://www.php-fig.org/psr/psr-3/
