@@ -8,10 +8,14 @@
 namespace yii\base;
 
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
+use yii\base\ErrorHandler;
+use yii\di\Initiable;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
 use yii\web\Session;
 use yii\web\User;
+use yii\profile\ProfilerInterface;
 
 /**
  * Application is the base class for all application classes.
@@ -31,8 +35,8 @@ use yii\web\User;
  * component. This property is read-only.
  * @property \yii\i18n\Formatter $formatter The formatter application component. This property is read-only.
  * @property \yii\i18n\I18N $i18n The internationalization application component. This property is read-only.
- * @property \psr\log\LoggerInterface $logger The logger.
- * @property \yii\profile\ProfilerInterface $profiler The profiler.
+ * @property \PSR\Log\LoggerInterface $logger The logger. This property is read-only.
+ * @property \yii\profile\ProfilerInterface $profiler The profiler. This property is read-only.
  * @property \yii\mail\MailerInterface $mailer The mailer application component. This property is read-only.
  * @property \yii\web\Request|\yii\console\Request $request The request component. This property is read-only.
  * @property \yii\web\Response|\yii\console\Response $response The response component. This property is
@@ -50,7 +54,7 @@ use yii\web\User;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-abstract class Application extends Module
+abstract class Application extends Module implements Initiable
 {
     /**
      * @event Event an event raised before the application starts to handle a request.
@@ -208,6 +212,52 @@ abstract class Application extends Module
         $this->container = $container;
 
         $this->state = self::STATE_BEGIN;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function init(): void
+    {
+        $this->state = self::STATE_INIT;
+        $this->bootstrap();
+    }
+
+    /**
+     * Initializes extensions and executes bootstrap components.
+     * This method is called by [[init()]] after the application has been fully configured.
+     * If you override this method, make sure you also call the parent implementation.
+     */
+    public function bootstrap(): void
+    {
+        foreach ($this->bootstrap as $mixed) {
+            $component = null;
+            if ($mixed instanceof \Closure) {
+                $this->debug('Bootstrap with Closure', __METHOD__);
+                if (empty($component = call_user_func($mixed, $this))) {
+                    continue;
+                }
+            } elseif (is_string($mixed)) {
+                if ($this->container->has($mixed)) {
+                    $component = $this->container->get($mixed);
+                } elseif ($this->hasModule($mixed)) {
+                    $component = $this->getModule($mixed);
+                } elseif (strpos($mixed, '\\') === false) {
+                    throw new InvalidConfigException("Unknown bootstrapping component ID: $mixed");
+                }
+            }
+
+            if (!isset($component)) {
+                $component = $this->createObject($mixed);
+            }
+
+            if ($component instanceof BootstrapInterface) {
+                $this->debug('Bootstrap with ' . get_class($component) . '::bootstrap()', __METHOD__);
+                $component->bootstrap($this);
+            } else {
+                $this->debug('Bootstrap with ' . get_class($component), __METHOD__);
+            }
+        }
     }
 
     public function getApp()
