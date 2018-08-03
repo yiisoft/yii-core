@@ -40,7 +40,7 @@ Changes summary:
 * Removed `ServiceLocator` from `Application` and `Module`, DI container is used instead.
 * All the configuration made explicit in `config` folders of all the packages
   and recommended to be used with [composer-config-plugin].
-* [yii\base\Configurable] interface and logic are removed in favour of DI and [yii\di\Initable] interface.
+* [yii\base\Configurable] interface and logic are removed in favour of DI and [yii\di\Initiable] interface.
 * No advanced app anymore. Basic application became [yii-app].
 * Application nesting is allowed due to explicit configuration and [composer-config-plugin].
 
@@ -67,7 +67,7 @@ Changes summary:
 [PSR-16]:                       https://www.php-fig.org/psr/psr-16/
 [composer-config-plugin]:       https://github.com/hiqdev/composer-config-plugin
 [yii\base\Configurable]:        https://github.com/yiisoft/yii2/blob/master/framework/base/Configurable.php
-[yii\di\Initable]:              https://github.com/yiisoft/di/blob/master/src/Initable.php
+[yii\di\Initiable]:              https://github.com/yiisoft/di/blob/master/src/Initiable.php
 
 > Tip: Upgrading dependencies of a complex software project always comes at the risk of breaking something, so make sure
 you have a backup. You should back up anyway ;)
@@ -87,7 +87,7 @@ Upgrade from Yii 2.0.x
 * `memcache` PECL extension support was dropped. Use `memcached` PECL extension instead.
 * Removed `Configurable` and `init()` from `BaseObject`
     * `__construct(array $config = [])` is not supported
-    * use [yii\di\Initable] interface if you want `init()` function to be called by DI
+    * use [yii\di\Initiable] interface if you want `init()` function to be called by DI
       after construction of your class object
 * `Yii` helper is redone and doesn't provide "global vars" anymore:
     * change `use Yii` to `use yii\helpers\Yii`

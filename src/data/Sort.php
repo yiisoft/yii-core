@@ -10,7 +10,7 @@ namespace yii\data;
 use yii\helpers\Yii;
 use yii\base\Application;
 use yii\base\BaseObject;
-use yii\di\Initable;
+use yii\di\Initiable;
 use yii\exceptions\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
@@ -79,7 +79,7 @@ use yii\web\Request;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Sort extends BaseObject implements Initable
+class Sort extends BaseObject implements Initiable
 {
     /**
      * @var bool whether the sorting can be applied to multiple attributes simultaneously.
