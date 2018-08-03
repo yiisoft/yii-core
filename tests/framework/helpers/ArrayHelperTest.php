@@ -282,7 +282,7 @@ class ArrayHelperTest extends TestCase
     public function testMultisortUseSort()
     {
         // single key
-        $sort = Yii::createObject([
+        $sort = $this->app->createObject([
             '__class' => Sort::class,
             'attributes' => ['name', 'age'],
             'defaultOrder' => ['name' => SORT_ASC],
@@ -301,7 +301,7 @@ class ArrayHelperTest extends TestCase
         $this->assertEquals(['name' => 'c', 'age' => 2], $array[2]);
 
         // multiple keys
-        $sort = Yii::createObject([
+        $sort = $this->app->createObject([
             '__class' => Sort::class,
             'attributes' => ['name', 'age'],
             'defaultOrder' => ['name' => SORT_ASC, 'age' => SORT_DESC],

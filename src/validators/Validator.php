@@ -221,7 +221,7 @@ class Validator extends Component
             }
         }
 
-        return Yii::createObject($params);
+        return $this->app->createObject($params);
     }
 
     /**

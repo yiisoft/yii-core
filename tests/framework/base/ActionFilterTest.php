@@ -103,7 +103,7 @@ class ActionFilterTest extends TestCase
     public function testActive($filterClass)
     {
         /** @var $filter ActionFilter */
-        $filter = Yii::createObject($filterClass);
+        $filter = $this->app->createObject($filterClass);
         $reflection = new \ReflectionClass($filter);
         $method = $reflection->getMethod('isActive');
         $method->setAccessible(true);

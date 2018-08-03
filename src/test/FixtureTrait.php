@@ -205,7 +205,7 @@ trait FixtureTrait
                 $name = $aliases[$class] ?? $class;
                 if (!isset($instances[$name])) {
                     $instances[$name] = false;
-                    $stack[] = $fixture = Yii::createObject($fixture);
+                    $stack[] = $fixture = $this->app->createObject($fixture);
                     foreach ($fixture->depends as $dep) {
                         // need to use the configuration provided in test case
                         $stack[] = $config[$dep] ?? ['__class' => $dep];

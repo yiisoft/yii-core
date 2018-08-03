@@ -25,7 +25,7 @@ class FileMutexTest extends TestCase
      */
     protected function createMutex()
     {
-        return \Yii::createObject([
+        return $this->app->createObject([
             '__class' => FileMutex::class,
             'mutexPath' => '@yii/tests/runtime/mutex',
         ]);

@@ -55,7 +55,7 @@ class TemplateTest extends TestCase
      */
     protected function createView()
     {
-        return Yii::createObject(View::class);
+        return $this->app->createObject(View::class);
     }
 
     /**

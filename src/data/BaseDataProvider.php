@@ -216,7 +216,7 @@ abstract class BaseDataProvider extends Component implements DataProviderInterfa
                 $config['pageParam'] = $this->id . '-page';
                 $config['pageSizeParam'] = $this->id . '-per-page';
             }
-            $this->_pagination = Yii::createObject(array_merge($config, $value));
+            $this->_pagination = $this->app->createObject(array_merge($config, $value));
         } elseif ($value instanceof Pagination || $value === false) {
             $this->_pagination = $value;
         } else {
@@ -256,7 +256,7 @@ abstract class BaseDataProvider extends Component implements DataProviderInterfa
             if ($this->id !== null) {
                 $config['sortParam'] = $this->id . '-sort';
             }
-            $this->_sort = Yii::createObject(array_merge($config, $value));
+            $this->_sort = $this->app->createObject(array_merge($config, $value));
         } elseif ($value instanceof Sort || $value === false) {
             $this->_sort = $value;
         } else {

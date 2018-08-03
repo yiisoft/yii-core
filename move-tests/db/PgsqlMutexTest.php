@@ -29,7 +29,7 @@ class PgsqlMutexTest extends DatabaseTestCase
      */
     protected function createMutex()
     {
-        return \Yii::createObject([
+        return $this->app->createObject([
             '__class' => PgsqlMutex::class,
             'db' => $this->getConnection(),
         ]);

@@ -86,7 +86,7 @@ class Profiler extends Component implements ProfilerInterface
         if (!$this->_isTargetsInitialized) {
             foreach ($this->_targets as $name => $target) {
                 if (!$target instanceof Target) {
-                    $this->_targets[$name] = Yii::createObject($target);
+                    $this->_targets[$name] = $this->app->createObject($target);
                 }
             }
             $this->_isTargetsInitialized = true;

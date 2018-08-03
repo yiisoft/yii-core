@@ -107,7 +107,7 @@ class Composer extends BaseObject
             $config['__class'] = View::class;
         }
 
-        return Yii::createObject($config);
+        return $this->app->createObject($config);
     }
 
     /**
@@ -132,7 +132,7 @@ class Composer extends BaseObject
         $config['textLayout'] = $this->textLayout;
         $config['viewName'] = $viewName;
 
-        return Yii::createObject($config);
+        return $this->app->createObject($config);
     }
 
     /**

@@ -249,6 +249,19 @@ abstract class Application extends Module
     }
 
     /**
+     * Creates a new object using the given configuration and constructor parameters.
+     *
+     * @param string|array|callable $config the object configuration.
+     * @param array $params the constructor parameters.
+     * @return object the created object.
+     * @see \yii\di\Factory::create()
+     */
+    public function createObject($config, array $params = [])
+    {
+        return $this->container->get('factory')->create($config, $params);
+    }
+
+    /**
      * Translates a message to the specified language.
      *
      * This is a shortcut method of [[\yii\i18n\I18N::translate()]].

@@ -7,15 +7,15 @@
 
 namespace yii\i18n;
 
+use yii\base\Application;
 use yii\base\Component;
 use yii\exceptions\InvalidConfigException;
-use yii\helpers\Yii;
 
 /**
  * I18N provides features related with internationalization (I18N) and localization (L10N).
  *
  * I18N is configured as an application component in [[\yii\base\Application]] by default.
- * You can access that instance via `Yii::$app->i18n`.
+ * You can access that instance via `$this->app->i18n`.
  *
  * @property MessageFormatter $messageFormatter The message formatter to be used to format message via ICU
  * message format. Note that the type of this property differs in getter and setter. See
@@ -48,6 +48,15 @@ class I18N extends Component
      */
     public $translations;
 
+    /**
+     * @var Application
+     */
+    protected $app;
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
 
     /**
      * Initializes the component by configuring the default message categories.
@@ -66,7 +75,7 @@ class I18N extends Component
         if (!isset($this->translations['app']) && !isset($this->translations['app*'])) {
             $this->translations['app'] = [
                 '__class' => PhpMessageSource::class,
-                'sourceLanguage' => Yii::$app->sourceLanguage,
+                'sourceLanguage' => $this->app->sourceLanguage,
                 'basePath' => '@app/messages',
             ];
         }
@@ -115,7 +124,7 @@ class I18N extends Component
             $result = $formatter->format($message, $params, $language);
             if ($result === false) {
                 $errorMessage = $formatter->getErrorMessage();
-                Yii::warning("Formatting message for language '$language' failed with error: $errorMessage. The message being formatted was: $message.", __METHOD__);
+                $this->app->warning("Formatting message for language '$language' failed with error: $errorMessage. The message being formatted was: $message.", __METHOD__);
 
                 return $message;
             }
@@ -145,7 +154,7 @@ class I18N extends Component
         if ($this->_messageFormatter === null) {
             $this->_messageFormatter = new MessageFormatter();
         } elseif (is_array($this->_messageFormatter) || is_string($this->_messageFormatter)) {
-            $this->_messageFormatter = Yii::createObject($this->_messageFormatter);
+            $this->_messageFormatter = $this->app->createObject($this->_messageFormatter);
         }
 
         return $this->_messageFormatter;
@@ -153,7 +162,7 @@ class I18N extends Component
 
     /**
      * @param string|array|MessageFormatter $value the message formatter to be used to format message via ICU message format.
-     * Can be given as array or string configuration that will be given to [[Yii::createObject]] to create an instance
+     * Can be given as array or string configuration that will be given to [[$this->app->createObject]] to create an instance
      * or a [[MessageFormatter]] instance.
      */
     public function setMessageFormatter($value)
@@ -175,7 +184,7 @@ class I18N extends Component
                 return $source;
             }
 
-            return $this->translations[$category] = Yii::createObject($source);
+            return $this->translations[$category] = $this->app->createObject($source);
         }
         // try wildcard matching
         foreach ($this->translations as $pattern => $source) {
@@ -184,7 +193,7 @@ class I18N extends Component
                     return $source;
                 }
 
-                return $this->translations[$category] = $this->translations[$pattern] = Yii::createObject($source);
+                return $this->translations[$category] = $this->translations[$pattern] = $this->app->createObject($source);
             }
         }
 
@@ -195,7 +204,7 @@ class I18N extends Component
                 return $source;
             }
 
-            return $this->translations[$category] = $this->translations['*'] = Yii::createObject($source);
+            return $this->translations[$category] = $this->translations['*'] = $this->app->createObject($source);
         }
 
         throw new InvalidConfigException("Unable to locate message source for category '$category'.");

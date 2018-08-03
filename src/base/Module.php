@@ -422,7 +422,7 @@ class Module extends Component
             } elseif ($load) {
                 Yii::debug("Loading module: $id", __METHOD__);
                 /* @var $module Module */
-                $module = Yii::createObject($this->_modules[$id], [$id, $this]);
+                $module = $this->app->createObject($this->_modules[$id], [$id, $this]);
                 $module->setInstance($module);
                 return $this->_modules[$id] = $module;
             }
@@ -479,7 +479,7 @@ class Module extends Component
      *
      * Each sub-module should be specified as a name-value pair, where
      * name refers to the ID of the module and value the module or a configuration
-     * array that can be used to create the module. In the latter case, [[Yii::createObject()]]
+     * array that can be used to create the module. In the latter case, [[$this->app->createObject()]]
      * will be used to create the module.
      *
      * If a new sub-module has the same ID as an existing one, the existing one will be overwritten silently.
@@ -578,7 +578,7 @@ class Module extends Component
 
         // module and controller map take precedence
         if (isset($this->controllerMap[$id])) {
-            $controller = Yii::createObject($this->controllerMap[$id], [$id, $this]);
+            $controller = $this->app->createObject($this->controllerMap[$id], [$id, $this]);
             return [$controller, $route];
         }
         $module = $this->getModule($id);
@@ -637,7 +637,7 @@ class Module extends Component
         }
 
         if (is_subclass_of($className, Controller::class)) {
-            $controller = Yii::createObject($className, [$id, $this]);
+            $controller = $this->app->createObject($className, [$id, $this]);
             return get_class($controller) === $className ? $controller : null;
         } elseif (YII_DEBUG) {
             throw new InvalidConfigException('Controller class must extend from \\yii\\base\\Controller.');

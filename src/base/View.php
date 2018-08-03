@@ -110,9 +110,9 @@ class View extends Component implements DynamicContentAwareInterface
             if (!isset($this->theme['__class'])) {
                 $this->theme['__class'] = Theme::class;
             }
-            $this->theme = Yii::createObject($this->theme);
+            $this->theme = $this->app->createObject($this->theme);
         } elseif (is_string($this->theme)) {
-            $this->theme = Yii::createObject($this->theme);
+            $this->theme = $this->app->createObject($this->theme);
         }
     }
 
@@ -239,7 +239,7 @@ class View extends Component implements DynamicContentAwareInterface
             $ext = pathinfo($viewFile, PATHINFO_EXTENSION);
             if (isset($this->renderers[$ext])) {
                 if (is_array($this->renderers[$ext]) || is_string($this->renderers[$ext])) {
-                    $this->renderers[$ext] = Yii::createObject($this->renderers[$ext]);
+                    $this->renderers[$ext] = $this->app->createObject($this->renderers[$ext]);
                 }
                 /* @var $renderer ViewRenderer */
                 $renderer = $this->renderers[$ext];

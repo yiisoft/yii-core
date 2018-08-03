@@ -97,7 +97,7 @@ abstract class BaseMailer extends Component implements MailerInterface
             if (is_array($this->_composer) && !isset($this->_composer['__class'])) {
                 $this->_composer['__class'] = Composer::class;
             }
-            $this->_composer = Yii::createObject($this->_composer);
+            $this->_composer = $this->app->createObject($this->_composer);
         }
         return $this->_composer;
     }
@@ -157,7 +157,7 @@ abstract class BaseMailer extends Component implements MailerInterface
             $config['__class'] = $this->messageClass;
         }
         $config['mailer'] = $this;
-        return Yii::createObject($config);
+        return $this->app->createObject($config);
     }
 
     /**

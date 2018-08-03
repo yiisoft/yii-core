@@ -100,14 +100,14 @@ class BaseYiiTest extends TestCase
 
     public function testCreateObject()
     {
-        $object = Yii::createObject([
+        $object = $this->app->createObject([
             '__class' => Singer::class,
             'firstName' => 'John',
         ]);
         $this->assertTrue($object instanceof Singer);
         $this->assertSame('John', $object->firstName);
 
-        $object = Yii::createObject([
+        $object = $this->app->createObject([
             '__class' => Singer::class,
             'firstName' => 'Michael',
         ]);
@@ -116,7 +116,7 @@ class BaseYiiTest extends TestCase
 
         $this->expectException(\yii\exceptions\InvalidConfigException::class);
         $this->expectExceptionMessage('Object configuration must be an array containing a "__class" element.');
-        $object = Yii::createObject([
+        $object = $this->app->createObject([
             'firstName' => 'John',
         ]);
     }
@@ -127,19 +127,19 @@ class BaseYiiTest extends TestCase
     public function testCreateObjectCallable()
     {
         // Test passing in of normal params combined with DI params.
-        $this->assertNotEmpty(Yii::createObject(function (Singer $singer, $a) {
+        $this->assertNotEmpty($this->app->createObject(function (Singer $singer, $a) {
             return $a === 'a';
         }, ['a']));
 
 
         $singer = new Singer();
         $singer->firstName = 'Bob';
-        $this->assertNotEmpty(Yii::createObject(function (Singer $singer, $a) {
+        $this->assertNotEmpty($this->app->createObject(function (Singer $singer, $a) {
             return $singer->firstName === 'Bob';
         }, [$singer, 'a']));
 
 
-        $this->assertNotEmpty(Yii::createObject(function (Singer $singer, $a = 3) {
+        $this->assertNotEmpty($this->app->createObject(function (Singer $singer, $a = 3) {
             return true;
         }));
     }
@@ -149,7 +149,7 @@ class BaseYiiTest extends TestCase
         $this->expectException(\yii\exceptions\InvalidConfigException::class);
         $this->expectExceptionMessage('Object configuration must be an array containing a "__class" element.');
 
-        Yii::createObject([]);
+        $this->app->createObject([]);
     }
 
     public function testCreateObjectInvalidConfigException()
@@ -157,7 +157,7 @@ class BaseYiiTest extends TestCase
         $this->expectException(\yii\exceptions\InvalidConfigException::class);
         $this->expectExceptionMessage('Unsupported configuration type: ' . gettype(null));
 
-        Yii::createObject(null);
+        $this->app->createObject(null);
     }
 
     /**

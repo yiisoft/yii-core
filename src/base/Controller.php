@@ -112,7 +112,7 @@ class Controller extends Component implements ViewContextInterface
      * ];
      * ```
      *
-     * [[\Yii::createObject()]] will be used later to create the requested action
+     * [[$this->app->createObject()]] will be used later to create the requested action
      * using the configuration provided here.
      */
     public function actions()
@@ -232,7 +232,7 @@ class Controller extends Component implements ViewContextInterface
 
         $actionMap = $this->actions();
         if (isset($actionMap[$id])) {
-            return Yii::createObject($actionMap[$id], [$id, $this]);
+            return $this->app->createObject($actionMap[$id], [$id, $this]);
         } elseif (preg_match('/^[a-z0-9\\-_]+$/', $id) && strpos($id, '--') === false && trim($id, '-') === $id) {
             $methodName = 'action' . str_replace(' ', '', ucwords(str_replace('-', ' ', $id)));
             if (method_exists($this, $methodName)) {
