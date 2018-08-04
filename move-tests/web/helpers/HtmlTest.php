@@ -12,6 +12,7 @@ use yii\base\DynamicModel;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\tests\TestCase;
+use yii\web\Request;
 
 /**
  * @group helpers
