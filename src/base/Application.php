@@ -193,8 +193,6 @@ abstract class Application extends Module implements Initiable
      */
     public $loadedModules = [];
 
-    protected $container;
-
     protected $request;
 
     protected $response;
@@ -209,7 +207,7 @@ abstract class Application extends Module implements Initiable
     {
         $this->app = $this;
 
-        $this->container = $container;
+        $this->_container = $container;
 
         $this->state = self::STATE_BEGIN;
     }
@@ -238,8 +236,8 @@ abstract class Application extends Module implements Initiable
                     continue;
                 }
             } elseif (is_string($mixed)) {
-                if ($this->container->has($mixed)) {
-                    $component = $this->container->get($mixed);
+                if ($this->_container->has($mixed)) {
+                    $component = $this->get($mixed);
                 } elseif ($this->hasModule($mixed)) {
                     $component = $this->getModule($mixed);
                 } elseif (strpos($mixed, '\\') === false) {
@@ -260,20 +258,20 @@ abstract class Application extends Module implements Initiable
         }
     }
 
-    public function getApp()
+    public function getApp(): self
     {
         return $this;
     }
 
-    public function getContainer()
+    public function getContainer(): ContainerInterface
     {
-        return $this->container;
+        return $this->_container;
     }
 
     public function getRequest()
     {
         if ($this->request === null) {
-            $this->request = $this->container->get('request');
+            $this->request = $this->get('request');
         }
 
         return $this->request;
@@ -282,33 +280,10 @@ abstract class Application extends Module implements Initiable
     public function getResponse()
     {
         if ($this->response === null) {
-            $this->response = $this->container->get('response');
+            $this->response = $this->get('response');
         }
 
         return $this->response;
-    }
-
-    /**
-     * Returns true if service is instantiated.
-     * @param string $id service ID.
-     * @return bool true if service is instantiated.
-     */
-    public function has(string $id): bool
-    {
-        return $this->container->hasInstance($id);
-    }
-
-    /**
-     * Creates a new object using the given configuration and constructor parameters.
-     *
-     * @param string|array|callable $config the object configuration.
-     * @param array $params the constructor parameters.
-     * @return object the created object.
-     * @see \yii\di\Factory::create()
-     */
-    public function createObject($config, array $params = [])
-    {
-        return $this->container->get('factory')->create($config, $params);
     }
 
     /**
@@ -337,7 +312,7 @@ abstract class Application extends Module implements Initiable
      */
     public function t($category, $message, $params = [], $language = null)
     {
-        return $this->container->get('i18n')->translate($category, $message, $params, $language ?: $this->language);
+        return $this->get('i18n')->translate($category, $message, $params, $language ?: $this->language);
     }
 
     /**
@@ -407,7 +382,7 @@ abstract class Application extends Module implements Initiable
      */
     public function getLogger(): LoggerInterface
     {
-        return $this->container->get('logger');
+        return $this->get('logger');
     }
 
     /**
@@ -450,7 +425,7 @@ abstract class Application extends Module implements Initiable
      */
     public function getProfiler(): ProfilerInterface
     {
-        return $this->container->get('profiler');
+        return $this->get('profiler');
     }
 
     /**
@@ -458,7 +433,7 @@ abstract class Application extends Module implements Initiable
      */
     public function getErrorHandler(): ErrorHandler
     {
-        return $this->container->get('errorHandler');
+        return $this->get('errorHandler');
     }
 
     /**
@@ -466,7 +441,7 @@ abstract class Application extends Module implements Initiable
      */
     public function getView()
     {
-        return $this->container->get('view');
+        return $this->get('view');
     }
 
     /**
@@ -474,7 +449,7 @@ abstract class Application extends Module implements Initiable
      */
     public function getSecurity()
     {
-        return $this->container->get('security');
+        return $this->get('security');
     }
 
     /**
@@ -482,7 +457,7 @@ abstract class Application extends Module implements Initiable
      */
     public function getSession()
     {
-        return $this->container->get('session');
+        return $this->get('session');
     }
 
     /**
@@ -490,7 +465,7 @@ abstract class Application extends Module implements Initiable
      */
     public function getUser()
     {
-        return $this->container->get('user');
+        return $this->get('user');
     }
 
     /**
@@ -527,7 +502,7 @@ abstract class Application extends Module implements Initiable
     public function run()
     {
         if (YII_ENABLE_ERROR_HANDLER) {
-            $this->container->get('errorHandler')->register();
+            $this->get('errorHandler')->register();
         }
 
         try {

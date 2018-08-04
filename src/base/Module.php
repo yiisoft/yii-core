@@ -136,6 +136,11 @@ class Module extends Component
      */
     private $_version;
 
+    /**
+     * @var ContainerInterface
+     */
+    protected $_container;
+
     protected $app;
 
     /**
@@ -148,6 +153,7 @@ class Module extends Component
     {
         $this->id = $id;
         $this->app = $parent->getApp();
+        $this->_container = $this->app->getContainer();
         $this->module = $parent;
     }
 
@@ -724,21 +730,51 @@ class Module extends Component
     }
 
     /**
-     * {@inheritdoc}
+     * Creates a new object using the given configuration and constructor parameters.
      *
-     * Since version 2.0.13, if a component isn't defined in the module, it will be looked up in the parent module.
-     * The parent module may be the application.
+     * @param string|array|callable $config the object configuration.
+     * @param array $params the constructor parameters.
+     * @return object the created object.
+     * @see \yii\di\Factory::create()
      */
-    public function get($id, $throwException = true)
+    public function createObject($config, array $params = [])
     {
-        if (!isset($this->module)) {
-            return parent::get($id, $throwException);
+        return $this->get('factory')->create($config, $params);
+    }
+
+    /**
+     * Returns a value indicating whether the container has the specified component definition
+     * or has instantiated the component.
+     * This method may return different results depending on the value of `$checkInstance`.
+     *
+     * - If `$checkInstance` is false (default), the method will return a value indicating whether the locator has the specified
+     *   component definition.
+     * - If `$checkInstance` is true, the method will return a value indicating whether the locator has
+     *   instantiated the specified component.
+     *
+     * @param string $id service ID (e.g. `db`) or class/interface name.
+     * @param bool $checkInstance whether the method should check if the component is shared and instantiated.
+     * @return bool whether the locator has the specified component definition or has instantiated the component.
+     */
+    public function has(string $id, bool $checkInstance = false): bool
+    {
+        return $checkInstance ? $this->_container->hasInstance($id) : $this->_container->has($id);
+    }
+
+    /**
+     * Returns instance from DI by ID.
+     * @param string $id
+     * @param bool $throwException
+     */
+    public function get($id, bool $throwException = true)
+    {
+        if (!$this->_container->has($id)) {
+            if ($throwException) {
+                throw new InvalidConfigException("Unknown component ID: $id");
+            }
+            return null;
         }
 
-        $component = parent::get($id, false);
-        if ($component === null) {
-            $component = $this->module->get($id, $throwException);
-        }
-        return $component;
+        return $this->_container->get($id);
     }
 }
