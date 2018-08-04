@@ -28,13 +28,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected $container;
 
-    protected $defaultAppConfig;
+    protected $defaultAppConfig = [];
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
         $this->container = Yii::getContainer();
-        $this->defaultAppConfig = $this->container->getDefinition('app');
+        if ($this->container !== null) {
+            $this->defaultAppConfig = $this->container->getDefinition('app');
+        }
     }
 
     /**
