@@ -26,7 +26,6 @@ class HtmlPurifierTest extends TestCase
         }
 
         parent::setUp();
-        $this->mockApplication();
     }
 
     /**
