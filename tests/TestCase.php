@@ -23,6 +23,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected $app;
 
+    /**
+     * @var null|\yii\di\Container
+     */
     protected $container;
 
     protected $defaultAppConfig;
