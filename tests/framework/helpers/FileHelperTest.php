@@ -24,9 +24,8 @@ class FileHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->mockApplication();
+        $this->testFilePath = __DIR__ . '/../../runtime/' . get_class($this);
 
-        $this->testFilePath = $this->app->getAlias('@yii/tests/runtime') . DIRECTORY_SEPARATOR . get_class($this);
         $this->createDir($this->testFilePath);
         if (!file_exists($this->testFilePath)) {
             $this->markTestIncomplete('Unit tests runtime directory should have writable permissions!');
