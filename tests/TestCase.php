@@ -116,7 +116,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function destroyApplication()
     {
         if ($this->app && $this->app->has('session')) {
-            $this->session->close();
+            $this->app->getSession()->close();
         }
         $this->app = null;
     }
