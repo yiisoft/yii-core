@@ -97,6 +97,9 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        },
         "config-plugin": {
             "defines": "config/defines.php",
             "params": "config/params.php",
