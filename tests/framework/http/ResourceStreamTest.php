@@ -26,7 +26,7 @@ class ResourceStreamTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->testFilePath = Yii::getAlias('@yii/tests/runtime') . DIRECTORY_SEPARATOR . 'resource-stream-test-' . getmypid();
+        $this->testFilePath = __DIR__ . '/../../runtime' . DIRECTORY_SEPARATOR . 'resource-stream-test-' . getmypid();
         FileHelper::createDirectory($this->testFilePath);
     }
 
@@ -45,7 +45,7 @@ class ResourceStreamTest extends TestCase
         file_put_contents($filename, '0123456789');
 
         $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'r');
+        $stream->resource = fopen($filename, 'rb');
 
         $this->assertTrue($stream->isReadable());
         $this->assertTrue($stream->isSeekable());
@@ -67,7 +67,7 @@ class ResourceStreamTest extends TestCase
         file_put_contents($filename, '0123456789');
 
         $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'r');
+        $stream->resource = fopen($filename, 'rb');
 
         $stream->seek(5);
         $this->assertSame('56789', $stream->read(5));
@@ -85,7 +85,7 @@ class ResourceStreamTest extends TestCase
         file_put_contents($filename, '0123456789');
 
         $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'r');
+        $stream->resource = fopen($filename, 'rb');
 
         $this->assertSame('0123456789', $stream->getContents());
 
@@ -102,7 +102,7 @@ class ResourceStreamTest extends TestCase
         file_put_contents($filename, '0123456789');
 
         $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'r');
+        $stream->resource = fopen($filename, 'rb');
 
         $this->assertSame('0123456789', (string)$stream);
 
@@ -118,7 +118,7 @@ class ResourceStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'write.txt';
 
         $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'w+');
+        $stream->resource = fopen($filename, 'wb+');
 
         $this->assertTrue($stream->isWritable());
 
@@ -139,7 +139,7 @@ class ResourceStreamTest extends TestCase
         file_put_contents($filename, '0123456789');
 
         $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'r');
+        $stream->resource = fopen($filename, 'rb');
 
         $this->assertSame(10, $stream->getSize());
 
@@ -156,14 +156,14 @@ class ResourceStreamTest extends TestCase
         file_put_contents($filename, '0123456789');
 
         $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'r');
+        $stream->resource = fopen($filename, 'rb');
 
         $metadata = $stream->getMetadata();
 
-        $this->assertSame('r', $metadata['mode']);
+        $this->assertSame('rb', $metadata['mode']);
         $this->assertSame('plainfile', $metadata['wrapper_type']);
 
-        $this->assertSame('r', $stream->getMetadata('mode'));
+        $this->assertSame('rb', $stream->getMetadata('mode'));
     }
 
     /**
