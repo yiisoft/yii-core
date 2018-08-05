@@ -42,7 +42,7 @@ class FileStream extends BaseObject implements StreamInterface
     /**
      * @var string file open mode.
      */
-    public $mode = 'r';
+    public $mode = 'rb';
 
     /**
      * @var resource|null stream resource
