@@ -53,7 +53,7 @@ class UploadedFileTest extends TestCase
     {
         $uploadedFile = new UploadedFile();
         $uploadedFile->setError(UPLOAD_ERR_OK);
-        $uploadedFile->tempFilename = tempnam(Yii::getAlias('@yii/tests/runtime'), 'tmp-');
+        $uploadedFile->tempFilename = tempnam(__DIR__ . '/../../runtime', 'tmp-');
         file_put_contents($uploadedFile->tempFilename, '0123456789');
 
         $stream = $uploadedFile->getStream();
