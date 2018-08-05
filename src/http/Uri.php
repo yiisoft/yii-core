@@ -13,30 +13,7 @@ use yii\base\ErrorHandler;
 use yii\exceptions\InvalidArgumentException;
 
 /**
- * Uri represents a URI.
- *
- * Create from components example:
- *
- * ```php
- * $uri = new Uri([
- *     'scheme' => 'http',
- *     'user' => 'username',
- *     'password' => 'password',
- *     'host' => 'example.com',
- *     'port' => 9090,
- *     'path' => '/content/path',
- *     'query' => 'foo=some',
- *     'fragment' => 'anchor',
- * ]);
- * ```
- *
- * Create from string example:
- *
- * ```php
- * $uri = new Uri(['string' => 'http://example.com?foo=some']);
- * ```
- *
- * Create using PSR-7 syntax:
+ * Uri represents an URI.
  *
  * ```php
  * $uri = (new Uri())
@@ -108,10 +85,12 @@ class Uri extends BaseObject implements UriInterface
     /**
      * @param string $string URI full string.
      */
-    public function setString($string)
+    public static function fromString($string)
     {
-        $this->_string = $string;
-        $this->_components = null;
+        $uri = new Uri();
+        $uri->_string = $string;
+        $uri->_components = null;
+        return $uri;
     }
 
     /**
@@ -120,15 +99,6 @@ class Uri extends BaseObject implements UriInterface
     public function getScheme()
     {
         return $this->getComponent('scheme');
-    }
-
-    /**
-     * Sets up the scheme component of the URI.
-     * @param string $scheme the scheme.
-     */
-    public function setScheme($scheme)
-    {
-        $this->setComponent('scheme', $scheme);
     }
 
     /**
@@ -141,7 +111,7 @@ class Uri extends BaseObject implements UriInterface
         }
 
         $newInstance = clone $this;
-        $newInstance->setScheme($scheme);
+        $newInstance->setComponent('scheme', $scheme);
         return $newInstance;
     }
 
@@ -170,15 +140,6 @@ class Uri extends BaseObject implements UriInterface
     }
 
     /**
-     * Specifies hostname.
-     * @param string $host the hostname to be used.
-     */
-    public function setHost($host)
-    {
-        $this->setComponent('host', $host);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function withHost($host)
@@ -188,7 +149,7 @@ class Uri extends BaseObject implements UriInterface
         }
 
         $newInstance = clone $this;
-        $newInstance->setHost($host);
+        $newInstance->setComponent('host', $host);
         return $newInstance;
     }
 
@@ -201,20 +162,6 @@ class Uri extends BaseObject implements UriInterface
     }
 
     /**
-     * Specifies port.
-     * @param int|null $port The port to be used; a `null` value removes the port information.
-     */
-    public function setPort($port)
-    {
-        if ($port !== null) {
-            if (!is_int($port)) {
-                throw new InvalidArgumentException('URI port must be an integer.');
-            }
-        }
-        $this->setComponent('port', $port);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function withPort($port)
@@ -224,7 +171,12 @@ class Uri extends BaseObject implements UriInterface
         }
 
         $newInstance = clone $this;
-        $newInstance->setPort($port);
+
+        if ($port !== null && !\is_int($port)) {
+            throw new InvalidArgumentException('URI port must be an integer.');
+        }
+        $newInstance->setComponent('port', $port);
+
         return $newInstance;
     }
 
@@ -237,15 +189,6 @@ class Uri extends BaseObject implements UriInterface
     }
 
     /**
-     * Specifies path component of the URI
-     * @param string $path the path to be used.
-     */
-    public function setPath($path)
-    {
-        $this->setComponent('path', $path);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function withPath($path)
@@ -255,7 +198,7 @@ class Uri extends BaseObject implements UriInterface
         }
 
         $newInstance = clone $this;
-        $newInstance->setPath($path);
+        $newInstance->setComponent('path', $path);
         return $newInstance;
     }
 
@@ -268,18 +211,6 @@ class Uri extends BaseObject implements UriInterface
     }
 
     /**
-     * Specifies query string.
-     * @param string|array|object $query the query string or array of query parameters.
-     */
-    public function setQuery($query)
-    {
-        if (is_array($query) || is_object($query)) {
-            $query = http_build_query($query);
-        }
-        $this->setComponent('query', $query);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function withQuery($query)
@@ -289,7 +220,7 @@ class Uri extends BaseObject implements UriInterface
         }
 
         $newInstance = clone $this;
-        $newInstance->setQuery($query);
+        $newInstance->setComponent('query', $query);
         return $newInstance;
     }
 
@@ -302,15 +233,6 @@ class Uri extends BaseObject implements UriInterface
     }
 
     /**
-     * Specifies URI fragment.
-     * @param string $fragment the fragment to be used.
-     */
-    public function setFragment($fragment)
-    {
-        $this->setComponent('fragment', $fragment);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function withFragment($fragment)
@@ -320,7 +242,7 @@ class Uri extends BaseObject implements UriInterface
         }
 
         $newInstance = clone $this;
-        $newInstance->setFragment($fragment);
+        $newInstance->setComponent('fragment', $fragment);
         return $newInstance;
     }
 
@@ -333,14 +255,6 @@ class Uri extends BaseObject implements UriInterface
     }
 
     /**
-     * @param string $user the user name to use for authority.
-     */
-    public function setUser($user)
-    {
-        $this->setComponent('user', $user);
-    }
-
-    /**
      * @return string password associated with [[user]].
      */
     public function getPassword()
@@ -349,20 +263,12 @@ class Uri extends BaseObject implements UriInterface
     }
 
     /**
-     * @param string $password password associated with [[user]].
-     */
-    public function setPassword($password)
-    {
-        $this->setComponent('pass', $password);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function withUserInfo($user, $password = null)
     {
         $userInfo = $user;
-        if ($password != '') {
+        if ($password !== null) {
             $userInfo .= ':' . $password;
         }
 
@@ -371,8 +277,8 @@ class Uri extends BaseObject implements UriInterface
         }
 
         $newInstance = clone $this;
-        $newInstance->setUser($user);
-        $newInstance->setPassword($password);
+        $newInstance->setComponent('user', $user);
+        $newInstance->setComponent('pass', $password);
         return $newInstance;
     }
 
@@ -458,9 +364,9 @@ class Uri extends BaseObject implements UriInterface
     {
         $uri = '';
 
-        $scheme = empty($components['scheme']) ? '' : $components['scheme'];
+        $scheme = empty($components['scheme']) ? 'http' : $components['scheme'];
         if ($scheme !== '') {
-            $uri .= $components['scheme'] . ':';
+            $uri .= $scheme . ':';
         }
 
         $authority = $this->composeAuthority($components);
@@ -514,7 +420,7 @@ class Uri extends BaseObject implements UriInterface
         $scheme = empty($components['scheme']) ? '' : $components['scheme'];
 
         if (empty($components['host'])) {
-            if (in_array($scheme, ['http', 'https'], true)) {
+            if (\in_array($scheme, ['http', 'https'], true)) {
                 $authority = 'localhost';
             }
         } else {
