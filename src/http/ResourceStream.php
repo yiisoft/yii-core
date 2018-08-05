@@ -75,7 +75,7 @@ class ResourceStream extends BaseObject implements StreamInterface
      */
     public function close()
     {
-        if ($this->resource !== null && is_resource($this->resource)) {
+        if ($this->resource !== null && \is_resource($this->resource)) {
             fclose($this->resource);
             $this->_metadata = null;
         }
@@ -236,6 +236,6 @@ class ResourceStream extends BaseObject implements StreamInterface
             return $this->_metadata;
         }
 
-        return isset($this->_metadata[$key]) ? $this->_metadata[$key] : null;
+        return $this->_metadata[$key] ?? null;
     }
 }

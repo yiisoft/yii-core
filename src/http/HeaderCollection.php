@@ -7,7 +7,6 @@
 
 namespace yii\http;
 
-use yii\helpers\Yii;
 use yii\base\BaseObject;
 
 /**
@@ -56,7 +55,7 @@ class HeaderCollection extends BaseObject implements \IteratorAggregate, \ArrayA
      */
     public function getCount()
     {
-        return count($this->_headers);
+        return \count($this->_headers);
     }
 
     /**
@@ -182,7 +181,7 @@ class HeaderCollection extends BaseObject implements \IteratorAggregate, \ArrayA
     {
         $this->removeAll();
         foreach ($array as $name => $values) {
-            if (is_array($values)) {
+            if (\is_array($values)) {
                 foreach ($values as $value) {
                     $this->add($name, $value);
                 }

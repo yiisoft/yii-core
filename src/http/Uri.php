@@ -87,7 +87,7 @@ class Uri extends BaseObject implements UriInterface
      */
     public static function fromString($string)
     {
-        $uri = new Uri();
+        $uri = new self();
         $uri->_string = $string;
         $uri->_components = null;
         return $uri;

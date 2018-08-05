@@ -106,7 +106,8 @@ class UploadedFile extends BaseObject implements UploadedFileInterface
             if ($deleteTempFile) {
                 $this->moveTo($file);
                 return true;
-            } elseif (is_uploaded_file($this->tempFilename)) {
+            }
+            if (is_uploaded_file($this->tempFilename)) {
                 return copy($this->tempFilename, $file);
             }
         }
@@ -157,7 +158,7 @@ class UploadedFile extends BaseObject implements UploadedFileInterface
                     'mode' => 'r',
                 ];
             } elseif ($this->_stream instanceof \Closure) {
-                $stream = call_user_func($this->_stream, $this);
+                $stream = \call_user_func($this->_stream, $this);
             } else {
                 $stream = $this->_stream;
             }
@@ -206,8 +207,8 @@ class UploadedFile extends BaseObject implements UploadedFileInterface
      */
     public function setSize($size)
     {
-        if (!is_int($size)) {
-            throw new InvalidArgumentException('"' . get_class($this) . '::$size" must be an integer.');
+        if (!\is_int($size)) {
+            throw new InvalidArgumentException('"' . \get_class($this) . '::$size" must be an integer.');
         }
         $this->_size = $size;
     }
@@ -228,8 +229,8 @@ class UploadedFile extends BaseObject implements UploadedFileInterface
      */
     public function setError($error)
     {
-        if (!is_int($error)) {
-            throw new InvalidArgumentException('"' . get_class($this) . '::$error" must be an integer.');
+        if (!\is_int($error)) {
+            throw new InvalidArgumentException('"' . \get_class($this) . '::$error" must be an integer.');
         }
         $this->_error = $error;
     }

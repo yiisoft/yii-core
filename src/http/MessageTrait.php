@@ -299,7 +299,7 @@ trait MessageTrait
             if ($this->_body === null) {
                 $body = $this->defaultBody();
             } elseif ($this->_body instanceof \Closure) {
-                $body = call_user_func($this->_body, $this);
+                $body = \call_user_func($this->_body, $this);
             } else {
                 $body = $this->_body;
             }
@@ -360,10 +360,10 @@ trait MessageTrait
      */
     private function cloneHttpMessageInternals()
     {
-        if (is_object($this->_headerCollection)) {
+        if (\is_object($this->_headerCollection)) {
             $this->_headerCollection = clone $this->_headerCollection;
         }
-        if (is_object($this->_body)) {
+        if (\is_object($this->_body)) {
             $this->_body = clone $this->_body;
         }
     }

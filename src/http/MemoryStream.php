@@ -72,7 +72,7 @@ class MemoryStream extends BaseObject implements StreamInterface
      */
     public function getSize()
     {
-        return strlen($this->buffer);
+        return \strlen($this->buffer);
     }
 
     /**
@@ -141,7 +141,7 @@ class MemoryStream extends BaseObject implements StreamInterface
     public function write($string)
     {
         $size = $this->getSize();
-        $writeSize = strlen($string);
+        $writeSize = \strlen($string);
 
         if ($this->pointer >= $size) {
             $this->buffer .= $string;
@@ -200,6 +200,6 @@ class MemoryStream extends BaseObject implements StreamInterface
             return $metadata;
         }
 
-        return (isset($metadata[$key])) ? $metadata[$key] : null;
+        return $metadata[$key] ?? null;
     }
 }

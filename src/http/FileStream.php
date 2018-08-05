@@ -268,6 +268,6 @@ class FileStream extends BaseObject implements StreamInterface
             return $this->_metadata;
         }
 
-        return isset($this->_metadata[$key]) ? $this->_metadata[$key] : null;
+        return $this->_metadata[$key] ?? null;
     }
 }
