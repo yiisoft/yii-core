@@ -98,10 +98,10 @@ class Validator extends Component
         'ip' => IpValidator::class,
     ];
     /**
-     * @var array|string attributes to be validated by this validator. For multiple attributes,
+     * @var array attributes to be validated by this validator. For multiple attributes,
      * please specify them as an array; for single attribute, you may use either a string or an array.
      */
-    public $attributes = [];
+    protected $_attributes = [];
     /**
      * @var string the user-defined error message. It may contain the following placeholders which
      * will be replaced accordingly by the validator:
@@ -116,15 +116,15 @@ class Validator extends Component
      */
     public $message;
     /**
-     * @var array|string scenarios that the validator can be applied to. For multiple scenarios,
+     * @var array scenarios that the validator can be applied to. For multiple scenarios,
      * please specify them as an array; for single scenario, you may use either a string or an array.
      */
-    public $on = [];
+    protected $_on = [];
     /**
-     * @var array|string scenarios that the validator should not be applied to. For multiple scenarios,
+     * @var array scenarios that the validator should not be applied to. For multiple scenarios,
      * please specify them as an array; for single scenario, you may use either a string or an array.
      */
-    public $except = [];
+    protected $_except = [];
     /**
      * @var bool whether this validation rule should be skipped if the attribute being validated
      * already has some validation error according to some previous rules. Defaults to true.
@@ -225,15 +225,40 @@ class Validator extends Component
         return Yii::createObject($params);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function init()
+    public function setAttributes($attributes): self
     {
-        parent::init();
-        $this->attributes = (array) $this->attributes;
-        $this->on = (array) $this->on;
-        $this->except = (array) $this->except;
+        $this->_attributes = (array) $attributes;
+
+        return $this;
+    }
+
+    public function setOn($on): self
+    {
+        $this->_on = (array) $on;
+
+        return $this;
+    }
+
+    public function setExcept($except): self
+    {
+        $this->_except = (array) $except;
+
+        return $this;
+    }
+
+    public function getAttributes(): array
+    {
+        return $this->_attributes;
+    }
+
+    public function getOn(): array
+    {
+        return $this->_on;
+    }
+
+    public function getExcept(): array
+    {
+        return $this->_except;
     }
 
     /**

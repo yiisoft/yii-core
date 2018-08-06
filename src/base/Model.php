@@ -12,6 +12,7 @@ use ArrayIterator;
 use ArrayObject;
 use IteratorAggregate;
 use ReflectionClass;
+use yii\exceptions\InvalidConfigException;
 use yii\helpers\Yii;
 use yii\helpers\Inflector;
 use yii\validators\RequiredValidator;
@@ -187,6 +188,10 @@ class Model extends Component implements StaticInstanceInterface, IteratorAggreg
     {
         $scenarios = [self::SCENARIO_DEFAULT => []];
         foreach ($this->getValidators() as $validator) {
+
+            if (!is_array($validator->on)) {
+                var_dump($validator);die;
+            }
             foreach ($validator->on as $scenario) {
                 $scenarios[$scenario] = [];
             }

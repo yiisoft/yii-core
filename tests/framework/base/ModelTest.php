@@ -445,7 +445,7 @@ class ModelTest extends TestCase
 
     public function testCreateValidators()
     {
-        $this->expectException('yii\exceptions\InvalidConfigException');
+        $this->expectException(\yii\exceptions\InvalidConfigException::class);
         $this->expectExceptionMessage('Invalid validation rule: a rule must specify both attribute names and validator type.');
 
         $invalid = new InvalidRulesModel();
