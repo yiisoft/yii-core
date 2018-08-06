@@ -12,6 +12,7 @@ use Psr\Log\LogLevel;
 use yii\base\Application;
 use yii\di\FactoryInterface;
 use yii\exceptions\InvalidConfigException;
+use yii\i18n\I18N;
 
 /**
  * BaseYii is the core helper class for the Yii framework.
@@ -257,11 +258,6 @@ class BaseYii
             return static::getApp()->t($category, $message, $params, $language);
         }
 
-        $placeholders = [];
-        foreach ((array) $params as $name => $value) {
-            $placeholders['{' . $name . '}'] = $value;
-        }
-
-        return ($placeholders === []) ? $message : strtr($message, $placeholders);
+        return I18N::substitute($message, $params);
     }
 }

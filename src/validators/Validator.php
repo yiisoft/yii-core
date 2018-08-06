@@ -7,9 +7,10 @@
 
 namespace yii\validators;
 
-use yii\helpers\Yii;
 use yii\base\Component;
 use yii\exceptions\NotSupportedException;
+use yii\helpers\Yii;
+use yii\i18n\I18N;
 
 /**
  * Validator is the base class for all validators.
@@ -221,7 +222,7 @@ class Validator extends Component
             }
         }
 
-        return $this->app->createObject($params);
+        return Yii::createObject($params);
     }
 
     /**
@@ -438,16 +439,11 @@ class Validator extends Component
      */
     public function formatMessage($message, $params)
     {
-        if (Yii::$app !== null) {
-            return \Yii::$app->getI18n()->format($message, $params, Yii::$app->language);
+        if (Yii::getApp() !== null) {
+            return Yii::getApp()->get('i18n')->format($message, $params, Yii::getApp()->language);
         }
 
-        $placeholders = [];
-        foreach ((array) $params as $name => $value) {
-            $placeholders['{' . $name . '}'] = $value;
-        }
-
-        return ($placeholders === []) ? $message : strtr($message, $placeholders);
+        return I18N::substitute($message, $params);
     }
 
     /**

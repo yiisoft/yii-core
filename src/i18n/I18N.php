@@ -132,12 +132,17 @@ class I18N extends Component
             return $result;
         }
 
-        $p = [];
+        return static::substitute($message, $params);
+    }
+
+    public static function substitute($message, array $params)
+    {
+        $placeholders = [];
         foreach ($params as $name => $value) {
-            $p['{' . $name . '}'] = $value;
+            $placeholders['{' . $name . '}'] = $value;
         }
 
-        return strtr($message, $p);
+        return empty($placeholders) ? $message : strtr($message, $placeholders);
     }
 
     /**
