@@ -632,8 +632,7 @@ class Component extends BaseObject
 
         if (!empty($eventHandlers)) {
             if (!is_object($event)) {
-                $event = new Event();
-                $event->setName($name);
+                $event = new Event($name);
             }
             if ($event->getTarget() === null) {
                 $event->setTarget($this);

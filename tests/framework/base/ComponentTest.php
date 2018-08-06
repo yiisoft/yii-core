@@ -502,7 +502,7 @@ class NewComponent extends Component
 
     public function raiseEvent()
     {
-        $this->trigger(new Event(['name' => 'click']));
+        $this->trigger(new Event('click'));
     }
 
     public function setWriteOnly()

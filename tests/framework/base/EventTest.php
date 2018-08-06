@@ -38,12 +38,8 @@ class EventTest extends TestCase
 
     public function testSetupName()
     {
-        $event = new Event();
-        $event->setName('some.event');
+        $event = new Event('some.event');
         $this->assertSame('some.event', $event->getName());
-
-        $event = new Event();
-        $this->assertSame('yii.base.event', $event->getName());
     }
 
     public function testOn()
