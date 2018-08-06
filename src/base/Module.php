@@ -10,6 +10,7 @@ namespace yii\base;
 use yii\exceptions\InvalidArgumentException;
 use yii\exceptions\InvalidRouteException;
 use yii\exceptions\InvalidConfigException;
+use yii\helpers\Yii;
 
 /**
  * Module is the base class for module and application classes.
@@ -170,7 +171,7 @@ class Module extends Component
     public static function getInstance()
     {
         $class = get_called_class();
-        return isset($this->app->loadedModules[$class]) ? $this->app->loadedModules[$class] : null;
+        return isset(Yii::getApp()->loadedModules[$class]) ? $this->app->loadedModules[$class] : null;
     }
 
     /**
@@ -181,9 +182,9 @@ class Module extends Component
     public static function setInstance($instance)
     {
         if ($instance === null) {
-            unset($this->app->loadedModules[get_called_class()]);
+            unset(Yii::getApp()->loadedModules[get_called_class()]);
         } else {
-            $this->app->loadedModules[get_class($instance)] = $instance;
+            Yii::getApp()->loadedModules[get_class($instance)] = $instance;
         }
     }
 

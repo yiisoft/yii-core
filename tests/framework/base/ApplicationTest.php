@@ -8,7 +8,6 @@
 namespace yii\tests\framework\base;
 
 use Psr\Log\NullLogger;
-use yii\helpers\Yii;
 use yii\base\BootstrapInterface;
 use yii\base\Component;
 use yii\base\Module;
@@ -34,35 +33,36 @@ class ApplicationTest extends TestCase
 
     public function testBootstrap()
     {
-        Yii::getLogger()->flush();
-
-        $this->mockApplication([
-            'components' => [
-                'withoutBootstrapInterface' => [
-                    '__class' => Component::class
-                ],
-                'withBootstrapInterface' => [
-                    '__class' => BootstrapComponentMock::class
-                ]
+        $this->container->setAll([
+            'logger' => [
+                '__class' => \yii\log\Logger::class,
             ],
+            'withoutBootstrapInterface' => [
+                '__class' => Component::class,
+            ],
+            'withBootstrapInterface' => [
+                '__class' => BootstrapComponentMock::class,
+            ],
+        ]);
+        $this->mockApplication([
             'modules' => [
                 'moduleX' => [
-                    '__class' => Module::class
-                ]
+                    '__class' => Module::class,
+                ],
             ],
             'bootstrap' => [
                 'withoutBootstrapInterface',
                 'withBootstrapInterface',
                 'moduleX',
-                function () {
-                },
+                function () {},
             ],
         ]);
-        $this->assertSame('Bootstrap with yii\base\Component', Yii::getLogger()->messages[0][1]);
-        $this->assertSame('Bootstrap with yii\tests\framework\base\BootstrapComponentMock::bootstrap()', Yii::getLogger()->messages[1][1]);
-        $this->assertSame('Loading module: moduleX', Yii::getLogger()->messages[2][1]);
-        $this->assertSame('Bootstrap with yii\base\Module', Yii::getLogger()->messages[3][1]);
-        $this->assertSame('Bootstrap with Closure', Yii::getLogger()->messages[4][1]);
+
+        $this->assertSame('Bootstrap with yii\base\Component', $this->app->getLogger()->messages[0][1] ?? null);
+        $this->assertSame('Bootstrap with yii\tests\framework\base\BootstrapComponentMock::bootstrap()', $this->app->getLogger()->messages[1][1] ?? null);
+        $this->assertSame('Loading module: moduleX', $this->app->getLogger()->messages[2][1] ?? null);
+        $this->assertSame('Bootstrap with yii\base\Module', $this->app->getLogger()->messages[3][1] ?? null);
+        $this->assertSame('Bootstrap with Closure', $this->app->getLogger()->messages[4][1] ?? null);
     }
 }
 

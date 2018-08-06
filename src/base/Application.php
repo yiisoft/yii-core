@@ -9,6 +9,7 @@ namespace yii\base;
 
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use yii\base\ErrorHandler;
 use yii\di\Initiable;
 use yii\exceptions\InvalidConfigException;
@@ -236,7 +237,7 @@ abstract class Application extends Module implements Initiable
                     continue;
                 }
             } elseif (is_string($mixed)) {
-                if ($this->_container->has($mixed)) {
+                if ($this->has($mixed)) {
                     $component = $this->get($mixed);
                 } elseif ($this->hasModule($mixed)) {
                     $component = $this->getModule($mixed);
