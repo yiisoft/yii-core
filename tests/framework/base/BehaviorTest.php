@@ -10,6 +10,7 @@ namespace yii\tests\framework\base;
 use yii\base\Behavior;
 use yii\base\Component;
 use yii\tests\TestCase;
+use yii\exceptions\UnknownMethodException;
 
 class BarClass extends Component
 {
@@ -91,7 +92,7 @@ class BehaviorTest extends TestCase
         BarBehavior::$attachCount = 0;
         BarBehavior::$detachCount = 0;
 
-        $bar = new BarClass();
+        $bar = $this->app->createObject(BarClass::class);
         $behavior = new BarBehavior();
         $bar->attachBehavior('bar', $behavior);
         $this->assertEquals(1, BarBehavior::$attachCount);
@@ -101,7 +102,10 @@ class BehaviorTest extends TestCase
         $this->assertEquals('behavior property', $bar->getBehavior('bar')->behaviorProperty);
         $this->assertEquals('behavior method', $bar->getBehavior('bar')->behaviorMethod());
 
-        $behavior = new BarBehavior(['behaviorProperty' => 'reattached']);
+        $behavior = $this->app->createObject([
+            '__class' => BarBehavior::class,
+            'behaviorProperty' => 'reattached',
+        ]);
         $bar->attachBehavior('bar', $behavior);
         $this->assertEquals(2, BarBehavior::$attachCount);
         $this->assertEquals(1, BarBehavior::$detachCount);
@@ -113,7 +117,7 @@ class BehaviorTest extends TestCase
         BarBehavior::$attachCount = 0;
         BarBehavior::$detachCount = 0;
 
-        $bar = new BarClass();
+        $bar = $this->app->createObject(BarClass::class);
         $behavior = new BarBehavior();
         $bar->attachBehaviors([$behavior]);
         $this->assertEquals(1, BarBehavior::$attachCount);
@@ -127,7 +131,7 @@ class BehaviorTest extends TestCase
         BarBehavior::$attachCount = 0;
         BarBehavior::$detachCount = 0;
 
-        $foo = new FooClass();
+        $foo = $this->app->createObject(FooClass::class);
         $this->assertEquals(0, BarBehavior::$attachCount);
         $this->assertEquals(0, BarBehavior::$detachCount);
         $this->assertEquals('behavior property', $foo->behaviorProperty);
@@ -138,7 +142,7 @@ class BehaviorTest extends TestCase
 
     public function testMagicMethods()
     {
-        $bar = new BarClass();
+        $bar = $this->app->createObject(BarClass::class);
         $behavior = new BarBehavior();
 
         $this->assertFalse($bar->hasMethod('magicBehaviorMethod'));
@@ -151,9 +155,9 @@ class BehaviorTest extends TestCase
 
     public function testCallUnknownMethod()
     {
-        $bar = new BarClass();
+        $bar = $this->app->createObject(BarClass::class);
         $behavior = new BarBehavior();
-        $this->expectException('yii\exceptions\UnknownMethodException');
+        $this->expectException(UnknownMethodException::class);
 
         $this->assertFalse($bar->hasMethod('nomagicBehaviorMethod'));
         $bar->attachBehavior('bar', $behavior);
