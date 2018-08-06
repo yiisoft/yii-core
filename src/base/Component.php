@@ -12,6 +12,7 @@ use yii\exceptions\UnknownPropertyException;
 use yii\exceptions\InvalidCallException;
 use yii\exceptions\UnknownMethodException;
 use yii\helpers\StringHelper;
+use yii\helpers\Yii;
 
 /**
  * Component is the base class that implements the *property*, *event* and *behavior* features.
@@ -91,7 +92,7 @@ use yii\helpers\StringHelper;
  * ]
  * ```
  *
- * where `as tree` stands for attaching a behavior named `tree`, and the array will be passed to [[$this->app->createObject()]]
+ * where `as tree` stands for attaching a behavior named `tree`, and the array will be passed to [[Yii::createObject()]]
  * to create the behavior object.
  *
  * For more details and usage information on Component, see the [guide article on components](guide:concept-components).
@@ -117,16 +118,6 @@ class Component extends BaseObject
      */
     private $_behaviors;
 
-    /**
-     * @var Application
-     */
-    protected $app;
-
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-    }
 
     /**
      * Returns the value of a component property.
@@ -201,7 +192,7 @@ class Component extends BaseObject
         } elseif (strncmp($name, 'as ', 3) === 0) {
             // as behavior: attach behavior
             $name = trim(substr($name, 3));
-            $this->attachBehavior($name, $value instanceof Behavior ? $value : $this->app->createObject($value));
+            $this->attachBehavior($name, $value instanceof Behavior ? $value : Yii::createObject($value));
 
             return;
         }
@@ -518,7 +509,7 @@ class Component extends BaseObject
      *
      * ```php
      * $component->on('event.group.*', function ($event) {
-     *     $this->app->debug($event->name . ' is triggered.');
+     *     Yii::debug($event->name . ' is triggered.');
      * });
      * ```
      *
@@ -693,7 +684,7 @@ class Component extends BaseObject
      *
      *  - a [[Behavior]] object
      *  - a string specifying the behavior class
-     *  - an object configuration array that will be passed to [[$this->app->createObject()]] to create the behavior object.
+     *  - an object configuration array that will be passed to [[Yii::createObject()]] to create the behavior object.
      *
      * @return Behavior the behavior object
      * @see detachBehavior()
@@ -773,7 +764,7 @@ class Component extends BaseObject
     private function attachBehaviorInternal($name, $behavior)
     {
         if (!($behavior instanceof Behavior)) {
-            $behavior = $this->app->createObject($behavior);
+            $behavior = Yii::createObject($behavior);
         }
         if (is_int($name)) {
             $behavior->attach($this);
