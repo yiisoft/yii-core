@@ -12,7 +12,6 @@ use yii\exceptions\UnknownPropertyException;
 use yii\exceptions\InvalidCallException;
 use yii\exceptions\UnknownMethodException;
 use yii\helpers\StringHelper;
-use yii\helpers\Yii;
 
 /**
  * Component is the base class that implements the *property*, *event* and *behavior* features.
@@ -118,6 +117,16 @@ class Component extends BaseObject
      */
     private $_behaviors;
 
+    /**
+     * @var Application
+     */
+    protected $app;
+
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
 
     /**
      * Returns the value of a component property.
@@ -509,7 +518,7 @@ class Component extends BaseObject
      *
      * ```php
      * $component->on('event.group.*', function ($event) {
-     *     Yii::debug($event->name . ' is triggered.');
+     *     $this->app->debug($event->name . ' is triggered.');
      * });
      * ```
      *
