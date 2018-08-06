@@ -35,7 +35,10 @@ class FormatterTest extends TestCase
             'timeZone' => 'UTC',
             'language' => 'ru-RU',
         ]);
-        $this->formatter = new Formatter(['locale' => 'en-US']);
+        $this->formatter = $this->app->createObject([
+            '__class' => Formatter::class,
+            'locale' => 'en-US',
+        ]);
     }
 
     protected function tearDown()
@@ -67,11 +70,16 @@ class FormatterTest extends TestCase
     public function testLocale()
     {
         // locale is configured explicitly
-        $f = new Formatter(['locale' => 'en-US']);
+        $f = $this->app->createObject([
+            '__class' => Formatter::class,
+            'locale' => 'en-US',
+        ]);
         $this->assertEquals('en-US', $f->locale);
 
         // if not, take from application
-        $f = new Formatter();
+        $f = $this->app->createObject([
+            '__class' => Formatter::class,
+        ]);
         $this->assertEquals('ru-RU', $f->locale);
     }
 

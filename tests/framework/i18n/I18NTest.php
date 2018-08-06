@@ -11,6 +11,7 @@ use yii\helpers\Yii;
 use yii\base\Event;
 use yii\i18n\I18N;
 use yii\i18n\PhpMessageSource;
+use yii\i18n\TranslationEvent;
 use yii\tests\TestCase;
 
 /**
@@ -34,7 +35,8 @@ class I18NTest extends TestCase
 
     protected function setI18N()
     {
-        $this->i18n = new I18N([
+        $this->i18n = $this->app->createObject([
+            '__class' => I18N::class,
             'translations' => [
                 'test' => [
                     '__class' => $this->getMessageSourceClass(),
@@ -68,7 +70,8 @@ class I18NTest extends TestCase
 
     public function testDefaultSource()
     {
-        $i18n = new I18N([
+        $i18n = $this->app->createObject([
+            '__class' => I18N::class,
             'translations' => [
                 '*' => [
                     '__class' => $this->getMessageSourceClass(),
@@ -103,17 +106,18 @@ class I18NTest extends TestCase
      */
     public function testSourceLanguageFallback()
     {
-        $i18n = new I18N([
+        $i18n = $this->app->createObject([
+            '__class' => I18N::class,
             'translations' => [
-                '*' => new PhpMessageSource([
-                        'basePath' => '@yii/tests/data/i18n/messages',
-                        'sourceLanguage' => 'de-DE',
-                        'fileMap' => [
-                            'test' => 'test.php',
-                            'foo' => 'test.php',
-                        ],
-                    ]
-                ),
+                '*' => [
+                    '__class' => PhpMessageSource::class,
+                    'basePath' => '@yii/tests/data/i18n/messages',
+                    'sourceLanguage' => 'de-DE',
+                    'fileMap' => [
+                        'test' => 'test.php',
+                        'foo' => 'test.php',
+                    ],
+                ],
             ],
         ]);
 
@@ -183,13 +187,13 @@ class I18NTest extends TestCase
 
     public function testUsingSourceLanguageForMissingTranslation()
     {
-        Yii::$app->sourceLanguage = 'ru';
-        Yii::$app->language = 'en';
+        $this->app->sourceLanguage = 'ru';
+        $this->app->language = 'en';
 
         $msg = '{n, plural, =0{Нет комментариев} =1{# комментарий} one{# комментарий} few{# комментария} many{# комментариев} other{# комментария}}';
-        $this->assertEquals('5 комментариев', Yii::t('app', $msg, ['n' => 5]));
-        $this->assertEquals('3 комментария', Yii::t('app', $msg, ['n' => 3]));
         $this->assertEquals('1 комментарий', Yii::t('app', $msg, ['n' => 1]));
+        $this->assertEquals('3 комментария', Yii::t('app', $msg, ['n' => 3]));
+        $this->assertEquals('5 комментариев', Yii::t('app', $msg, ['n' => 5]));
         $this->assertEquals('21 комментарий', Yii::t('app', $msg, ['n' => 21]));
         $this->assertEquals('Нет комментариев', Yii::t('app', $msg, ['n' => 0]));
     }
@@ -203,13 +207,13 @@ class I18NTest extends TestCase
         $this->assertEquals('Missing translation message.', $this->i18n->translate('test', 'Missing translation message.', [], 'de-DE'));
         $this->assertEquals('Hallo Welt!', $this->i18n->translate('test', 'Hello world!', [], 'de-DE'));
 
-        Event::on(PhpMessageSource::class, PhpMessageSource::EVENT_MISSING_TRANSLATION, function ($event) {});
+        Event::on(PhpMessageSource::class, TranslationEvent::MISSING, function ($event) {});
         $this->assertEquals('Hallo Welt!', $this->i18n->translate('test', 'Hello world!', [], 'de-DE'));
         $this->assertEquals('Missing translation message.', $this->i18n->translate('test', 'Missing translation message.', [], 'de-DE'));
         $this->assertEquals('Hallo Welt!', $this->i18n->translate('test', 'Hello world!', [], 'de-DE'));
-        Event::off(PhpMessageSource::class, PhpMessageSource::EVENT_MISSING_TRANSLATION);
+        Event::off(PhpMessageSource::class, TranslationEvent::MISSING);
 
-        Event::on(PhpMessageSource::class, PhpMessageSource::EVENT_MISSING_TRANSLATION, function ($event) {
+        Event::on(PhpMessageSource::class, TranslationEvent::MISSING, function ($event) {
             if ($event->message == 'New missing translation message.') {
                 $event->translatedMessage = 'TRANSLATION MISSING HERE!';
             }
@@ -219,7 +223,7 @@ class I18NTest extends TestCase
         $this->assertEquals('Missing translation message.', $this->i18n->translate('test', 'Missing translation message.', [], 'de-DE'));
         $this->assertEquals('TRANSLATION MISSING HERE!', $this->i18n->translate('test', 'New missing translation message.', [], 'de-DE'));
         $this->assertEquals('Hallo Welt!', $this->i18n->translate('test', 'Hello world!', [], 'de-DE'));
-        Event::off(PhpMessageSource::class, PhpMessageSource::EVENT_MISSING_TRANSLATION);
+        Event::off(PhpMessageSource::class, TranslationEvent::MISSING);
     }
 
     public function sourceLanguageDataProvider()
@@ -236,11 +240,12 @@ class I18NTest extends TestCase
      */
     public function testIssue11429($sourceLanguage)
     {
+        $this->destroyApplication();
         $this->mockApplication();
         $this->setI18N();
 
-        Yii::$app->sourceLanguage = $sourceLanguage;
-        $logger = Yii::getLogger();
+        $this->app->sourceLanguage = $sourceLanguage;
+        $logger = $this->app->getLogger();
         $logger->messages = [];
         $filter = function ($array) {
             // Ensures that error message is related to PhpMessageSource

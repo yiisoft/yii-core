@@ -8,7 +8,7 @@
 namespace yii\tests\framework\i18n;
 
 use NumberFormatter;
-use yii\helpers\Yii;
+use yii\di\AbstractContainer;
 use yii\i18n\Formatter;
 use yii\tests\TestCase;
 
@@ -32,7 +32,10 @@ class FormatterNumberTest extends TestCase
             'timeZone' => 'UTC',
             'language' => 'ru-RU',
         ]);
-        $this->formatter = new Formatter(['locale' => 'en-US']);
+        $this->formatter = $this->app->createObject([
+            '__class' => Formatter::class,
+            'locale' => 'en-US',
+        ]);
     }
 
     protected function tearDown()
@@ -85,7 +88,7 @@ class FormatterNumberTest extends TestCase
     public function testIntlAsInteger($config)
     {
         // configure formatter with different configs that should not affect integer format
-        Yii::configure($this->formatter, $config);
+        AbstractContainer::configure($this->formatter, $config);
         $this->testAsInteger();
     }
 
@@ -313,7 +316,7 @@ class FormatterNumberTest extends TestCase
 
         // decimal formatting
         $this->formatter->locale = 'de-DE';
-        $this->assertSame("100\xc2\xa0$", \Yii::$app->formatter->asCurrency(100, 'USD', [
+        $this->assertSame("100\xc2\xa0$", $this->formatter->asCurrency(100, 'USD', [
             NumberFormatter::MAX_FRACTION_DIGITS => 0,
         ]));
         $this->assertSame("100,00\xc2\xa0$", $this->formatter->asCurrency(100, 'USD', [

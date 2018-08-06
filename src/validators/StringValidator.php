@@ -7,6 +7,7 @@
 
 namespace yii\validators;
 
+use yii\di\Initiable;
 use yii\helpers\Yii;
 
 /**
@@ -17,7 +18,7 @@ use yii\helpers\Yii;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class StringValidator extends Validator
+class StringValidator extends Validator implements Initiable
 {
     /**
      * @var int|array specifies the length limit of the value to be validated.
@@ -63,15 +64,14 @@ class StringValidator extends Validator
      * @var string the encoding of the string value to be validated (e.g. 'UTF-8').
      * If this property is not set, [[\yii\base\Application::charset]] will be used.
      */
-    public $encoding;
+    protected $_encoding;
 
 
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
-        parent::init();
         if (is_array($this->length)) {
             if (isset($this->length[0])) {
                 $this->min = $this->length[0];
@@ -80,9 +80,6 @@ class StringValidator extends Validator
                 $this->max = $this->length[1];
             }
             $this->length = null;
-        }
-        if ($this->encoding === null) {
-            $this->encoding = Yii::$app ? Yii::$app->charset : 'UTF-8';
         }
         if ($this->message === null) {
             $this->message = Yii::t('yii', '{attribute} must be a string.');
@@ -98,6 +95,15 @@ class StringValidator extends Validator
         }
     }
 
+    public function getEncoding(): string
+    {
+        if ($this->_encoding === null) {
+            $this->_encoding = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
+        }
+
+        return $this->_encoding;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -111,7 +117,7 @@ class StringValidator extends Validator
             return;
         }
 
-        $length = mb_strlen($value, $this->encoding);
+        $length = mb_strlen($value, $this->getEncoding());
 
         if ($this->min !== null && $length < $this->min) {
             $this->addError($model, $attribute, $this->tooShort, ['min' => $this->min]);

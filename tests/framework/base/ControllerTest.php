@@ -23,7 +23,7 @@ class ControllerTest extends TestCase
         $this->mockApplication();
 
         static::$actionRuns = [];
-        $controller = new TestController('test-controller', Yii::$app);
+        $controller = new TestController('test-controller', $this->app);
         $this->assertNull($controller->action);
         $result = $controller->runAction('test1');
         $this->assertEquals('test1', $result);

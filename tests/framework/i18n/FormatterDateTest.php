@@ -32,7 +32,10 @@ class FormatterDateTest extends TestCase
             'timeZone' => 'UTC',
             'language' => 'ru-RU',
         ]);
-        $this->formatter = new Formatter(['locale' => 'en-US']);
+        $this->formatter = $this->app->createObject([
+            '__class' => Formatter::class,
+            'locale' => 'en-US',
+        ]);
     }
 
     protected function tearDown()

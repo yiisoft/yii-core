@@ -65,7 +65,7 @@ class GettextPoFile extends GettextFile
             '"Language-Team: \n"',
             '"Language: ' . $language . '\n"',
             '"MIME-Version: 1.0\n"',
-            '"Content-Type: text/plain; charset=' . Yii::$app->charset . '\n"',
+            '"Content-Type: text/plain; charset=' . Yii::getApp()->charset . '\n"',
             '"Content-Transfer-Encoding: 8bit\n"',
         ];
         $content = implode("\n", $headers) . "\n\n";
