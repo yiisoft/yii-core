@@ -7,7 +7,7 @@
 
 namespace yii\base;
 
-use yii\base\Event;
+use yii\events\Event;
 use yii\exceptions\UnknownPropertyException;
 use yii\exceptions\InvalidCallException;
 use yii\exceptions\UnknownMethodException;

@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\base;
+namespace yii\events;
 
 /**
  * RequestEvent represents the parameter needed by [[Request]] events.

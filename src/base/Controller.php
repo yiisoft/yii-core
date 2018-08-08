@@ -7,7 +7,9 @@
 
 namespace yii\base;
 
+use yii\events\ActionEvent;
 use yii\helpers\Yii;
+use yii\view\ViewContextInterface;
 
 /**
  * Controller is the base class for classes containing controller logic.

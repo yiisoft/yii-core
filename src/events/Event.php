@@ -5,8 +5,9 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\base;
+namespace yii\events;
 
+use yii\base\BaseObject;
 use yii\helpers\StringHelper;
 
 /**

@@ -5,7 +5,9 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\base;
+namespace yii\events;
+
+use yii\base\Action;
 
 /**
  * ActionEvent represents the event parameter used for an action event.

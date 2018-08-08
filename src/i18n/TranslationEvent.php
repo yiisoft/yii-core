@@ -7,7 +7,7 @@
 
 namespace yii\i18n;
 
-use yii\base\Event;
+use yii\events\Event;
 
 /**
  * TranslationEvent represents the parameter for the [[MessageSource::EVENT_MISSING_TRANSLATION]] event.
@@ -20,7 +20,7 @@ class TranslationEvent extends Event
     /**
      * @event triggered when a message translation is not found.
      */
-    const MISSING = 'translation.missing';
+    const MISSING = 'i18n.translation.missing';
 
     /**
      * @var string the message to be translated. An event handler may use this to provide a fallback translation
