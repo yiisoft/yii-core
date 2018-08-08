@@ -31,8 +31,8 @@ use yii\validators\Validator;
  *
  * Model also raises the following events when performing data validation:
  *
- * - [[EVENT_BEFORE_VALIDATE]]: an event raised at the beginning of [[validate()]]
- * - [[EVENT_AFTER_VALIDATE]]: an event raised at the end of [[validate()]]
+ * - [[ModelEvent::BEFORE_VALIDATE]]: an event raised at the beginning of [[validate()]]
+ * - [[ModelEvent::AFTER_VALIDATE]]: an event raised at the end of [[validate()]]
  *
  * You may directly use Model to store model data, or extend it with customization.
  *
@@ -64,15 +64,6 @@ class Model extends Component implements StaticInstanceInterface, IteratorAggreg
      * The name of the default scenario.
      */
     const SCENARIO_DEFAULT = 'default';
-    /**
-     * @event ModelEvent an event raised at the beginning of [[validate()]]. You may set
-     * [[ModelEvent::isValid]] to be false to stop the validation.
-     */
-    const EVENT_BEFORE_VALIDATE = 'beforeValidate';
-    /**
-     * @event Event an event raised at the end of [[validate()]]
-     */
-    const EVENT_AFTER_VALIDATE = 'afterValidate';
 
     /**
      * @var array validation errors (attribute name => array of errors)
@@ -384,12 +375,9 @@ class Model extends Component implements StaticInstanceInterface, IteratorAggreg
      * @return bool whether the validation should be executed. Defaults to true.
      * If false is returned, the validation will stop and the model is considered invalid.
      */
-    public function beforeValidate()
+    public function beforeValidate(): bool
     {
-        $event = new ModelEvent(self::EVENT_BEFORE_VALIDATE);
-        $this->trigger($event);
-
-        return $event->isValid;
+        return $this->trigger(ModelEvent::beforeValidate());
     }
 
     /**
@@ -400,7 +388,7 @@ class Model extends Component implements StaticInstanceInterface, IteratorAggreg
      */
     public function afterValidate()
     {
-        $this->trigger(self::EVENT_AFTER_VALIDATE);
+        return $this->trigger(ModelEvent::afterValidate());
     }
 
     /**

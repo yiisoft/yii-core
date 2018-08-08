@@ -21,11 +21,11 @@ class ActionEvent extends Event
      * @event raised before executing a controller action.
      * You may set [[ActionEvent::isValid]] to `false` to cancel the action execution.
      */
-    const BEFORE = 'beforeAction';
+    const BEFORE = 'action.before';
     /**
      * @event raised after executing a controller action.
      */
-    const AFTER = 'afterAction';
+    const AFTER = 'action.after';
 
     /**
      * @param string $name event name

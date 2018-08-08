@@ -16,8 +16,12 @@ namespace yii\base;
 class ModelEvent extends Event
 {
     /**
-     * @var bool whether the model is in valid status. Defaults to true.
-     * A model is in valid status if it passes validations or certain checks.
+     * @event event raised at the beginning of [[validate()]]. You may set
+     * [[ModelEvent::isValid]] to be false to stop the validation.
      */
-    public $isValid = true;
+    const BEFORE_VALIDATE = 'model.validate.before';
+    /**
+     * @event event raised at the end of [[validate()]]
+     */
+    const AFTER_VALIDATE = 'model.validate.after';
 }

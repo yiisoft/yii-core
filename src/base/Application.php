@@ -58,14 +58,6 @@ use yii\profile\ProfilerInterface;
 abstract class Application extends Module implements Initiable
 {
     /**
-     * @event Event an event raised before the application starts to handle a request.
-     */
-    const EVENT_BEFORE_REQUEST = 'beforeRequest';
-    /**
-     * @event Event an event raised after the application successfully handles a request (before the response is sent out).
-     */
-    const EVENT_AFTER_REQUEST = 'afterRequest';
-    /**
      * Application state used by [[state]]: application just started.
      */
     const STATE_BEGIN = 0;
@@ -74,7 +66,7 @@ abstract class Application extends Module implements Initiable
      */
     const STATE_INIT = 1;
     /**
-     * Application state used by [[state]]: application is triggering [[EVENT_BEFORE_REQUEST]].
+     * Application state used by [[state]]: application is triggering [[RequestEvent::BEFORE]].
      */
     const STATE_BEFORE_REQUEST = 2;
     /**
@@ -82,7 +74,7 @@ abstract class Application extends Module implements Initiable
      */
     const STATE_HANDLING_REQUEST = 3;
     /**
-     * Application state used by [[state]]: application is triggering [[EVENT_AFTER_REQUEST]]..
+     * Application state used by [[state]]: application is triggering [[RequestEvent::AFTER]].
      */
     const STATE_AFTER_REQUEST = 4;
     /**
@@ -508,13 +500,13 @@ abstract class Application extends Module implements Initiable
 
         try {
             $this->state = self::STATE_BEFORE_REQUEST;
-            $this->trigger(self::EVENT_BEFORE_REQUEST);
+            $this->trigger(RequestEvent::BEFORE);
 
             $this->state = self::STATE_HANDLING_REQUEST;
             $this->response = $this->handleRequest($this->getRequest());
 
             $this->state = self::STATE_AFTER_REQUEST;
-            $this->trigger(self::EVENT_AFTER_REQUEST);
+            $this->trigger(RequestEvent::AFTER);
 
             $this->state = self::STATE_SENDING_RESPONSE;
             $this->response->send();
@@ -605,7 +597,7 @@ abstract class Application extends Module implements Initiable
     {
         if ($this->state === self::STATE_BEFORE_REQUEST || $this->state === self::STATE_HANDLING_REQUEST) {
             $this->state = self::STATE_AFTER_REQUEST;
-            $this->trigger(self::EVENT_AFTER_REQUEST);
+            $this->trigger(RequestEvent::AFTER);
         }
 
         if ($this->state !== self::STATE_SENDING_RESPONSE && $this->state !== self::STATE_END) {
