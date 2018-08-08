@@ -21,11 +21,13 @@ Changes summary:
     * [yiisoft/di] - [PSR-11] compatible Dependency Injection container.
     * [yiisoft/log] - [PSR-3] compatible logging library.
     * [yiisoft/cache] - [PSR-16] compatible caching library.
-    * [yiisoft/db] - DataBase abstraction and ActiveRecord.
+    * [yiisoft/db] - DataBase abstraction and QueryBuilder.
+    * [yiisoft/active-record] - ActiveRecord library.
     * [yiisoft/rbac] - Role Base Access Control library.
-    * [yiisoft/yii-web] - web application.
-    * [yiisoft/yii-rest] - REST API application.
-    * [yiisoft/yii-console] - console application.
+    * [yiisoft/view] - view rendering library.
+    * [yiisoft/yii-web] - Web extension.
+    * [yiisoft/yii-rest] - REST API extension.
+    * [yiisoft/yii-console] - console extension.
     * [yiisoft/yii-jquery] - JQuery extension.
     * [yiisoft/yii-maskedinput] - Masked input field widget.
     * [yiisoft/yii-captcha] - CAPTCHA extension.
