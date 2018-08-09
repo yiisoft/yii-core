@@ -24,16 +24,19 @@ Changes summary:
     * [yiisoft/db] - DataBase abstraction and QueryBuilder.
     * [yiisoft/active-record] - ActiveRecord library.
     * [yiisoft/rbac] - Role Base Access Control library.
-    * [yiisoft/view] - view rendering library.
+    * [yiisoft/data] - data display library: data and grid.
+    * [yiisoft/view] - view rendering library: view and widgets.
     * [yiisoft/yii-web] - Web extension.
     * [yiisoft/yii-rest] - REST API extension.
     * [yiisoft/yii-console] - console extension.
     * [yiisoft/yii-jquery] - JQuery extension.
+    * [yiisoft/yii-bootstrap3] - Bootstrap 3 extension.
+    * [yiisoft/yii-bootstrap4] - Bootstrap 4 extension.
     * [yiisoft/yii-maskedinput] - Masked input field widget.
     * [yiisoft/yii-captcha] - CAPTCHA extension.
     * [yiisoft/yii-mssql] - MSSQL Server DB extension.
     * [yiisoft/yii-oracle] - Oracle DB extension.
-    * Please check [Package naming convention] to get an idea about package names.
+    * Please check [package naming convention] to get an idea about package names.
 * More PSR compatibility.
 * Framework core requires only virtual PSR implementation packages, you are free
   to choose your logger and cache implementations.
@@ -51,19 +54,23 @@ Changes summary:
 [yiisoft/di]:                   https://github.com/yiisoft/di
 [yiisoft/log]:                  https://github.com/yiisoft/log
 [yiisoft/cache]:                https://github.com/yiisoft/cache
-[yiisoft/yii-web]:              https://github.com/yiisoft/yii-web
-[yiisoft/yii-console]:          https://github.com/yiisoft/yii-console
 [yiisoft/db]:                   https://github.com/yiisoft/db
 [yiisoft/rbac]:                 https://github.com/yiisoft/rbac
+[yiisoft/data]:                 https://github.com/yiisoft/data
+[yiisoft/view]:                 https://github.com/yiisoft/view
+[yiisoft/yii-web]:              https://github.com/yiisoft/yii-web
+[yiisoft/yii-console]:          https://github.com/yiisoft/yii-console
 [yiisoft/yii-app]:              https://github.com/yiisoft/yii-app
 [yiisoft/yii-jquery]:           https://github.com/yiisoft/yii-jquery
+[yiisoft/yii-bootstrap3]:       https://github.com/yiisoft/yii-bootstrap3
+[yiisoft/yii-bootstrap4]:       https://github.com/yiisoft/yii-bootstrap4
 [yiisoft/yii-maskedinput]:      https://github.com/yiisoft/yii-maskedinput
 [yiisoft/yii-captcha]:          https://github.com/yiisoft/yii-captcha
 [yiisoft/yii-rest]:             https://github.com/yiisoft/yii-rest
 [yiisoft/yii-mssql]:            https://github.com/yiisoft/yii-mssql
 [yiisoft/yii-oracle]:           https://github.com/yiisoft/yii-oracle
-[recommended entry script]:     https://github.com/yiisoft/app-template/blob/master/public/index.php
-[Package naming convention]:    https://github.com/yiisoft/core/blob/master/docs/guide/structure-extensions.md#package-naming
+[recommended entry script]:     https://github.com/yiisoft/yii-app-template/blob/master/public/index.php
+[package naming convention]:    https://github.com/yiisoft/core/blob/master/docs/guide/structure-extensions.md#package-naming
 [PSR-3]:                        https://www.php-fig.org/psr/psr-3/
 [PSR-11]:                       https://www.php-fig.org/psr/psr-11/
 [PSR-16]:                       https://www.php-fig.org/psr/psr-16/
@@ -105,6 +112,7 @@ Upgrade from Yii 2.0.x
     * `Yii::$container` made private:
         * don't use it explicitly
         * use container implicitly with constructor DI
+    * no need to require Yii class from entry script
     * to use `Yii` features use `Yii::setContainer()`
         * for it could access logger, profiler and i18n
         * else Yii functions will have generic behavior
@@ -132,6 +140,8 @@ Upgrade from Yii 2.0.x
     * Removed `yii\di\Instance` class:
         * Use `yii\di\Reference` instead
         * Use `yii\di\Factory::ensure()` or `Yii::ensureObject()` instead of `Instance::ensure()`
+* Events were refactored:
+    * event name constants moved to event classes: e.g. `EVENT_BEFORE_ACTION` -> `ActionEvent::BEFORE`
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).
 * Tests:
