@@ -28,6 +28,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected $container;
 
+    /**
+     * @var null|\yii\di\Factory
+     */
+    protected $factory;
+
     protected $defaultAppConfig = [];
 
     public function __construct($name = null, array $data = [], $dataName = '')
@@ -35,6 +40,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         parent::__construct($name, $data, $dataName);
         $this->container = Yii::getContainer();
         if ($this->container !== null) {
+            $this->factory = $this->container->get('factory');
             $this->defaultAppConfig = $this->container->getDefinition('app');
         }
     }
