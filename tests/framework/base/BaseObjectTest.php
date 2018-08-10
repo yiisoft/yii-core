@@ -141,11 +141,6 @@ class BaseObjectTest extends TestCase
         $this->assertEquals('new text', $this->object->object->text);
     }
 
-    public function testConstruct()
-    {
-        $object = new NewObject(['text' => 'test text']);
-        $this->assertEquals('test text', $object->getText());
-    }
 
     public function testReadingWriteOnlyProperty()
     {

@@ -24,6 +24,7 @@ class UrlTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
+        $this->mockApplication();
         $this->container->setAll([
             'request' => [
                 '__class' => \yii\web\Request::class,
@@ -38,7 +39,11 @@ class UrlTest extends TestCase
                 'scriptUrl' => '/base/index.php',
                 'hostInfo' => 'http://example.com/',
             ],
+            'session' => [
+                '__class' => \yii\web\Session::class,
+            ],
             'user' => [
+                '__class' => \yii\web\User::class,
                 'identityClass' => UserIdentity::class,
             ],
         ]);
@@ -65,7 +70,7 @@ class UrlTest extends TestCase
         $controller->action = new Action($actionID, $controller);
 
         if ($moduleID !== null) {
-            $controller->module = new Module($moduleID);
+            $controller->module = new Module($moduleID, $this->app);
         }
     }
 

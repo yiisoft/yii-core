@@ -7,7 +7,6 @@
 
 namespace yii\base;
 
-use yii\helpers\Yii;
 use yii\view\ViewContextInterface;
 
 /**
@@ -137,7 +136,7 @@ class Controller extends Component implements ViewContextInterface
             throw new InvalidRouteException('Unable to resolve the request: ' . $this->getUniqueId() . '/' . $id);
         }
 
-        Yii::debug('Route to run: ' . $action->getUniqueId(), __METHOD__);
+        $this->app->debug('Route to run: ' . $action->getUniqueId(), __METHOD__);
 
         if ($this->app->requestedAction === null) {
             $this->app->requestedAction = $action;

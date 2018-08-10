@@ -439,6 +439,6 @@ class BaseUrl
      */
     protected static function getUrlManager()
     {
-        return static::$urlManager ?: Yii::getApp()->getUrlManager();
+        return static::$urlManager ?: Yii::getApp()->get('urlManager');
     }
 }

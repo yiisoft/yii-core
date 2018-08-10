@@ -7,6 +7,8 @@
 
 namespace yii\base;
 
+use yii\exceptions\InvalidArgumentException;
+use yii\exceptions\InvalidConfigException;
 use yii\helpers\StringHelper;
 
 /**
