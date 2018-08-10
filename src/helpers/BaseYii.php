@@ -11,6 +11,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Log\LogLevel;
 use yii\base\Application;
 use yii\di\FactoryInterface;
+use yii\exceptions\InvalidArgumentException;
 use yii\exceptions\InvalidConfigException;
 use yii\i18n\I18N;
 
@@ -242,14 +243,14 @@ class BaseYii
     /**
      * Translates a message to the specified language.
      *
-     * Uses @see \yii\base\Application::t() if container is set.
+     * Uses @see Application::t() if container is set.
      * Else leaves message not translated, only params are substituted.
      *
      * @param string $category the message category.
      * @param string $message the message to be translated.
      * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
      * @param string $language the language code (e.g. `en-US`, `en`). If this is null, the current
-     * [[\yii\base\Application::language|application language]] will be used.
+     * [[Application::language|application language]] will be used.
      * @return string the translated message.
      */
     public static function t($category, $message, $params = [], $language = null)
@@ -259,5 +260,52 @@ class BaseYii
         }
 
         return I18N::substitute($message, $params);
+    }
+
+    /**
+     * Translates a path alias into an actual path.
+     *
+     * Uses @see Application::getAlias() if container is set.
+     * Else throws exception.
+     *
+     * @deprecated 3.0.0
+     * @param string $alias the alias to be translated.
+     * @param bool $throwException whether to throw an exception if the given alias is invalid.
+     * If this is false and an invalid alias is given, false will be returned by this method.
+     * @return string|bool the path corresponding to the alias, false if the root alias is not previously registered.
+     * @throws InvalidArgumentException if the alias is invalid while $throwException is true.
+     * @throws InvalidConfigException if application is not available.
+     * @see setAlias()
+     */
+    public static function getAlias(string $alias, bool $throwException = true): string
+    {
+        if (static::$container !== null) {
+            return static::getApp()->getAlias($alias, $throwException);
+        }
+        throw new InvalidConfigException('Cannot `getAlias` without application');
+    }
+
+    /**
+     * Registers a path alias.
+     *
+     * Uses @see Application::getAlias() if container is set.
+     * Else throws exception.
+     *
+     * @deprecated 3.0.0
+     * @param string $alias the alias name (e.g. "@yii"). It must start with a '@' character.
+     * It may contain the forward slash '/' which serves as boundary character when performing
+     * alias translation by [[getAlias()]].
+     * @param string $path the path corresponding to the alias. If this is null, the alias will
+     * be removed. Trailing '/' and '\' characters will be trimmed.
+     * @throws InvalidArgumentException if $path is an invalid alias.
+     * @throws InvalidConfigException if application is not available.
+     * @see getAlias()
+     */
+    public static function setAlias(string $alias, string $path)
+    {
+        if (static::$container !== null) {
+            return static::getApp()->setAlias($alias, $path);
+        }
+        throw new InvalidConfigException('Cannot `setAlias` without application');
     }
 }
