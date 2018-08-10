@@ -26,14 +26,14 @@ class ModuleTest extends TestCase
 
     public function testControllerPath()
     {
-        $module = new TestModule('test');
+        $module = new TestModule('test', $this->app);
         $this->assertEquals('yii\tests\framework\base\controllers', $module->controllerNamespace);
         $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR . 'controllers', str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $module->controllerPath));
     }
 
     public function testSetupVersion()
     {
-        $module = new TestModule('test');
+        $module = new TestModule('test', $this->app);
 
         $version = '1.0.1';
         $module->setVersion($version);
@@ -51,7 +51,7 @@ class ModuleTest extends TestCase
      */
     public function testDefaultVersion()
     {
-        $module = new TestModule('test');
+        $module = new TestModule('test', $this->app);
 
         $version = $module->getVersion();
         $this->assertEquals('1.0', $version);
@@ -61,69 +61,52 @@ class ModuleTest extends TestCase
 
     public function testRunControllerAction()
     {
-        $module = new TestModule('test');
-        $this->assertNull(Yii::$app->controller);
+        $module = new TestModule('test', $this->app);
+        $this->assertNull($this->app->controller);
         static::$actionRuns = [];
 
         $module->runAction('test-controller1/test1');
         $this->assertEquals([
             'test/test-controller1/test1',
         ], static::$actionRuns);
-        $this->assertNotNull(Yii::$app->controller);
-        $this->assertEquals('test-controller1', Yii::$app->controller->id);
-        $this->assertEquals('test/test-controller1', Yii::$app->controller->uniqueId);
-        $this->assertNotNull(Yii::$app->controller->action);
-        $this->assertEquals('test/test-controller1/test1', Yii::$app->controller->action->uniqueId);
+        $this->assertNotNull($this->app->controller);
+        $this->assertEquals('test-controller1', $this->app->controller->id);
+        $this->assertEquals('test/test-controller1', $this->app->controller->uniqueId);
+        $this->assertNotNull($this->app->controller->action);
+        $this->assertEquals('test/test-controller1/test1', $this->app->controller->action->uniqueId);
 
         $module->runAction('test-controller2/test2');
         $this->assertEquals([
             'test/test-controller1/test1',
             'test/test-controller2/test2',
         ], static::$actionRuns);
-        $this->assertNotNull(Yii::$app->controller);
-        $this->assertEquals('test-controller1', Yii::$app->controller->id);
-        $this->assertEquals('test/test-controller1', Yii::$app->controller->uniqueId);
-        $this->assertNotNull(Yii::$app->controller->action);
-        $this->assertEquals('test/test-controller1/test1', Yii::$app->controller->action->uniqueId);
+        $this->assertNotNull($this->app->controller);
+        $this->assertEquals('test-controller1', $this->app->controller->id);
+        $this->assertEquals('test/test-controller1', $this->app->controller->uniqueId);
+        $this->assertNotNull($this->app->controller->action);
+        $this->assertEquals('test/test-controller1/test1', $this->app->controller->action->uniqueId);
     }
 
 
-    public function testServiceLocatorTraversal()
+    public function testHierarchyAndGet()
     {
-        $parent = new Module('parent');
+        $parent = new Module('parent', $this->app);
         $child = new Module('child', $parent);
         $grandchild = new Module('grandchild', $child);
+        $object = new BaseObject();
 
-        $parentObject = new BaseObject();
-        $childObject = new BaseObject();
-
-        $parent->set('test', $parentObject);
+        $this->container->set('test', $object);
         $this->assertTrue($grandchild->has('test'));
         $this->assertTrue($child->has('test'));
         $this->assertTrue($parent->has('test'));
-        $this->assertSame($parentObject, $grandchild->get('test'));
-        $this->assertSame($parentObject, $child->get('test'));
-        $this->assertSame($parentObject, $parent->get('test'));
-
-        $child->set('test', $childObject);
-        $this->assertSame($childObject, $grandchild->get('test'));
-        $this->assertSame($childObject, $child->get('test'));
-        $this->assertSame($parentObject, $parent->get('test'));
-        $this->assertTrue($grandchild->has('test'));
-        $this->assertTrue($child->has('test'));
-        $this->assertTrue($parent->has('test'));
-
-        $parent->clear('test');
-        $this->assertSame($childObject, $grandchild->get('test'));
-        $this->assertSame($childObject, $child->get('test'));
-        $this->assertTrue($grandchild->has('test'));
-        $this->assertTrue($child->has('test'));
-        $this->assertFalse($parent->has('test'));
+        $this->assertSame($object, $grandchild->get('test'));
+        $this->assertSame($object, $child->get('test'));
+        $this->assertSame($object, $parent->get('test'));
     }
 
     public function testCreateControllerByID()
     {
-        $module = new TestModule('test');
+        $module = new TestModule('test', $this->app);
         $module->controllerNamespace = 'yii\tests\framework\base';
 
         $route = 'module-test';
