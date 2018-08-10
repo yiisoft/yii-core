@@ -29,8 +29,8 @@ use yii\helpers\Yii;
  * with `@`) and the array values are the corresponding paths or aliases. See [[setAliases()]] for an example.
  * This property is write-only.
  * @property string $basePath The root directory of the module.
- * @property string $controllerPath The directory that contains the controller classes. This property is
- * read-only.
+ * @property string $controllerPath The directory that contains the controller classes. This property is read-only.
+ * @property string $controllerNamespace The namespace that controller classes are in.
  * @property string $layoutPath The root directory of layout files. Defaults to "[[viewPath]]/layouts".
  * @property array $modules The modules (indexed by their IDs).
  * @property string $uniqueId The unique ID of the module. This property is read-only.
@@ -93,7 +93,7 @@ class Module extends Component
      * See also the [guide section on autoloading](guide:concept-autoloading) to learn more about
      * defining namespaces and how classes are loaded.
      */
-    public $controllerNamespace;
+    protected $_controllerNamespace;
     /**
      * @var string the default route of this module. Defaults to `default`.
      * The route may consist of child module ID, controller ID, and/or action ID.
@@ -197,14 +197,21 @@ class Module extends Component
      *
      * If you override this method, please make sure you call the parent implementation.
      */
-    public function init()
+    public function getControllerNamespace()
     {
-        if ($this->controllerNamespace === null) {
+        if ($this->_controllerNamespace === null) {
             $class = get_class($this);
             if (($pos = strrpos($class, '\\')) !== false) {
-                $this->controllerNamespace = substr($class, 0, $pos) . '\\controllers';
+                $this->_controllerNamespace = substr($class, 0, $pos) . '\\controllers';
             }
         }
+
+        return $this->_controllerNamespace;
+    }
+
+    public function setControllerNamespace(string $namespace)
+    {
+        $this->_controllerNamespace = $namespace;
     }
 
     /**
