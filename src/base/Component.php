@@ -96,7 +96,7 @@ use yii\helpers\Yii;
  *
  * For more details and usage information on Component, see the [guide article on components](guide:concept-components).
  *
- * @property Behavior[] $behaviors List of behaviors attached to this component. This property is read-only.
+ * @property Behavior[] $behaviors List of behaviors attached to this component.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -672,6 +672,12 @@ class Component extends BaseObject
         return $this->_behaviors;
     }
 
+    public function setBehaviors(array $behaviors)
+    {
+        $this->_behaviors = [];
+        $this->attachBehaviorsInternal($behaviors);
+    }
+
     /**
      * Attaches a behavior to this component.
      * This method will create the behavior object based on the given
@@ -700,12 +706,10 @@ class Component extends BaseObject
      * @param array $behaviors list of behaviors to be attached to the component
      * @see attachBehavior()
      */
-    public function attachBehaviors($behaviors)
+    public function attachBehaviors(array $behaviors)
     {
         $this->ensureBehaviors();
-        foreach ($behaviors as $name => $behavior) {
-            $this->attachBehaviorInternal($name, $behavior);
-        }
+        $this->attachBehaviorsInternal($behaviors);
     }
 
     /**
@@ -745,9 +749,14 @@ class Component extends BaseObject
     {
         if ($this->_behaviors === null) {
             $this->_behaviors = [];
-            foreach ($this->behaviors() as $name => $behavior) {
-                $this->attachBehaviorInternal($name, $behavior);
-            }
+            $this->attachBehaviorsInternal($this->behaviors());
+        }
+    }
+
+    protected function attachBehaviorsInternal(array $behaviors)
+    {
+        foreach ($behaviors as $name => $behavior) {
+            $this->attachBehaviorInternal($name, $behavior);
         }
     }
 
