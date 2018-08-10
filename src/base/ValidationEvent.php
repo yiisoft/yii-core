@@ -8,20 +8,20 @@
 namespace yii\base;
 
 /**
- * ModelEvent represents the parameter needed by [[Model]] events.
+ * ValidationEvent represents [[Model]] validation events.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since 3.0
  */
-class ModelEvent extends Event
+class ValidationEvent extends Event
 {
     /**
      * @event event raised at the beginning of [[validate()]]. You may set
-     * [[ModelEvent::isValid]] to be false to stop the validation.
+     * [[Event::isValid]] to be false to stop the validation.
      */
-    const BEFORE_VALIDATE = 'model.validate.before';
+    const BEFORE = 'model.validation.before';
     /**
      * @event event raised at the end of [[validate()]]
      */
-    const AFTER_VALIDATE = 'model.validate.after';
+    const AFTER = 'model.validation.after';
 }

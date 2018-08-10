@@ -12,7 +12,6 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use yii\base\ErrorHandler;
 use yii\di\Initiable;
-use yii\events\RequestEvent;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
 use yii\web\Session;

@@ -5,9 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\events;
-
-use yii\base\Action;
+namespace yii\base;
 
 /**
  * ActionEvent represents the event parameter used for an action event.
@@ -21,7 +19,7 @@ class ActionEvent extends Event
 {
     /**
      * @event raised before executing a controller action.
-     * You may set [[ActionEvent::isValid]] to `false` to cancel the action execution.
+     * You may set [[Event::isValid]] to `false` to cancel the action execution.
      */
     const BEFORE = 'action.before';
     /**

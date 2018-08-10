@@ -7,7 +7,6 @@
 
 namespace yii\base;
 
-use yii\events\ActionEvent;
 use yii\helpers\Yii;
 use yii\view\ViewContextInterface;
 

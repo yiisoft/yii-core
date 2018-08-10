@@ -7,7 +7,6 @@
 
 namespace yii\base;
 
-use yii\events\ActionEvent;
 use yii\exceptions\InvalidArgumentException;
 use yii\exceptions\InvalidRouteException;
 use yii\exceptions\InvalidConfigException;

@@ -377,7 +377,7 @@ class Model extends Component implements StaticInstanceInterface, IteratorAggreg
      */
     public function beforeValidate(): bool
     {
-        return $this->trigger(ModelEvent::beforeValidate());
+        return $this->trigger(ValidationEvent::BEFORE);
     }
 
     /**
@@ -388,7 +388,7 @@ class Model extends Component implements StaticInstanceInterface, IteratorAggreg
      */
     public function afterValidate()
     {
-        return $this->trigger(ModelEvent::afterValidate());
+        return $this->trigger(ValidationEvent::AFTER);
     }
 
     /**
