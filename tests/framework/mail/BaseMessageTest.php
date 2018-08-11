@@ -18,21 +18,18 @@ class BaseMessageTest extends TestCase
 {
     public function setUp()
     {
-        $this->mockApplication([
-            'components' => [
-                'mailer' => $this->createTestEmailComponent()
-            ]
+        $this->mockApplication();
+        $this->container->setAll([
+            'mailer' => $this->createTestMailComponent(),
         ]);
     }
 
     /**
-     * @return TestMailer test email component instance.
+     * @return TestMailer test mail component instance.
      */
-    protected function createTestEmailComponent()
+    protected function createTestMailComponent()
     {
-        $component = new TestMailer();
-
-        return $component;
+        return $this->app->createObject(TestMailer::class);
     }
 
     /**
@@ -40,7 +37,7 @@ class BaseMessageTest extends TestCase
      */
     protected function getMailer()
     {
-        return Yii::$app->get('mailer');
+        return $this->app->get('mailer');
     }
 
     // Tests :

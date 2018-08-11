@@ -20,10 +20,9 @@ class BaseMailerTest extends TestCase
 {
     public function setUp()
     {
-        $this->mockApplication([
-            'components' => [
-                'mailer' => $this->createTestMailComponent(),
-            ]
+        $this->mockApplication();
+        $this->container->setAll([
+            'mailer' => $this->createTestMailComponent(),
         ]);
         $filePath = $this->getTestFilePath();
         if (!file_exists($filePath)) {
@@ -52,10 +51,11 @@ class BaseMailerTest extends TestCase
      */
     protected function createTestMailComponent()
     {
-        return new TestMailer([
+        return $this->app->createObject([
+            '__class' => TestMailer::class,
             'composer' => [
                 'viewPath' => $this->getTestFilePath()
-            ]
+            ],
         ]);
     }
 
@@ -64,14 +64,14 @@ class BaseMailerTest extends TestCase
      */
     protected function getTestMailComponent()
     {
-        return Yii::$app->get('mailer');
+        return $this->app->get('mailer');
     }
 
     // Tests :
 
     public function testCreateMessage()
     {
-        $mailer = new TestMailer();
+        $mailer = $this->app->createObject(TestMailer::class);
         $message = $mailer->compose();
         $this->assertTrue(is_object($message), 'Unable to create message instance!');
         $this->assertEquals($mailer->messageClass, get_class($message), 'Invalid message class!');
@@ -82,7 +82,7 @@ class BaseMailerTest extends TestCase
      */
     public function testDefaultMessageConfig()
     {
-        $mailer = new TestMailer();
+        $mailer = $this->app->createObject(TestMailer::class);
 
         $notPropertyConfig = [
             'charset' => 'utf-16',
@@ -144,7 +144,7 @@ class BaseMailerTest extends TestCase
 
     public function testUseFileTransport()
     {
-        $mailer = new TestMailer();
+        $mailer = $this->app->createObject(TestMailer::class);
         $this->assertFalse($mailer->useFileTransport);
         $this->assertEquals('@runtime/mail', $mailer->fileTransportPath);
 
@@ -168,7 +168,10 @@ class BaseMailerTest extends TestCase
     {
         $message = new TestMessage();
 
-        $mailerMock = $this->getMockBuilder(TestMailer::class)->setMethods(['beforeSend', 'afterSend'])->getMock();
+        $mailerMock = $this->getMockBuilder(TestMailer::class)
+            ->setConstructorArgs(array($this->app))
+            ->setMethods(['beforeSend', 'afterSend'])
+            ->getMock();
         $mailerMock->expects($this->once())->method('beforeSend')->with($message)->will($this->returnValue(true));
         $mailerMock->expects($this->once())->method('afterSend')->with($message, true);
         $mailerMock->send($message);

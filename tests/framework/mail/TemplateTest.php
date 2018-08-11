@@ -8,7 +8,7 @@
 namespace yii\tests\framework\mail;
 
 use yii\helpers\Yii;
-use yii\base\View;
+use yii\view\View;
 use yii\helpers\FileHelper;
 use yii\mail\BaseMessage;
 use yii\mail\Template;

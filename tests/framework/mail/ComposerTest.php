@@ -9,7 +9,7 @@ namespace yii\tests\framework\mail;
 
 use yii\helpers\Yii;
 use yii\mail\Composer;
-use yii\base\View;
+use yii\view\View;
 use yii\mail\Template;
 use yii\tests\TestCase;
 
@@ -20,9 +20,9 @@ class ComposerTest extends TestCase
 {
     public function testSetupView()
     {
+        $this->mockApplication();
         $composer = new Composer();
-
-        $view = new View();
+        $view = $this->app->createObject(View::class);
         $composer->setView($view);
         $this->assertEquals($view, $composer->getView(), 'Unable to setup view!');
 
