@@ -29,16 +29,6 @@ use yii\view\ViewContextInterface;
 class Controller extends Component implements ViewContextInterface
 {
     /**
-     * @event ActionEvent an event raised right before executing a controller action.
-     * You may set [[ActionEvent::isValid]] to be false to cancel the action execution.
-     */
-    const EVENT_BEFORE_ACTION = 'beforeAction';
-    /**
-     * @event ActionEvent an event raised right after executing a controller action.
-     */
-    const EVENT_AFTER_ACTION = 'afterAction';
-
-    /**
      * @var string the ID of this controller.
      */
     public $id;
@@ -249,7 +239,7 @@ class Controller extends Component implements ViewContextInterface
     /**
      * This method is invoked right before an action is executed.
      *
-     * The method will trigger the [[EVENT_BEFORE_ACTION]] event. The return value of the method
+     * The method will trigger the [[ActionEvent::BEFORE]] event. The return value of the method
      * will determine whether the action should continue to run.
      *
      * In case the action should not run, the request should be handled inside of the `beforeAction` code
@@ -261,7 +251,7 @@ class Controller extends Component implements ViewContextInterface
      * public function beforeAction($action)
      * {
      *     // your custom code here, if you want the code to run before action filters,
-     *     // which are triggered on the [[EVENT_BEFORE_ACTION]] event, e.g. PageCache or AccessControl
+     *     // which are triggered on the [[ActionEvent::BEFORE]] event, e.g. PageCache or AccessControl
      *
      *     if (!parent::beforeAction($action)) {
      *         return false;
@@ -284,7 +274,7 @@ class Controller extends Component implements ViewContextInterface
     /**
      * This method is invoked right after an action is executed.
      *
-     * The method will trigger the [[EVENT_AFTER_ACTION]] event. The return value of the method
+     * The method will trigger the [[ActionEvent::AFTER]] event. The return value of the method
      * will be used as the action return value.
      *
      * If you override this method, your code should look like the following:

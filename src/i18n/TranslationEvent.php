@@ -10,7 +10,7 @@ namespace yii\i18n;
 use yii\base\Event;
 
 /**
- * TranslationEvent represents the parameter for the [[MessageSource::EVENT_MISSING_TRANSLATION]] event.
+ * TranslationEvent represents the missing translation event.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0

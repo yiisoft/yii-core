@@ -50,7 +50,7 @@ class ActionFilter extends Behavior
     public function attach($owner)
     {
         $this->owner = $owner;
-        $owner->on(Controller::EVENT_BEFORE_ACTION, [$this, 'beforeFilter']);
+        $owner->on(ActionEvent::BEFORE, [$this, 'beforeFilter']);
     }
 
     /**
@@ -59,8 +59,8 @@ class ActionFilter extends Behavior
     public function detach()
     {
         if ($this->owner) {
-            $this->owner->off(Controller::EVENT_BEFORE_ACTION, [$this, 'beforeFilter']);
-            $this->owner->off(Controller::EVENT_AFTER_ACTION, [$this, 'afterFilter']);
+            $this->owner->off(ActionEvent::BEFORE, [$this, 'beforeFilter']);
+            $this->owner->off(ActionEvent::AFTER, [$this, 'afterFilter']);
             $this->owner = null;
         }
     }
@@ -78,7 +78,7 @@ class ActionFilter extends Behavior
         if ($event->isValid) {
             // call afterFilter only if beforeFilter succeeds
             // beforeFilter and afterFilter should be properly nested
-            $this->owner->on(Controller::EVENT_AFTER_ACTION, [$this, 'afterFilter'], [], false);
+            $this->owner->on(ActionEvent::AFTER, [$this, 'afterFilter'], [], false);
         } else {
             $event->stopPropagation();
         }
@@ -90,7 +90,7 @@ class ActionFilter extends Behavior
     public function afterFilter($event)
     {
         $event->result = $this->afterAction($event->action, $event->result);
-        $this->owner->off(Controller::EVENT_AFTER_ACTION, [$this, 'afterFilter']);
+        $this->owner->off(ActionEvent::AFTER, [$this, 'afterFilter']);
     }
 
     /**

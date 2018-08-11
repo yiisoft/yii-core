@@ -49,8 +49,8 @@ class Behavior extends BaseObject
      *
      * ```php
      * [
-     *     Model::EVENT_BEFORE_VALIDATE => 'myBeforeValidate',
-     *     Model::EVENT_AFTER_VALIDATE => 'myAfterValidate',
+     *     ValidationEvent::BEFORE => 'myBeforeValidate',
+     *     ValidationEvent::AFTER  => 'myAfterValidate',
      * ]
      * ```
      *

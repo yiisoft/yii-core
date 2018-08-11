@@ -7,7 +7,7 @@
 
 namespace yii\mail;
 
-use yii\helpers\Yii;
+use yii\base\Application;
 use yii\base\Component;
 
 /**
@@ -27,16 +27,6 @@ use yii\base\Component;
  */
 abstract class BaseMailer extends Component implements MailerInterface
 {
-    /**
-     * @event MailEvent an event raised right before send.
-     * You may set [[MailEvent::isValid]] to be false to cancel the send.
-     */
-    const EVENT_BEFORE_SEND = 'beforeSend';
-    /**
-     * @event MailEvent an event raised right after send.
-     */
-    const EVENT_AFTER_SEND = 'afterSend';
-
     /**
      * @var array the configuration that should be applied to any newly created
      * email message instance by [[createMessage()]] or [[compose()]]. Any valid property defined
@@ -86,6 +76,16 @@ abstract class BaseMailer extends Component implements MailerInterface
      */
     private $_composer = [];
 
+
+    /**
+     * @var Application
+     */
+    protected $app;
+
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
 
     /**
      * @return Composer message composer instance.
@@ -179,7 +179,7 @@ abstract class BaseMailer extends Component implements MailerInterface
         if (is_array($address)) {
             $address = implode(', ', array_keys($address));
         }
-        Yii::info('Sending email "' . $message->getSubject() . '" to "' . $address . '"', __METHOD__);
+        $this->app->info('Sending email "' . $message->getSubject() . '" to "' . $address . '"', __METHOD__);
 
         if ($this->useFileTransport) {
             $isSuccessful = $this->saveMessage($message);
@@ -246,7 +246,7 @@ abstract class BaseMailer extends Component implements MailerInterface
      */
     protected function saveMessage($message)
     {
-        $path = Yii::getAlias($this->fileTransportPath);
+        $path = $this->app->getAlias($this->fileTransportPath);
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
         }
@@ -279,13 +279,7 @@ abstract class BaseMailer extends Component implements MailerInterface
      */
     public function beforeSend($message)
     {
-        $event = new MailEvent([
-            'name' => self::EVENT_BEFORE_SEND,
-            'message' => $message,
-        ]);
-        $this->trigger($event);
-
-        return $event->isValid;
+        return $this->trigger(SendEvent::before($message));
     }
 
     /**
@@ -297,11 +291,6 @@ abstract class BaseMailer extends Component implements MailerInterface
      */
     public function afterSend($message, $isSuccessful)
     {
-        $event = new MailEvent([
-            'name' => self::EVENT_AFTER_SEND,
-            'message' => $message,
-            'isSuccessful' => $isSuccessful
-        ]);
-        $this->trigger($event);
+        $this->trigger(SendEvent::after($message, $isSuccessful));
     }
 }

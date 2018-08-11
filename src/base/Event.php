@@ -59,9 +59,9 @@ class Event extends BaseObject
      */
     private $_params = [];
     /**
-     * @var bool whether to continue action (rendering the view file).
-     * Event handlers of [[View::EVENT_BEFORE_RENDER]] may set this property
-     * to decide whether to continue rendering the current view file.
+     * @var bool whether to continue action.
+     * Event handlers of before events may set this property
+     * to decide whether to continue executing the action.
      */
     public $isValid = true;
 
@@ -224,7 +224,7 @@ class Event extends BaseObject
      * `afterInsert` event:
      *
      * ```php
-     * Event::on(ActiveRecord::class, ActiveRecord::EVENT_AFTER_INSERT, function ($event) {
+     * Event::on(ActiveRecord::class, InsertEvent::AFTER, function ($event) {
      *     Yii::debug(get_class($event->sender) . ' is inserted.');
      * });
      * ```

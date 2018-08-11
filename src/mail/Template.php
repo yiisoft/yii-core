@@ -9,7 +9,7 @@ namespace yii\mail;
 
 use yii\helpers\Yii;
 use yii\base\BaseObject;
-use yii\base\ViewContextInterface;
+use yii\view\ViewContextInterface;
 
 /**
  * Template composes the message from view templates, ensuring isolated view rendering. It allows
@@ -104,7 +104,7 @@ class Template extends BaseObject implements ViewContextInterface
             // remove style and script
             $html = preg_replace('~<((style|script))[^>]*>(.*?)</\1>~is', '', $html);
             // strip all HTML tags and decode HTML entities
-            $text = html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, Yii::$app ? Yii::$app->charset : 'UTF-8');
+            $text = html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, Yii::getApp() ? Yii::getApp()->charset : 'UTF-8');
             // improve whitespace
             $text = preg_replace("~^[ \t]+~m", '', trim($text));
             $text = preg_replace('~\R\R+~mu', "\n\n", $text);

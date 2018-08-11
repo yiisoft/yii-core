@@ -681,7 +681,7 @@ class Module extends Component
     /**
      * This method is invoked right before an action within this module is executed.
      *
-     * The method will trigger the [[EVENT_BEFORE_ACTION]] event. The return value of the method
+     * The method will trigger the [[ActionEvent::BEFORE]] event. The return value of the method
      * will determine whether the action should continue to run.
      *
      * In case the action should not run, the request should be handled inside of the `beforeAction` code
@@ -713,7 +713,7 @@ class Module extends Component
     /**
      * This method is invoked right after an action within this module is executed.
      *
-     * The method will trigger the [[EVENT_AFTER_ACTION]] event. The return value of the method
+     * The method will trigger the [[ActionEvent::AFTER]] event. The return value of the method
      * will be used as the action return value.
      *
      * If you override this method, your code should look like the following:
