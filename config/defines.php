@@ -4,10 +4,31 @@
  * Gets the application start timestamp.
  */
 defined('YII_BEGIN_TIME') or define('YII_BEGIN_TIME', microtime(true));
+
+/**
+ * This constant defines the project root directory.
+ * TODO: find a solution without file_exists
+ */
+if (!defined('YII_ROOT')) {
+    (function () {
+        $dirs = [
+            dirname(__DIR__, 1),
+            dirname(__DIR__, 3),
+        ];
+        foreach ($dirs as $dir) {
+            if (file_exists($dir . '/vendor/autoload.php')) {
+                define('YII_ROOT', $dir);
+                return;
+            }
+        }
+        die('Could not find composer autoload! You may need to setup project dependencies or define YII_ROOT constant manually.');
+    })();
+}
+
 /**
  * This constant defines the framework installation directory.
  */
-defined('YII_PATH') or define('YII_PATH', dirname(__DIR__, 3) . '/vendor/yiisoft/core/src');
+defined('YII_PATH') or define('YII_PATH', dirname(__DIR__) . '/src');
 /**
  * This constant defines in which environment the application is running. Defaults to 'prod', meaning production environment.
  * You may define this constant in the bootstrap script. The value could be 'prod' (production), 'dev' (development), 'test', 'staging', etc.
