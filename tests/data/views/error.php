@@ -7,7 +7,7 @@
 ?>
 Name: <?= $name ?>
 
-Code: <?= Yii::$app->response->statusCode ?>
+Code: <?= $this->app->response->statusCode ?>
 
 Message: <?= $message ?>
 

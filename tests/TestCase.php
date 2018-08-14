@@ -75,10 +75,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param array $config The application configuration, if needed
      * @param string $appClass name of the application class to create
      */
-    protected function mockApplication($config = [], $appClass = \yii\console\Application::class)
+    protected function mockApplication($config = [], $appClass = null)
     {
-        if ($this->app && empty($config)) {
+        if ($this->app && empty($config) && empty($appClass)) {
             return;
+        }
+        if ($appClass) {
+            $config['__class'] = $appClass;
         }
         $this->container->set('app', array_merge($this->defaultAppConfig, $config));
         $this->app = $this->container->get('app');
@@ -86,23 +89,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected function mockWebApplication($config = [], $appClass = \yii\web\Application::class)
     {
-        throw new \Exception('WEB APP TESTS MUST BE MOVED TO yii-web IN ' . __METHOD__);
-        new $appClass(ArrayHelper::merge([
-            'id' => 'testapp',
-            'basePath' => __DIR__,
-            'vendorPath' => $this->getVendorPath(),
-            'aliases' => [
-                '@bower' => '@vendor/bower-asset',
-                '@npm' => '@vendor/npm-asset',
+        $this->container->setAll([
+            'request' => [
+                '__class' => \yii\web\Request::class,
+                'cookieValidationKey' => 'wefJDF8sfdsfSDefwqdxj9oq',
+                'scriptFile' => __DIR__ . '/index.php',
+                'scriptUrl' => '/index.php',
             ],
-            'components' => [
-                'request' => [
-                    'cookieValidationKey' => 'wefJDF8sfdsfSDefwqdxj9oq',
-                    'scriptFile' => __DIR__ . '/index.php',
-                    'scriptUrl' => '/index.php',
-                ],
-            ],
-        ], $config));
+        ]);
+        return $this->mockApplication($config, $appClass);
     }
 
     protected function getVendorPath()

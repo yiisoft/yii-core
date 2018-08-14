@@ -12,7 +12,7 @@ use yii\base\Module;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\widgets\Menu;
-use yii\tests\framework\filters\stubs\UserIdentity;
+use yii\web\tests\filters\stubs\UserIdentity;
 use yii\tests\TestCase;
 
 /**
@@ -24,7 +24,7 @@ class UrlTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockApplication();
+        $this->mockWebApplication();
         $this->container->setAll([
             'request' => [
                 '__class' => \yii\web\Request::class,
@@ -32,6 +32,9 @@ class UrlTest extends TestCase
                 'scriptUrl' => '/base/index.php',
                 'hostInfo' => 'http://example.com/',
                 'url' => '/base/index.php&r=site%2Fcurrent&id=42',
+            ],
+            'response' => [
+                '__class' => \yii\web\Response::class,
             ],
             'urlManager' => [
                 '__class' => \yii\web\UrlManager::class,
@@ -245,7 +248,7 @@ class UrlTest extends TestCase
      */
     public function testToWithSuffix()
     {
-        $this->app->set('urlManager', [
+        $this->container->set('urlManager', [
             '__class' => \yii\web\UrlManager::class,
             'enablePrettyUrl' => true,
             'showScriptName' => false,

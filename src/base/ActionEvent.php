@@ -37,7 +37,7 @@ class ActionEvent extends Event
     }
 
     /**
-     * Creates AFTER_RUN event with result.
+     * Creates BEFORE event.
      * @param Action $action the action this event is fired on.
      * @param mixed $result action result.
      * @return self created event
@@ -48,7 +48,7 @@ class ActionEvent extends Event
     }
 
     /**
-     * Creates AFTER_RUN event with result.
+     * Creates AFTER event with result.
      * @param Action $action the action this event is fired on.
      * @param mixed $result action result.
      * @return self created event

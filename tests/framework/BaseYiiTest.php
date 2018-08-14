@@ -41,8 +41,7 @@ class BaseYiiTest extends TestCase
 
     public function testAlias()
     {
-        /// TODO fix YII_PATH definition
-        /// $this->assertEquals(YII_PATH, $this->app->getAlias('@yii'));
+        $this->assertEquals(YII_PATH, $this->app->getAlias('@yii'));
 
         $this->assertFalse($this->app->getAlias('@nonexisting', false));
 

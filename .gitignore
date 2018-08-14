@@ -34,6 +34,8 @@ phpunit.phar
 /phpunit.xml
 # phpunit cache
 .phpunit.result.cache
+# tests runtime
+/runtime
 
 # ignore dev installed apps and extensions
 /apps
