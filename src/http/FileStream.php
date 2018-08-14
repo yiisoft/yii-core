@@ -8,10 +8,11 @@
 namespace yii\http;
 
 use Psr\Http\Message\StreamInterface;
-use yii\base\Application;
 use yii\base\BaseObject;
 use yii\base\ErrorHandler;
+use yii\di\AbstractContainer;
 use yii\exceptions\InvalidConfigException;
+use yii\helpers\Yii;
 
 /**
  * FileStream represents file stream.
@@ -53,11 +54,11 @@ class FileStream extends BaseObject implements StreamInterface
      */
     private $_metadata;
 
-    protected $app;
-
-    public function __construct(Application $app)
+    public function __construct(array $config = [])
     {
-        $this->app = $app;
+        if (!empty($config)) {
+            AbstractContainer::configure($this, $config);
+        }
     }
 
     /**
@@ -76,7 +77,7 @@ class FileStream extends BaseObject implements StreamInterface
     public function getResource()
     {
         if ($this->_resource === null) {
-            $resource = fopen($this->app->getAlias($this->filename), $this->mode);
+            $resource = fopen(Yii::getAlias($this->filename), $this->mode);
             if ($resource === false) {
                 throw new InvalidConfigException("Unable to open file '{$this->filename}' with mode '{$this->mode}'");
             }

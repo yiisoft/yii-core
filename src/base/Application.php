@@ -12,6 +12,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use yii\base\ErrorHandler;
 use yii\di\Initiable;
+use yii\exceptions\ExitException;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
 use yii\web\Session;
@@ -435,6 +436,14 @@ abstract class Application extends Module implements Initiable
     public function getView()
     {
         return $this->get('view');
+    }
+
+    /**
+     * @return View
+     */
+    public function getFormatter()
+    {
+        return $this->get('formatter');
     }
 
     /**

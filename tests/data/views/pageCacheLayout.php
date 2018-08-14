@@ -7,7 +7,7 @@ $this->beginBody();
 ?>
 {
     "static": "<?= $static ?>",
-    "dynamic": "<?= $this->renderDynamic('return Yii::$app->params[\'dynamic\'];') ?>"
+    "dynamic": "<?= $this->renderDynamic('return $this->app->params[\'dynamic\'];') ?>"
 }
 <?php
 $this->endBody();

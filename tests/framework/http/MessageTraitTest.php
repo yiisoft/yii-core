@@ -13,6 +13,7 @@ use yii\http\FileStream;
 use yii\http\MemoryStream;
 use yii\http\MessageTrait;
 use yii\tests\TestCase;
+use yii\di\AbstractContainer;
 
 class MessageTraitTest extends TestCase
 {
@@ -47,7 +48,7 @@ class MessageTraitTest extends TestCase
         $message = new TestMessage();
 
         $message->setBody([
-            '__class' => FileStream::class
+            '__class' => FileStream::class,
         ]);
         $this->assertTrue($message->getBody() instanceof FileStream);
 
@@ -131,4 +132,11 @@ class MessageTraitTest extends TestCase
 class TestMessage extends BaseObject implements MessageInterface
 {
     use MessageTrait;
+
+    public function __construct(array $config = [])
+    {
+        if (!empty($config)) {
+            AbstractContainer::configure($this, $config);
+        }
+    }
 }

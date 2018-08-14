@@ -7,9 +7,10 @@
 
 namespace yii\profile;
 
-use yii\helpers\Yii;
 use yii\base\Component;
+use yii\di\Initiable;
 use yii\exceptions\InvalidArgumentException;
+use yii\helpers\Yii;
 
 /**
  * Profiler provides profiling support. It stores profiling messages in the memory and sends them to different targets
@@ -27,7 +28,7 @@ use yii\exceptions\InvalidArgumentException;
  * @author Paul Klimov <klimov-paul@gmail.com>
  * @since 3.0.0
  */
-class Profiler extends Component implements ProfilerInterface
+class Profiler extends Component implements ProfilerInterface, Initiable
 {
     /**
      * @var bool whether to profiler is enabled. Defaults to true.
@@ -72,9 +73,8 @@ class Profiler extends Component implements ProfilerInterface
     /**
      * Initializes the profiler by registering [[flush()]] as a shutdown function.
      */
-    public function init()
+    public function init(): void
     {
-        parent::init();
         register_shutdown_function([$this, 'flush']);
     }
 
@@ -86,7 +86,7 @@ class Profiler extends Component implements ProfilerInterface
         if (!$this->_isTargetsInitialized) {
             foreach ($this->_targets as $name => $target) {
                 if (!$target instanceof Target) {
-                    $this->_targets[$name] = $this->app->createObject($target);
+                    $this->_targets[$name] = Yii::createObject($target);
                 }
             }
             $this->_isTargetsInitialized = true;

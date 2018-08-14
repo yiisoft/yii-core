@@ -54,7 +54,7 @@ class NumberValidatorTest extends TestCase
 
         $this->oldLocale = setlocale(LC_NUMERIC, 0);
 
-        // destroy application, Validator must work without Yii::$app
+        // destroy application, Validator must work without $this->app
         $this->destroyApplication();
     }
 

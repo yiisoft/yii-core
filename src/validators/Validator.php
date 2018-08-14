@@ -8,6 +8,7 @@
 namespace yii\validators;
 
 use yii\base\Component;
+use yii\di\AbstractContainer;
 use yii\exceptions\NotSupportedException;
 use yii\helpers\Yii;
 use yii\i18n\I18N;
@@ -101,7 +102,7 @@ class Validator extends Component
      * @var array attributes to be validated by this validator. For multiple attributes,
      * please specify them as an array; for single attribute, you may use either a string or an array.
      */
-    protected $_attributes = [];
+    public $attributes = [];
     /**
      * @var string the user-defined error message. It may contain the following placeholders which
      * will be replaced accordingly by the validator:
@@ -119,12 +120,12 @@ class Validator extends Component
      * @var array scenarios that the validator can be applied to. For multiple scenarios,
      * please specify them as an array; for single scenario, you may use either a string or an array.
      */
-    protected $_on = [];
+    public $on = [];
     /**
      * @var array scenarios that the validator should not be applied to. For multiple scenarios,
      * please specify them as an array; for single scenario, you may use either a string or an array.
      */
-    protected $_except = [];
+    public $except = [];
     /**
      * @var bool whether this validation rule should be skipped if the attribute being validated
      * already has some validation error according to some previous rules. Defaults to true.
@@ -190,6 +191,21 @@ class Validator extends Component
     public $whenClient;
 
 
+    public function __construct(array $config = [])
+    {
+        if (!empty($config)) {
+            AbstractContainer::configure($this, $config);
+        }
+        $this->init();
+    }
+
+    public function init(): void
+    {
+        $this->attributes = (array) $this->attributes;
+        $this->on = (array) $this->on;
+        $this->except = (array) $this->except;
+    }
+
     /**
      * Creates a validator object.
      * @param string|\Closure $type the validator type. This can be either:
@@ -209,7 +225,7 @@ class Validator extends Component
 
         if ($type instanceof \Closure || ($model->hasMethod($type) && !isset(static::$builtInValidators[$type]))) {
             // method-based validator
-            $params['__class'] = __NAMESPACE__ . '\InlineValidator';
+            $class = __NAMESPACE__ . '\InlineValidator';
             $params['method'] = $type;
         } else {
             if (isset(static::$builtInValidators[$type])) {
@@ -217,48 +233,15 @@ class Validator extends Component
             }
             if (is_array($type)) {
                 $params = array_merge($type, $params);
+                $class = $params['__class'];
             } else {
-                $params['__class'] = $type;
+                $class = $type;
             }
         }
 
-        return Yii::createObject($params);
-    }
+        unset($params['__class']);
 
-    public function setAttributes($attributes): self
-    {
-        $this->_attributes = (array) $attributes;
-
-        return $this;
-    }
-
-    public function setOn($on): self
-    {
-        $this->_on = (array) $on;
-
-        return $this;
-    }
-
-    public function setExcept($except): self
-    {
-        $this->_except = (array) $except;
-
-        return $this;
-    }
-
-    public function getAttributes(): array
-    {
-        return $this->_attributes;
-    }
-
-    public function getOn(): array
-    {
-        return $this->_on;
-    }
-
-    public function getExcept(): array
-    {
-        return $this->_except;
+        return Yii::createObject($class, [$params]);
     }
 
     /**

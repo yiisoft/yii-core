@@ -51,7 +51,7 @@ class DbMessageSourceTest extends I18NTest
 
     protected static function runConsoleAction($route, $params = [])
     {
-        if (Yii::$app === null) {
+        if ($this->app === null) {
             new \yii\console\Application([
                 'id' => 'Migrator',
                 'basePath' => '@yii/tests',
@@ -65,7 +65,7 @@ class DbMessageSourceTest extends I18NTest
         }
 
         ob_start();
-        $result = Yii::$app->runAction($route, $params);
+        $result = $this->app->runAction($route, $params);
         echo 'Result is ' . $result;
         if ($result !== ExitCode::OK) {
             ob_end_flush();
@@ -112,7 +112,7 @@ class DbMessageSourceTest extends I18NTest
         if (static::$db) {
             static::$db->close();
         }
-        Yii::$app = null;
+        $this->app = null;
         parent::tearDownAfterClass();
     }
 

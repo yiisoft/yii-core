@@ -19,7 +19,7 @@ class FilterValidatorTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        // destroy application, Validator must work without Yii::$app
+        // destroy application, Validator must work without $this->app
         $this->destroyApplication();
     }
 

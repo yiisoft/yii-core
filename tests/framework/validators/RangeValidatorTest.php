@@ -20,7 +20,7 @@ class RangeValidatorTest extends TestCase
     {
         parent::setUp();
 
-        // destroy application, Validator must work without Yii::$app
+        // destroy application, Validator must work without $this->app
         $this->destroyApplication();
     }
 

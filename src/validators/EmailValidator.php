@@ -52,7 +52,7 @@ class EmailValidator extends Validator
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         if ($this->enableIDN && !function_exists('idn_to_ascii')) {

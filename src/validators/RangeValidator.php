@@ -53,7 +53,7 @@ class RangeValidator extends Validator
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         if (!is_array($this->range)

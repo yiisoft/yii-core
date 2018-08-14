@@ -76,7 +76,7 @@ class DateValidator extends Validator
      * Alternatively this can be a string prefixed with `php:` representing a format that can be recognized by the PHP Datetime class.
      * Please refer to <http://php.net/manual/en/datetime.createfromformat.php> on supported formats.
      *
-     * If this property is not set, the default value will be obtained from `Yii::$app->formatter->dateFormat`, see [[\yii\i18n\Formatter::dateFormat]] for details.
+     * If this property is not set, the default value will be obtained from `Yii::getApp()->formatter->dateFormat`, see [[\yii\i18n\Formatter::dateFormat]] for details.
      * Since version 2.0.8 the default value will be determined from different formats of the formatter class,
      * dependent on the value of [[type]]:
      *
@@ -209,7 +209,7 @@ class DateValidator extends Validator
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {
@@ -217,20 +217,20 @@ class DateValidator extends Validator
         }
         if ($this->format === null) {
             if ($this->type === self::TYPE_DATE) {
-                $this->format = Yii::$app->formatter->dateFormat;
+                $this->format = Yii::getApp()->formatter->dateFormat;
             } elseif ($this->type === self::TYPE_DATETIME) {
-                $this->format = Yii::$app->formatter->datetimeFormat;
+                $this->format = Yii::getApp()->formatter->datetimeFormat;
             } elseif ($this->type === self::TYPE_TIME) {
-                $this->format = Yii::$app->formatter->timeFormat;
+                $this->format = Yii::getApp()->formatter->timeFormat;
             } else {
                 throw new InvalidConfigException('Unknown validation type set for DateValidator::$type: ' . $this->type);
             }
         }
         if ($this->locale === null) {
-            $this->locale = Yii::$app->language;
+            $this->locale = Yii::getApp()->language;
         }
         if ($this->timeZone === null) {
-            $this->timeZone = Yii::$app->timeZone;
+            $this->timeZone = Yii::getApp()->timeZone;
         }
         if ($this->min !== null && $this->tooSmall === null) {
             $this->tooSmall = Yii::t('yii', '{attribute} must be no less than {min}.');
@@ -386,7 +386,7 @@ class DateValidator extends Validator
         // See https://github.com/yiisoft/yii2/issues/5962 and https://bugs.php.net/bug.php?id=68528
         $parsePos = 0;
         $parsedDate = @$formatter->parse($value, $parsePos);
-        if ($parsedDate === false || $parsePos !== mb_strlen($value, Yii::$app ? Yii::$app->charset : 'UTF-8')) {
+        if ($parsedDate === false || $parsePos !== mb_strlen($value, Yii::getApp() ? Yii::getApp()->charset : 'UTF-8')) {
             return false;
         }
 

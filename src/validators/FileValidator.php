@@ -159,7 +159,7 @@ class FileValidator extends Validator
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {
@@ -278,7 +278,7 @@ class FileValidator extends Validator
                         [
                             'file' => $value->getClientFilename(),
                             'limit' => $this->getSizeLimit(),
-                            'formattedLimit' => Yii::$app->formatter->asShortSize($this->getSizeLimit()),
+                            'formattedLimit' => Yii::getApp()->formatter->asShortSize($this->getSizeLimit()),
                         ],
                     ];
                 } elseif ($this->minSize !== null && $value->size < $this->minSize) {
@@ -287,7 +287,7 @@ class FileValidator extends Validator
                         [
                             'file' => $value->getClientFilename(),
                             'limit' => $this->minSize,
-                            'formattedLimit' => Yii::$app->formatter->asShortSize($this->minSize),
+                            'formattedLimit' => Yii::getApp()->formatter->asShortSize($this->minSize),
                         ],
                     ];
                 } elseif (!empty($this->extensions) && !$this->validateExtension($value)) {
@@ -302,7 +302,7 @@ class FileValidator extends Validator
                 return [$this->tooBig, [
                     'file' => $value->getClientFilename(),
                     'limit' => $this->getSizeLimit(),
-                    'formattedLimit' => Yii::$app->formatter->asShortSize($this->getSizeLimit()),
+                    'formattedLimit' => Yii::getApp()->formatter->asShortSize($this->getSizeLimit()),
                 ]];
             case UPLOAD_ERR_PARTIAL:
                 Yii::warning('File was only partially uploaded: ' . $value->getClientFilename(), __METHOD__);
@@ -348,8 +348,8 @@ class FileValidator extends Validator
             $limit = $this->maxSize;
         }
 
-        if (($request = Yii::$app->getRequest()) instanceof \yii\web\Request) {
-            $maxFileSize = Yii::$app->getRequest()->getParsedBodyParam('MAX_FILE_SIZE', 0);
+        if (($request = Yii::getApp()->getRequest()) instanceof \yii\web\Request) {
+            $maxFileSize = Yii::getApp()->getRequest()->getParsedBodyParam('MAX_FILE_SIZE', 0);
             if ($maxFileSize > 0 && $maxFileSize < $limit) {
                 $limit = (int)$maxFileSize;
             }

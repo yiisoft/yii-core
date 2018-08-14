@@ -3,7 +3,7 @@
 /* @var $exception Exception */
 
 ?>
-Code: <?= Yii::$app->response->statusCode ?>
+Code: <?= $this->app->response->statusCode ?>
 
 Message: <?= $exception->getMessage() ?>
 

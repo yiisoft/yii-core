@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-use yii\requirement\YiiRequirementChecker;
+use yii\requirements\YiiRequirementChecker;
 use yii\tests\TestCase;
 
 /**

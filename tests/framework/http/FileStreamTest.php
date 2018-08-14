@@ -45,7 +45,7 @@ class FileStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'read.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new FileStream($this->app);
+        $stream = new FileStream();
         $stream->filename = $filename;
         $stream->mode = 'r';
 
@@ -68,7 +68,7 @@ class FileStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'seek.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new FileStream($this->app);
+        $stream = new FileStream();
         $stream->filename = $filename;
         $stream->mode = 'r';
 
@@ -87,7 +87,7 @@ class FileStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'get-content.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new FileStream($this->app);
+        $stream = new FileStream();
         $stream->filename = $filename;
         $stream->mode = 'r';
 
@@ -105,7 +105,7 @@ class FileStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'to-string.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new FileStream($this->app);
+        $stream = new FileStream();
         $stream->filename = $filename;
         $stream->mode = 'r';
 
@@ -122,7 +122,7 @@ class FileStreamTest extends TestCase
     {
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'write.txt';
 
-        $stream = new FileStream($this->app);
+        $stream = new FileStream();
         $stream->filename = $filename;
         $stream->mode = 'w+';
 
@@ -144,7 +144,7 @@ class FileStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'get-size.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new FileStream($this->app);
+        $stream = new FileStream();
         $stream->filename = $filename;
         $stream->mode = 'r';
 
@@ -162,7 +162,7 @@ class FileStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'get-meta-data.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new FileStream($this->app);
+        $stream = new FileStream();
         $stream->filename = $filename;
         $stream->mode = 'r';
 
@@ -215,7 +215,6 @@ class FileStreamTest extends TestCase
     {
         /* @var $stream FileStream|\PHPUnit_Framework_MockObject_MockObject */
         $stream = $this->getMockBuilder(FileStream::class)
-            ->setConstructorArgs([$this->app])
             ->setMethods(['getMetadata'])
             ->getMock();
 
@@ -239,7 +238,6 @@ class FileStreamTest extends TestCase
     {
         /* @var $stream FileStream|\PHPUnit_Framework_MockObject_MockObject */
         $stream = $this->getMockBuilder(FileStream::class)
-            ->setConstructorArgs([$this->app])
             ->setMethods(['getMetadata'])
             ->getMock();
 

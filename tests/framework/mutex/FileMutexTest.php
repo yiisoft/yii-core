@@ -19,6 +19,12 @@ class FileMutexTest extends TestCase
 {
     use MutexTestTrait;
 
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->mockApplication();
+    }
+
     /**
      * @return FileMutex
      * @throws \yii\exceptions\InvalidConfigException

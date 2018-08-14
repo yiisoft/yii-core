@@ -10,8 +10,9 @@ namespace yii\http;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UploadedFileInterface;
 use yii\base\BaseObject;
+use yii\di\AbstractContainer;
 use yii\exceptions\InvalidArgumentException;
-use yii\di\Instance;
+use yii\helpers\Yii;
 
 /**
  * UploadedFile represents the information for an uploaded file.
@@ -78,6 +79,13 @@ class UploadedFile extends BaseObject implements UploadedFileInterface
      */
     private $_stream;
 
+
+    public function __construct(array $config = [])
+    {
+        if (!empty($config)) {
+            AbstractContainer::configure($this, $config);
+        }
+    }
 
     /**
      * String output.
@@ -163,7 +171,7 @@ class UploadedFile extends BaseObject implements UploadedFileInterface
                 $stream = $this->_stream;
             }
 
-            $this->_stream = Instance::ensure($stream, StreamInterface::class);
+            $this->_stream = Yii::ensureObject($stream, StreamInterface::class);
         }
         return $this->_stream;
     }

@@ -32,7 +32,7 @@ class LogTargetTest extends TestCase
         $this->assertTrue($target->getLogger() instanceof NullLogger);
 
         $target->setLogger(null);
-        $this->assertSame(Yii::getLogger(), $target->getLogger());
+        $this->assertSame(Yii::getContainer()->get('logger'), $target->getLogger());
     }
 
     /**

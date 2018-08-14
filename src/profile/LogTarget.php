@@ -10,7 +10,6 @@ namespace yii\profile;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use yii\helpers\Yii;
-use yii\di\Instance;
 
 /**
  * LogTarget saves profiling messages as a log messages.
@@ -55,7 +54,7 @@ class LogTarget extends Target
     public function getLogger()
     {
         if ($this->_logger === null) {
-            $this->_logger = Yii::getLogger();
+            $this->_logger = Yii::getContainer()->get('logger');
         }
         return $this->_logger;
     }
@@ -72,7 +71,7 @@ class LogTarget extends Target
         if ($logger instanceof \Closure) {
             $logger = call_user_func($logger);
         }
-        $this->_logger = Instance::ensure($logger, LoggerInterface::class);
+        $this->_logger = Yii::ensureObject($logger, LoggerInterface::class);
     }
 
     /**

@@ -75,7 +75,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param array $config The application configuration, if needed
      * @param string $appClass name of the application class to create
      */
-    protected function mockApplication($config = [], $appClass = null)
+    protected function mockApplication($config = [], $appClass = null, array $services = [])
     {
         if ($this->app && empty($config) && empty($appClass)) {
             return;
@@ -83,11 +83,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         if ($appClass) {
             $config['__class'] = $appClass;
         }
-        $this->container->set('app', array_merge($this->defaultAppConfig, $config));
+        $this->container->setAll(array_merge($services, [
+            'app' => array_merge($this->defaultAppConfig, $config),
+        ]));
         $this->app = $this->container->get('app');
     }
 
-    protected function mockWebApplication($config = [], $appClass = \yii\web\Application::class)
+    protected function mockWebApplication($config = [], $appClass = \yii\web\Application::class, array $services = [])
     {
         $this->container->setAll([
             'request' => [
@@ -97,7 +99,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
                 'scriptUrl' => '/index.php',
             ],
         ]);
-        return $this->mockApplication($config, $appClass);
+        return $this->mockApplication($config, $appClass, $services);
     }
 
     protected function getVendorPath()

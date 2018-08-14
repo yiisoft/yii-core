@@ -7,9 +7,10 @@
 
 namespace yii\mutex;
 
-use yii\helpers\Yii;
+use yii\di\Initiable;
 use yii\exceptions\InvalidConfigException;
 use yii\helpers\FileHelper;
+use yii\helpers\Yii;
 
 /**
  * FileMutex implements mutex "lock" mechanism via local file system files.
@@ -39,7 +40,7 @@ use yii\helpers\FileHelper;
  * @author resurtm <resurtm@gmail.com>
  * @since 2.0
  */
-class FileMutex extends Mutex
+class FileMutex extends Mutex implements Initiable
 {
     /**
      * @var string the directory to store mutex files. You may use [path alias](guide:concept-aliases) here.
@@ -71,7 +72,7 @@ class FileMutex extends Mutex
      * operating systems.
      * @throws InvalidConfigException
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         $this->mutexPath = Yii::getAlias($this->mutexPath);

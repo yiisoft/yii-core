@@ -411,15 +411,16 @@ class ModelTest extends TestCase
 
     public function testDefaultScenarios()
     {
-        $singer = new Singer();
-        $this->assertEquals(['default' => ['lastName', 'underscore_style', 'test']], $singer->scenarios());
-
         $scenarios = [
             'default' => ['id', 'name', 'description'],
             'administration' => ['name', 'description', 'is_disabled'],
         ];
         $model = new ComplexModel1();
         $this->assertEquals($scenarios, $model->scenarios());
+
+        $singer = new Singer();
+        $this->assertEquals(['default' => ['lastName', 'underscore_style', 'test']], $singer->scenarios());
+
         $scenarios = [
             'default' => ['id', 'name', 'description'],
             'suddenlyUnexpectedScenario' => ['name', 'description'],

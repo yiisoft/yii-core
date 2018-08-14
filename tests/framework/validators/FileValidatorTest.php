@@ -7,7 +7,6 @@
 
 namespace yii\tests\framework\validators;
 
-use yii\helpers\Yii;
 use yii\helpers\FileHelper;
 use yii\validators\FileValidator;
 use yii\http\UploadedFile;
@@ -81,15 +80,15 @@ class FileValidatorTest extends TestCase
 
         $size = min($this->sizeToBytes(ini_get('upload_max_filesize')), $this->sizeToBytes(ini_get('post_max_size')));
         $val = new FileValidator();
-        Yii::$app->request->setParsedBody([]);
+        $this->app->request->setParsedBody([]);
         $this->assertEquals($size, $val->getSizeLimit());
         $val->maxSize = $size + 1; // set and test if value is overridden
         $this->assertEquals($size, $val->getSizeLimit());
         $val->maxSize = abs($size - 1);
         $this->assertEquals($size - 1, $val->getSizeLimit());
-        Yii::$app->request->setParsedBody(['MAX_FILE_SIZE' => $size + 1]);
+        $this->app->request->setParsedBody(['MAX_FILE_SIZE' => $size + 1]);
         $this->assertEquals($size - 1, $val->getSizeLimit());
-        Yii::$app->request->setParsedBody(['MAX_FILE_SIZE' => abs($size - 2)]);
+        $this->app->request->setParsedBody(['MAX_FILE_SIZE' => abs($size - 2)]);
         $this->assertSame(abs($size - 2), $val->getSizeLimit());
     }
 
@@ -339,7 +338,7 @@ class FileValidatorTest extends TestCase
                 continue;
             }
             $name = $param['clientFilename'] ?? $rndString();
-            $tempName = \Yii::getAlias('@yii/tests/runtime/validators/file/tmp/') . $name;
+            $tempName = $this->app->getAlias('@yii/tests/runtime/validators/file/tmp/') . $name;
             if (is_readable($tempName)) {
                 $size = filesize($tempName);
             } else {
@@ -379,7 +378,7 @@ class FileValidatorTest extends TestCase
      */
     protected function getRealTestFile($fileName)
     {
-        $filePath = \Yii::getAlias('@yii/tests/framework/validators/data/mimeType/') . $fileName;
+        $filePath = $this->app->getAlias('@yii/tests/framework/validators/data/mimeType/') . $fileName;
 
         return new UploadedFile([
             'clientFilename' => $fileName,
@@ -433,7 +432,7 @@ class FileValidatorTest extends TestCase
         $val = new FileValidator();
         $val->validateAttribute($m, 'attr_err_part');
         $this->assertTrue($m->hasErrors('attr_err_part'));
-        $this->assertSame(Yii::t('yii', 'File upload failed.'), current($m->getErrors('attr_err_part')));
+        $this->assertSame($this->app->t('yii', 'File upload failed.'), current($m->getErrors('attr_err_part')));
     }
 
     public function testValidateAttributeType()
@@ -523,7 +522,7 @@ class FileValidatorTest extends TestCase
     {
         $validator = new FileValidator(['extensions' => (array) $allowedExtensions]);
         $file = $this->getRealTestFile($fileName);
-        $filePath = \Yii::getAlias('@yii/tests/framework/validators/data/mimeType/') . $fileName;
+        $filePath = $this->app->getAlias('@yii/tests/framework/validators/data/mimeType/') . $fileName;
 
         $detectedMimeType = FileHelper::getMimeType($filePath, null, false);
         $this->assertTrue($validator->validate($file), "Mime type detected was \"$detectedMimeType\". Consider adding it to MimeTypeController::\$aliases.");
@@ -565,7 +564,7 @@ class FileValidatorTest extends TestCase
         $val = new FileValidator();
         $val->validateAttribute($m, 'attr_err_part');
         $this->assertTrue($m->hasErrors('attr_err_part'));
-        $this->assertSame(Yii::t('yii', 'File upload failed.'), current($m->getErrors('attr_err_part')));
+        $this->assertSame($this->app->t('yii', 'File upload failed.'), current($m->getErrors('attr_err_part')));
     }
 
     public function testValidateAttributeErrCantWrite()
@@ -574,7 +573,7 @@ class FileValidatorTest extends TestCase
         $val = new FileValidator();
         $val->validateAttribute($m, 'attr_err_write');
         $this->assertTrue($m->hasErrors('attr_err_write'));
-        $this->assertSame(Yii::t('yii', 'File upload failed.'), current($m->getErrors('attr_err_write')));
+        $this->assertSame($this->app->t('yii', 'File upload failed.'), current($m->getErrors('attr_err_write')));
     }
 
     public function testValidateAttributeErrExtension()
@@ -583,7 +582,7 @@ class FileValidatorTest extends TestCase
         $val = new FileValidator();
         $val->validateAttribute($m, 'attr_err_ext');
         $this->assertTrue($m->hasErrors('attr_err_ext'));
-        $this->assertSame(Yii::t('yii', 'File upload failed.'), current($m->getErrors('attr_err_ext')));
+        $this->assertSame($this->app->t('yii', 'File upload failed.'), current($m->getErrors('attr_err_ext')));
     }
 
     public function testValidateAttributeErrNoTmpDir()
@@ -592,6 +591,6 @@ class FileValidatorTest extends TestCase
         $val = new FileValidator();
         $val->validateAttribute($m, 'attr_err_tmp');
         $this->assertTrue($m->hasErrors('attr_err_tmp'));
-        $this->assertSame(Yii::t('yii', 'File upload failed.'), current($m->getErrors('attr_err_tmp')));
+        $this->assertSame($this->app->t('yii', 'File upload failed.'), current($m->getErrors('attr_err_tmp')));
     }
 }

@@ -20,7 +20,7 @@ class VarDumperTest extends TestCase
     {
         parent::setUp();
 
-        // destroy application, Helper must work without Yii::$app
+        // destroy application, Helper must work without $this->app
         $this->destroyApplication();
     }
 
