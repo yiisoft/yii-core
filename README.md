@@ -71,22 +71,22 @@ tests/               tests of the core framework code
 
 ### Spreading the Word
 
-Acknowledging or citing Yii 2 is as important as direct contributions.
+Acknowledging or citing Yii is as important as direct contributions.
 
 **In presentations**
 
-If you are giving a presentation or talk featuring work that makes use of Yii 2 and would like to acknowledge it,
+If you are giving a presentation or talk featuring work that makes use of Yii and would like to acknowledge it,
 we suggest using [our logo](https://www.yiiframework.com/logo/) on your title slide.
 
 **In projects**
 
-If you are using Yii 2 as part of an OpenSource project, a way to acknowledge it is to
+If you are using Yii as part of an OpenSource project, a way to acknowledge it is to
 [use a special badge](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat) in your README:    
 
-![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)
+![Yii](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)
 
 If your code is hosted at GitHub, you can place the following in your README.md file to get the badge:
 
 ```
-[![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
+[![Yii](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 ```
