@@ -11,10 +11,7 @@ defined('YII_BEGIN_TIME') or define('YII_BEGIN_TIME', microtime(true));
  */
 if (!defined('YII_ROOT')) {
     (function () {
-        $dirs = [
-            dirname(__DIR__, 1),
-            dirname(__DIR__, 3),
-        ];
+        $dirs = [dirname(__DIR__, 4), dirname(__DIR__, 1)];
         foreach ($dirs as $dir) {
             if (file_exists($dir . '/vendor/autoload.php')) {
                 define('YII_ROOT', $dir);
