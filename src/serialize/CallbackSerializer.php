@@ -8,6 +8,7 @@
 namespace yii\serialize;
 
 use yii\base\BaseObject;
+use yii\di\AbstractContainer;
 
 /**
  * CallbackSerializer serializes data via custom PHP callback.
@@ -26,6 +27,13 @@ class CallbackSerializer extends BaseObject implements SerializerInterface
      */
     public $unserialize;
 
+
+    public function __construct(array $config = [])
+    {
+        if (!empty($config)) {
+            AbstractContainer::configure($this, $config);
+        }
+    }
 
     /**
      * {@inheritdoc}

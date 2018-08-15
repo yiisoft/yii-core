@@ -24,7 +24,7 @@ class FileHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->testFilePath = __DIR__ . '/../../runtime/' . get_class($this);
+        $this->testFilePath = __DIR__ . '/../../../runtime/' . get_class($this);
 
         $this->createDir($this->testFilePath);
         if (!file_exists($this->testFilePath)) {
