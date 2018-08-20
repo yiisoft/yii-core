@@ -39,7 +39,7 @@ class Locale extends Component
         }
 
         if ($this->locale === null) {
-            $this->locale = Yii::$app->language;
+            $this->locale = Yii::getApp()->language;
         }
     }
 

@@ -27,7 +27,7 @@ abstract class UniqueValidatorTest extends DatabaseTestCase
         parent::setUp();
         ActiveRecord::$db = $this->getConnection();
 
-        // destroy application, Validator must work without Yii::$app
+        // destroy application, Validator must work without Yii::getApp()
         $this->destroyApplication();
     }
 

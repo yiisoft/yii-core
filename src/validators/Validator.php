@@ -328,7 +328,7 @@ class Validator extends Component
      * if (!$valid) {
      *     return [$this->message, [
      *         'param1' => $this->param1,
-     *         'formattedLimit' => Yii::$app->formatter->asShortSize($this->getSizeLimit()),
+     *         'formattedLimit' => Yii::getApp()->formatter->asShortSize($this->getSizeLimit()),
      *         'mimeTypes' => implode(', ', $this->mimeTypes),
      *         'param4' => 'etc...',
      *     ]];
@@ -439,7 +439,7 @@ class Validator extends Component
     }
 
     /**
-     * Formats a message using the I18N, or simple strtr if `\Yii::$app` is not available.
+     * Formats a message using the I18N, or simple strtr if `\Yii::getApp()` is not available.
      * @param string $message
      * @param array $params
      * @since 2.0.12

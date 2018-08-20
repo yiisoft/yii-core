@@ -41,7 +41,7 @@ abstract class BaseMessage extends BaseObject implements MessageInterface
     public function send(MailerInterface $mailer = null)
     {
         if ($mailer === null && $this->mailer === null) {
-            $mailer = Yii::$app->getMailer();
+            $mailer = Yii::getApp()->getMailer();
         } elseif ($mailer === null) {
             $mailer = $this->mailer;
         }

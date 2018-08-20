@@ -91,7 +91,7 @@ class OptimisticLockBehavior extends AttributeBehavior
      */
     public function events()
     {
-        return Yii::$app->request instanceof \yii\web\Request ? [
+        return Yii::getApp()->request instanceof \yii\web\Request ? [
             BaseActiveRecord::EVENT_BEFORE_INSERT => 'evaluateAttributes',
             BaseActiveRecord::EVENT_BEFORE_UPDATE => 'evaluateAttributes',
             BaseActiveRecord::EVENT_BEFORE_DELETE => 'evaluateAttributes',
@@ -129,7 +129,7 @@ class OptimisticLockBehavior extends AttributeBehavior
     {
         if ($this->value === null) {
             $lock = $this->getLockAttribute();
-            $input = Yii::$app->getRequest()->getParsedBodyParam($lock);
+            $input = Yii::getApp()->getRequest()->getParsedBodyParam($lock);
             $isValid = $input && (new NumberValidator())->validate($input);
             return $isValid ? $input : 0;
         }

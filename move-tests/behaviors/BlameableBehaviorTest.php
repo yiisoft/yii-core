@@ -48,14 +48,14 @@ class BlameableBehaviorTest extends TestCase
             'created_by' => 'integer',
             'updated_by' => 'integer',
         ];
-        Yii::$app->getDb()->createCommand()->createTable('test_blame', $columns)->execute();
+        Yii::getApp()->getDb()->createCommand()->createTable('test_blame', $columns)->execute();
 
         $this->getUser()->login(10);
     }
 
     public function tearDown()
     {
-        Yii::$app->getDb()->close();
+        Yii::getApp()->getDb()->close();
         parent::tearDown();
         gc_enable();
         gc_collect_cycles();
@@ -66,7 +66,7 @@ class BlameableBehaviorTest extends TestCase
      */
     private function getUser()
     {
-        return Yii::$app->get('user');
+        return Yii::getApp()->get('user');
     }
 
     public function testInsertUserIsGuest()

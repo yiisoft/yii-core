@@ -264,7 +264,7 @@ class Sort extends BaseObject implements Initiable
         if ($this->_attributeOrders === null || $recalculate) {
             $this->_attributeOrders = [];
             if (($params = $this->params) === null) {
-                $request = Yii::$app->getRequest();
+                $request = Yii::getApp()->getRequest();
                 $params = $request instanceof Request ? $request->getQueryParams() : [];
             }
             if (isset($params[$this->sortParam])) {
@@ -414,12 +414,12 @@ class Sort extends BaseObject implements Initiable
     public function createUrl($attribute, $absolute = false)
     {
         if (($params = $this->params) === null) {
-            $request = Yii::$app->getRequest();
+            $request = Yii::getApp()->getRequest();
             $params = $request instanceof Request ? $request->getQueryParams() : [];
         }
         $params[$this->sortParam] = $this->createSortParam($attribute);
-        $params[0] = $this->route === null ? Yii::$app->controller->getRoute() : $this->route;
-        $urlManager = $this->urlManager === null ? Yii::$app->getUrlManager() : $this->urlManager;
+        $params[0] = $this->route === null ? Yii::getApp()->controller->getRoute() : $this->route;
+        $urlManager = $this->urlManager === null ? Yii::getApp()->getUrlManager() : $this->urlManager;
         if ($absolute) {
             return $urlManager->createAbsoluteUrl($params);
         }

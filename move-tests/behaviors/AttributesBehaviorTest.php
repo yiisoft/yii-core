@@ -50,12 +50,12 @@ class AttributesBehaviorTest extends TestCase
             'name' => 'string',
             'alias' => 'string',
         ];
-        Yii::$app->getDb()->createCommand()->createTable('test_attribute', $columns)->execute();
+        Yii::getApp()->getDb()->createCommand()->createTable('test_attribute', $columns)->execute();
     }
 
     public function tearDown()
     {
-        Yii::$app->getDb()->close();
+        Yii::getApp()->getDb()->close();
         parent::tearDown();
     }
 

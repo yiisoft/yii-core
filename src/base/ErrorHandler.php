@@ -18,7 +18,7 @@ use yii\web\exceptions\HttpException;
  * ErrorHandler handles uncaught PHP errors and exceptions.
  *
  * ErrorHandler is configured as an application component in [[\yii\base\Application]] by default.
- * You can access that instance via `Yii::$app->errorHandler`.
+ * You can access that instance via `Yii::getApp()->errorHandler`.
  *
  * For more details and usage information on ErrorHandler, see the [guide article on handling errors](guide:runtime-handling-errors).
  *

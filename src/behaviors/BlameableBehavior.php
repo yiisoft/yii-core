@@ -69,7 +69,7 @@ class BlameableBehavior extends AttributeBehavior
     /**
      * {@inheritdoc}
      *
-     * In case, when the property is `null`, the value of `Yii::$app->user->id` will be used as the value.
+     * In case, when the property is `null`, the value of `Yii::getApp()->user->id` will be used as the value.
      */
     public $value;
     /**
@@ -101,8 +101,8 @@ class BlameableBehavior extends AttributeBehavior
      */
     protected function getValue($event)
     {
-        if ($this->value === null && Yii::$app->has('user')) {
-            $userId = Yii::$app->get('user')->id;
+        if ($this->value === null && Yii::getApp()->has('user')) {
+            $userId = Yii::getApp()->get('user')->id;
             if ($userId === null) {
                 return $this->getDefaultValue($event);
             }

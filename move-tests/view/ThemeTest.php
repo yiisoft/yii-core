@@ -97,7 +97,7 @@ class ThemeTest extends TestCase
         $theme = new Theme(['basePath' => '@app/framework/base/fixtures/themes/basic']);
         $expected = Yii::getAlias('@app/framework/base/fixtures/themes/basic/views/site/index.php');
 
-        $actual = $theme->applyTo(Yii::$app->basePath . '/views/site/index.php');
+        $actual = $theme->applyTo(Yii::getApp()->basePath . '/views/site/index.php');
 
         $this->assertPathEquals($expected, $actual);
     }
@@ -112,7 +112,7 @@ class ThemeTest extends TestCase
         $theme = new Theme($config);
         $expected = Yii::getAlias('@app/framework/base/fixtures/themes/basic/views/site/index.php');
 
-        $actual = $theme->applyTo(Yii::$app->basePath . '/views/site/index.php');
+        $actual = $theme->applyTo(Yii::getApp()->basePath . '/views/site/index.php');
 
         $this->assertPathEquals($expected, $actual);
     }
@@ -130,7 +130,7 @@ class ThemeTest extends TestCase
         $theme = new Theme($config);
         $expected = Yii::getAlias('@app/framework/base/fixtures/themes/christmas/views/site/main.php');
 
-        $actual = $theme->applyTo(Yii::$app->basePath . '/views/site/main.php');
+        $actual = $theme->applyTo(Yii::getApp()->basePath . '/views/site/main.php');
 
         $this->assertPathEquals($expected, $actual);
     }
@@ -148,7 +148,7 @@ class ThemeTest extends TestCase
         $theme = new Theme($config);
         $expected = Yii::getAlias('@app/framework/base/fixtures/themes/christmas/views/site/index.php');
 
-        $actual = $theme->applyTo(Yii::$app->basePath . '/views/site/index.php');
+        $actual = $theme->applyTo(Yii::getApp()->basePath . '/views/site/index.php');
 
         $this->assertPathEquals($expected, $actual);
     }
@@ -161,7 +161,7 @@ class ThemeTest extends TestCase
             ],
         ];
         $theme = new Theme($config);
-        $expected = Yii::getAlias(Yii::$app->basePath . '/views/main/index.php');
+        $expected = Yii::getAlias(Yii::getApp()->basePath . '/views/main/index.php');
 
         $actual = $theme->applyTo($expected);
 

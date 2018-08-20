@@ -261,7 +261,7 @@ class Pagination extends BaseObject implements Linkable
         $page = (int) $page;
         $pageSize = (int) $pageSize;
         if (($params = $this->params) === null) {
-            $request = Yii::$app->getRequest();
+            $request = Yii::getApp()->getRequest();
             $params = $request instanceof Request ? $request->getQueryParams() : [];
         }
         if ($page > 0 || $page == 0 && $this->forcePageParam) {
@@ -277,8 +277,8 @@ class Pagination extends BaseObject implements Linkable
         } else {
             unset($params[$this->pageSizeParam]);
         }
-        $params[0] = $this->route === null ? Yii::$app->controller->getRoute() : $this->route;
-        $urlManager = $this->urlManager === null ? Yii::$app->getUrlManager() : $this->urlManager;
+        $params[0] = $this->route === null ? Yii::getApp()->controller->getRoute() : $this->route;
+        $urlManager = $this->urlManager === null ? Yii::getApp()->getUrlManager() : $this->urlManager;
         if ($absolute) {
             return $urlManager->createAbsoluteUrl($params);
         }
@@ -344,7 +344,7 @@ class Pagination extends BaseObject implements Linkable
     protected function getQueryParam($name, $defaultValue = null)
     {
         if (($params = $this->params) === null) {
-            $request = Yii::$app->getRequest();
+            $request = Yii::getApp()->getRequest();
             $params = $request instanceof Request ? $request->getQueryParams() : [];
         }
 

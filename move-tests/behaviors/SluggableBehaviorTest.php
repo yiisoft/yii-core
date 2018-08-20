@@ -51,18 +51,18 @@ class SluggableBehaviorTest extends TestCase
             'category_id' => 'integer',
             'belongs_to_id' => 'integer',
         ];
-        Yii::$app->getDb()->createCommand()->createTable('test_slug', $columns)->execute();
+        Yii::getApp()->getDb()->createCommand()->createTable('test_slug', $columns)->execute();
 
         $columns = [
             'id' => 'pk',
             'name' => 'string',
         ];
-        Yii::$app->getDb()->createCommand()->createTable('test_slug_related', $columns)->execute();
+        Yii::getApp()->getDb()->createCommand()->createTable('test_slug_related', $columns)->execute();
     }
 
     public function tearDown()
     {
-        Yii::$app->getDb()->close();
+        Yii::getApp()->getDb()->close();
         parent::tearDown();
         gc_enable();
         gc_collect_cycles();

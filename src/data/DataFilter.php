@@ -66,7 +66,7 @@ use yii\validators\Validator;
  * use yii\data\DataFilter;
  *
  * $dataFilter = new DataFilter();
- * $dataFilter->load(Yii::$app->request->getParsedBody());
+ * $dataFilter->load(Yii::getApp()->request->getParsedBody());
  * ```
  *
  * In order to function this class requires a search model specified via [[searchModel]]. This search model should declare
@@ -454,7 +454,7 @@ class DataFilter extends Model
             $params
         );
 
-        return Yii::$app->getI18n()->format($message, $params, Yii::$app->language);
+        return Yii::getApp()->getI18n()->format($message, $params, Yii::getApp()->language);
     }
 
     // Model specific:

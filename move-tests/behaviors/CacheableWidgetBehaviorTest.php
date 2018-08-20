@@ -184,7 +184,7 @@ class DynamicCacheableWidget extends BaseCacheableWidget
      */
     public function run()
     {
-        $dynamicContentsExpression = 'return "dynamic contents: " . \Yii::$app->params["counter"]++;';
+        $dynamicContentsExpression = 'return "dynamic contents: " . \Yii::getApp()->params["counter"]++;';
         $dynamicContents = $this->view->renderDynamic($dynamicContentsExpression);
         $content = '<div>' . $dynamicContents . '</div>';
 

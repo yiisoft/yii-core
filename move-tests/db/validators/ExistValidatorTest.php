@@ -22,7 +22,7 @@ abstract class ExistValidatorTest extends DatabaseTestCase
     {
         parent::setUp();
 
-        // destroy application, Validator must work without Yii::$app
+        // destroy application, Validator must work without Yii::getApp()
         $this->destroyApplication();
         ActiveRecord::$db = $this->getConnection();
     }

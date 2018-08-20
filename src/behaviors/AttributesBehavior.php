@@ -32,7 +32,7 @@ use yii\db\ActiveRecord;
  *             'attributes' => [
  *                 'attribute1' => [
  *                     ActiveRecord::EVENT_BEFORE_INSERT => new Expression('NOW()'),
- *                     ActiveRecord::EVENT_BEFORE_UPDATE => \Yii::$app->formatter->asDatetime('2017-07-13'),
+ *                     ActiveRecord::EVENT_BEFORE_UPDATE => \Yii::getApp()->formatter->asDatetime('2017-07-13'),
  *                 ],
  *                 'attribute2' => [
  *                     ActiveRecord::EVENT_BEFORE_VALIDATE => [$this, 'storeAttributes'],
@@ -77,7 +77,7 @@ class AttributesBehavior extends Behavior
      * [
      *   'attribute1' => [
      *       ActiveRecord::EVENT_BEFORE_INSERT => new Expression('NOW()'),
-     *       ActiveRecord::EVENT_BEFORE_UPDATE => \Yii::$app->formatter->asDatetime('2017-07-13'),
+     *       ActiveRecord::EVENT_BEFORE_UPDATE => \Yii::getApp()->formatter->asDatetime('2017-07-13'),
      *   ],
      *   'attribute2' => [
      *       ActiveRecord::EVENT_BEFORE_VALIDATE => [$this, 'storeAttributes'],

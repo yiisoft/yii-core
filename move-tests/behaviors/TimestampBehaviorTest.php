@@ -51,19 +51,19 @@ class TimestampBehaviorTest extends TestCase
             'created_at' => 'integer NOT NULL',
             'updated_at' => 'integer',
         ];
-        Yii::$app->getDb()->createCommand()->createTable('test_auto_timestamp', $columns)->execute();
+        Yii::getApp()->getDb()->createCommand()->createTable('test_auto_timestamp', $columns)->execute();
 
         $columns = [
             'id' => 'pk',
             'created_at' => 'string NOT NULL',
             'updated_at' => 'string',
         ];
-        Yii::$app->getDb()->createCommand()->createTable('test_auto_timestamp_string', $columns)->execute();
+        Yii::getApp()->getDb()->createCommand()->createTable('test_auto_timestamp_string', $columns)->execute();
     }
 
     public function tearDown()
     {
-        Yii::$app->getDb()->close();
+        Yii::getApp()->getDb()->close();
         parent::tearDown();
         gc_enable();
         gc_collect_cycles();

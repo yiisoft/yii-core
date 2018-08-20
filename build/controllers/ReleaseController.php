@@ -432,19 +432,19 @@ class ReleaseController extends Controller
         // adjustments
 
         $this->stdout('prepare classmap...', Console::BOLD);
-        $this->dryRun || Yii::$app->runAction('classmap', [$frameworkPath]);
+        $this->dryRun || Yii::getApp()->runAction('classmap', [$frameworkPath]);
         $this->stdout("done.\n", Console::FG_GREEN, Console::BOLD);
 
         $this->stdout('updating mimetype magic file and mime aliases...', Console::BOLD);
-        $this->dryRun || Yii::$app->runAction('mime-type', ["$frameworkPath/helpers/mimeTypes.php"], ["$frameworkPath/helpers/mimeAliases.php"]);
+        $this->dryRun || Yii::getApp()->runAction('mime-type', ["$frameworkPath/helpers/mimeTypes.php"], ["$frameworkPath/helpers/mimeAliases.php"]);
         $this->stdout("done.\n", Console::FG_GREEN, Console::BOLD);
 
         $this->stdout("fixing various PHPDoc style issues...\n", Console::BOLD);
-        $this->dryRun || Yii::$app->runAction('php-doc/fix', [$frameworkPath]);
+        $this->dryRun || Yii::getApp()->runAction('php-doc/fix', [$frameworkPath]);
         $this->stdout("done.\n", Console::FG_GREEN, Console::BOLD);
 
         $this->stdout("updating PHPDoc @property annotations...\n", Console::BOLD);
-        $this->dryRun || Yii::$app->runAction('php-doc/property', [$frameworkPath]);
+        $this->dryRun || Yii::getApp()->runAction('php-doc/property', [$frameworkPath]);
         $this->stdout("done.\n", Console::FG_GREEN, Console::BOLD);
 
         $this->stdout('sorting changelogs...', Console::BOLD);
@@ -565,13 +565,13 @@ class ReleaseController extends Controller
 
         $this->stdout("fixing various PHPDoc style issues...\n", Console::BOLD);
         $this->setAppAliases($name, $path);
-        $this->dryRun || Yii::$app->runAction('php-doc/fix', [$path, 'skipFrameworkRequirements' => true]);
+        $this->dryRun || Yii::getApp()->runAction('php-doc/fix', [$path, 'skipFrameworkRequirements' => true]);
         $this->resetAppAliases();
         $this->stdout("done.\n", Console::FG_GREEN, Console::BOLD);
 
         $this->stdout("updating PHPDoc @property annotations...\n", Console::BOLD);
         $this->setAppAliases($name, $path);
-        $this->dryRun || Yii::$app->runAction('php-doc/property', [$path, 'skipFrameworkRequirements' => true]);
+        $this->dryRun || Yii::getApp()->runAction('php-doc/property', [$path, 'skipFrameworkRequirements' => true]);
         $this->resetAppAliases();
         $this->stdout("done.\n", Console::FG_GREEN, Console::BOLD);
 
@@ -682,11 +682,11 @@ class ReleaseController extends Controller
         // adjustments
 
         $this->stdout("fixing various PHPDoc style issues...\n", Console::BOLD);
-        $this->dryRun || Yii::$app->runAction('php-doc/fix', [$path]);
+        $this->dryRun || Yii::getApp()->runAction('php-doc/fix', [$path]);
         $this->stdout("done.\n", Console::FG_GREEN, Console::BOLD);
 
         $this->stdout("updating PHPDoc @property annotations...\n", Console::BOLD);
-        $this->dryRun || Yii::$app->runAction('php-doc/property', [$path]);
+        $this->dryRun || Yii::getApp()->runAction('php-doc/property', [$path]);
         $this->stdout("done.\n", Console::FG_GREEN, Console::BOLD);
 
         $this->stdout('sorting changelogs...', Console::BOLD);

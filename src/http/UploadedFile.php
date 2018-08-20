@@ -20,7 +20,7 @@ use yii\helpers\Yii;
  * You can retrieve the set of an uploaded file from application 'request' component:
  *
  * ```php
- * $uploadedFiles = Yii::$app->request->getUploadedFiles();
+ * $uploadedFiles = Yii::getApp()->request->getUploadedFiles();
  * ```
  *
  * You can use [[saveAs()]] to save file on the server.

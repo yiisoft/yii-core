@@ -27,7 +27,7 @@ use yii\di\Instance;
  * SqlDataProvider may be used in the following way:
  *
  * ```php
- * $count = Yii::$app->db->createCommand('
+ * $count = Yii::getApp()->db->createCommand('
  *     SELECT COUNT(*) FROM user WHERE status=:status
  * ', [':status' => 1])->queryScalar();
  *

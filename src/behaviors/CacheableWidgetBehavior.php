@@ -84,7 +84,7 @@ class CacheableWidgetBehavior extends Behavior
      *
      * ```php
      * [
-     *     Yii::$app->language,
+     *     Yii::getApp()->language,
      * ]
      * ```
      */
@@ -95,7 +95,7 @@ class CacheableWidgetBehavior extends Behavior
      * The following configuration will disable caching when a special GET parameter is passed:
      *
      * ```php
-     * empty(Yii::$app->request->get('disable-caching'))
+     * empty(Yii::getApp()->request->get('disable-caching'))
      * ```
      */
     public $cacheEnabled = true;

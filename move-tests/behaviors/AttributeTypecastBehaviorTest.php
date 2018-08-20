@@ -48,7 +48,7 @@ class AttributeTypecastBehaviorTest extends TestCase
             'isActive' => 'boolean',
             'callback' => 'string',
         ];
-        Yii::$app->getDb()->createCommand()->createTable('test_attribute_typecast', $columns)->execute();
+        Yii::getApp()->getDb()->createCommand()->createTable('test_attribute_typecast', $columns)->execute();
     }
 
     protected function tearDown()

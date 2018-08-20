@@ -1386,13 +1386,13 @@ EOD;
      */
     public function testCsrfDisable()
     {
-        Yii::$app->request->enableCsrfValidation = true;
-        Yii::$app->request->cookieValidationKey = 'foobar';
+        Yii::getApp()->request->enableCsrfValidation = true;
+        Yii::getApp()->request->cookieValidationKey = 'foobar';
 
         $csrfForm = Html::beginForm('/index.php', 'post', ['id' => 'mycsrfform']);
         $this->assertEquals(
             '<form id="mycsrfform" action="/index.php" method="post">'
-            . "\n" . '<input type="hidden" name="_csrf" value="' . Yii::$app->request->getCsrfToken() . '">',
+            . "\n" . '<input type="hidden" name="_csrf" value="' . Yii::getApp()->request->getCsrfToken() . '">',
             $csrfForm
         );
 

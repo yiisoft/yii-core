@@ -115,8 +115,8 @@ class DataColumnTest extends \yii\tests\TestCase
             'id' => 'pk',
             'customer_id' => 'integer',
         ];
-        ActiveRecord::$db = Yii::$app->getDb();
-        Yii::$app->getDb()->createCommand()->createTable(Order::tableName(), $columns)->execute();
+        ActiveRecord::$db = Yii::getApp()->getDb();
+        Yii::getApp()->getDb()->createCommand()->createTable(Order::tableName(), $columns)->execute();
 
         $filterInput = [1, 2];
         $grid = new GridView([
@@ -166,8 +166,8 @@ HTML
             'id' => 'pk',
             'customer_id' => 'integer',
         ];
-        ActiveRecord::$db = Yii::$app->getDb();
-        Yii::$app->getDb()->createCommand()->createTable(Order::tableName(), $columns)->execute();
+        ActiveRecord::$db = Yii::getApp()->getDb();
+        Yii::getApp()->getDb()->createCommand()->createTable(Order::tableName(), $columns)->execute();
 
         $grid = new GridView([
             'dataProvider' => new ArrayDataProvider([
