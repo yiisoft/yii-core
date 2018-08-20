@@ -7,6 +7,9 @@
 
 namespace yii\base;
 
+use yii\exceptions\InvalidArgumentException;
+use yii\exceptions\InvalidRouteException;
+use yii\view\View;
 use yii\view\ViewContextInterface;
 
 /**
@@ -70,7 +73,6 @@ class Controller extends Component implements ViewContextInterface
     /**
      * @param string $id the ID of this controller.
      * @param Module $module the module that this controller belongs to.
-     * @param array $config name-value pairs that will be used to initialize the object properties.
      */
     public function __construct($id, $module)
     {
@@ -79,7 +81,10 @@ class Controller extends Component implements ViewContextInterface
         $this->app = $module->getApp();
     }
 
-    public function getApp()
+    /**
+     * @return Application
+     */
+    public function getApp(): Application
     {
         return $this->app;
     }

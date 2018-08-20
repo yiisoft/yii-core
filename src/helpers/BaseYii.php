@@ -268,7 +268,7 @@ class BaseYii
      * Uses @see Application::getAlias() if container is set.
      * Else throws exception.
      *
-     * @deprecated 3.0.0
+     * @deprecated 3.0.0 Use [[yii\base\Application::getAlias()|Application::getAlias()]] instead
      * @param string $alias the alias to be translated.
      * @param bool $throwException whether to throw an exception if the given alias is invalid.
      * If this is false and an invalid alias is given, false will be returned by this method.
@@ -288,10 +288,10 @@ class BaseYii
     /**
      * Registers a path alias.
      *
-     * Uses @see Application::getAlias() if container is set.
+     * Uses @see Application::setAlias() if container is set.
      * Else throws exception.
      *
-     * @deprecated 3.0.0
+     * @deprecated 3.0.0 Use [[yii\base\Application::setAlias()|Application::setAlias()]] instead
      * @param string $alias the alias name (e.g. "@yii"). It must start with a '@' character.
      * It may contain the forward slash '/' which serves as boundary character when performing
      * alias translation by [[getAlias()]].

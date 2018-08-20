@@ -9,6 +9,7 @@ namespace yii\base;
 
 use Psr\Log\LoggerInterface;
 use yii\exceptions\ErrorException;
+use yii\exceptions\ExitException;
 use yii\helpers\VarDumper;
 use yii\helpers\Yii;
 use yii\profile\ProfilerInterface;

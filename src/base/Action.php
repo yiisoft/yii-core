@@ -7,6 +7,7 @@
 
 namespace yii\base;
 
+use yii\exceptions\InvalidConfigException;
 use yii\helpers\Yii;
 
 /**
@@ -56,7 +57,6 @@ class Action extends Component
      *
      * @param string $id the ID of this action
      * @param Controller $controller the controller that owns this action
-     * @param array $config name-value pairs that will be used to initialize the object properties
      */
     public function __construct($id, $controller)
     {
@@ -82,6 +82,8 @@ class Action extends Component
      * @param array $params the parameters to be bound to the action's run() method.
      * @return mixed the result of the action
      * @throws InvalidConfigException if the action class does not have a run() method
+     * @throws \yii\console\exceptions\Exception
+     * @throws \yii\web\BadRequestHttpException
      */
     public function runWithParams($params)
     {

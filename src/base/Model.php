@@ -12,6 +12,7 @@ use ArrayIterator;
 use ArrayObject;
 use IteratorAggregate;
 use ReflectionClass;
+use yii\exceptions\InvalidArgumentException;
 use yii\exceptions\InvalidConfigException;
 use yii\helpers\Yii;
 use yii\helpers\Inflector;
