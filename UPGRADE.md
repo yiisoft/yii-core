@@ -16,14 +16,19 @@ Changes summary:
 * Framework GitHub repository and Packagist package are renamed and split into parts:
     * [yiisoft/core] - this package, the framework core.
     * Yii 2.0 development stays at [yiisoft/yii2] repository.
-      Bug and security fixes are expected. New features abd enhancements are not accepted.
+      Bug and security fixes are expected. New features and enhancements are not accepted.
       Pull requests and maintainers are very welcome.
     * [yiisoft/di] - [PSR-11] compatible Dependency Injection container.
     * [yiisoft/log] - [PSR-3] compatible logging library.
     * [yiisoft/cache] - [PSR-16] compatible caching library.
     * [yiisoft/db] - DataBase abstraction and QueryBuilder.
+    * [yiisoft/db-mysql] - MySQL Server DB extension.
+    * [yiisoft/db-pgsql] - PostgreSQL Server DB extension.
+    * [yiisoft/db-sqlite] - SQLite Server DB extension.
+    * [yiisoft/db-mssql] - MSSQL Server DB extension.
+    * [yiisoft/db-oracle] - Oracle DB extension.
     * [yiisoft/active-record] - ActiveRecord library.
-    * [yiisoft/rbac] - Role Base Access Control library.
+    * [yiisoft/rbac] - Role-Based Access Control library.
     * [yiisoft/data] - data display library: data and grid.
     * [yiisoft/view] - view rendering library: view and widgets.
     * [yiisoft/yii-web] - Web extension.
@@ -34,8 +39,6 @@ Changes summary:
     * [yiisoft/yii-bootstrap4] - Bootstrap 4 extension.
     * [yiisoft/yii-maskedinput] - Masked input field widget.
     * [yiisoft/yii-captcha] - CAPTCHA extension.
-    * [yiisoft/yii-mssql] - MSSQL Server DB extension.
-    * [yiisoft/yii-oracle] - Oracle DB extension.
     * Please check [package naming convention] to get an idea about package names.
 * More PSR compatibility.
 * Framework core requires only virtual PSR implementation packages, you are free
@@ -43,11 +46,12 @@ Changes summary:
   More PSR implementations compatibility is expected later.
 * Dropped Yii own class autoloader in favor of the one provided with Composer.
 * Removed `ServiceLocator` from `Application` and `Module`, DI container is used instead.
+* Database abstraction is split in several packages allowing independent use.
 * All the configuration made explicit in `config` folders of all the packages
   and recommended to be used with [composer-config-plugin].
 * [yii\base\Configurable] interface and logic are removed in favour of DI and [yii\di\Initiable] interface.
 * No advanced app anymore. Basic application became [yii-app].
-* Application nesting is allowed due to explicit configuration and [composer-config-plugin].
+* Application templating approach has changed allowing application nesting with help of explicit configuration and [composer-config-plugin].
 
 [yiisoft/yii2]:                 https://github.com/yiisoft/yii2
 [yiisoft/core]:                 https://github.com/yiisoft/core
@@ -55,6 +59,13 @@ Changes summary:
 [yiisoft/log]:                  https://github.com/yiisoft/log
 [yiisoft/cache]:                https://github.com/yiisoft/cache
 [yiisoft/db]:                   https://github.com/yiisoft/db
+[yiisoft/active-record]:        https://github.com/yiisoft/active-record
+[yiisoft/data-mapper]:          https://github.com/yiisoft/data-mapper
+[yiisoft/db-mysql]:             https://github.com/yiisoft/db-mysql
+[yiisoft/db-pgsql]:             https://github.com/yiisoft/db-pgsql
+[yiisoft/db-sqlite]:            https://github.com/yiisoft/db-sqlite
+[yiisoft/db-mssql]:             https://github.com/yiisoft/db-mssql
+[yiisoft/db-oracle]:            https://github.com/yiisoft/db-oracle
 [yiisoft/rbac]:                 https://github.com/yiisoft/rbac
 [yiisoft/data]:                 https://github.com/yiisoft/data
 [yiisoft/view]:                 https://github.com/yiisoft/view
@@ -67,8 +78,6 @@ Changes summary:
 [yiisoft/yii-maskedinput]:      https://github.com/yiisoft/yii-maskedinput
 [yiisoft/yii-captcha]:          https://github.com/yiisoft/yii-captcha
 [yiisoft/yii-rest]:             https://github.com/yiisoft/yii-rest
-[yiisoft/yii-mssql]:            https://github.com/yiisoft/yii-mssql
-[yiisoft/yii-oracle]:           https://github.com/yiisoft/yii-oracle
 [recommended entry script]:     https://github.com/yiisoft/yii-app-template/blob/master/public/index.php
 [package naming convention]:    https://github.com/yiisoft/core/blob/master/docs/guide/structure-extensions.md#package-naming
 [PSR-3]:                        https://www.php-fig.org/psr/psr-3/
