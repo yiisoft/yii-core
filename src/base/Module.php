@@ -7,6 +7,7 @@
 
 namespace yii\base;
 
+use Psr\Container\ContainerInterface;
 use yii\exceptions\InvalidArgumentException;
 use yii\exceptions\InvalidRouteException;
 use yii\exceptions\InvalidConfigException;
@@ -141,13 +142,15 @@ class Module extends Component
      */
     protected $_container;
 
+    /**
+     * @var Application
+     */
     protected $app;
 
     /**
      * Constructor.
      * @param string $id the ID of this module.
      * @param Module $parent the parent module (if any).
-     * @param array $config name-value pairs that will be used to initialize the object properties.
      */
     public function __construct($id, Module $parent)
     {
@@ -170,8 +173,8 @@ class Module extends Component
      */
     public static function getInstance()
     {
-        $class = get_called_class();
-        return isset(Yii::getApp()->loadedModules[$class]) ? $this->app->loadedModules[$class] : null;
+        $class = static::class;
+        return Yii::getApp()->loadedModules[$class] ?? null;
     }
 
     /**
@@ -182,9 +185,9 @@ class Module extends Component
     public static function setInstance($instance)
     {
         if ($instance === null) {
-            unset(Yii::getApp()->loadedModules[get_called_class()]);
+            unset(Yii::getApp()->loadedModules[static::class]);
         } else {
-            Yii::getApp()->loadedModules[get_class($instance)] = $instance;
+            Yii::getApp()->loadedModules[\get_class($instance)] = $instance;
         }
     }
 
@@ -200,7 +203,7 @@ class Module extends Component
     public function getControllerNamespace()
     {
         if ($this->_controllerNamespace === null) {
-            $class = get_class($this);
+            $class = \get_class($this);
             if (($pos = strrpos($class, '\\')) !== false) {
                 $this->_controllerNamespace = substr($class, 0, $pos) . '\\controllers';
             }
