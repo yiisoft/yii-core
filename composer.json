@@ -1,12 +1,12 @@
 {
-    "name": "yiisoft/core",
+    "name": "yiisoft/yii-core",
+    "type": "library",
     "description": "Yii Framework Core",
     "keywords": [
         "yii",
         "framework"
     ],
     "homepage": "http://www.yiiframework.com/",
-    "type": "library",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -56,11 +56,11 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/yiisoft/core",
+        "source": "https://github.com/yiisoft/yii-core",
+        "issues": "https://github.com/yiisoft/yii-core/issues",
         "forum": "http://www.yiiframework.com/forum/",
         "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/core"
+        "irc": "irc://irc.freenode.net/yii"
     },
     "require": {
         "php": ">=7.1.0",
