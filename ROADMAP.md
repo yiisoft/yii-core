@@ -2,6 +2,11 @@ These are main plans that are additional to [open issues](https://github.com/yii
 
 # 3.0
 
+## Re-structure
+
+- [ ] Split framework into pacakges with separate releases.
+- [ ] New application template.
+
 ## Documentation
 
 - [ ] Prepare [upgrading instructions](https://github.com/yiisoft/yii-core/blob/master/UPGRADE.md).
