@@ -13,19 +13,20 @@ other people your great work.
 
 ## Package naming
 
-The idea is to name `yii-stuff` only the packages that require Yii framework (`yiisoft/core`)
+The idea is to name `yii-something` only the packages that are part of Yii framework and requiring `yiisoft/yii-core`
 directly or through dependencies.
-Packages not requiring `yiisoft/core` and able to be used separately should be named without `yii-` prefix.
+Packages not requiring `yiisoft/yii-core` and able to be used separately should be named without `yii-` prefix.
 Packages that are able to work without Yii but providing more functions with Yii should be named
-without `yii-` prefix but should suggest corresponding Yii packages in `composer.json`.
+without `yii-` prefix but should suggest corresponding Yii packages in their `composer.json`.
 
-So: `di`, `log`, `cache`, `db`, `rbac`, and the `core`.
-But: `yii-web`, `yii-console`, `yii-debug` and so on.
+So: `di`, `log`, `cache`, `rbac`, `db`, `db-pgsql` and so on. These packages should be refered as Yii Libraries.
 
-At the moment only the `yiisoft/di` is really actually `yiisoft/core` free.
-Other packages will be made independent of `yiisoft/core` later.
+But: `yii-web`, `yii-console`, `yii-debug` and so on. These packages should be refered as Yii Framework Extensions.
 
-Version number should not be stated in a package name.
+At the moment only the `yiisoft/di` and `yiisoft/rbac` are really actually usable outside of Yii framework.
+Other packages will be made `yiisoft/yii-core` independent eventually.
+
+Version number should not be stated in a package name, title or description.
 Version should only be stated in `composer.json` requirements.
 So no more `yii2` prefix, use `yii-`.
 

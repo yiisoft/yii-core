@@ -14,7 +14,7 @@ Changes summary:
 * PHP requirements were raised to 7.1. Make sure your code is updated accordingly.
 * Yii switches to [semver](https://semver.org/) since 3.0.
 * Framework GitHub repository and Packagist package are renamed and split into parts:
-    * [yiisoft/core] - this package, the framework core.
+    * [yiisoft/yii-core] - this package, the Yii Framework Core.
     * Yii 2.0 development stays at [yiisoft/yii2] repository.
       Bug and security fixes are expected. New features and enhancements are not accepted.
       Pull requests and maintainers are very welcome.
@@ -40,6 +40,7 @@ Changes summary:
     * [yiisoft/yii-maskedinput] - Masked input field widget.
     * [yiisoft/yii-captcha] - CAPTCHA extension.
     * Please check [package naming convention] to get an idea about package names.
+    * Also please see full [list of packages].
 * More PSR compatibility.
 * Framework core requires only virtual PSR implementation packages, you are free
   to choose your logger and cache implementations.
@@ -50,11 +51,11 @@ Changes summary:
 * All the configuration made explicit in `config` folders of all the packages
   and recommended to be used with [composer-config-plugin].
 * [yii\base\Configurable] interface and logic are removed in favour of DI and [yii\di\Initiable] interface.
-* No advanced app anymore. Basic application became [yii-app].
-* Application templating approach has changed allowing application nesting with help of explicit configuration and [composer-config-plugin].
+* No advanced app anymore. Application templating approach has been changed, please see:
+    * [yiisoft/yii-project-template] - project template;
+    * [yiisoft/yii-base-web] - web application base.
 
 [yiisoft/yii2]:                 https://github.com/yiisoft/yii2
-[yiisoft/core]:                 https://github.com/yiisoft/core
 [yiisoft/di]:                   https://github.com/yiisoft/di
 [yiisoft/log]:                  https://github.com/yiisoft/log
 [yiisoft/cache]:                https://github.com/yiisoft/cache
@@ -69,17 +70,20 @@ Changes summary:
 [yiisoft/rbac]:                 https://github.com/yiisoft/rbac
 [yiisoft/data]:                 https://github.com/yiisoft/data
 [yiisoft/view]:                 https://github.com/yiisoft/view
+[yiisoft/yii-core]:             https://github.com/yiisoft/yii-core
 [yiisoft/yii-web]:              https://github.com/yiisoft/yii-web
 [yiisoft/yii-console]:          https://github.com/yiisoft/yii-console
-[yiisoft/yii-app]:              https://github.com/yiisoft/yii-app
 [yiisoft/yii-jquery]:           https://github.com/yiisoft/yii-jquery
 [yiisoft/yii-bootstrap3]:       https://github.com/yiisoft/yii-bootstrap3
 [yiisoft/yii-bootstrap4]:       https://github.com/yiisoft/yii-bootstrap4
 [yiisoft/yii-maskedinput]:      https://github.com/yiisoft/yii-maskedinput
 [yiisoft/yii-captcha]:          https://github.com/yiisoft/yii-captcha
 [yiisoft/yii-rest]:             https://github.com/yiisoft/yii-rest
+[yiisoft/yii-project-template]: https://github.com/yiisoft/yii-project-template
+[yiisoft/yii-base-web]:         https://github.com/yiisoft/yii-base-web
 [recommended entry script]:     https://github.com/yiisoft/yii-app-template/blob/master/public/index.php
-[package naming convention]:    https://github.com/yiisoft/core/blob/master/docs/guide/structure-extensions.md#package-naming
+[package naming convention]:    https://github.com/yiisoft/yii-core/blob/master/docs/guide/structure-extensions.md#package-naming
+[list of packages]:             https://github.com/yiisoft/docs/blob/master/packages.md
 [PSR-3]:                        https://www.php-fig.org/psr/psr-3/
 [PSR-11]:                       https://www.php-fig.org/psr/psr-11/
 [PSR-16]:                       https://www.php-fig.org/psr/psr-16/
