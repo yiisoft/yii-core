@@ -11,8 +11,10 @@ All the "Yes, it is" cool stuff and Yii soul are still in place.
 
 Changes summary:
 
-* PHP requirements were raised to 7.1. Make sure your code is updated accordingly.
+* PHP requirements were raised to 7.1 and HHVM support dropped.
 * Yii switches to [semver](https://semver.org/) since 3.0.
+* Subtree-split is not used anymore.
+* Dropped Yii own class autoloader in favor of the one provided with Composer.
 * Framework GitHub repository and Packagist package are renamed and split into parts:
     * [yiisoft/yii-core] - this package, the Yii Framework Core.
     * Yii 2.0 development stays at [yiisoft/yii2] repository.
@@ -37,17 +39,20 @@ Changes summary:
     * [yiisoft/yii-jquery] - JQuery extension.
     * [yiisoft/yii-bootstrap3] - Bootstrap 3 extension.
     * [yiisoft/yii-bootstrap4] - Bootstrap 4 extension.
-    * [yiisoft/yii-maskedinput] - Masked input field widget.
+    * [yiisoft/yii-masked-input] - Masked input field widget.
     * [yiisoft/yii-captcha] - CAPTCHA extension.
     * Please check [package naming convention] to get an idea about package names.
     * Also please see full [list of packages].
-* More PSR compatibility.
+* More PSR compatibility: [PSR-3], [PSR-11], [PSR-16]
 * Framework core requires only virtual PSR implementation packages, you are free
   to choose your logger and cache implementations.
   More PSR implementations compatibility is expected later.
-* Dropped Yii own class autoloader in favor of the one provided with Composer.
 * Removed `ServiceLocator` from `Application` and `Module`, DI container is used instead.
 * Database abstraction is split in several packages allowing independent use.
+* Removed PJAX support.
+* Cubrid DB is not supported anymore.
+* Profiling and logging got separated.
+* [yiisoft/yii2-composer] plugin is not used anymore.
 * All the configuration made explicit in `config` folders of all the packages
   and recommended to be used with [composer-config-plugin].
 * [yii\base\Configurable] interface and logic are removed in favour of DI and [yii\di\Initiable] interface.
@@ -76,11 +81,12 @@ Changes summary:
 [yiisoft/yii-jquery]:           https://github.com/yiisoft/yii-jquery
 [yiisoft/yii-bootstrap3]:       https://github.com/yiisoft/yii-bootstrap3
 [yiisoft/yii-bootstrap4]:       https://github.com/yiisoft/yii-bootstrap4
-[yiisoft/yii-maskedinput]:      https://github.com/yiisoft/yii-maskedinput
+[yiisoft/yii-masked-input]:     https://github.com/yiisoft/yii-masked-input
 [yiisoft/yii-captcha]:          https://github.com/yiisoft/yii-captcha
 [yiisoft/yii-rest]:             https://github.com/yiisoft/yii-rest
 [yiisoft/yii-project-template]: https://github.com/yiisoft/yii-project-template
 [yiisoft/yii-base-web]:         https://github.com/yiisoft/yii-base-web
+[yiisoft/yii2-composer]:        https://github.com/yiisoft/yii2-composer
 [recommended entry script]:     https://github.com/yiisoft/yii-app-template/blob/master/public/index.php
 [package naming convention]:    https://github.com/yiisoft/yii-core/blob/master/docs/guide/structure-extensions.md#package-naming
 [list of packages]:             https://github.com/yiisoft/docs/blob/master/packages.md
@@ -172,19 +178,19 @@ Upgrade from Yii 2.0.x
   class name specification.
 * XCache and Zend data cache support was removed. Switch to another caching backends.
 * Rename `InvalidParamException` usage to `InvalidArgumentException`.
-* CAPTCHA package has been moved into separate extension https://github.com/yiisoft/yii2-captcha.
+* CAPTCHA package has been moved into separate extension https://github.com/yiisoft/yii-captcha.
   Include it in your composer.json if you use it.
-* JQuery related code (e.g. `yii.js`, `yiiActiveForm.js`, `yiiGridView.js`) has been moved into separate extension https://github.com/yiisoft/yii2-jquery.
+* JQuery related code (e.g. `yii.js`, `yiiActiveForm.js`, `yiiGridView.js`) has been moved into separate extension https://github.com/yiisoft/yii-jquery.
   Include it in your composer.json if you use it.
-* REST API package has been moved into separate extension https://github.com/yiisoft/yii2-rest.
+* REST API package has been moved into separate extension https://github.com/yiisoft/yii-rest.
   Include it in your composer.json if you use it.
-* MSSQL Server DB package has been moved into separate extension https://github.com/yiisoft/yii2-mssql.
+* MSSQL Server DB package has been moved into separate extension https://github.com/yiisoft/yii-mssql.
   Include it in your composer.json if you use it.
-* Oracle DB package has been moved into separate extension https://github.com/yiisoft/yii2-oracle.
+* Oracle DB package has been moved into separate extension https://github.com/yiisoft/yii-oracle.
   Include it in your composer.json if you use it.
 * CUBRID support has been removed, package `yii\db\cubrid\*` is no longer available.
   If you need to use CUBRID further you should create your own integration for it.
-* Masked input field widget was moved into separate extension https://github.com/yiisoft/yii2-maskedinput.
+* Masked input field widget was moved into separate extension https://github.com/yiisoft/yii-masked-input.
   Include it in your composer.json if you use it.
 * PJAX support has been removed: widget `yii\widget\Pjax`, method `yii\web\Request::getIsPjax()`, PJAX related checks and
   headers are no longer available. If you wish to use PJAX further you should create your own integration for it.
