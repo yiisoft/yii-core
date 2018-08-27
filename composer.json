@@ -71,9 +71,6 @@
         "psr/container-implementation": "^1.0",
         "psr/simple-cache-implementation": "^1.0"
     },
-    "replace": {
-        "yiisoft/yii2": "*"
-    },
     "require-dev": {
         "yiisoft/di": "^3.0@dev",
         "yiisoft/log": "^3.0@dev",
@@ -90,6 +87,10 @@
         "yiisoft/log": "Logging implementation",
         "yiisoft/cache": "Caching implementation",
         "ezyang/htmlpurifier": "version '^4.6' required at 'yii\\helpers\\HtmlPurifier' for 'html' data format support (e.g. 'yii\\i18n\\Formatter:asHtml()' and 'yii\\helpers\\StringHelper::truncateHtml()')"
+    },
+    "conflict": {
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-dev": "*"
     },
     "autoload": {
         "psr-4": {
