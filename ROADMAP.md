@@ -5,7 +5,7 @@ These are main plans that are additional to [open issues](https://github.com/yii
 ## Re-structure
 
 - [x] Split framework into pacakges with separate releases.
-- [ ] New application template.
+- [ ] Finish [new application template].
 
 ## Documentation
 
@@ -13,9 +13,16 @@ These are main plans that are additional to [open issues](https://github.com/yii
 - [ ] Separate changes description from upgrading instructions?
 - [ ] Update guide and docs to reflect DI container changes.
 
+## Build & Release
+
+- [ ] Mark conflicting all packages that require it. See [#16](https://github.com/yiisoft/yii-core/pull/16)
+- [ ] Make sure all official extensions have releases for 3.0.0.
+- [ ] Fix tests in [all packages].
+- [ ] Setup general package maintenance (php-cs-fixer, phpstan, ...) with hidev.
+- [ ] Setup automatic builds (travis, scrutinizer, ...) for [all packages].
+
 ## Cleanup
 
-- [ ] Fix tests in [all packages].
 - [ ] See if more PHP 7.1 features could be used and more compatibility hacks removed.
 - [ ] [Cleanup `ErrorHandler`](https://github.com/yiisoft/yii2/issues/14348).
 - [ ] [Split `IdentityInterface`](https://github.com/yiisoft/yii2/issues/13825).
@@ -30,7 +37,6 @@ These are main plans that are additional to [open issues](https://github.com/yii
 
 ## Extensions
 
-- [ ] Make sure all official extensions have releases for 3.0.0.
 - [ ] Remove all widgets that doing things that could be done simpler via plain HTML.
 
 ## Questionable
@@ -50,4 +56,5 @@ These are main plans that are additional to [open issues](https://github.com/yii
 - [ ] Use HTML-5 data attributes to specify validation rules + global validation script that doesn't require additional config.
 - [ ] Implement `change()` for migrations.
 
-[all packages]: https://github.com/yiisoft/docs/blob/master/packages.md
+[all packages]:                 https://github.com/yiisoft/docs/blob/master/packages.md
+[new application template]:     https://github.com/yiisoft/yii-project-template
