@@ -160,7 +160,15 @@ Upgrade from Yii 2.0.x
         * Use `yii\di\Reference` instead
         * Use `yii\di\Factory::ensure()` or `Yii::ensureObject()` instead of `Instance::ensure()`
 * Events were refactored:
-    * event name constants moved to event classes: e.g. `EVENT_BEFORE_ACTION` -> `ActionEvent::BEFORE`
+    * event name constants moved to event classes:
+        * `yii\base\Application::EVENT_BEFORE_ACTION` -> `yii\base\ActionEvent::BEFORE`
+        * `yii\base\Application::EVENT_AFTER_ACTION` -> `yii\base\ActionEvent::AFTER`
+        * `yii\base\Application::EVENT_BEFORE_REQUEST` -> `yii\base\RequestEvent::BEFORE`
+        * `yii\base\Application::EVENT_AFTER_REQUEST` -> `yii\base\RequestEvent::AFTER`
+        * `yii\base\View::EVENT_END_BODY` -> `yii\view\BodyEvent::END`
+        * `yii\base\View::EVENT_BEGIN_BODY` -> `yii\view\BodyEvent::BEGIN`
+        * `yii\base\Response::EVENT_BEFORE_PREPARE` -> `yii\base\PrepareEvent::BEFORE` (to be done)
+        * `yii\base\Response::EVENT_AFTER_PREPARE` -> `yii\base\PrepareEvent::AFTER` (to be done)
 * Added default application configuration and support for config assembling with
   [composer-config-plugin](https://github.com/hiqdev/composer-config-plugin).
 * Tests:
