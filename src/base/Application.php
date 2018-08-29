@@ -15,6 +15,7 @@ use yii\di\Initiable;
 use yii\exceptions\ExitException;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
+use yii\i18n\I18N;
 use yii\web\Session;
 use yii\web\User;
 use yii\profile\ProfilerInterface;
@@ -468,6 +469,15 @@ abstract class Application extends Module implements Initiable
     public function getUser()
     {
         return $this->get('user');
+    }
+
+    /**
+     * @deprecated 3.0 use DI instead.
+     * @return I18N
+     */
+    public function getI18n()
+    {
+        return $this->get('i18n');
     }
 
     /**
