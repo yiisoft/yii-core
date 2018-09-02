@@ -23,6 +23,7 @@ These are main plans that are additional to [open issues](https://github.com/yii
 
 ## Cleanup
 
+- [ ] Remove all `@since` annotations
 - [ ] See if more PHP 7.1 features could be used and more compatibility hacks removed.
 - [ ] [Cleanup `ErrorHandler`](https://github.com/yiisoft/yii2/issues/14348).
 - [ ] [Split `IdentityInterface`](https://github.com/yiisoft/yii2/issues/13825).
