@@ -31,7 +31,6 @@ Changes summary:
     * [yiisoft/db-oracle] - Oracle DB extension.
     * [yiisoft/active-record] - ActiveRecord library.
     * [yiisoft/rbac] - Role-Based Access Control library.
-    * [yiisoft/data] - data display library: data and grid.
     * [yiisoft/view] - view rendering library: view and widgets.
     * [yiisoft/yii-web] - Web extension.
     * [yiisoft/yii-rest] - REST API extension.
@@ -39,6 +38,7 @@ Changes summary:
     * [yiisoft/yii-jquery] - JQuery extension.
     * [yiisoft/yii-bootstrap3] - Bootstrap 3 extension.
     * [yiisoft/yii-bootstrap4] - Bootstrap 4 extension.
+    * [yiisoft/yii-dataview] - data displaying extension.
     * [yiisoft/yii-masked-input] - Masked input field widget.
     * [yiisoft/yii-captcha] - CAPTCHA extension.
     * Please check [package naming convention] to get an idea about package names.
@@ -73,7 +73,6 @@ Changes summary:
 [yiisoft/db-mssql]:             https://github.com/yiisoft/db-mssql
 [yiisoft/db-oracle]:            https://github.com/yiisoft/db-oracle
 [yiisoft/rbac]:                 https://github.com/yiisoft/rbac
-[yiisoft/data]:                 https://github.com/yiisoft/data
 [yiisoft/view]:                 https://github.com/yiisoft/view
 [yiisoft/yii-core]:             https://github.com/yiisoft/yii-core
 [yiisoft/yii-web]:              https://github.com/yiisoft/yii-web
@@ -81,6 +80,7 @@ Changes summary:
 [yiisoft/yii-jquery]:           https://github.com/yiisoft/yii-jquery
 [yiisoft/yii-bootstrap3]:       https://github.com/yiisoft/yii-bootstrap3
 [yiisoft/yii-bootstrap4]:       https://github.com/yiisoft/yii-bootstrap4
+[yiisoft/yii-dataview]:         https://github.com/yiisoft/yii-dataview
 [yiisoft/yii-masked-input]:     https://github.com/yiisoft/yii-masked-input
 [yiisoft/yii-captcha]:          https://github.com/yiisoft/yii-captcha
 [yiisoft/yii-rest]:             https://github.com/yiisoft/yii-rest
@@ -147,13 +147,18 @@ Upgrade from Yii 2.0.x
 * Moved files around for more logic organization and more readable directories:
     * globally:
         * all exceptions moved into separate dirs in all packages
-    * yii-app:
-        * moved web server root dir to `public` (was web)
     * yii-web:
         * moved web formatters to their own directory
     * cache:
         * renamed namespace `yii\caching` -> `yii\cache`
         * moved cache dependencies to own directory
+    * yii-project-template:
+        * moved web server root dir to `public` (was web)
+* Moved data displaying widgets to own package [yiisoft/yii-dataview]:
+    * `yii\grid` -> `yii\dataview`
+    * `yii\grid\*Column` -> `yii\dataview\columns\*`
+    * `yii\widgets\ListView` -> `yii\dataview\ListView`
+    * `yii\widgets\DetailView` -> `yii\dataview\DetailView`
 * DI:
     * Config changed to be DI container config instead of application.
     * Removed `yii\di\Instance` class:
