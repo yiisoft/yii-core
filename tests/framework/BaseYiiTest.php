@@ -169,6 +169,7 @@ class BaseYiiTest extends TestCase
     public function testLog()
     {
         $logger = $this->getMockBuilder(Logger::class)
+            ->setConstructorArgs([[]])
             ->setMethods(['log'])
             ->getMock();
         $this->container->set('logger', $logger);
@@ -211,6 +212,7 @@ class BaseYiiTest extends TestCase
     public function testLoggerWithException()
     {
         $logger = $this->getMockBuilder(Logger::class)
+            ->setConstructorArgs([[]])
             ->setMethods(['log'])
             ->getMock();
         $this->container->set('logger', $logger);

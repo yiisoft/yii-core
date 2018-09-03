@@ -36,6 +36,7 @@ class ApplicationTest extends TestCase
         $this->container->setAll([
             'logger' => [
                 '__class' => \yii\log\Logger::class,
+                '__construct()' => [[]],
             ],
             'withoutBootstrapInterface' => [
                 '__class' => Component::class,
