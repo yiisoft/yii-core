@@ -4,7 +4,7 @@ These are main plans that are additional to [open issues](https://github.com/yii
 
 ## Re-structure
 
-- [x] Split framework into pacakges with separate releases.
+- [x] Split framework into packages with separate releases.
 - [ ] Finish [new application template].
 
 ## Documentation
