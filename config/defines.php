@@ -7,20 +7,11 @@ defined('YII_BEGIN_TIME') or define('YII_BEGIN_TIME', microtime(true));
 
 /**
  * This constant defines the project root directory.
- * TODO: find a solution without file_exists
+ * It defaults in assumption that this package is
+ * installed in `vendor/yiisoft/yii-core`
  */
-if (!defined('YII_ROOT')) {
-    (function () {
-        $dirs = [dirname(__DIR__, 4), dirname(__DIR__, 1)];
-        foreach ($dirs as $dir) {
-            if (file_exists($dir . '/vendor/autoload.php')) {
-                define('YII_ROOT', $dir);
-                return;
-            }
-        }
-        die('Could not find composer autoload! You may need to setup project dependencies or define YII_ROOT constant manually.');
-    })();
-}
+defined('COMPOSER_CONFIG_PLUGIN_BASEDIR') or define('COMPOSER_CONFIG_PLUGIN_BASEDIR', dirname(__DIR__, 4));
+defined('YII_ROOT') or define('YII_ROOT', COMPOSER_CONFIG_PLUGIN_BASEDIR);
 
 /**
  * This constant defines the framework installation directory.
