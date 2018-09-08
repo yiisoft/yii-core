@@ -31,11 +31,18 @@ class ApplicationTest extends TestCase
         $this->assertInstanceOf(NullLogger::class, $this->app->getLogger());
     }
 
+    public function testAliases()
+    {
+        $this->mockApplication();
+        $this->app->setAlias('@test', 'TEST');
+        $this->assertEquals('TEST', $this->app->getAlias('@test'));
+    }
+
     public function testBootstrap()
     {
         $this->container->setAll([
             'logger' => [
-                '__class' => \yii\log\Logger::class,
+                '__class' => Logger::class,
                 '__construct()' => [[]],
             ],
             'withoutBootstrapInterface' => [
