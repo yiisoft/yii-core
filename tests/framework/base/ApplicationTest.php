@@ -34,8 +34,8 @@ class ApplicationTest extends TestCase
     public function testAliases()
     {
         $this->mockApplication();
-        $this->app->setAlias('@test', 'TEST');
-        $this->assertEquals('TEST', $this->app->getAlias('@test'));
+        $this->app->setAlias('@test', __METHOD__);
+        $this->assertEquals(__METHOD__, $this->app->getAlias('@test'));
     }
 
     public function testBootstrap()

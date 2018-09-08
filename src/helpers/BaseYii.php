@@ -265,7 +265,7 @@ class BaseYii
     /**
      * Translates a path alias into an actual path.
      *
-     * Uses @see Application::getAlias() if container is set.
+     * Uses @see yii\base\Aliases::getAlias() if container is set.
      * Else throws exception.
      *
      * @deprecated 3.0.0 Use [[yii\base\Application::getAlias()|Application::getAlias()]] instead
@@ -279,16 +279,16 @@ class BaseYii
      */
     public static function getAlias(string $alias, bool $throwException = true): string
     {
-        if (static::$container !== null) {
-            return static::getApp()->getAlias($alias, $throwException);
+        if (static::$container !== null && static::$container->has('aliases')) {
+            return static::$container->get('aliases')->getAlias($alias, $throwException);
         }
-        throw new InvalidConfigException('Cannot `getAlias` without application');
+        throw new InvalidConfigException("No 'aliases' service can be found");
     }
 
     /**
      * Registers a path alias.
      *
-     * Uses @see Application::setAlias() if container is set.
+     * Uses @see yii\base\Aliases::setAlias() if container is set.
      * Else throws exception.
      *
      * @deprecated 3.0.0 Use [[yii\base\Application::setAlias()|Application::setAlias()]] instead
@@ -303,8 +303,8 @@ class BaseYii
      */
     public static function setAlias(string $alias, string $path)
     {
-        if (static::$container !== null) {
-            return static::getApp()->setAlias($alias, $path);
+        if (static::$container !== null && static::$container->has('aliases')) {
+            return static::$container->get('aliases')->setAlias($alias, $path);
         }
         throw new InvalidConfigException('Cannot `setAlias` without application');
     }

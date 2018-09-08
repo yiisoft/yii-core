@@ -27,20 +27,23 @@ return [
         'id' => $params['app.id'],
         'name' => $params['app.name'],
         'language' => $params['app.language'],
-        'aliases' => array_merge($aliases, [
-            '@root'     => YII_ROOT,
-            '@vendor'   => '@root/vendor',
-            '@public'   => '@root/public',
-            '@runtime'  => '@root/runtime',
-            '@bower'    => '@vendor/bower-asset',
-            '@npm'      => '@vendor/npm-asset',
-        ]),
         'params' => $params,
     ],
 
     Psr\Log\LoggerInterface::class => Reference::to('logger'),
     'logger' => [
     ],
+
+    yii\base\AliasesInterface::class => Reference::to('aliases'),
+    'aliases' => array_merge($aliases, [
+        '__class'   => yii\base\Aliases::class,
+        '@root'     => YII_ROOT,
+        '@vendor'   => '@root/vendor',
+        '@public'   => '@root/public',
+        '@runtime'  => '@root/runtime',
+        '@bower'    => '@vendor/bower-asset',
+        '@npm'      => '@vendor/npm-asset',
+    ]),
 
     yii\base\ErrorHandler::class => Reference::to('errorHandler'),
     'errorHandler' => [
