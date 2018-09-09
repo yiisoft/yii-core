@@ -121,8 +121,10 @@ Upgrade from Yii 2.0.x
     * change `use Yii` to `use yii\helpers\Yii`
     * don't use `Yii::$app` instead use constructor DI to get application object
         * use `Yii::getApp()` if everything else fails
-    * aliases moved to `Application`:
-        * use `$this->app->getAlias()` to resolve aliases
+    * aliases were moved to `Aliases` service:
+        * prefered wat to resolve aliases:
+            * DI injected `aliases` service or
+            * `$this->app->getAlias()`
         * prefered way to set aliases is through configuration
     * added and used `Application::t()`
         * prefer `$this->app->t()` over `Yii::t()`
