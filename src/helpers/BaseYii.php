@@ -66,7 +66,7 @@ class BaseYii
      */
     public static function createObject($config, array $params = [], ContainerInterface $container = null)
     {
-        return static::getFactory($container)->create($config, $params);
+        return static::get('factory', $container)->create($config, $params);
     }
 
     /**
@@ -80,26 +80,7 @@ class BaseYii
      */
     public static function ensureObject($reference, string $type = null, ContainerInterface $container = null)
     {
-        return static::getFactory($container)->ensure($reference, $type);
-    }
-
-    /**
-     * Returns factory.
-     *
-     * @param ContainerInterface $container
-     * @return FactoryInterface
-     * @throws InvalidConfigException if no factory can be found
-     */
-    private static function getFactory(ContainerInterface $container = null): FactoryInterface
-    {
-        if ($container === null) {
-            $container = static::$container;
-        }
-        if ($container === null || !$container->has('factory')) {
-            throw new InvalidConfigException("No 'factory' service can be found");
-        }
-
-        return $container->get('factory');
+        return static::get('factory', $container)->ensure($reference, $type);
     }
 
     /**
@@ -112,11 +93,12 @@ class BaseYii
 
     /**
      * @deprecated 3.0.0 Use DI instead.
+     * @param ContainerInterface $container the container to get the app from.
      * @return Application|null
      */
-    public static function getApp(): ?Application
+    public static function getApp(ContainerInterface $container = null): ?Application
     {
-        return static::$container ? static::$container->get('app') : null;
+        return static::get('app', $container, false);
     }
 
     /**
@@ -138,8 +120,9 @@ class BaseYii
             return;
         }
 
-        if (static::$container !== null && static::$container->has('logger')) {
-            return static::$container->get('logger')->log($level, $message, ['category' => $category]);
+        $logger = static::get('logger', null, false);
+        if ($logger) {
+            return $logger->log($level, $message, ['category' => $category]);
         }
 
         error_log($message);
@@ -204,40 +187,28 @@ class BaseYii
 
     /**
      * Marks the beginning of a code block for profiling.
-     *
-     * Uses `profiler` service if container is available.
-     * Else logs warning message only.
+     * Uses `profiler` service.
      *
      * @param string $token token for the code block
      * @param string $category the category of this log message
      * @see \yii\profile\ProfilerInterface::begin()
      */
-    public static function beginProfile($token, $category = 'application')
+    public static function beginProfile($token, $category = 'application'): void
     {
-        if (static::$container !== null && static::$container->has('profiler')) {
-            static::$container->get('profiler')->begin($token, ['category' => $category]);
-        } else {
-            static::warning("No 'profiler' service can be found");
-        }
+        static::get('profiler')->begin($token, ['category' => $category]);
     }
 
     /**
      * Marks the end of a code block for profiling.
-     *
-     * Uses `profiler` service if container is available.
-     * Else logs warning message only.
+     * Uses `profiler` service.
      *
      * @param string $token token for the code block
      * @param string $category the category of this log message
      * @see \yii\profile\ProfilerInterface::end()
      */
-    public static function endProfile($token, $category = 'application')
+    public static function endProfile($token, $category = 'application'): void
     {
-        if (static::$container !== null && static::$container->has('profiler')) {
-            static::$container->get('profiler')->end($token, ['category' => $category]);
-        } else {
-            static::warning("No 'profiler' service can be found");
-        }
+        static::get('profiler')->end($token, ['category' => $category]);
     }
 
     /**
@@ -279,10 +250,7 @@ class BaseYii
      */
     public static function getAlias(string $alias, bool $throwException = true): string
     {
-        if (static::$container !== null && static::$container->has('aliases')) {
-            return static::$container->get('aliases')->getAlias($alias, $throwException);
-        }
-        throw new InvalidConfigException("No 'aliases' service can be found");
+        return static::get('aliases')->setAlias($alias, $throwException);
     }
 
     /**
@@ -303,9 +271,30 @@ class BaseYii
      */
     public static function setAlias(string $alias, string $path)
     {
-        if (static::$container !== null && static::$container->has('aliases')) {
-            return static::$container->get('aliases')->setAlias($alias, $path);
+        return static::get('aliases')->setAlias($alias, $path);
+    }
+
+    /**
+     * Returns service from container.
+     * @param string $name service name.
+     * @param ContainerInterface $container
+     * @param bool $throwException whether to throw an exception or return null.
+     * @return object service object.
+     */
+    protected static function get(string $name, ContainerInterface $container = null, bool $throwException = true)
+    {
+        if ($container === null) {
+            $container = static::$container;
         }
-        throw new InvalidConfigException('Cannot `setAlias` without application');
+
+        if ($container !== null && $container->has($name)) {
+            return static::$container->get($name);
+        }
+
+        if ($throwException) {
+            throw new InvalidConfigException("No '$name' service can be found");
+        } else {
+            return null;
+        }
     }
 }
