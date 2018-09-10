@@ -248,9 +248,9 @@ class BaseYii
      * @throws InvalidConfigException if application is not available.
      * @see setAlias()
      */
-    public static function getAlias(string $alias, bool $throwException = true): string
+    public static function getAlias(string $alias, bool $throwException = true)
     {
-        return static::get('aliases')->setAlias($alias, $throwException);
+        return static::get('aliases')->getAlias($alias, $throwException);
     }
 
     /**
