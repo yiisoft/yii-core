@@ -276,12 +276,12 @@ class BaseYii
 
     /**
      * Returns service from container.
-     * @param string $name service name.
-     * @param ContainerInterface $container
+     * @param string $name service or class/interface name.
+     * @param ContainerInterface $container DI container, default one will be used if not given.
      * @param bool $throwException whether to throw an exception or return null.
      * @return object service object.
      */
-    protected static function get(string $name, ContainerInterface $container = null, bool $throwException = true)
+    public static function get(string $name, ContainerInterface $container = null, bool $throwException = true)
     {
         if ($container === null) {
             $container = static::$container;

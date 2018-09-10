@@ -119,7 +119,9 @@ Upgrade from Yii 2.0.x
       after construction of your class object
 * `Yii` helper is redone and doesn't provide "global vars" anymore:
     * change `use Yii` to `use yii\helpers\Yii`
-    * don't use `Yii::$app` instead use constructor DI to get application object
+    * `Yii::$app` is not available:
+        * prefer to use constructor DI to get application and services
+        * use `Yii::get('service')` instead of `Yii::$app->getService()`
         * use `Yii::getApp()` if everything else fails
     * aliases were moved to `Aliases` service:
         * prefered wat to resolve aliases:
