@@ -19,7 +19,9 @@ class Aliases implements AliasesInterface
     protected $aliases = [];
 
     /**
-     * {@inheritdoc}
+     * Magic setter to enable simple aliases configuration.
+     * @param string $name
+     * @param string $value
      */
     public function __set($name, $value)
     {
