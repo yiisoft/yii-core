@@ -281,4 +281,16 @@ class I18NTest extends TestCase
         $expected = 'Incorrect password (length must be from {min} to {max} symbols).';
         $this->assertEquals($expected, $this->i18n->format($message, ['attribute' => 'password'], 'en'));
     }
+
+    public function testGetCurrencySymbol()
+    {
+        // TODO: fixme
+//        $this->locale->locale = 'de-DE';
+//        $this->assertSame('€', $this->locale->getCurrencySymbol('EUR'));
+//        $this->assertSame('€', $this->locale->getCurrencySymbol());
+//
+//        $this->locale->locale = 'ru-RU';
+//        $this->assertIsOneOf($this->locale->getCurrencySymbol('RUR'), ['р.', '₽', 'руб.']);
+//        $this->assertIsOneOf($this->locale->getCurrencySymbol(), ['р.', '₽', 'руб.']);
+    }
 }

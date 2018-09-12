@@ -7,6 +7,7 @@
 
 namespace yii\tests\framework\i18n;
 
+use yii\exceptions\InvalidConfigException;
 use yii\i18n\Locale;
 use yii\tests\TestCase;
 
@@ -15,36 +16,17 @@ use yii\tests\TestCase;
  */
 class LocaleTest extends TestCase
 {
-    /**
-     * @var Locale
-     */
-    protected $locale;
-
-    protected function setUp()
+    public function testParse()
     {
-        parent::setUp();
-
-        $this->mockApplication([
-            'timeZone' => 'UTC',
-            'language' => 'ru-RU',
-        ]);
-        $this->locale = new Locale(['locale' => 'en-US']);
+        $locale = new Locale('rU-Ua');
+        static::assertEquals('UA', $locale->getRegion());
+        static::assertEquals('ru', $locale->getLanguage());
+        static::assertEquals('ru-UA', (string)$locale);
     }
 
-    protected function tearDown()
+    public function testInvalidInput()
     {
-        parent::tearDown();
-        $this->locale = null;
-    }
-
-    public function testGetCurrencyCode()
-    {
-        $this->locale->locale = 'de-DE';
-        $this->assertSame('€', $this->locale->getCurrencySymbol('EUR'));
-        $this->assertSame('€', $this->locale->getCurrencySymbol());
-
-        $this->locale->locale = 'ru-RU';
-        $this->assertIsOneOf($this->locale->getCurrencySymbol('RUR'), ['р.', '₽', 'руб.']);
-        $this->assertIsOneOf($this->locale->getCurrencySymbol(), ['р.', '₽', 'руб.']);
+        $this->expectException(InvalidConfigException::class);
+        new Locale('_invalid');
     }
 }

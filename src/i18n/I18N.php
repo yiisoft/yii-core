@@ -7,6 +7,7 @@
 
 namespace yii\i18n;
 
+use NumberFormatter;
 use yii\base\Application;
 use yii\base\Component;
 use yii\exceptions\InvalidConfigException;
@@ -53,9 +54,16 @@ class I18N extends Component
      */
     protected $app;
 
-    public function __construct(Application $app)
+    private $_locale;
+
+    /**
+     * @param Application $app
+     * @param Locale $locale
+     */
+    public function __construct(Application $app, Locale $locale)
     {
         $this->app = $app;
+        $this->_locale = $locale;
     }
 
     /**
@@ -213,5 +221,29 @@ class I18N extends Component
         }
 
         throw new InvalidConfigException("Unable to locate message source for category '$category'.");
+    }
+
+    /**
+     * Returns a currency symbol
+     *
+     * @param string $currencyCode the 3-letter ISO 4217 currency code to get symbol for. If null,
+     * method will attempt using currency code from current locale.
+     * @return string
+     * @throws InvalidConfigException
+     */
+    public function getCurrencySymbol($currencyCode = null)
+    {
+        if (!extension_loaded('intl')) {
+            throw new InvalidConfigException('Locale component requires PHP intl extension to be installed.');
+        }
+
+        $locale = $this->_locale;
+
+        if ($currencyCode !== null) {
+            $locale = $locale->withCurrency($currencyCode);
+        }
+
+        $formatter = new NumberFormatter((string)$locale, NumberFormatter::CURRENCY);
+        return $formatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
     }
 }
