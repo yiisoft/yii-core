@@ -68,10 +68,10 @@ both profiling results may be inaccurate and it's not applicable to production e
 
 ### XHProf
 
-[XHProf](http://www.php.net/manual/en/book.xhprof.php) is an open solution in that is meant to be executed in both development and
+[XHProf](http://www.php.net/manual/en/book.xhprof.php) is an open solution that is meant to be executed in both development and
 production environments. It does not affect performance significantly. Several GUIs exist to analyze its results.
 
 ### Blackfire
 
-[Blackfire](https://blackfire.io/) is a commerial PHP profiler. Same as XHProf it does not affect performance. UI to analyze data is
+[Blackfire](https://blackfire.io/) is a commercial PHP profiler. Same as XHProf it does not affect performance. UI to analyze data is
 provided as SAAS solution.
