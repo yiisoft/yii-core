@@ -674,55 +674,6 @@ And use the new rule class in the [[yii\web\UrlManager::rules]] configuration:
 ```
 
 
-## URL normalization <span id="url-normalization"></span>
-
-Since version 2.0.10 [[yii\web\UrlManager|UrlManager]] can be configured to use [[yii\web\UrlNormalizer|UrlNormalizer]] for dealing
-with variations of the same URL, for example with and without a trailing slash. Because technically `http://example.com/path`
-and `http://example.com/path/` are different URLs, serving the same content for both of them can degrade SEO ranking.
-By default normalizer collapses consecutive slashes, adds or removes trailing slashes depending on whether the
-suffix has a trailing slash or not, and redirects to the normalized version of the URL using [permanent redirection](https://en.wikipedia.org/wiki/HTTP_301).
-The normalizer can be configured globally for the URL manager or individually for each rule - by default each rule will use the normalizer
-from URL manager. You can set [[yii\web\UrlRule::$normalizer|UrlRule::$normalizer]] to `false` to disable normalization
-for particular URL rule.
-
-The following shows an example configuration for the [[yii\web\UrlNormalizer|UrlNormalizer]]:
-
-```php
-'urlManager' => [
-    'enablePrettyUrl' => true,
-    'showScriptName' => false,
-    'enableStrictParsing' => true,
-    'suffix' => '.html',
-    'normalizer' => [
-        '__class' => yii\web\UrlNormalizer::class,
-        // use temporary redirection instead of permanent for debugging
-        'action' => UrlNormalizer::ACTION_REDIRECT_TEMPORARY,
-    ],
-    'rules' => [
-        // ...other rules...
-        [
-            'pattern' => 'posts',
-            'route' => 'post/index',
-            'suffix' => '/',
-            'normalizer' => false, // disable normalizer for this rule
-        ],
-        [
-            'pattern' => 'tags',
-            'route' => 'tag/index',
-            'normalizer' => [
-                // do not collapse consecutive slashes for this rule
-                'collapseSlashes' => false,
-            ],
-        ],
-    ],
-]
-```
-
-> Note: by default [[yii\web\UrlManager::$normalizer|UrlManager::$normalizer]] is disabled. You need to explicitly
-  configure it in order to enable URL normalization.
-
-
-
 ## Performance Considerations <span id="performance-consideration"></span>
 
 When developing a complex Web application, it is important to optimize URL rules so that it takes less time to parse
