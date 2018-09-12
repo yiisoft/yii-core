@@ -50,6 +50,8 @@ class Locale
      */
     public function __construct(string $localeString)
     {
+        // TODO: use locale_parse() if intl is available
+
         if (!preg_match($this->getBCP47Regex(), $localeString, $matches)) {
             throw new InvalidConfigException($localeString . ' is not valid BCP 47 formatted locale string');
         }
@@ -166,6 +168,8 @@ class Locale
 
     public function __toString(): string
     {
+        // TODO: use locale_compose() if intl is available
+
         if ($this->grandfathered !== null) {
             return $this->grandfathered;
         }
