@@ -11,8 +11,11 @@ use yii\exceptions\InvalidConfigException;
 
 /**
  * Locale stores locale information created from BCP 47 formatted string
+ * https://tools.ietf.org/html/bcp47
+ *
+ * @author Alexander Makarov <sam@rmcreative.ru>
  */
-class Locale
+class Locale implements SourceLocaleInterface
 {
     /**
      *
@@ -62,55 +65,54 @@ class Locale
         }
     }
 
-    /**
-     * @return string
-     */
+    /** {@inheritdoc} */
     public function getScript(): string
     {
         return $this->script;
     }
 
-    /**
-     * @return string
-     */
+    /** {@inheritdoc} */
     public function getVariant(): string
     {
         return $this->variant;
     }
 
+    /** {@inheritdoc} */
     public function getLanguage(): string
     {
         return $this->language;
     }
 
-    public function withLanguage($language): self
+    /** {@inheritdoc} */
+    public function withLanguage(string $language): LocaleInterface
     {
         $clone = clone $this;
         $clone->language = $language;
         return $clone;
     }
 
+    /** {@inheritdoc} */
     public function getRegion(): string
     {
        return $this->region;
     }
 
-    public function withRegion($region): self
+    /** {@inheritdoc} */
+    public function withRegion(string $region): LocaleInterface
     {
         $clone = clone $this;
         $clone->region = $region;
         return $clone;
     }
 
-    /**
-     * @return mixed
-     */
+    /** {@inheritdoc} */
     public function getCurrency(): string
     {
         return $this->currency;
     }
 
-    public function withCurrency($currency): self
+    /** {@inheritdoc} */
+    public function withCurrency(string $currency): LocaleInterface
     {
         $clone = clone $this;
         $clone->currency = $currency;
@@ -208,6 +210,7 @@ class Locale
         return $this->getID();
     }
 
+    /** {@inheritdoc} */
     public function getID(): string
     {
         return static::composeLocale(array_filter(get_object_vars($this)));
