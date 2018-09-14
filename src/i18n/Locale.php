@@ -68,8 +68,8 @@ class Locale
             $this->variant = $matches['variant'];
         }
 
-        if (!empty($matches['extendedLaguage'])) {
-            $this->extendedLanguage = $matches['extendedLaguage'];
+        if (!empty($matches['extendedLanguage'])) {
+            $this->extendedLanguage = $matches['extendedLanguage'];
         }
 
         if (!empty($matches['extension'])) {
