@@ -29,4 +29,47 @@ class LocaleTest extends TestCase
         $this->expectException(InvalidConfigException::class);
         new Locale('_invalid');
     }
+
+    public function testParseLocale()
+    {
+        foreach ([false, true] as $forceFallback) {
+            // $this->checkParseLocaleExtendedLanguage($forceFallback);
+            $this->checkParseLocaleVariant($forceFallback);
+            // $this->checkParseLocalePrivate($forceFallback);
+        }
+    }
+
+    public function checkParseLocaleExtendedLanguage(bool $forceFallback)
+    {
+        $locale = 'zh-cmn-Hans-CN';
+        $subtags = Locale::parseLocale($locale, $forceFallback);
+        var_dump($subtags);die;
+        $this->assertSame('zh',         $subtags['language']);
+        $this->assertSame('cmn',        $subtags['extendedLanguage']);
+        $this->assertSame('Hans',       $subtags['script']);
+        $this->assertSame('CN',         $subtags['region']);
+        $this->assertSame($locale, Locale::composeLocale($subtags, $forceFallback));
+    }
+
+    public function checkParseLocaleVariant(bool $forceFallback)
+    {
+        $locale = 'hy-Latn-IT-AREVELA';
+        $subtags = Locale::parseLocale($locale, $forceFallback);
+        $this->assertSame('hy',         $subtags['language']);
+        $this->assertSame('Latn',       $subtags['script']);
+        $this->assertSame('IT',         $subtags['region']);
+        $this->assertSame('AREVELA',    $subtags['variant']);
+        $this->assertSame($locale, Locale::composeLocale($subtags, $forceFallback));
+    }
+
+    public function checkParseLocalePrivate(bool $forceFallback)
+    {
+        $locale = 'az-Arab-AZ-x-phonebk';
+        $subtags = Locale::parseLocale($locale, $forceFallback);
+        $this->assertSame('az',         $subtags['language']);
+        $this->assertSame('Arab',       $subtags['script']);
+        $this->assertSame('AZ',         $subtags['region']);
+        $this->assertSame('x-phonebk',  $subtags['privateUse']);
+        $this->assertSame($locale, Locale::composeLocale($subtags, $forceFallback));
+    }
 }

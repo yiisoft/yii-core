@@ -50,42 +50,15 @@ class Locale
      */
     public function __construct(string $localeString)
     {
-        // TODO: use locale_parse() if intl is available
-
-        if (!preg_match($this->getBCP47Regex(), $localeString, $matches)) {
+        $subtags = static::parseLocale($localeString);
+        if ($subtags === null) {
             throw new InvalidConfigException($localeString . ' is not valid BCP 47 formatted locale string');
         }
 
-        if (!empty($matches['language'])) {
-            $this->language = strtolower($matches['language']);
-        }
-
-        if (!empty($matches['region'])) {
-            $this->region = strtoupper($matches['region']);
-        }
-        
-        if (!empty($matches['variant'])) {
-            $this->variant = $matches['variant'];
-        }
-
-        if (!empty($matches['extendedLanguage'])) {
-            $this->extendedLanguage = $matches['extendedLanguage'];
-        }
-
-        if (!empty($matches['extension'])) {
-            $this->extension = $matches['extension'];
-        }
-
-        if (!empty($matches['script'])) {
-            $this->script = ucfirst($matches['script']);
-        }
-
-        if (!empty($matches['grandfathered'])) {
-            $this->grandfathered = $matches['grandfathered'];
-        }
-
-        if (!empty($matches['privateUse'])) {
-            $this->privateUse = $matches['privateUse'];
+        foreach (array_keys(get_class_vars(get_class())) as $tag) {
+            if (isset($subtags[$tag])) {
+                $this->{$tag} = $subtags[$tag];
+            }
         }
     }
 
@@ -119,7 +92,7 @@ class Locale
 
     public function getRegion(): string
     {
-        return $this->region;
+       return $this->region;
     }
 
     public function withRegion($region): self
@@ -146,10 +119,74 @@ class Locale
     }
 
     /**
+     * Returns a key-value array of locale ID subtag elements.
+     * @param string $localeString BCP 47 formatted locale string
+     * @param bool $forceFallback
+     * @return array|null
+     */
+    public static function parseLocale(string $localeString, bool $forceFallback = false): ?array
+    {
+        if (!$forceFallback && class_exists(\Locale::class, false)) {
+            $res = \Locale::parseLocale($localeString);
+            if (empty($res['language'])) {
+                return null;
+            }
+
+            // TODO get all variants?
+            if (!empty($res['variant0'])) {
+                $res['variant'] = $res['variant0'];
+            }
+            if (!empty($res['private0'])) {
+                $res['privateUse'] = $res['private0'];
+            }
+
+            return $res;
+        }
+
+        if (!preg_match(static::getBCP47Regex(), $localeString, $matches)) {
+            return null;
+        }
+
+        if (!empty($matches['language'])) {
+            $subtags['language'] = strtolower($matches['language']);
+        }
+
+        if (!empty($matches['region'])) {
+            $subtags['region'] = strtoupper($matches['region']);
+        }
+
+        if (!empty($matches['variant'])) {
+            $subtags['variant'] = $matches['variant'];
+        }
+
+        if (!empty($matches['extendedLanguage'])) {
+            $subtags['extendedLanguage'] = $matches['extendedLanguage'];
+        }
+
+        if (!empty($matches['extension'])) {
+            $subtags['extension'] = $matches['extension'];
+        }
+
+        if (!empty($matches['script'])) {
+            $subtags['script'] = ucfirst(strtolower($matches['script']));
+        }
+
+        if (!empty($matches['grandfathered'])) {
+            $subtags['grandfathered'] = $matches['grandfathered'];
+        }
+
+        if (!empty($matches['privateUse'])) {
+            $subtags['privateUse'] = $matches['privateUse'];
+        }
+
+        return $subtags;
+    }
+
+    /**
      * @return string regular expression for parsing BCP 47
      * @see https://tools.ietf.org/html/bcp47
      */
-    private function getBCP47Regex(): string
+    private static function getBCP47Regex(): string
     {
         $regular = '(?:art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang)';
         $irregular = '(?:en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)';
@@ -168,40 +205,52 @@ class Locale
 
     public function __toString(): string
     {
-        // TODO: use locale_compose() if intl is available
+        return $this->getID();
+    }
 
-        if ($this->grandfathered !== null) {
-            return $this->grandfathered;
+    public function getID(): string
+    {
+        return static::composeLocale(array_filter(get_object_vars($this)));
+    }
+
+    public static function composeLocale(array $subtags, bool $forceFallback = false): string
+    {
+        if (!$forceFallback && class_exists(\Locale::class, false)) {
+            return strtr(\Locale::composeLocale($subtags), '_', '-');
+        }
+
+        if (isset($subtags['grandfathered'])) {
+            return $subtags['grandfathered'];
         }
 
         $result = [];
-        if ($this->language !== null) {
-            $result[] = $this->language;
+        if (isset($subtags['language'])) {
+            $result[] = $subtags['language'];
 
-            if ($this->extendedLanguage !== null) {
-                $result[] = $this->extendedLanguage;
+            if (isset($subtags['extendedLanguage'])) {
+                $result[] = $subtags['extendedLanguage'];
             }
 
-            if ($this->script !== null) {
-                $result[] = $this->script;
+            if (isset($subtags['script'])) {
+                $result[] = $subtags['script'];
             }
 
-            if ($this->region !== null) {
-                $result[] = $this->region;
+            if (isset($subtags['region'])) {
+                $result[] = $subtags['region'];
             }
 
-            if ($this->variant !== null) {
-                $result[] = $this->variant;
+            if (isset($subtags['variant'])) {
+                $result[] = $subtags['variant'];
             }
 
-            if ($this->extension !== null) {
-                $result[] = $this->extension;
+            if (isset($subtags['extension'])) {
+                $result[] = $subtags['extension'];
             }
         }
 
-        if ($this->privateUse !== null) {
-           $result[] = $this->privateUse;
-         }
+        if (isset($subtags['privateUse'])) {
+           $result[] = $subtags['privateUse'];
+        }
 
         return implode('-', $result);
     }
