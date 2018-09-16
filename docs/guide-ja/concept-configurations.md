@@ -11,7 +11,7 @@
 
 ```php
 $config = [
-    'class' => 'yii\db\Connection',
+    '__class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -41,7 +41,7 @@ Yii::configure($object, $config);
 
 ```php
 [
-    'class' => 'ClassName',
+    '__class' => 'ClassName',
     'propertyName' => 'propertyValue',
     'on eventName' => $eventHandler,
     'as behaviorName' => $behaviorConfig,
@@ -51,6 +51,8 @@ Yii::configure($object, $config);
 ここで
 
 * `class` 要素は、作成されるオブジェクトの完全修飾クラス名を指定します。
+  クラス名を指定するのに、文字列の代りに [`::class` キーワード](http://php.net/manual/ja/language.oop5.basic.php#language.oop5.basic.class.class)
+  を使うことが出来ます。その方が IDE の補助をより良く受けることが出来ます。
 * `propertyName` 要素は、名前で指定されたプロパティの初期値を指定します。
   キーはプロパティ名で、値はそれに対応する初期値です。
   パブリック・メンバ変数と getter/setter によって定義されている [プロパティ](concept-properties.md) のみを設定することができます。
@@ -65,13 +67,13 @@ Yii::configure($object, $config);
 
 ```php
 [
-    'class' => 'app\components\SearchEngine',
+    '__class' => \app\components\SearchEngine::class,
     'apiKey' => 'xxxxxxxx',
     'on search' => function ($event) {
         Yii::info("Keyword searched: " . $event->keyword);
     },
     'as indexer' => [
-        'class' => 'app\components\IndexerBehavior',
+        '__class' => \app\components\IndexerBehavior::class,
         // ... プロパティ初期値 ...
     ],
 ]
@@ -100,22 +102,13 @@ $config = [
     'extensions' => require __DIR__ . '/../vendor/yiisoft/extensions.php',
     'components' => [
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            '__class' => \yii\caching\FileCache::class,
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-        ],
-        'log' => [
-            'class' => 'yii\log\Dispatcher',
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                ],
-            ],
+            '__class' => \yii\swiftmailer\Mailer::class,
         ],
         'db' => [
-            'class' => 'yii\db\Connection',
+            '__class' => \yii\db\Connection::class,
             'dsn' => 'mysql:host=localhost;dbname=stay2',
             'username' => 'root',
             'password' => '',
@@ -204,22 +197,13 @@ return [
 ```php
 return [
     'cache' => [
-        'class' => 'yii\caching\FileCache',
+        '__class' => \yii\caching\FileCache::class,
     ],
     'mailer' => [
-        'class' => 'yii\swiftmailer\Mailer',
-    ],
-    'log' => [
-        'class' => 'yii\log\Dispatcher',
-        'traceLevel' => YII_DEBUG ? 3 : 0,
-        'targets' => [
-            [
-                'class' => 'yii\log\FileTarget',
-            ],
-        ],
+        '__class' => yii\swiftmailer\Mailer::class,
     ],
     'db' => [
-        'class' => 'yii\db\Connection',
+        '__class' => \yii\db\Connection::class,
         'dsn' => 'mysql:host=localhost;dbname=stay2',
         'username' => 'root',
         'password' => '',
@@ -247,7 +231,7 @@ $config = require 'path/to/web.php';
 [[yii\widgets\LinkPager]] をカスタマイズしたいとき、その目標を達成するには次のコードを使用することができます。
 
 ```php
-\Yii::$container->set('yii\widgets\LinkPager', [
+\Yii::$container->set(\yii\widgets\LinkPager::class, [
     'maxButtonCount' => 5,
 ]);
 ```
@@ -285,7 +269,7 @@ $config = [...];
 if (YII_ENV_DEV) {
     // 'dev' 環境用に構成情報を調整
     $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = 'yii\debug\Module';
+    $config['modules']['debug'] = \yii\debug\Module::class;
 }
 
 return $config;

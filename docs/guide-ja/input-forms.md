@@ -198,39 +198,6 @@ echo $form->field($model, 'category')->checkboxList([
 ]);
 ```
 
-
-Pjax を使う <span id="working-with-pjax"></span>
------------
-
-[[yii\widgets\Pjax|Pjax]] ウィジェットを使うと、ページ全体をリロードせずに、
-ページの一部分だけを更新することが出来ます。
-これを使うと、送信後にフォームだけを更新して、その中身を入れ替えることが出来ます。
-
-[[yii\widgets\Pjax::$formSelector|$formSelector]] を構成すると、どのフォームの送信が pjax を起動するかを指定することが出来ます。
-それが指定されていない場合は、Pjax に囲まれたコンテントの中にあって
-`data-pjax` 属性を持つすべてのフォームが pjax リクエストを起動することになります。
-
-```php
-use yii\widgets\Pjax;
-use yii\widgets\ActiveForm;
-
-Pjax::begin([
-    // Pjax のオプション
-]);
-    $form = ActiveForm::begin([
-        'options' => ['data' => ['pjax' => true]],
-        // ActiveForm の追加のオプション
-    ]);
-
-        // ActiveForm のコンテント
-
-    ActiveForm::end();
-Pjax::end();
-```
-> Tip: [[yii\widgets\Pjax|Pjax]] ウィジェット内部のリンクに注意してください。
-> と言うのは、リンクに対するレスポンスもウィジェット内部でレンダリングされるからです。
-> これを防ぐためには、`data-pjax="0"` という HTML 属性を使用します。
-
 #### 送信ボタンの値とファイルのアップロード
 
 `jQuery.serializeArray()` については、
@@ -239,8 +206,7 @@ Pjax::end();
 を扱うときに問題があることが知られています。
 この問題は解決される見込みがなく、関数自体も HTML5 で導入された `FormData` クラスによって置き換えられるべきものとして、廃止予定となっています。
 
-このことは、すなわち、ajax または [[yii\widgets\Pjax|Pjax]] ウィジェットを使う場合、
-ファイルと送信ボタンの値に対する唯一の公式なサポートは、
+このことは、すなわち、ajax を使う場合、ファイルと送信ボタンの値に対する唯一の公式なサポートは、
 `FormData` クラスに対する [ブラウザのサポート](https://developer.mozilla.org/en-US/docs/Web/API/FormData#Browser_compatibility)
 に依存しているということを意味します。
 

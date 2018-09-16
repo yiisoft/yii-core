@@ -56,7 +56,7 @@ All Rights Reserved.
 * [セッションとクッキー](runtime-sessions-cookies.md)
 * [エラー処理](runtime-handling-errors.md)
 * [ロギング](runtime-logging.md)
-
+* [パフォーマンス・プロファイリング](runtime-profiling.md)
 
 鍵となる概念
 ------------
@@ -128,20 +128,6 @@ All Rights Reserved.
 * [フラグメント・キャッシュ](caching-fragment.md)
 * [ページ・キャッシュ](caching-page.md)
 * [HTTP キャッシュ](caching-http.md)
-
-
-RESTful ウェブ・サービス
-------------------------
-
-* [クイック・スタート](rest-quick-start.md)
-* [リソース](rest-resources.md)
-* [コントローラ](rest-controllers.md)
-* [ルーティング](rest-routing.md)
-* [レスポンス形式の設定](rest-response-formatting.md)
-* [認証](rest-authentication.md)
-* [レート制限](rest-rate-limiting.md)
-* [バージョン管理](rest-versioning.md)
-* [エラー処理](rest-error-handling.md)
 
 
 開発ツール

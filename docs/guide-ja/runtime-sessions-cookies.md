@@ -149,7 +149,7 @@ Yii は、また、さまざまなセッション・ストレージを実装す�
 return [
     'components' => [
         'session' => [
-            'class' => 'yii\web\DbSession',
+            '__class' => \yii\web\DbSession::class,
             // 'db' => 'mydb',  // DB 接続のアプリケーション・コンポーネント ID。デフォルトは 'db'。
             // 'sessionTable' => 'my_session', // セッション・テーブル名。デフォルトは 'session'。
         ],

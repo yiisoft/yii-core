@@ -67,13 +67,20 @@ class ArrayHelper extends BaseArrayHelper
 
 あなたのクラスを `ArrayHelper.php` という名前のファイルに保存します。このファイルはどこに置いても構いません。例えば、`@app/components` に置くことにしましょう。
 
-次に、アプリケーションの [エントリ・スクリプト](structure-entry-scripts.md) で、
-次のコード行を `yii.php` ファイルをインクルードする行の後に追加して、[Yii クラス・オートローダ](concept-autoloading.md) に、
-フレームワークから本来のヘルパ・クラスをロードする代りに、あなたのカスタム・クラスをロードすべきことを教えます。
+次に、アプリケーションの `composer.json` で、そのクラスをクラス・マップに追加して、
+フレームワークから元のヘルパ・クラスをロードする代りに、あなたのカスタム・クラスをロードするようにします。
 
 ```php
-Yii::$classMap['yii\helpers\ArrayHelper'] = '@app/components/ArrayHelper.php';
+"autoload": {
+    "psr-4": {
+        "app\\": ""
+    },
+    "classmap": ["overrides/yii/helpers/Html.php"],
+    "exclude-from-classmap": ["vendor/yiisoft/yii2/helpers/Html.php"]
+},
 ```
+
+このように変更した後で、`composer dump-autoload` によってオートローダを再生成します。
 
 ヘルパ・クラスのカスタマイズは、ヘルパの既存の関数の振る舞いを変更したい場合にだけ役立つものであることに注意してください。
 アプリケーションの中で使用する関数を追加したい場合は、

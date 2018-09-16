@@ -142,7 +142,7 @@ public function actionInfo()
 public function actionInfo()
 {
     return \Yii::createObject([
-        'class' => 'yii\web\Response',
+        '__class' => \yii\web\Response::class,
         'format' => \yii\web\Response::FORMAT_JSON,
         'data' => [
             'message' => 'hello world',

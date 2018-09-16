@@ -11,8 +11,7 @@
 PHP 環境を正しく構成することは非常に重要です。最大のパフォーマンスを得るためには、
 
 - 最新の安定した PHP バージョンを使うこと。使用する PHP のメジャー・リリースを上げると、顕著なパフォーマンスの改善がもたらされることがあります。
-- [Opcache](http://php.net/opcache) (PHP 5.5 以降) または [APC](http://php.net/apc) (PHP 5.4) を使って、
-  バイト・コード・キャッシュを有効にすること。
+- [Opcache](http://php.net/opcache) を使って、バイト・コード・キャッシュを有効にすること。
   バイト・コード・キャッシュによって、リクエストが入ってくるたびに PHP スクリプトを解析してインクルードする時間の浪費を避けることが出来ます。
 - [`realpath()` キャッシュをチューニングする](https://github.com/samdark/realpath_cache_tuner).
 
@@ -59,10 +58,10 @@ return [
     'components' => [
         // ...
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            '__class' => yii\caching\FileCache::class,
         ],
         'db' => [
-            'class' => 'yii\db\Connection',
+            '__class' => yii\db\Connection::class,
             'dsn' => 'mysql:host=localhost;dbname=mydatabase',
             'username' => 'root',
             'password' => '',
@@ -102,7 +101,7 @@ return [
     // ...
     'components' => [
         'session' => [
-            'class' => 'yii\web\DbSession',
+            '__class' => yii\web\DbSession::class,
 
             // デフォルトの 'db' 以外の DB コンポーネントを使用したい場合は
             // 以下を設定する
@@ -210,16 +209,10 @@ composer dumpautoload -o
 新しいタスクがキューに入れられるたびに、タスクを処理するプロセスが起動されたり通知を受けたりして、タスク処理がトリガされます。
 
 
-## パフォーマンス・プロファイリング <span id="performance-profiling"></span>
-
-あなたは、あなたのコードをプロファイルして、パフォーマンスのボトルネックを発見し、それに応じた適切な手段を講じるべきです。
-次のプロファイリング・ツールが役に立つでしょう。
-
-- [Yii のデバッグ・ツールバーとデバッガ](https://github.com/yiisoft/yii2-debug/blob/master/docs/guide-ja/README.md)
-- [Blackfire](https://blackfire.io/)
-- [XHProf](http://www.php.net/manual/ja/book.xhprof.php)
-- [XDebug プロファイラ](http://xdebug.org/docs/profiler)
-
 ## アプリケーションをスケーラブルなものにする覚悟を決める
 
 何をやっても助けにならないときは、あなたのアプリケーションをスケーラブルにすることを試みましょう。良い導入記事が [Configuring a Yii 2 Application for an Autoscaling Stack (Yii 2 アプリケーションを自動スケール環境のために構成する)](https://github.com/samdark/yii2-cookbook/blob/master/book/scaling.md) の中で提供されています。更に詳しく知りたい場合は [Web apps performance and scaling (ウェブ・アプリのパフォーマンスとスケーリング)](http://thehighload.com/) を参照して下さい。
+
+## 更に読むべき文書
+
+- [パフォーマンス・プロファイリング](runtime-profiling.md) のガイド。

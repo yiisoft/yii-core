@@ -27,11 +27,11 @@
 [
     'components' => [
         // クラス名を使って "cache" コンポーネントを登録
-        'cache' => 'yii\caching\ApcCache',
+        'cache' => yii\caching\ApcCache::class,
 
         // 構成情報の配列を使って "db" コンポーネントを登録
         'db' => [
-            'class' => 'yii\db\Connection',
+            '__class' => yii\db\Connection::class,
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',

@@ -153,7 +153,7 @@ yii <module_id>/<command>/<sub_command>
 [
     'modules' => [
         'forum' => [
-            'class' => 'app\modules\forum\Module',
+            '__class' => app\modules\forum\Module::class,
             // ... モジュールのその他の構成情報 ...
         ],
     ],
@@ -262,7 +262,7 @@ class Module extends \yii\base\Module
         $this->modules = [
             'admin' => [
                 // ここはもっと短い名前空間の使用を考慮すべきです
-                'class' => 'app\modules\forum\modules\admin\Module',
+                '__class' => app\modules\forum\modules\admin\Module::class,
             ],
         ];
     }

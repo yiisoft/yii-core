@@ -320,7 +320,7 @@ H5BP プロジェクトが提供する構成例を参考にすることも出来
 // ウェブ・アプリケーション構成ファイル
 return [
     'as hostControl' => [
-        'class' => 'yii\filters\HostControl',
+        '__class' => \yii\filters\HostControl::class,
         'allowedHosts' => [
             'example.com',
             '*.example.com',

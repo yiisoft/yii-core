@@ -126,8 +126,7 @@ Composer によるアセットのインストールを抑止するためには�
 "replace": {
     "bower-asset/jquery": ">=1.11.0",
     "bower-asset/inputmask": ">=3.2.0",
-    "bower-asset/punycode": ">=1.3.0",
-    "bower-asset/yii2-pjax": ">=2.0.0"
+    "bower-asset/punycode": ">=1.3.0"
 },
 ```
 
@@ -173,7 +172,7 @@ http://localhost:8080/
   ```
 
 Yii の最低必要条件を満たすように PHP のインストールを構成しなければなりません。
-最も重要なことは、PHP 5.4 以上でなければならないということです。最新の PHP 7 なら理想的です。
+最も重要なことは、PHP 7.1 以上でなければならないということです。
 また、アプリケーションがデータベースを必要とする場合は、[PDO PHP 拡張](http://www.php.net/manual/ja/pdo.installation.php) および対応するデータベース・ドライバ (MySQL データベースのための `pdo_mysql` など) をインストールしなければなりません。
 
 
@@ -185,9 +184,7 @@ Yii の最低必要条件を満たすように PHP のインストールを構�
 
 上記の説明に従ってインストールされたアプリケーションは、[Apache HTTP サーバ](http://httpd.apache.org/)
 と [Nginx HTTP サーバ](http://nginx.org/) のどちらでも、また、Windows、Mac OS X、Linux のどれでも、
-PHP 5.4 以上を走らせている環境であれば、そのままの状態で動作するはずです。
-Yii 2.0 は、また、facebook の [HHVM](http://hhvm.com/) とも互換性があります。
-ただし HHVM がネイティブの PHP とは異なる振舞いをする特殊なケースもいくつかありますので、HHVM を使うときはいくらか余分に注意を払う必要があります。
+PHP 7.1 以上を走らせている環境であれば、そのままの状態で動作するはずです。
 
 本番用のサーバでは、`http://www.example.com/basic/web/index.php` の代りに `http://www.example.com/index.php` という
 URL でアプリケーションにアクセス出来るようにウェブ・サーバを設定したいでしょう。
@@ -218,14 +215,15 @@ DocumentRoot "path/to/basic/web"
 <Directory "path/to/basic/web">
     # 綺麗な URL をサポートするために mod_rewrite を使う
     RewriteEngine on
+
+    # UrlManager の $showScriptName が false の場合は、スクリプト名で URL にアクセスすることを許さない
+    RewriteRule ^index.php/ - [L,R=404]
+
     # ディレクトリかファイルが存在する場合は、リクエストをそのまま通す
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     # そうでなければ、リクエストを index.php に送付する
     RewriteRule . index.php
-
-    # UrlManager の $showScriptName が false の場合は、スクリプト名で URL にアクセスすることを許さない
-    RewriteRule ^index.php/ - [L,R=404]
 
     # ... 他の設定 ...
 </Directory>

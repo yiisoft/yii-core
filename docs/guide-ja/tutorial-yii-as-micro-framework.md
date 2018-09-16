@@ -20,13 +20,7 @@ cd micro-app
 ```json
 {
     "require": {
-        "yiisoft/yii2": "~2.0.0"
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
+        "yiisoft/yii2": "~3.0.0"
     ]
 }
 ```
@@ -134,7 +128,7 @@ micro-app/
 ```php
 'components' => [
     'db' => [
-        'class' => 'yii\db\Connection',
+        '__class' => yii\db\Connection::class,
         'dsn' => 'sqlite:@micro/database.sqlite',
     ],
 ],
