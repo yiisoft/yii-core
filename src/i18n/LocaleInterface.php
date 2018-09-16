@@ -17,45 +17,129 @@ interface LocaleInterface
     /**
      * @return string
      */
-    public function getId(): string;
+    public function asString(): string;
 
     /**
-     * @return string
+     * @return string|null Two-letter ISO-639-2 language code
+     * @see http://www.loc.gov/standards/iso639-2/
      */
-    public function getLanguage(): string;
+    public function getLanguage(): ?string;
 
     /**
-     * @return string
+     * @param null|string $language Two-letter ISO-639-2 language code
+     * @see http://www.loc.gov/standards/iso639-2/
+     * @return self
      */
-    public function getRegion(): string;
+    public function withLanguage(?string $language): self;
 
     /**
-     * @return string
+     * @return string Two-letter ISO 3166-1 country code
+     * @see https://www.iso.org/iso-3166-country-codes.html
      */
-    public function getScript(): string;
+    public function getRegion(): ?string;
 
     /**
-     * @return string
+     * @param null|string $region Two-letter ISO 3166-1 country code
+     * @see https://www.iso.org/iso-3166-country-codes.html
+     * @return self
      */
-    public function getCurrency(): string;
+    public function withRegion(?string $region): self;
 
     /**
-     * @return string
+     * @return string Four-letter ISO 15924 script code
+     * @see http://www.unicode.org/iso15924/iso15924-codes.html
      */
-    public function getVariant(): string;
+    public function getScript(): ?string;
 
     /**
-     * @return LocaleInterface
+     * @param null|string $script Four-letter ISO 15924 script code
+     * @see http://www.unicode.org/iso15924/iso15924-codes.html
+     * @return self
      */
-    public function withLanguage(string $language): self;
+    public function withScript(?string $script): self;
 
     /**
-     * @return LocaleInterface
+     * @return string ICU currency
      */
-    public function withRegion(string $region): self;
+    public function getCurrency(): ?string;
 
     /**
-     * @return LocaleInterface
+     * @param null|string $currency ICU currency
+     * @return self
      */
-    public function withCurrency(string $currency): self;
+    public function withCurrency(?string $currency): self;
+
+    /**
+     * @return string variant of language conventions to use
+     */
+    public function getVariant(): ?string;
+
+    /**
+     * @param null|string $variant variant of language conventions to use
+     * @return self
+     */
+    public function withVariant(?string $variant): self;
+
+    /**
+     * @return null|string ICU calendar
+     */
+    public function getCalendar(): ?string;
+
+    /**
+     * @param null|string $calendar ICU calendar
+     * @return self
+     */
+    public function withCalendar(?string $calendar): self;
+
+    /**
+     * @return null|string ICU collation
+     */
+    public function getCollation(): ?string;
+
+    /**
+     * @param null|string $collation ICU collation
+     * @return self
+     */
+    public function withCollation(?string $collation): self;
+
+    /**
+     * @return null|string ICU numbers
+     */
+    public function getNumbers(): ?string;
+
+    /**
+     * @param null|string $numbers ICU numbers
+     * @return self
+     */
+    public function withNumbers(?string $numbers): self;
+
+    /**
+     * @return null|string extended language subtags
+     */
+    public function getExtendedLanguage(): ?string;
+
+    /**
+     * @param null|string $extendedLanguage extended language subtags
+     * @return self
+     */
+    public function withExtendedLanguage(?string $extendedLanguage): self;
+
+    /**
+     * @return null|string
+     */
+    public function getPrivate(): ?string;
+
+    /**
+     * @param null|string $private
+     * @return self
+     */
+    public function withPrivate(?string $private): self;
+
+
+    /**
+     * Returns fallback locale
+     *
+     * @return self fallback locale
+     */
+    public function getFallbackLocale(): self;
 }

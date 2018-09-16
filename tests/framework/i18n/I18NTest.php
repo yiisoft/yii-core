@@ -286,11 +286,11 @@ class I18NTest extends TestCase
     {
         // TODO: fixme
 //        $this->locale->locale = 'de-DE';
-//        $this->assertSame('€', $this->locale->getCurrencySymbol('EUR'));
-//        $this->assertSame('€', $this->locale->getCurrencySymbol());
+//        $this->assertSame('€', $this->i18n->getCurrencySymbol('EUR'));
+//        $this->assertSame('€', $this->i18n->getCurrencySymbol());
 //
 //        $this->locale->locale = 'ru-RU';
-//        $this->assertIsOneOf($this->locale->getCurrencySymbol('RUR'), ['р.', '₽', 'руб.']);
-//        $this->assertIsOneOf($this->locale->getCurrencySymbol(), ['р.', '₽', 'руб.']);
+//        $this->assertIsOneOf($this->i18n->getCurrencySymbol('RUR'), ['р.', '₽', 'руб.']);
+//        $this->assertIsOneOf($this->i18n->getCurrencySymbol(), ['р.', '₽', 'руб.']);
     }
 }

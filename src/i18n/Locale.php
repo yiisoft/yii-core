@@ -18,32 +18,67 @@ use yii\exceptions\InvalidConfigException;
 class Locale implements SourceLocaleInterface
 {
     /**
-     *
-     * @var string shortest ISO 639 code
+     * @var string|null Two-letter ISO-639-2 language code
+     * @see http://www.loc.gov/standards/iso639-2/
      */
     private $language;
 
+    /**
+     * @var string|null extended language subtags
+     */
     private $extendedLanguage;
 
+    /**
+     * @var string|null
+     */
     private $extension;
 
     /**
-     * @var string ISO 15924 code
+     * @var string|null Four-letter ISO 15924 script code
+     * @see http://www.unicode.org/iso15924/iso15924-codes.html
      */
     private $script;
 
     /**
-     * @var string ISO 3166-1 code / 3DIGIT              ; UN M.49 code
+     * @var string|null Two-letter ISO 3166-1 country code
+     * @see https://www.iso.org/iso-3166-country-codes.html
      */
     private $region;
 
+    /**
+     * @var string|null variant of language conventions to use
+     */
     private $variant;
 
+    /**
+     * @var string|null ICU currency
+     */
     private $currency;
 
+    /**
+     * @var string|null ICU calendar
+     */
+    private $calendar;
+
+    /**
+     * @var string ICU collation
+     */
+    private $collation;
+
+    /**
+     * @var string|null ICU numbers
+     */
+    private $numbers;
+
+    /**
+     * @var string|null
+     */
     private $grandfathered;
 
-    private $privateUse;
+    /**
+     * @var string|null
+     */
+    private $private;
 
     /**
      * Locale constructor.
@@ -53,66 +88,204 @@ class Locale implements SourceLocaleInterface
      */
     public function __construct(string $localeString)
     {
-        $subtags = static::parseLocale($localeString);
-        if ($subtags === null) {
+        if (!preg_match(static::getBCP47Regex(), $localeString, $matches)) {
             throw new InvalidConfigException($localeString . ' is not valid BCP 47 formatted locale string');
         }
 
-        foreach (array_keys(get_class_vars(get_class())) as $tag) {
-            if (isset($subtags[$tag])) {
-                $this->{$tag} = $subtags[$tag];
+        if (!empty($matches['language'])) {
+            $this->language = strtolower($matches['language']);
+        }
+
+        if (!empty($matches['region'])) {
+            $this->region = strtoupper($matches['region']);
+        }
+
+        if (!empty($matches['variant'])) {
+            $this->variant = $matches['variant'];
+        }
+
+        if (!empty($matches['extendedLanguage'])) {
+            $this->extendedLanguage = $matches['extendedLanguage'];
+        }
+
+        if (!empty($matches['extension'])) {
+            $this->extension = $matches['extension'];
+        }
+
+        if (!empty($matches['script'])) {
+            $this->script = ucfirst(strtolower($matches['script']));
+        }
+
+        if (!empty($matches['grandfathered'])) {
+            $this->grandfathered = $matches['grandfathered'];
+        }
+
+        if (!empty($matches['private'])) {
+            $this->private = $matches['private'];
+        }
+
+        if (!empty($matches['keywords'])) {
+            foreach (explode(';', $matches['keywords']) as $pair) {
+                [$key, $value] = explode('=', $pair);
+
+                if ($key === 'calendar') {
+                    $this->calendar = $value;
+                }
+
+                if ($key === 'collation') {
+                    $this->collation = $value;
+                }
+
+                if ($key === 'currency') {
+                    $this->currency = $value;
+                }
+
+                if ($key === 'numbers') {
+                    $this->numbers = $value;
+                }
             }
         }
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
     public function getScript(): string
     {
         return $this->script;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
+    public function withScript(?string $script): LocaleInterface
+    {
+        $clone = clone $this;
+        $clone->script = $script;
+        return $clone;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
     public function getVariant(): string
     {
         return $this->variant;
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     */
+    public function withVariant(?string $variant): LocaleInterface
+    {
+        $clone = clone $this;
+        $clone->variant = $variant;
+        return $clone;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getLanguage(): string
     {
         return $this->language;
     }
 
-    /** {@inheritdoc} */
-    public function withLanguage(string $language): LocaleInterface
+    /**
+     * {@inheritdoc}
+     */
+    public function withLanguage(?string $language): LocaleInterface
     {
         $clone = clone $this;
         $clone->language = $language;
         return $clone;
     }
 
-    /** {@inheritdoc} */
-    public function getRegion(): string
+    /**
+     * {@inheritdoc}
+     */
+    public function getCalendar(): string
     {
-       return $this->region;
+        return $this->calendar;
     }
 
-    /** {@inheritdoc} */
-    public function withRegion(string $region): LocaleInterface
+    /**
+     * {@inheritdoc}
+     */
+    public function withCalendar(?string $calendar): LocaleInterface
+    {
+        $clone = clone $this;
+        $clone->calendar = $calendar;
+        return $clone;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCollation(): string
+    {
+        return $this->collation;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function withCollation(?string $collation): LocaleInterface
+    {
+        $clone = clone $this;
+        $clone->collation = $collation;
+        return $clone;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNumbers(): string
+    {
+        return $this->numbers;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function withNumbers(?string $numbers): LocaleInterface
+    {
+        $clone = clone $this;
+        $clone->numbers = $numbers;
+        return $clone;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRegion(): string
+    {
+        return $this->region;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function withRegion(?string $region): LocaleInterface
     {
         $clone = clone $this;
         $clone->region = $region;
         return $clone;
     }
 
-    /** {@inheritdoc} */
-    public function getCurrency(): string
+    /**
+     * {@inheritdoc}
+     */
+    public function getCurrency(): ?string
     {
         return $this->currency;
     }
 
-    /** {@inheritdoc} */
-    public function withCurrency(string $currency): LocaleInterface
+    /**
+     * {@inheritdoc}
+     */
+    public function withCurrency(?string $currency): LocaleInterface
     {
         $clone = clone $this;
         $clone->currency = $currency;
@@ -121,67 +294,42 @@ class Locale implements SourceLocaleInterface
     }
 
     /**
-     * Returns a key-value array of locale ID subtag elements.
-     * @param string $localeString BCP 47 formatted locale string
-     * @param bool $forceFallback
-     * @return array|null
+     * {@inheritdoc}
      */
-    public static function parseLocale(string $localeString, bool $forceFallback = false): ?array
+    public function getExtendedLanguage(): string
     {
-        if (!$forceFallback && class_exists(\Locale::class, false)) {
-            $res = \Locale::parseLocale($localeString);
-            if (empty($res['language'])) {
-                return null;
-            }
+        return $this->extendedLanguage;
+    }
 
-            // TODO get all variants?
-            if (!empty($res['variant0'])) {
-                $res['variant'] = $res['variant0'];
-            }
-            if (!empty($res['private0'])) {
-                $res['privateUse'] = $res['private0'];
-            }
+    /**
+     * {@inheritdoc}
+     */
+    public function withExtendedLanguage(?string $extendedLanguage): LocaleInterface
+    {
+        $clone = clone $this;
+        $clone->extendedLanguage = $extendedLanguage;
 
-            return $res;
-        }
+        return $clone;
+    }
 
-        if (!preg_match(static::getBCP47Regex(), $localeString, $matches)) {
-            return null;
-        }
 
-        if (!empty($matches['language'])) {
-            $subtags['language'] = strtolower($matches['language']);
-        }
+    /**
+     * {@inheritdoc}
+     */
+    public function getPrivate(): ?string
+    {
+        return $this->private;
+    }
 
-        if (!empty($matches['region'])) {
-            $subtags['region'] = strtoupper($matches['region']);
-        }
+    /**
+     * {@inheritdoc}
+     */
+    public function withPrivate(?string $private): LocaleInterface
+    {
+        $clone = clone $this;
+        $clone->private = $private;
 
-        if (!empty($matches['variant'])) {
-            $subtags['variant'] = $matches['variant'];
-        }
-
-        if (!empty($matches['extendedLanguage'])) {
-            $subtags['extendedLanguage'] = $matches['extendedLanguage'];
-        }
-
-        if (!empty($matches['extension'])) {
-            $subtags['extension'] = $matches['extension'];
-        }
-
-        if (!empty($matches['script'])) {
-            $subtags['script'] = ucfirst(strtolower($matches['script']));
-        }
-
-        if (!empty($matches['grandfathered'])) {
-            $subtags['grandfathered'] = $matches['grandfathered'];
-        }
-
-        if (!empty($matches['privateUse'])) {
-            $subtags['privateUse'] = $matches['privateUse'];
-        }
-
-        return $subtags;
+        return $clone;
     }
 
     /**
@@ -193,68 +341,102 @@ class Locale implements SourceLocaleInterface
         $regular = '(?:art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang)';
         $irregular = '(?:en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)';
         $grandfathered = '(?<grandfathered>' . $irregular . '|' . $regular . ')';
-        $privateUse = '(?<privateUse>x(?:-[A-Za-z0-9]{1,8})+)';
+        $private = '(?<private>x(?:-[A-Za-z0-9]{1,8})+)';
         $singleton = '[0-9A-WY-Za-wy-z]';
-        $extension = '(?<extension>' . $singleton . '(:?-[A-Za-z0-9]{2,8})+)';
+        $extension = '(?<extension>' . $singleton . '(?:-[A-Za-z0-9]{2,8})+)';
         $variant = '(?<variant>[A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3})';
         $region = '(?<region>[A-Za-z]{2}|[0-9]{3})';
         $script = '(?<script>[A-Za-z]{4})';
-        $extendedLanguage = '(?<extendedLanguage>[A-Za-z]{3}(:?-[A-Za-z]{3}){0,2})';
-        $language = '(?<language>(?:[A-Za-z]{2,3}(?:-' . $extendedLanguage . ')?)|[A-Za-z]{4}|[A-Za-z]{5,8})';
-        $languageTag = '(?:' . $language . '(?:-' . $script . ')?' . '(?:-' . $region . ')?' . '(?:-' . $variant . ')*' . '(?:-' . $extension . ')*' . '(?:-' . $privateUse . ')?' . ')';
-        return '/^(?J:' . $grandfathered . '|' . $languageTag . '|' . $privateUse . ')$/';
+        $extendedLanguage = '(?<extendedLanguage>[A-Za-z]{3}(?:-[A-Za-z]{3}){0,2})';
+        $language = '(?:(?<language>[A-Za-z]{4,8})|(?<language>[A-Za-z]{2,3})(?:-' . $extendedLanguage . ')?)';
+        $icuKeywords = '(?:@(?<keywords>.*?))?';
+        $languageTag = '(?:' . $language . '(?:-' . $script . ')?' . '(?:-' . $region . ')?' . '(?:-' . $variant . ')*' . '(?:-' . $extension . ')*' . '(?:-' . $private . ')?' . ')';
+        return '/^(?J:' . $grandfathered . '|' . $languageTag . '|' . $private . ')' . $icuKeywords . '$/';
     }
 
     public function __toString(): string
     {
-        return $this->getID();
+        return $this->asString();
     }
 
-    /** {@inheritdoc} */
-    public function getID(): string
+    /**
+     * {@inheritdoc}
+     */
+    public function asString(): string
     {
-        return static::composeLocale(array_filter(get_object_vars($this)));
-    }
-
-    public static function composeLocale(array $subtags, bool $forceFallback = false): string
-    {
-        if (!$forceFallback && class_exists(\Locale::class, false)) {
-            return strtr(\Locale::composeLocale($subtags), '_', '-');
-        }
-
-        if (isset($subtags['grandfathered'])) {
-            return $subtags['grandfathered'];
+        if ($this->grandfathered !== null) {
+            return $this->grandfathered;
         }
 
         $result = [];
-        if (isset($subtags['language'])) {
-            $result[] = $subtags['language'];
+        if ($this->language !== null) {
+            $result[] = $this->language;
 
-            if (isset($subtags['extendedLanguage'])) {
-                $result[] = $subtags['extendedLanguage'];
+            if ($this->extendedLanguage !== null) {
+                $result[] = $this->extendedLanguage;
             }
 
-            if (isset($subtags['script'])) {
-                $result[] = $subtags['script'];
+            if ($this->script !== null) {
+                $result[] = $this->script;
             }
 
-            if (isset($subtags['region'])) {
-                $result[] = $subtags['region'];
+            if ($this->region !== null) {
+                $result[] = $this->region;
             }
 
-            if (isset($subtags['variant'])) {
-                $result[] = $subtags['variant'];
+            if ($this->variant !== null) {
+                $result[] = $this->variant;
             }
 
-            if (isset($subtags['extension'])) {
-                $result[] = $subtags['extension'];
+            if ($this->extension !== null) {
+                $result[] = $this->extension;
             }
         }
 
-        if (isset($subtags['privateUse'])) {
-           $result[] = $subtags['privateUse'];
+        if ($this->private !== null) {
+            $result[] = $this->private;
         }
 
-        return implode('-', $result);
+        $keywords = [];
+        if ($this->currency !== null) {
+            $keywords[] = 'currency=' . $this->currency;
+        }
+        if ($this->collation !== null) {
+            $keywords[] = 'collation=' . $this->collation;
+        }
+        if ($this->calendar !== null) {
+            $keywords[] = 'calendar=' . $this->calendar;
+        }
+        if ($this->numbers !== null) {
+            $keywords[] = 'numbers=' . $this->numbers;
+        }
+
+        $string = implode('-', $result);
+
+        if ($keywords !== []) {
+            $string .= '@' . implode(';', $keywords);
+        }
+
+        return $string;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFallbackLocale(): LocaleInterface
+    {
+        if ($this->variant !== null) {
+            return $this->withVariant(null);
+        }
+
+        if ($this->region !== null) {
+            return $this->withRegion(null);
+        }
+
+        if ($this->script !== null) {
+            return $this->withScript(null);
+        }
+
+        return $this;
     }
 }
