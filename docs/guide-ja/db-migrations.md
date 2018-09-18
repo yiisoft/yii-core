@@ -901,7 +901,7 @@ yii migrate --migrationPath=@app/modules/forum/migrations --interactive=0
 return [
     'controllerMap' => [
         'migrate' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            '__class' => yii\console\controllers\MigrateController::class,
             'migrationTable' => 'backend_migration',
         ],
     ],
@@ -923,7 +923,7 @@ return [
 return [
     'controllerMap' => [
         'migrate' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            '__class' => yii\console\controllers\MigrateController::class,
             'migrationPath' => null, // app\migrations が下記にあげられている場合に、名前空間に属さないマイグレーションを無効化する
             'migrationNamespaces' => [
                 'app\migrations', // アプリケーション全体のための共通のマイグレーション
@@ -970,21 +970,21 @@ return [
     'controllerMap' => [
         // アプリケーション全体のための共通のマイグレーション
         'migrate-app' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            '__class' => yii\console\controllers\MigrateController::class,
             'migrationNamespaces' => ['app\migrations'],
             'migrationTable' => 'migration_app',
             'migrationPath' => null,
         ],
         // 特定のモジュールのためのマイグレーション
         'migrate-module' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            '__class' => yii\console\controllers\MigrateController::class,
             'migrationNamespaces' => ['module\migrations'],
             'migrationTable' => 'migration_module',
             'migrationPath' => null,
         ],
         // 特定のエクステンションのためのマイグレーション
         'migrate-rbac' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            '__class' => yii\console\controllers\MigrateController::class,
             'migrationPath' => '@yii/rbac/migrations',
             'migrationTable' => 'migration_rbac',
         ],

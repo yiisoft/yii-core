@@ -525,6 +525,52 @@ URL 規則にこのプロパティが設定されている場合は、それが 
 ]
 ```
 
+## URL の正規化 <span id="url-normalization"></span>
+
+バージョン 2.0.10 以降、[[yii\web\UrlManager|UrlManager]] で [[yii\web\UrlNormalizer|UrlNormalizer]] を使って、
+同一 URL のバリエーション (例えば、末尾のスラッシュの有無) の問題を処理する出来るようになりました。
+技術的には `http://example.com/path` と `http://example.com/path/` は別の URL ですから、これらの両方に同一のコンテントを提供することは SEO ランキングを低下させる可能性があります。
+デフォルトでは、URL ノーマライザは、連続したスラッシュを畳み、サフィックスが末尾のスラッシュを持っているかどうかに従って末尾のスラッシュを追加または削除し、
+正規化された URL に [恒久的な移動](https://en.wikipedia.org/wiki/HTTP_301) を使ってリダイレクトします。
+ノーマライザは、URL マネージャのためにグローバルに構成することも、各規則のために個別に構成することも出来ます。各規則は、デフォルトでは、URL マネージャのノーマライザを使用します。
+バージョン 3.0.0 以降は、ノーマライザは [[yii\web\UrlManager|UrlManager]] においてデフォルトで有効になっています。
+[[yii\web\UrlRule::$normalizer|UrlRule::$normalizer]] を `false` にすれば、特定の URL 規則について正規化を無効にすることが出来ます。
+
+次に、[[yii\web\UrlNormalizer|UrlNormalizer]] の構成例を示します。
+
+```php
+[
+    'components' => [
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => true,
+            'suffix' => '.html',
+            'normalizer' => [
+                '__class' => yii\web\UrlNormalizer::class,
+                'action' => UrlNormalizer::ACTION_REDIRECT_TEMPORARY, // 恒久的移動のかわりに一時的リダイレクションを使う
+            ],
+            'rules' => [
+                // ...
+                [
+                    'pattern' => 'posts',
+                    'route' => 'post/index',
+                    'suffix' => '/',
+                    'normalizer' => false, // この規則では正規化を無効にする
+                ],
+                [
+                    'pattern' => 'tags',
+                    'route' => 'tag/index',
+                    'normalizer' => [
+                        'collapseSlashes' => false, // この規則では連続するスラッシュを畳まない
+                    ],
+                ],
+            ],
+        ],
+    ],
+]
+```
+
 ### HTTP メソッド <span id="http-methods"></span>
 
 RESTful API を実装するときは、使用されている HTTP メソッドに応じて、同一の URL を異なるルートとして解析することが必要になる場合がよくあります。
@@ -621,60 +667,11 @@ class CarUrlRule extends BaseObject implements UrlRuleInterface
 'rules' => [
     // ... 他の規則 ...
     [
-        'class' => 'app\components\CarUrlRule', 
+        '__class' => \app\components\CarUrlRule::class,
         // ... 他のプロパティを構成する ...
     ],
 ]
 ```
-
-
-## URL の正規化 <span id="url-normalization"></span>
-
-バージョン 2.0.10 以降、[[yii\web\UrlManager|UrlManager]] で [[yii\web\UrlNormalizer|UrlNormalizer]] を使って、
-同一 URL のバリエーション (例えば、末尾のスラッシュの有無) の問題を処理する出来るようになりました。
-技術的には `http://example.com/path` と `http://example.com/path/` は別の URL ですから、これらの両方に同一のコンテントを提供することは SEO ランキングを低下させる可能性があります。
-デフォルトでは、URL ノーマライザは、連続したスラッシュを畳み、サフィックスが末尾のスラッシュを持っているかどうかに従って末尾のスラッシュを追加または削除し、
-正規化された URL に [恒久的な移動](https://en.wikipedia.org/wiki/HTTP_301) を使ってリダイレクトします。
-ノーマライザは、URL マネージャのためにグローバルに構成することも、各規則のために個別に構成することも出来ます。
-各規則は、デフォルトでは、URL マネージャのノーマライザを使用します。
-[[yii\web\UrlRule::$normalizer|UrlRule::$normalizer]] を `false` にすれば、特定の URL 規則について正規化を無効にすることが出来ます。
-
-次に、[[yii\web\UrlNormalizer|UrlNormalizer]] の構成例を示します。
-
-```php
-'urlManager' => [
-    'enablePrettyUrl' => true,
-    'showScriptName' => false,
-    'enableStrictParsing' => true,
-    'suffix' => '.html',
-    'normalizer' => [
-        'class' => 'yii\web\UrlNormalizer',
-        // デバッグのために、恒久的移動のかわりに一時的リダイレクションを使う
-        'action' => UrlNormalizer::ACTION_REDIRECT_TEMPORARY,
-    ],
-    'rules' => [
-        // ... 他の規則 ...
-        [
-            'pattern' => 'posts',
-            'route' => 'post/index',
-            'suffix' => '/',
-            'normalizer' => false, // この規則では正規化を無効にする
-        ],
-        [
-            'pattern' => 'tags',
-            'route' => 'tag/index',
-            'normalizer' => [
-                // この規則では連続するスラッシュを畳まない
-                'collapseSlashes' => false,
-            ],
-        ],
-    ],
-]
-```
-
-> Note: デフォルトでは [[yii\web\UrlManager::$normalizer|UrlManager::$normalizer]] は無効になっています。
-  URL の正規化を有効にするためには、明示的に構成する必要があります。
-
 
 
 ## パフォーマンスに対する考慮 <span id="performance-consideration"></span>

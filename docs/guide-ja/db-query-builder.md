@@ -937,11 +937,11 @@ class AllGreaterConditionBuilder implements \yii\db\ExpressionBuilderInterface
 
 ```php
 'db' => [
-    'class' => 'yii\db\mysql\Connection',
+    '__class' => yii\db\mysql\Connection::class,
     // ...
     'queryBuilder' => [
         'expressionBuilders' => [
-            'app\db\conditions\AllGreaterCondition' => 'app\db\conditions\AllGreaterConditionBuilder',
+            app\db\conditions\AllGreaterCondition::class => app\db\conditions\AllGreaterConditionBuilder::class,
         ],
     ],
 ],
@@ -958,14 +958,14 @@ $query->andWhere(new AllGreaterCondition(['posts', 'comments', 'reactions', 'sub
 
 ```php
 'db' => [
-    'class' => 'yii\db\mysql\Connection',
+    '__class' => yii\db\mysql\Connection::class,
     // ...
     'queryBuilder' => [
         'expressionBuilders' => [
-            'app\db\conditions\AllGreaterCondition' => 'app\db\conditions\AllGreaterConditionBuilder',
+            app\db\conditions\AllGreaterCondition::class => app\db\conditions\AllGreaterConditionBuilder::class,
         ],
         'conditionClasses' => [
-            'ALL>' => 'app\db\conditions\AllGreaterCondition',
+            'ALL>' => app\db\conditions\AllGreaterCondition::class,
         ],
     ],
 ],

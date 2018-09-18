@@ -1,94 +1,75 @@
 クラスのオートローディング
 ==========================
 
-Yiiは、必要となるすべてのクラス・ファイルを特定してインクルードするにあたり、
-[クラスのオートローディング・メカニズム](http://www.php.net/manual/ja/language.oop5.autoload.php) を頼りにします。
-Yii は、[PSR-4 標準](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) に準拠した、高性能なクラスのオートローダを提供しています。
-このオートローダは、あなたが `Yii.php` ファイルをインクルードするときにインストールされます。
+Yiiは、必要となるすべてのクラス・ファイルを特定してインクルードするために、
+[クラスのオートローディング・メカニズム](http://www.php.net/manual/ja/language.oop5.autoload.php) を使用します。
+オートローダ自体も、[PSR-4 標準](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) に準拠したものが Composer によって生成されます。
 
 > Note: 説明を簡単にするため、このセクションではクラスのオートローディングについてのみ話します。しかし、
   ここに記述されている内容は、インタフェイスとトレイトのオートローディングにも同様に適用されることに注意してください。
 
 
-Yii オートローダを使用する <span id="using-yii-autoloader"></span>
---------------------------
+## オートローダを構成する <span id="configuring-autoloader"></span>
 
-Yii のクラス・オートローダを使用するには、クラスを作成して名前を付けるとき、次の二つの単純なルールに従わなければなりません:
+Yii は Composer が生成するオートローダを使用します。それを構成するためには `composer.json` を使わなければなりません。
 
-* 各クラスは [名前空間](http://php.net/manual/ja/language.namespaces.php) の下になければなりません (例 `foo\bar\MyClass`)
-* 各クラスは次のアルゴリズムで決定される個別のファイルに保存されなければなりません:
 
-```php
-// $className は先頭にバック・スラッシュを持たない完全修飾クラス名
-$classFile = Yii::getAlias('@' . str_replace('\\', '/', $className) . '.php');
+```json
+{
+    "name": "myorg/myapp",
+    "autoload": {
+        "psr-4": {
+          "app\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "tests\\": "tests"
+        }
+    }
+}
 ```
 
-たとえば、クラス名と名前空間が `foo\bar\MyClass` であれば、対応するクラス・ファイルのパスの [エイリアス](concept-aliases.md) は、
-`@foo/bar/MyClass.php` になります。このエイリアスがファイル・パスとして解決できるようにするためには、`@foo` または `@foo/bar`
-のどちらかが、 [ルート・エイリアス](concept-aliases.md#defining-aliases) でなければなりません。
+テスト固有の要求は、実運用環境のオートローダを汚染しないように `autoload-dev` に置いていることに注意して下さい。
+実運用環境では Composer を `--no-dev` フラグで使います。
 
-[ベーシック・プロジェクト・テンプレート](start-installation.md) を使用している場合、最上位の名前空間 `app` の下にクラスを置くことができ、
-そうすると、新しいエイリアスを定義しなくても、Yii によってそれらをオートロードできるようになります。これは `@app`
-が [事前定義されたエイリアス](concept-aliases.md#predefined-aliases) であるためで、`app\components\MyClass` のようなクラス名を
-今説明したアルゴリズムに従って、クラス・ファイル `AppBasePath/components/MyClass.php` であると解決することが出来ます。
+詳細は [Composer のドキュメント](https://getcomposer.org/doc/01-basic-usage.md#autoloading) を参照して下さい。
 
-[アドバンスト・プロジェクト・テンプレート](https://github.com/yiisoft/yii2-app-advanced/blob/master/docs/guide-ja/README.md) では、各層がそれ自身のルート・エイリアスを持っています。たとえば、
-フロントエンド層はルート・エイリアス `@frontend` を持ち、バックエンド層のルート・エイリアスは `@backend` です。その結果、名前空間 `frontend` の下に
-フロントエンド・クラスを置き、バックエンド・クラスを `backend` の下に置けます。これで、これらのクラスは Yii のオートローダによって
-オートロードできるようになります。
+構成が済んだら、`composer dump-autoload` を実行して、オートローダを生成します。
+これは構成を変更するたびに実行しなければならないことに注意して下さい。
 
-独自の名前空間をオートローダに追加するためには、[[Yii::setAlias()]] を使って、その名前空間のベース・ディレクトリに対するエイリアスを定義する必要があります。
-例えば、`path/to/foo` ディレクトリに配置されている `foo` 名前空間に属するクラスをロードするためには、`Yii::setAlias('@foo', 'path/to/foo') を呼び出します。 
-
-クラス・マップ <span id="class-map"></span>
---------------
-
-Yii のクラス・オートローダは、 *クラス・マップ* 機能をサポートしており、クラス名を対応するクラス・ファイルのパスにマップできます。
-オートローダがクラスをロードするときは、クラスがマップに見つかるかどうかを最初にチェックします。もしあれば、対応する
-ファイル・パスは、それ以上チェックされることなく、直接インクルードされます。これでクラスのオートローディングを非常に高速化できます。
-実際のところ、すべての Yii のコア・クラスは、この方法でオートロードされています。
-
-次の方法で、 `Yii::$classMap` に格納されるクラス・マップにクラスを追加できます:
+アプリケーションにオートローダの存在を知らせるために、エントリ・スクリプトで `vendor/autoload.php` を `require` します。
+ウェブ・アプリケーションでは通常は `index.php`、コンソール・アプリケーションでは `yii` です。
 
 ```php
-Yii::$classMap['foo\bar\MyClass'] = 'path/to/MyClass.php';
+<?php
+
+// 実運用環境に配備するときは次の2行をコメント・アウトする
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'dev');
+
+require(__DIR__ . '/../vendor/autoload.php');
+
+$config = require(__DIR__ . '/../config/web.php');
+
+(new yii\web\Application($config))->run();
+
 ```
 
-クラス・ファイルのパスを指定するのに、 [エイリアス](concept-aliases.md) を使うことができます。クラスが使用される前にマップが準備できるように、
-クラス・マップの設定は [ブートストラップ](runtime-bootstrapping.md) プロセス内でする必要があります。
+## オートローダを使用する <span id="using-autoloader"></span>
 
+クラス・オートローダを使用するためには、クラスの作成と命名について、二つの単純な規則に従わなければなりません。
 
-他のオートローダの使用 <span id="using-other-autoloaders"></span>
------------------------
+* 全てのクラスは [namespace](http://php.net/manual/ja/language.namespaces.php) (e.g. `foo\bar\MyClass`) に属さなければならない
+* 全てのクラスは、名前空間と合致するディレクトリの下に、クラス名の後に `.php` を付けた名前の
+独立したファイルに保存されなければならない。
+  
+> Note: 実際には、名前空間に合致しないディレクトリにクラスを保管する必要がある場合に、第2の規則を破ることは可能です。
+> [Composer のドキュメント](https://getcomposer.org/doc/01-basic-usage.md#autoloading) を参照して下さい。
 
-Yii はパッケージ依存関係マネージャとして Composer を包含しているので、Composer のオートローダもインストールすることをお勧めします。
-あなたが独自のオートローダを持つサードパーティ・ライブラリを使用している場合は、
-それらもインストールする必要があります。
+例えば、クラス名と名前空間が `foo\bar\MyClass` である場合、ファイルは `bar/MyClass.php` で、
+`foo` は `composer.json` のオートローダの定義に従ってマップされます。
 
-Yii オートローダを他のオートローダと一緒に使うときは、他のすべてのオートローダがインストールされた *後で* 、 `Yii.php`
-ファイルをインクルードする必要があります。これで Yii のオートローダが、任意クラスのオートローディング要求に応答する最初のものになります。
-たとえば、次のコードは [ベーシック・プロジェクト・テンプレート](start-installation.md) の
-[エントリ・スクリプト](structure-entry-scripts.md) から抜き出したものです。
-最初の行は、Composer のオートローダをインストールしており、二行目は Yii のオートローダをインストールしています。
-
-```php
-require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
-```
-
-あなたは Yii のオートローダを使わず、Composer のオートローダだけを単独で使用することもできます。しかし、そうすることによって、
-あなたのクラスのオートローディングのパフォーマンスは低下し、クラスをオートロード可能にするために
-Composer が設定したルールに従わなければならなくなります。
-
-> Info: Yiiのオートローダを使用したくない場合は、`Yii.php` ファイルのあなた独自のバージョンを作成し、
-  それを [エントリ・スクリプト](structure-entry-scripts.md) でインクルードする必要があります。
-
-
-エクステンション・クラスのオートロード <span id="autoloading-extension-classes"></span>
---------------------------------------
-
-Yii のオートローダは、 [エクステンション](structure-extensions.md) クラスのオートロードが可能です。唯一の要件は、
-エクステンションがその `composer.json` ファイルに正しく `autoload` セクションを指定していることです。
-`autoload` の指定方法の詳細については [Composer のドキュメント](https://getcomposer.org/doc/04-schema.md#autoload) 参照してください。
-
-Yii のオートローダを使用しない場合でも、まだ Composer のオートローダがエクステンション・クラスをオートロードすることが可能です。
+[プロジェクト・テンプレート](start-installation.md) を使おうとする場合は、あなたのクラス群を事前定義されたトップ・レベルの名前空間である
+`app` の下に置くことが出来ます。
+`app\components\MyClass` というクラス名は `AppBasePath/components/MyClass.php` というクラス・ファイルとして解決できます。

@@ -181,7 +181,7 @@ $container->set('yii\db\Connection', [
 // クラスの構成情報をともなうエイリアス名の登録
 // この場合、クラスを指定する "class" 要素が必要です
 $container->set('db', [
-    'class' => 'yii\db\Connection',
+    '__class' => \yii\db\Connection::class,
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -293,7 +293,7 @@ $container->set('yii\db\Connection', [
     'dsn' => '...',
 ]);
 $container->set('app\models\UserFinderInterface', [
-    'class' => 'app\models\UserFinder',
+    '__class' => \app\models\UserFinder::class,
 ]);
 $container->set('userLister', 'app\models\UserLister');
 
@@ -416,9 +416,9 @@ API アプリケーションを開発していて、以下のクラスを持っ�
 
 ```php
 $container->setDefinitions([
-    'yii\web\Request' => 'app\components\Request',
+    'yii\web\Request' => \app\components\Request::class,
     'yii\web\Response' => [
-        'class' => 'app\components\Response',
+        '__class' => \app\components\Response::class,
         'format' => 'json'
     ],
     'app\storage\DocumentsReader' => function ($container, $params, $config) {
@@ -452,15 +452,15 @@ $reader = $container->get('app\storage\DocumentsReader);
 ```php
 $container->setDefinitions([
     'tempFileStorage' => [ // 便利なようにエイリアスを作りました
-        ['class' => 'app\storage\FileStorage'],
+        ['__class' => \app\storage\FileStorage::class],
         ['/var/tempfiles'] // 何らかの構成ファイルから抽出することも可能
     ],
     'app\storage\DocumentsReader' => [
-        ['class' => 'app\storage\DocumentsReader'],
+        ['__class' => \app\storage\DocumentsReader::class],
         [Instance::of('tempFileStorage')]
     ],
     'app\storage\DocumentsWriter' => [
-        ['class' => 'app\storage\DocumentsWriter'],
+        ['__class' => \app\storage\DocumentsWriter::class],
         [Instance::of('tempFileStorage')]
     ]
 ]);
@@ -488,18 +488,18 @@ $reader = $container->get('app\storage\DocumentsReader);
 ```php
 $container->setSingletons([
     'tempFileStorage' => [
-        ['class' => 'app\storage\FileStorage'],
+        ['__class' => \app\storage\FileStorage::class],
         ['/var/tempfiles']
     ],
 ]);
 
 $container->setDefinitions([
     'app\storage\DocumentsReader' => [
-        ['class' => 'app\storage\DocumentsReader'],
+        ['__class' => \app\storage\DocumentsReader::class],
         [Instance::of('tempFileStorage')]
     ],
     'app\storage\DocumentsWriter' => [
-        ['class' => 'app\storage\DocumentsWriter'],
+        ['__class' => \app\storage\DocumentsWriter::class],
         [Instance::of('tempFileStorage')]
     ]
 ]);

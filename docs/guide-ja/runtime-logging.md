@@ -18,7 +18,7 @@ Yii のロギング・フレームワークを使うためには、下記のス�
 
 ログ・メッセージを記録することは、次のログ記録メソッドのどれかを呼び出すだけの簡単なことです。
 
-* [[Yii::debug()]]: コードの断片がどのように走ったかをトレースするメッセージを記録します。主として開発のために使用します。
+* [[Yii::debug()]]: コードの断片がどのように走ったかをデバッグするメッセージを記録します。主として開発のために使用します。
 * [[Yii::info()]]: 何らかの有用な情報を伝えるメッセージを記録します。
 * [[Yii::warning()]]: 何か予期しないことが発生したことを示す警告メッセージを記録します。
 * [[Yii::error()]]: 出来るだけ早急に調査すべき致命的なエラーを記録します。
@@ -26,7 +26,7 @@ Yii のロギング・フレームワークを使うためには、下記のス�
 これらのログ記録メソッドは、ログ・メッセージをさまざまな *重大性レベル* と *カテゴリ* で記録するものです。
 これらのメソッドは `function ($message, $category = 'application')` という関数シグニチャを共有しており、
 `$message` は記録されるログ・メッセージを示し、`$category` はログ・メッセージのカテゴリを示します。
-次のコード・サンプルは、トレース・メッセージをデフォルトのカテゴリである `application` の下に記録するものです。
+次のコード・サンプルは、デバッグ・メッセージをデフォルトのカテゴリである `application` の下に記録するものです。
 
 ```php
 Yii::debug('平均収益の計算を開始');
@@ -50,10 +50,8 @@ Yii::debug('平均収益の計算を開始', __METHOD__);
 例えば、上記のコードが `app\controllers\RevenueController::calculate` というメソッドの中で呼ばれている場合は、
 `__METHOD__` は `'app\controllers\RevenueController::calculate'` という文字列と同じになります。
 
-> Info: 上記で説明したメソッドは、実際には、[[yii\log\Logger|ロガー・オブジェクト]] の [[yii\log\Logger::log()|log()]] メソッドへのショートカットです。
-[[yii\log\Logger|ロガー・オブジェクト]] は `Yii::getLogger()` という式でアクセス可能なシングルトンです。
-ロガー・オブジェクトは、十分な量のメッセージが記録されたとき、または、アプリケーションが終了するときに、
-[[yii\log\Dispatcher|メッセージ・ディスパッチャ]] を呼んで、登録された [ログ・ターゲット](#log-targets) に記録されたログ・メッセージを送信します。
+> Info: 上記で説明したメソッドは、実際には、[[yii\log\Logger|ロガー・オブジェクト]] の [[yii\log\Logger::log()|log()]] メソッドへのショートカットです。[[yii\log\Logger|ロガー・オブジェクト]] は `Yii::getLogger()` という式でアクセス可能なシングルトンです。
+ロガー・オブジェクトは、十分な量のメッセージが記録されたとき、または、アプリケーションが終了するときに、登録された [ログ・ターゲット](#log-targets) に記録されたログ・メッセージを送信します。
 
 
 ## ログ・ターゲット <span id="log-targets"></span>
@@ -64,30 +62,24 @@ Yii::debug('平均収益の計算を開始', __METHOD__);
 [[yii\log\EmailTarget|メール・ターゲット]] は、ログ・メッセージを指定されたメール・アドレスにエクスポートします。
 
 一つのアプリケーションの中で複数のログ・ターゲットを登録することが出来ます。
-そのためには、次のように、アプリケーションの構成情報の中で、`log` [アプリケーション・コンポーネント](structure-application-components.md) によってログ・ターゲットを構成します。
+そのためには、次のように、アプリケーションの構成情報の中で、[[yii\base\Application::$logger|logger アプリケーション・プロパティ]] によってログ・ターゲットを構成します。
 
 ```php
 return [
-    // "log" コンポーネントはブートストラップ時にロードされなければならない
-    'bootstrap' => ['log'],
-    // "log" コンポーネントはタイムスタンプを持つメッセージを処理するので、正しいタイムスタンプを出力するように PHP タイムゾーンを設定
-    'timeZone' => 'America/Los_Angeles',
-    'components' => [
-        'log' => [
-            'targets' => [
-                [
-                    'class' => 'yii\log\DbTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-                [
-                    'class' => 'yii\log\EmailTarget',
-                    'levels' => ['error'],
-                    'categories' => ['yii\db\*'],
-                    'message' => [
-                       'from' => ['log@example.com'],
-                       'to' => ['admin@example.com', 'developer@example.com'],
-                       'subject' => 'example.com で、データベースエラー発生',
-                    ],
+    'logger' => [
+        'targets' => [
+            [
+                '__class' => \yii\log\DbTarget::class,
+                'levels' => ['error', 'warning'],
+            ],
+            [
+                '__class' => \yii\log\EmailTarget::class,
+                'levels' => ['error'],
+                'categories' => ['yii\db\*'],
+                'message' => [
+                    'from' => ['log@example.com'],
+                    'to' => ['admin@example.com', 'developer@example.com'],
+                    'subject' => 'example.com で、データベースエラー発生',
                 ],
             ],
         ],
@@ -95,10 +87,7 @@ return [
 ];
 ```
 
-> Note: `log` コンポーネントは、ログ・メッセージをターゲットに即座に送付することが出来るように、[ブートストラップ](runtime-bootstrapping.md) 時にロードされなければなりません。
-上記の例で `bootstrap` の配列に `log` がリストアップされているのは、そのためです。
-
-上記のコードでは、二つのログ・ターゲットが [[yii\log\Dispatcher::targets]] プロパティに登録されています。
+上記のコードでは、二つのログ・ターゲットが登録されています。
 
 * 最初のターゲットは、エラーと警告のメッセージを選択して、データベース・テーブルに保存します。
 * 第二のターゲットは、名前が `yii\db\` で始まるカテゴリのエラー・メッセージを選んで、`admin@example.com` と `developer@example.com`
@@ -125,12 +114,10 @@ Yii は下記のログ・ターゲットをあらかじめ内蔵しています�
 * `error`: [[Yii::error()]] によって記録されたメッセージに対応。
 * `warning`: [[Yii::warning()]] によって記録されたメッセージに対応。
 * `info`: [[Yii::info()]] によって記録されたメッセージに対応。
-* `trace`: [[Yii::debug()]] によって記録されたメッセージに対応。
-* `profile`: [[Yii::beginProfile()]] と [[Yii::endProfile()]] によって記録されたメッセージに対応。
-  これについては、[プロファイリング](#performance-profiling) の項で詳細に説明します。
+* `debug`: [[Yii::debug()]] によって記録されたメッセージに対応。
 
 [[yii\log\Target::levels|levels]] プロパティを指定しない場合は、
-ターゲットが *全ての* 重大性レベルのメッセージを処理することを意味します。
+ターゲットが *全ての* 重要性レベルのメッセージを処理することを意味します。
 
 [[yii\log\Target::categories|categories]] プロパティは、メッセージ・カテゴリの名前またはパターンからなる配列を値として取ります。
 ターゲットは、カテゴリの名前がこの配列にあるか、または配列にあるパターンに合致する場合にだけ、メッセージを処理します。
@@ -151,7 +138,7 @@ Yii は下記のログ・ターゲットをあらかじめ内蔵しています�
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    '__class' => \yii\log\FileTarget::class,
     'levels' => ['error', 'warning'],
     'categories' => [
         'yii\db\*',
@@ -175,7 +162,7 @@ Yii は下記のログ・ターゲットをあらかじめ内蔵しています�
 `runtime/log/app.log` ファイルに、下記と同様なログ・メッセージが書き込まれます。
 
 ```
-2014-10-04 18:10:15 [::1][][-][trace][yii\base\Module::getModule] Loading module: debug
+2014-10-04 18:10:15 [::1][][-][debug][yii\base\Module::getModule] Loading module: debug
 ```
 
 デフォルトでは、ログ・メッセージは [[yii\log\Target::formatMessage()]] によって、下記のように書式設定されます。
@@ -190,7 +177,7 @@ Yii は下記のログ・ターゲットをあらかじめ内蔵しています�
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    '__class' => \yii\log\FileTarget::class,
     'prefix' => function ($message) {
         $user = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
         $userID = $user ? $user->getId(false) : '-';
@@ -207,7 +194,7 @@ Yii は下記のログ・ターゲットをあらかじめ内蔵しています�
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    '__class' => \yii\log\FileTarget::class,
     'logVars' => ['_SERVER'],
 ]
 ```
@@ -224,17 +211,14 @@ Yii は下記のログ・ターゲットをあらかじめ内蔵しています�
 
 ```php
 return [
-    'bootstrap' => ['log'],
-    'components' => [
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [...],
-        ],
+    'logger' => [
+        'traceLevel' => YII_DEBUG ? 3 : 0,
+        'targets' => [...],
     ],
 ];
 ```
 
-上記のアプリケーションの構成は、[[yii\log\Dispatcher::traceLevel|traceLevel]] を `YII_DEBUG` が on のときは 3、`YII_DEBUG` が off のときは 0 に設定します。
+上記のアプリケーションの構成は、[[yii\log\Logger::traceLevel|traceLevel]] を `YII_DEBUG` が on のときは 3、`YII_DEBUG` が off のときは 0 に設定します。
 これは、`YII_DEBUG` が on のときは、各ログ・メッセージに対して、ログ・メッセージが記録されたときのコール・スタックを最大 3 レベルまで追加し、
 `YII_DEBUG` が 0 のときはコール・スタックを含めない、
 ということを意味します。
@@ -248,17 +232,14 @@ return [
 既に述べたように、ログ・メッセージは [[yii\log\Logger|ロガー・オブジェクト]] によって配列の中に保持されます。
 この配列のメモリ消費を制限するために、この配列に一定数のログ・メッセージが蓄積されるたびに、
 ロガーは記録されたメッセージを [ログ・ターゲット](#log-targets) に吐き出します。
-この数は、`log` コンポーネントの [[yii\log\Dispatcher::flushInterval|flushInterval]] プロパティを構成することによってカスタマイズすることが出来ます。
+この数は、アプリケーションの `logger` の [[yii\log\Logger::flushInterval|flushInterval]] プロパティを構成することによってカスタマイズすることが出来ます。
 
 
 ```php
 return [
-    'bootstrap' => ['log'],
-    'components' => [
-        'log' => [
-            'flushInterval' => 100,   // デフォルトは 1000
-            'targets' => [...],
-        ],
+    'logger' => [
+        'flushInterval' => 100,   // デフォルトは 1000
+        'targets' => [...],
     ],
 ];
 ```
@@ -272,7 +253,7 @@ return [
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    '__class' => \yii\log\FileTarget::class,
     'exportInterval' => 100,  // デフォルトは 1000
 ]
 ```
@@ -280,20 +261,17 @@ return [
 デフォルトの状態では、吐き出しとエクスポートの間隔の設定のために、`Yii::debug()` やその他のログ記録メソッドを呼んでも、
 ただちには、ログ・メッセージはログ・ターゲットに出現しません。
 このことは、長時間にわたって走るコンソール・アプリケーションでは、問題になる場合もあります。
-各ログ・メッセージがただちにログ・ターゲットに出現するようにするためには、下記のように、[[yii\log\Dispatcher::flushInterval|flushInterval]] と
+各ログ・メッセージがただちにログ・ターゲットに出現するようにするためには、下記のように、[[yii\log\Logger::flushInterval|flushInterval]] と
 [[yii\log\Target::exportInterval|exportInterval]] の両方を 1 に設定しなければなりません。
 
 ```php
 return [
-    'bootstrap' => ['log'],
-    'components' => [
-        'log' => [
-            'flushInterval' => 1,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'exportInterval' => 1,
-                ],
+    'logger' => [
+        'flushInterval' => 1,
+        'targets' => [
+            [
+                '__class' => \yii\log\FileTarget::class,
+                'exportInterval' => 1,
             ],
         ],
     ],
@@ -309,7 +287,7 @@ return [
 この切り替えは、ログ・ターゲットのコンフィギュレーションでも出来ますが、コードの中で次の PHP 文を使っても出来ます。
 
 ```php
-Yii::$app->log->targets['file']->enabled = false;
+Yii::$app->logger->targets['file']->enabled = false;
 ```
 
 上記のコードでは、ターゲットが `file` という名前であることが必要とされています。
@@ -317,16 +295,13 @@ Yii::$app->log->targets['file']->enabled = false;
 
 ```php
 return [
-    'bootstrap' => ['log'],
-    'components' => [
-        'log' => [
-            'targets' => [
-                'file' => [
-                    'class' => 'yii\log\FileTarget',
-                ],
-                'db' => [
-                    'class' => 'yii\log\DbTarget',
-                ],
+    'logger' => [
+        'targets' => [
+            'file' => [
+                '__class' => \yii\log\FileTarget::class,
+            ],
+            'db' => [
+                '__class' => \yii\log\DbTarget::class,
             ],
         ],
     ],
@@ -344,9 +319,7 @@ return [
 各メッセージに書式を設定するためには、[[yii\log\Target::formatMessage()]] を呼ぶことが出来ます。
 詳細については、Yii リリースに含まれているログ・ターゲット・クラスのどれか一つを参照してください。
 
-> Tip: あなた自身のロガーを書く代りに、[PSR ログ・ターゲット・エクステンション](https://github.com/samdark/yii2-psr-log-target) によって、
-  [Monolog](https://github.com/Seldaek/monolog) のような
-  PSR-3 互換ロガーのどれかを使ってみるのも良いでしょう。
+> Tip: あなた自身のロガーを書く代りに、PSR-3 互換ターゲットを使ってみるのも良いでしょう。
 
 ## パフォーマンス・プロファイリング <span id="performance-profiling"></span>
 

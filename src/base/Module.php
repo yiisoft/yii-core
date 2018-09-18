@@ -753,6 +753,36 @@ class Module extends Component
     }
 
     /**
+     * Getter magic method.
+     * This method is overridden to support accessing components like reading properties.
+     * @param string $name component or property name
+     * @return mixed the named property value
+     */
+    public function __get($name)
+    {
+        if ($this->has($name)) {
+            return $this->get($name);
+        }
+
+        return parent::__get($name);
+    }
+
+    /**
+     * Checks if a property value is null.
+     * This method overrides the parent implementation by checking if the named component is loaded.
+     * @param string $name the property name or the event name
+     * @return bool whether the property value is null
+     */
+    public function __isset($name)
+    {
+        if ($this->has($name)) {
+            return true;
+        }
+
+        return parent::__isset($name);
+    }
+
+    /**
      * Returns a value indicating whether the container has the specified component definition
      * or has instantiated the component.
      * This method may return different results depending on the value of `$checkInstance`.

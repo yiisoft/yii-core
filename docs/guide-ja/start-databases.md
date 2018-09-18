@@ -60,7 +60,7 @@ DB 接続を構成する <span id="configuring-db-connection"></span>
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
+    '__class' => yii\db\Connection::class,
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',

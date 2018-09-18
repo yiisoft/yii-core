@@ -61,7 +61,7 @@ if ($this->beginCache($id, ['duration' => 3600])) {
 
 ```php
 $dependency = [
-    'class' => 'yii\caching\DbDependency',
+    '__class' => 'yii\caching\DbDependency',
     'sql' => 'SELECT MAX(updated_at) FROM post',
 ];
 

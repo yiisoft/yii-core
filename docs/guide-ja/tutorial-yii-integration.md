@@ -20,16 +20,6 @@ Yii アプリケーションの中でサードパーティのライブラリを�
 2. `composer install` を実行して、指定したパッケージをインストールする。
 
 インストールされた Composer パッケージ内のクラスは、Composer のオートローダを使ってオートロードすることが出来ます。
-アプリケーションの [エントリ・スクリプト](structure-entry-scripts.md) に、
-Composer のオートローダをインストールするための下記の行があることを確認してください。
-
-```php
-// Composer のオートローダをインストール
-require __DIR__ . '/../vendor/autoload.php';
-
-// Yii クラス・ファイルをインクルード
-require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
-```
 
 ### ダウンロードしたライブラリを使う <span id="using-downloaded-libs"></span>
 
@@ -37,22 +27,26 @@ require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 たいていの場合は、リリース・ファイルを手動でダウンロードし、`BasePath/vendor` ディレクトリの下に解凍する必要があります。
 ここで `BasePath` は、アプリケーションの [base path](structure-applications.md#basePath) を表すものです。
 
-ライブラリがそれ自身のオートローダを持っている場合は、それをアプリケーションの [エントリ・スクリプト](structure-entry-scripts.md) でインストールすることが出来ます。
-複数のオートローダ・クラスの中で Yii のクラス・オートローダが優先されるように、
-ライブラリのオートローダは `Yii.php` ファイルをインクルードする前にインストールすることを推奨します。
+ライブラリがそれ自身のオートローダを持っている場合は、それをアプリケーションの [エントリ・スクリプト](structure-entry-scripts.md) で `require` することが出来ます。
+複数のオートローダ・クラスの中で Composer のオートローダが優先されるように、
+`require` 文は Composer のオートローダ・ファイルの前に置くことを推奨します。
 
-ライブラリがクラスオートローダを提供していない場合でも、クラスの命名規約が [PSR-4](http://www.php-fig.org/psr/psr-4/) に従っている場合は、ライブラリのクラスをオートロードするのに Yii のクラス・オートローダを使うことが出来ます。
-必要なことは、ライブラリのクラスによって使われている全てのルート名前空間に対して [ルート・エイリアス](concept-aliases.md#defining-aliases) を宣言することだけです。
+ライブラリがクラス・オートローダを提供していない場合でも、クラスの命名規約が [PSR-4](http://www.php-fig.org/psr/psr-4/) に従っている場合は、ライブラリのクラスをオートロードするのに Composer のクラス・オートローダを使うことが出来ます。
+そのためには、ライブラリのクラスによって使われている全てのルート名前空間を `composer.json` の中で宣言する必要があります。
 例えば、ライブラリを `vendor/foo/bar` ディレクトリの下にインストールしたとしましょう。
 そしてライブラリのクラスは `xyz` ルート名前空間の下にあるとします。
-この場合、アプリケーションの構成情報において、次のコードを含めれば良いのです。
+この場合、次のコードを含めます。
 
-```php
-[
-    'aliases' => [
-        '@xyz' => '@vendor/foo/bar',
-    ],
-]
+```json
+{
+    "name": "myorg/myapp",
+    "autoload": {
+        "psr-4": {
+          "app\\": "src",
+          "xyz\\": "vendor/foo/bar",          
+        }
+    },
+}
 ```
 
 上記のどちらにも当てはまらない場合、おそらくそのライブラリは、クラス・ファイルを探して適切にインクルードするために、PHP の include path 設定に依存しているのでしょう。
@@ -62,12 +56,19 @@ require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 次の方法を使ってクラスを必要に応じてインクルードすることが出来るようになります。
 
 * ライブラリに含まれるクラスを特定する。
-* アプリケーションの [エントリ・スクリプト](structure-entry-scripts.md) において、
-  クラスと対応するファイル・パスを `Yii::$classMap` としてリストアップする。例えば、
-```php
-Yii::$classMap['Class1'] = 'path/to/Class1.php';
-Yii::$classMap['Class2'] = 'path/to/Class2.php';
-```
+* クラスと対応するファイル・パスをアプリケーションの `composer.json` にリストアップする。
+  ```json
+  "autoload": {
+      "psr-4": {
+          "app\\": ""
+      },
+      "classmap": [
+          "path/to/Class1.php",
+          "path/to/Class2.php",
+          "path/to/library/",
+      ]
+  },
+  ```
 
 
 サードパーティのシステムで Yii を使う <span id="using-yii-in-others"></span>
@@ -99,7 +100,7 @@ Composer に関する更なる情報や、インストールの過程で出現�
 次に、サードパーティのシステムのエントリ・スクリプトを修正します。次のコードをエントリ・スクリプトの先頭に追加してください。
 
 ```php
-require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
+require __DIR__ . '/../vendor/autoload.php'; // サード・パーティのシステムが Composer を使わない場合に備えて
 
 $yiiConfig = require __DIR__ . '/../config/yii/web.php';
 new yii\web\Application($yiiConfig); // ここで run() を呼ばない
@@ -118,17 +119,17 @@ Yii アプリケーションでの場合と同じように、サードパーテ�
 例えば、アクティブ・レコード・クラスを作成して、それを使ってデータベースを扱うことが出来ます。
 
 
-Yii 2 を Yii 1 とともに使う <span id="using-both-yii2-yii1"></span>
+Yii 3 を Yii 1 とともに使う <span id="using-both-yii2-yii1"></span>
 ---------------------------
 
 あなたが Yii 1 を前から使っている場合は、たぶん、稼働中の Yii 1 アプリケーションを持っているでしょう。
-アプリケーション全体を Yii 2 で書き直す代りに、Yii 2 でのみ利用できる機能を使ってアプリケーションを機能拡張したいこともあるでしょう。
+アプリケーション全体を Yii 3 で書き直す代りに、Yii 3 でのみ利用できる機能を使ってアプリケーションを機能拡張したいこともあるでしょう。
 このことは、以下に述べるようにして、実現できます。
 
-> Note: Yii 2 は PHP 5.4 以上を必要とします。
-> あなたのサーバと既存のアプリケーションが PHP 5.4 以上をサポートしていることを確認しなければなりません。
+> Note: Yii 2 は PHP 7.1 以上を必要とします。
+> あなたのサーバと既存のアプリケーションが PHP 7.1 以上をサポートしていることを確認しなければなりません。
 
-最初に、[直前の項](#using-yii-in-others) で述べられている指示に従って、Yii 2 を既存のアプリケーションにインストールします。
+最初に、[直前の項](#using-yii-in-others) で述べられている指示に従って、Yii 3 を既存のアプリケーションにインストールします。
 
 次に、アプリケーションのエントリ・スクリプトを以下のように修正します。
 
@@ -136,21 +137,21 @@ Yii 2 を Yii 1 とともに使う <span id="using-both-yii2-yii1"></span>
 // カスタマイズされた Yii クラスをインクルード (下記で説明)
 require __DIR__ . '/../components/Yii.php';
 
-// Yii 2 アプリケーションの構成
-$yii2Config = require __DIR__ . '/../config/yii2/web.php';
-new yii\web\Application($yii2Config); // ここで run() を呼ばない。yii2 app はサービス・ロケータとしてのみ使用される。
+// Yii 3 アプリケーションの構成
+$yii3Config = require __DIR__ . '/../config/yii3/web.php';
+new yii\web\Application($yii3Config); // ここで run() を呼ばない。yii3 app はサービス・ロケータとしてのみ使用される。
 
 // Yii 1 アプリケーションの構成
 $yii1Config = require __DIR__ . '/../config/yii1/main.php';
 Yii::createWebApplication($yii1Config)->run();
 ```
 
-Yii 1 と Yii 2 の両者が `Yii` クラスを持っているため、二つを結合するカスタム・バージョンを作成する必要があります。
+Yii 1 と Yii 3 の両者が `Yii` クラスを持っているため、二つを結合するカスタム・バージョンを作成する必要があります。
 上記のコードでカスタマイズされた `Yii` クラス・ファイルをインクルードしていますが、これは下記のようにして作成することが出来ます。
 
 ```php
-$yii2path = '/path/to/yii2';
-require $yii2path . '/BaseYii.php'; // Yii 2.x
+$yii3path = '/path/to/yii3';
+require $yii3path . '/BaseYii.php'; // Yii 3.x
 
 $yii1path = '/path/to/yii1';
 require $yii1path . '/YiiBase.php'; // Yii 1.x
@@ -160,9 +161,9 @@ class Yii extends \yii\BaseYii
     // YiiBase (1.x) のコードをここにコピー・ペースト
 }
 
-Yii::$classMap = include($yii2path . '/classes.php');
-// Yii 2 オートローダを Yii 1 によって登録
-Yii::registerAutoloader(['yii\BaseYii', 'autoload']);
+// Composer のオートローダを登録
+require(__DIR__ . '/../vendor/autoload.php');
+
 // 依存注入コンテナを作成
 Yii::$container = new yii\di\Container;
 ```

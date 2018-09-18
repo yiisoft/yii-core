@@ -28,7 +28,7 @@ $locator->set('cache', 'yii\caching\ApcCache');
 
 // コンポーネントの作成に使われる構成情報配列を使用して "db" を登録
 $locator->set('db', [
-    'class' => 'yii\db\Connection',
+    '__class' => \yii\db\Connection::class,
     'dsn' => 'mysql:host=localhost;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -71,12 +71,12 @@ return [
     // ...
     'components' => [
         'db' => [
-            'class' => 'yii\db\Connection',
+            '__class' => \yii\db\Connection::class,
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',
         ],
-        'cache' => 'yii\caching\ApcCache',
+        'cache' => \yii\caching\ApcCache::class,
         'tz' => function() {
             return new \DateTimeZone(Yii::$app->formatter->defaultTimeZone);
         },

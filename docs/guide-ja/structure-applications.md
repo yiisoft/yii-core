@@ -121,11 +121,11 @@ $config = require __DIR__ . '/../config/web.php';
         'demo',
 
         // クラス名
-        'app\components\Profiler',
+        app\components\Profiler::class,
 
         // 構成情報の配列
         [
-            'class' => 'app\components\Profiler',
+            '__class' => app\components\Profiler::class,
             'level' => 3,
         ],
 
@@ -203,10 +203,10 @@ if (YII_ENV_DEV) {
 [
     'components' => [
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            '__class' => yii\caching\FileCache::class,
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => app\models\User::class,
             'enableAutoLogin' => true,
         ],
     ],
@@ -233,9 +233,9 @@ if (YII_ENV_DEV) {
 ```php
 [
     'controllerMap' => [
-        'account' => 'app\controllers\UserController',
+        'account' => app\controllers\UserController::class,
         'article' => [
-            'class' => 'app\controllers\PostController',
+            '__class' => app\controllers\PostController::class,
             'enableCsrfValidation' => false,
         ],
     ],
@@ -296,7 +296,7 @@ if (YII_ENV_DEV) {
 
         // 構成情報の配列で指定された "comment" モジュール
         'comment' => [
-            'class' => 'app\modules\comment\CommentModule',
+            '__class' => app\modules\comment\CommentModule::class,
             'db' => 'db',
         ],
     ],
