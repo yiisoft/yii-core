@@ -46,6 +46,12 @@ class I18NTest extends TestCase
         ]);
     }
 
+    public function testDI()
+    {
+        $i18n = $this->container->get('i18n');
+        $this->assertInstanceOf(I18N::class, $i18n);
+    }
+
     private function getMessageSourceClass()
     {
         return PhpMessageSource::class;

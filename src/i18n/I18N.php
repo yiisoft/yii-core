@@ -58,9 +58,9 @@ class I18N extends Component
 
     /**
      * @param Application $app
-     * @param Locale $locale
+     * @param LocaleInterface $locale
      */
-    public function __construct(Application $app, Locale $locale)
+    public function __construct(Application $app, LocaleInterface $locale)
     {
         $this->app = $app;
         $this->_locale = $locale;

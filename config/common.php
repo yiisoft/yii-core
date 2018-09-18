@@ -69,6 +69,21 @@ return [
     'security' => [
         '__class' => yii\base\Security::class,
     ],
+
+    yii\i18n\LocaleInterface::class => Reference::to('locale'),
+    'locale' => [
+        '__class' => yii\i18n\Locale::class,
+        '__construct()' => [
+            'localeString' => $params['locale'],
+        ],
+    ],
+    yii\i18n\SourceLocaleInterface::class => Reference::to('sourceLocale'),
+    'sourceLocale' => [
+        '__class' => yii\i18n\Locale::class,
+        '__construct()' => [
+            'localeString' => $params['sourceLocale'],
+        ],
+    ],
     'formatter' => [
         '__class' => yii\i18n\Formatter::class,
     ],
@@ -80,6 +95,7 @@ return [
             ],
         ],
     ],
+
     'mutex' => [
         '__class' => yii\mutex\FileMutex::class
     ],
