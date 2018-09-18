@@ -67,29 +67,6 @@ class I18N extends Component
     }
 
     /**
-     * Initializes the component by configuring the default message categories.
-     */
-    public function init()
-    {
-        parent::init();
-        if (!isset($this->translations['yii']) && !isset($this->translations['yii*'])) {
-            $this->translations['yii'] = [
-                '__class' => PhpMessageSource::class,
-                'sourceLanguage' => 'en-US',
-                'basePath' => '@yii/messages',
-            ];
-        }
-
-        if (!isset($this->translations['app']) && !isset($this->translations['app*'])) {
-            $this->translations['app'] = [
-                '__class' => PhpMessageSource::class,
-                'sourceLanguage' => $this->app->sourceLanguage,
-                'basePath' => '@app/messages',
-            ];
-        }
-    }
-
-    /**
      * Translates a message to the specified language.
      *
      * After translation the message will be formatted using [[MessageFormatter]] if it contains
