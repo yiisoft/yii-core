@@ -41,7 +41,6 @@ class MessageSource extends Component
      */
     public function init()
     {
-        parent::init();
         if ($this->sourceLanguage === null) {
             $this->sourceLanguage = Yii::getApp()->sourceLanguage;
         }
@@ -74,15 +73,15 @@ class MessageSource extends Component
      * @param string $category the message category
      * @param string $message the message to be translated
      * @param string $language the target language
-     * @return string|bool the translated message or false if translation wasn't found or isn't required
+     * @return string|null the translated message or false if translation wasn't found or isn't required
      */
-    public function translate($category, $message, $language)
+    public function translate($category, $message, $language): ?string
     {
         if ($this->forceTranslation || $language !== $this->sourceLanguage) {
             return $this->translateMessage($category, $message, $language);
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -93,9 +92,9 @@ class MessageSource extends Component
      * @param string $category the category that the message belongs to.
      * @param string $message the message to be translated.
      * @param string $language the target language.
-     * @return string|bool the translated message or false if translation wasn't found.
+     * @return string|null the translated message or null if translation wasn't found.
      */
-    protected function translateMessage($category, $message, $language)
+    protected function translateMessage($category, $message, $language): ?string
     {
         $key = $language . '/' . $category;
         if (!isset($this->_messages[$key])) {
@@ -112,6 +111,6 @@ class MessageSource extends Component
             }
         }
 
-        return $this->_messages[$key][$message] = false;
+        return $this->_messages[$key][$message] = null;
     }
 }
