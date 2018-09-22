@@ -30,7 +30,7 @@ use yii\profile\ProfilerInterface;
  * @property \yii\rbac\ManagerInterface $authManager The auth manager application component. Null is returned
  * if auth manager is not configured. This property is read-only.
  * @property string $basePath The root directory of the application.
- * @property \yii\caching\CacheInterface $cache The cache application component. Null if the component is not
+ * @property \yii\cache\CacheInterface $cache The cache application component. Null if the component is not
  * enabled. This property is read-only.
  * @property array $container Values given in terms of name-value pairs. This property is write-only.
  * @property \yii\db\Connection $db The database connection. This property is read-only.

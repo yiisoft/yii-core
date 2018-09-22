@@ -80,7 +80,7 @@ class Aliases implements AliasesInterface
 
         $result = $this->findAlias($alias);
 
-        if (is_array($result)) {
+        if (\is_array($result)) {
             return $result['path'];
         }
 
@@ -97,7 +97,7 @@ class Aliases implements AliasesInterface
     public function getRootAlias($alias)
     {
         $result = $this->findAlias($alias);
-        if (is_array($result)) {
+        if (\is_array($result)) {
             $result = $result['root'];
         }
         return $result;
@@ -113,7 +113,7 @@ class Aliases implements AliasesInterface
         $root = $pos === false ? $alias : substr($alias, 0, $pos);
 
         if (isset($this->aliases[$root])) {
-            if (is_string($this->aliases[$root])) {
+            if (\is_string($this->aliases[$root])) {
                 return ['root' => $root, 'path' => $pos === false ? $this->aliases[$root] : $this->aliases[$root] . substr($alias, $pos)];
             }
 

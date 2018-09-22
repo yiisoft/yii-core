@@ -214,7 +214,7 @@ class I18NTest extends TestCase
         Event::off(PhpMessageSource::class, TranslationEvent::MISSING);
 
         Event::on(PhpMessageSource::class, TranslationEvent::MISSING, function ($event) {
-            if ($event->message == 'New missing translation message.') {
+            if ($event->message === 'New missing translation message.') {
                 $event->translatedMessage = 'TRANSLATION MISSING HERE!';
             }
         });
