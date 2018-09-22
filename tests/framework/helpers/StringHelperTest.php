@@ -424,7 +424,6 @@ class StringHelperTest extends TestCase
             ['foo bar', 'Foo bar'],
             ['👍🏻 foo bar', '👍🏻 foo bar'],
             ['', ''],
-            [null, ''],
             ['здесь我 multibyte我 строка', 'Здесь我 multibyte我 строка'],
         ];
     }
@@ -446,7 +445,6 @@ class StringHelperTest extends TestCase
             ['foo bar', 'Foo Bar'],
             ['👍🏻 foo bar', '👍🏻 Foo Bar'],
             ['', ''],
-            [null, ''],
             ['здесь我 multibyte我 строка', 'Здесь我 Multibyte我 Строка'],
         ];
     }

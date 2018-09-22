@@ -107,7 +107,7 @@ class BaseHtml
      */
     public static function encode($content, $doubleEncode = true)
     {
-        return htmlspecialchars($content, ENT_QUOTES | ENT_SUBSTITUTE, Yii::getApp() ? Yii::getApp()->charset : 'UTF-8', $doubleEncode);
+        return htmlspecialchars($content, ENT_QUOTES | ENT_SUBSTITUTE, ini_get('default_charset'), $doubleEncode);
     }
 
     /**

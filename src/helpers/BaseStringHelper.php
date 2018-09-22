@@ -7,8 +7,6 @@
 
 namespace yii\helpers;
 
-use yii\helpers\Yii;
-
 /**
  * BaseStringHelper provides concrete implementation for [[StringHelper]].
  *
@@ -104,15 +102,12 @@ class BaseStringHelper
      */
     public static function truncate($string, $length, $suffix = '...', $encoding = null, $asHtml = false)
     {
-        if ($encoding === null) {
-            $encoding = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
-        }
         if ($asHtml) {
             return static::truncateHtml($string, $length, $suffix, $encoding);
         }
 
-        if (mb_strlen($string, $encoding) > $length) {
-            return rtrim(mb_substr($string, 0, $length, $encoding)) . $suffix;
+        if (static::mb_strlen($string, $encoding) > $length) {
+            return rtrim(static::mb_substr($string, 0, $length, $encoding)) . $suffix;
         }
 
         return $string;
@@ -173,7 +168,7 @@ class BaseStringHelper
                     $currentCount = self::countWords($token->data);
                 } else {
                     $token->data = self::truncate($token->data, $count - $totalCount, '', $encoding);
-                    $currentCount = mb_strlen($token->data, $encoding);
+                    $currentCount = static::mb_strlen($token->data, $encoding);
                 }
                 $totalCount += $currentCount;
                 $truncated[] = $token;
@@ -219,8 +214,8 @@ class BaseStringHelper
             return strncmp($string, $with, $bytes) === 0;
 
         }
-        $encoding = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
-        return mb_strtolower(mb_substr($string, 0, $bytes, '8bit'), $encoding) === mb_strtolower($with, $encoding);
+
+        return static::mb_strtolower(static::mb_substr($string, 0, $bytes, '8bit')) === static::mb_strtolower($with);
     }
 
     /**
@@ -246,8 +241,7 @@ class BaseStringHelper
             return substr_compare($string, $with, -$bytes, $bytes) === 0;
         }
 
-        $encoding = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
-        return mb_strtolower(mb_substr($string, -$bytes, mb_strlen($string, '8bit'), '8bit'), $encoding) === mb_strtolower($with, $encoding);
+        return static::mb_strtolower(mb_substr($string, -$bytes, mb_strlen($string, '8bit'), '8bit')) === static::mb_strtolower($with);
     }
 
     /**
@@ -425,12 +419,12 @@ class BaseStringHelper
      * @see http://php.net/manual/en/function.ucfirst.php
      * @since 2.0.16
      */
-    public static function mb_ucfirst($string, $encoding = 'UTF-8')
+    public static function mb_ucfirst(string $string, string $encoding = null)
     {
-        $firstChar = mb_substr($string, 0, 1, $encoding);
-        $rest = mb_substr($string, 1, null, $encoding);
+        $firstChar = static::mb_substr($string, 0, 1, $encoding);
+        $rest = static::mb_substr($string, 1, null, $encoding);
 
-        return mb_strtoupper($firstChar, $encoding) . $rest;
+        return static::mb_strtoupper($firstChar, $encoding) . $rest;
     }
 
     /**
@@ -441,7 +435,7 @@ class BaseStringHelper
      * @see http://php.net/manual/en/function.ucwords.php
      * @return string
      */
-    public static function mb_ucwords($string, $encoding = 'UTF-8')
+    public static function mb_ucwords(string $string, string $encoding = null)
     {
         $words = preg_split("/\s/u", $string, -1, PREG_SPLIT_NO_EMPTY);
 
@@ -450,5 +444,33 @@ class BaseStringHelper
         }, $words);
 
         return implode(' ', $titelized);
+    }
+
+    public static function mb_strlen(string $str, string $encoding = null)
+    {
+        return empty($encoding) ? \mb_strlen($str) : \mb_strlen($str, $encoding);
+    }
+
+    public static function mb_substr(string $str, int $start, int $length = null, string $encoding = null)
+    {
+        return empty($encoding) ? \mb_substr($str, $start, $length) : \mb_substr($str, $start, $length, $encoding);
+    }
+
+    public static function mb_strtolower(string $str, string $encoding = null)
+    {
+        return empty($encoding) ? \mb_strtolower($str) : \mb_strtolower($str, $encoding);
+    }
+
+    public static function mb_strtoupper(string $str, string $encoding = null)
+    {
+        return empty($encoding) ? \mb_strtoupper($str) : \mb_strtoupper($str, $encoding);
+    }
+
+    public static function htmlspecialchars(string $str, int $flags, string $encoding = null, $double_encode = true)
+    {
+        return empty($encoding) && $double_encode
+            ? \htmlspecialchars($str, $flags)
+            : \htmlspecialchars($str, $flags, $encoding ?: ini_get('default_charset'), $double_encode)
+        ;
     }
 }

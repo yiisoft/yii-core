@@ -16,6 +16,7 @@ use yii\exceptions\ExitException;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
 use yii\i18n\I18N;
+use yii\i18n\EncodingInterface;
 use yii\web\Session;
 use yii\web\User;
 use yii\profile\ProfilerInterface;
@@ -100,10 +101,6 @@ abstract class Application extends Module implements Initiable
      * @var string the application name.
      */
     public $name = 'My Application';
-    /**
-     * @var string the charset currently used for the application.
-     */
-    public $charset = 'UTF-8';
     /**
      * @var string the language that is meant to be used for end users. It is recommended that you
      * use [IETF language tags](http://en.wikipedia.org/wiki/IETF_language_tag). For example, `en` stands
@@ -603,6 +600,18 @@ abstract class Application extends Module implements Initiable
         date_default_timezone_set($value);
     }
 
+    /**
+     * @param EncodingInterface|string
+     * @return self
+     */
+    public function setEncoding($encoding): self
+    {
+        if (!$encoding instanceof EncodingInterface) {
+            $encoding = $this->get('encoding')->withEncoding($encoding);
+        }
+
+        return $this->set('encoding', $encoding);
+    }
 
     /**
      * Terminates the application.

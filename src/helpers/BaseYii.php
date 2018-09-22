@@ -233,6 +233,11 @@ class BaseYii
         return I18N::substitute($message, $params);
     }
 
+    public static function getEncoding(ContainerInterface $container = null): string
+    {
+        return (string)(static::get('encoding', $container, false) ?: mb_internal_encoding());
+    }
+
     /**
      * Translates a path alias into an actual path.
      *

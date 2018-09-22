@@ -80,6 +80,15 @@ return [
             ],
         ],
     ],
+
+    yii\i18n\EncodingInterface::class => Reference::to('encoding'),
+    'encoding' => [
+        '__class' => yii\i18n\PhpEncoding::class,
+        '__construct()' => [
+            'encoding' => $params['encoding'],
+        ],
+    ],
+
     'mutex' => [
         '__class' => yii\mutex\FileMutex::class
     ],
