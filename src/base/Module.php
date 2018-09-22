@@ -817,4 +817,11 @@ class Module extends Component
 
         return $this->_container->get($id);
     }
+
+    protected function set($id, $definition): self
+    {
+        $this->_container->set($id, $definition);
+
+        return $this;
+    }
 }
