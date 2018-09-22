@@ -7,7 +7,7 @@
 
 namespace yii\i18n;
 
-use yii\base\Application;
+use yii\base\Aliases;
 use yii\helpers\Yii;
 
 /**
@@ -52,13 +52,13 @@ class PhpMessageSource extends MessageSource
     public $fileMap;
 
     /**
-     * @var Application
+     * @var Aliases
      */
-    protected $app;
+    protected $aliases;
 
-    public function __construct(Application $app)
+    public function __construct(Aliases $aliases)
     {
-        $this->app = $app;
+        $this->aliases = $aliases;
     }
 
     /**
@@ -144,7 +144,7 @@ class PhpMessageSource extends MessageSource
      */
     protected function getMessageFilePath($category, $language)
     {
-        $messageFile = $this->app->getAlias($this->basePath) . "/$language/";
+        $messageFile = $this->aliases->getAlias($this->basePath) . "/$language/";
         if (isset($this->fileMap[$category])) {
             $messageFile .= $this->fileMap[$category];
         } else {
@@ -164,7 +164,7 @@ class PhpMessageSource extends MessageSource
     {
         if (is_file($messageFile)) {
             $messages = include $messageFile;
-            if (!is_array($messages)) {
+            if (!\is_array($messages)) {
                 $messages = [];
             }
 
