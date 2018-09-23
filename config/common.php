@@ -34,7 +34,7 @@ return [
     'logger' => [
     ],
 
-    yii\base\AliasesInterface::class => Reference::to('aliases'),
+    yii\base\Aliases::class => Reference::to('aliases'),
     'aliases' => array_merge($aliases, [
         '__class'   => yii\base\Aliases::class,
         '@root'     => YII_ROOT,

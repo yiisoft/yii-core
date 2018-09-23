@@ -7,6 +7,7 @@
 
 namespace yii\tests\framework\base;
 
+use yii\base\Aliases;
 use yii\exceptions\InvalidArgumentException;
 use yii\tests\TestCase;
 
@@ -16,70 +17,70 @@ use yii\tests\TestCase;
  */
 class AliasesTest extends TestCase
 {
-    public $obj;
+    /**
+     * @var Aliases
+     */
+    public $aliases;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->obj = $this->container->get('aliases');
+        $this->aliases = $this->container->get('aliases');
     }
 
-    public function testDefaultAliases()
+    public function testDI()
     {
-        $this->assertEquals(YII_PATH, $this->obj->getAlias('@yii'));
-        $this->assertEquals(dirname(__DIR__, 3), $this->obj->getAlias('@root'));
-        $this->assertEquals(dirname(__DIR__, 3) . '/vendor', $this->obj->getAlias('@vendor'));
-        $this->assertEquals(dirname(__DIR__, 3) . '/runtime', $this->obj->getAlias('@runtime'));
+        $this->assertSame($this->aliases, $this->container->get(Aliases::class));
     }
 
-    public function testGetAlias()
+    public function testGet()
     {
-        $this->assertEquals(YII_PATH, $this->obj->getAlias('@yii'));
+        $this->assertEquals(YII_PATH, $this->aliases->get('@yii'));
 
-        $this->assertFalse($this->obj->getAlias('@nonexisting', false));
+        $this->assertFalse($this->aliases->get('@nonexisting', false));
 
         $aliasNotBeginsWithAt = 'alias not begins with @';
-        $this->assertEquals($aliasNotBeginsWithAt, $this->obj->getAlias($aliasNotBeginsWithAt));
+        $this->assertEquals($aliasNotBeginsWithAt, $this->aliases->get($aliasNotBeginsWithAt));
 
-        $this->obj->setAlias('@yii', '/yii/framework');
-        $this->assertEquals('/yii/framework', $this->obj->getAlias('@yii'));
-        $this->assertEquals('/yii/framework/test/file', $this->obj->getAlias('@yii/test/file'));
-        $this->obj->setAlias('yii/gii', '/yii/gii');
-        $this->assertEquals('/yii/framework', $this->obj->getAlias('@yii'));
-        $this->assertEquals('/yii/framework/test/file', $this->obj->getAlias('@yii/test/file'));
-        $this->assertEquals('/yii/gii', $this->obj->getAlias('@yii/gii'));
-        $this->assertEquals('/yii/gii/file', $this->obj->getAlias('@yii/gii/file'));
+        $this->aliases->set('@yii', '/yii/framework');
+        $this->assertEquals('/yii/framework', $this->aliases->get('@yii'));
+        $this->assertEquals('/yii/framework/test/file', $this->aliases->get('@yii/test/file'));
+        $this->aliases->set('yii/gii', '/yii/gii');
+        $this->assertEquals('/yii/framework', $this->aliases->get('@yii'));
+        $this->assertEquals('/yii/framework/test/file', $this->aliases->get('@yii/test/file'));
+        $this->assertEquals('/yii/gii', $this->aliases->get('@yii/gii'));
+        $this->assertEquals('/yii/gii/file', $this->aliases->get('@yii/gii/file'));
 
-        $this->obj->setAlias('@tii', '@yii/test');
-        $this->assertEquals('/yii/framework/test', $this->obj->getAlias('@tii'));
+        $this->aliases->set('@tii', '@yii/test');
+        $this->assertEquals('/yii/framework/test', $this->aliases->get('@tii'));
 
-        $this->obj->setAlias('@yii', null);
-        $this->assertFalse($this->obj->getAlias('@yii', false));
-        $this->assertEquals('/yii/gii/file', $this->obj->getAlias('@yii/gii/file'));
+        $this->aliases->set('@yii', null);
+        $this->assertFalse($this->aliases->get('@yii', false));
+        $this->assertEquals('/yii/gii/file', $this->aliases->get('@yii/gii/file'));
 
-        $this->obj->setAlias('@some/alias', '/www');
-        $this->assertEquals('/www', $this->obj->getAlias('@some/alias'));
+        $this->aliases->set('@some/alias', '/www');
+        $this->assertEquals('/www', $this->aliases->get('@some/alias'));
 
         $erroneousAlias = '@alias_not_exists';
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Invalid path alias: %s', $erroneousAlias));
-        $this->obj->getAlias($erroneousAlias, true);
+        $this->aliases->get($erroneousAlias, true);
     }
 
-    public function testGetRootAlias()
+    public function testGetRoot()
     {
-        $this->obj->setAlias('@yii', '/yii/framework');
-        $this->assertEquals('@yii', $this->obj->getRootAlias('@yii'));
-        $this->assertEquals('@yii', $this->obj->getRootAlias('@yii/test/file'));
-        $this->obj->setAlias('@yii/gii', '/yii/gii');
-        $this->assertEquals('@yii/gii', $this->obj->getRootAlias('@yii/gii'));
+        $this->aliases->set('@yii', '/yii/framework');
+        $this->assertEquals('@yii', $this->aliases->getRoot('@yii'));
+        $this->assertEquals('@yii', $this->aliases->getRoot('@yii/test/file'));
+        $this->aliases->set('@yii/gii', '/yii/gii');
+        $this->assertEquals('@yii/gii', $this->aliases->getRoot('@yii/gii'));
     }
 
-    public function testSetAlias()
+    public function testSet()
     {
-        $this->obj->setAlias('@yii/gii', '/yii/gii');
-        $this->assertEquals('/yii/gii', $this->obj->getAlias('@yii/gii'));
-        $this->obj->setAlias('@yii/tii', '/yii/tii');
-        $this->assertEquals('/yii/tii', $this->obj->getAlias('@yii/tii'));
+        $this->aliases->set('@yii/gii', '/yii/gii');
+        $this->assertEquals('/yii/gii', $this->aliases->get('@yii/gii'));
+        $this->aliases->set('@yii/tii', '/yii/tii');
+        $this->assertEquals('/yii/tii', $this->aliases->get('@yii/tii'));
     }
 }
