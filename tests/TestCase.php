@@ -121,6 +121,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             $this->app->getSession()->close();
         }
         $this->app = null;
+        // TODO: this actually makes application unavailable
+        // But requires fixing of many tests.
+        // $this->container->set('app', null);
     }
 
     /**
