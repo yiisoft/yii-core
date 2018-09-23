@@ -37,23 +37,23 @@ class AliasesTest extends TestCase
         $aliasNotBeginsWithAt = 'alias not begins with @';
         $this->assertEquals($aliasNotBeginsWithAt, $this->aliases->get($aliasNotBeginsWithAt));
 
-        $this->aliases->setAlias('@yii', '/yii/framework');
+        $this->aliases->set('@yii', '/yii/framework');
         $this->assertEquals('/yii/framework', $this->aliases->get('@yii'));
         $this->assertEquals('/yii/framework/test/file', $this->aliases->get('@yii/test/file'));
-        $this->aliases->setAlias('yii/gii', '/yii/gii');
+        $this->aliases->set('yii/gii', '/yii/gii');
         $this->assertEquals('/yii/framework', $this->aliases->get('@yii'));
         $this->assertEquals('/yii/framework/test/file', $this->aliases->get('@yii/test/file'));
         $this->assertEquals('/yii/gii', $this->aliases->get('@yii/gii'));
         $this->assertEquals('/yii/gii/file', $this->aliases->get('@yii/gii/file'));
 
-        $this->aliases->setAlias('@tii', '@yii/test');
+        $this->aliases->set('@tii', '@yii/test');
         $this->assertEquals('/yii/framework/test', $this->aliases->get('@tii'));
 
-        $this->aliases->setAlias('@yii', null);
+        $this->aliases->set('@yii', null);
         $this->assertFalse($this->aliases->get('@yii', false));
         $this->assertEquals('/yii/gii/file', $this->aliases->get('@yii/gii/file'));
 
-        $this->aliases->setAlias('@some/alias', '/www');
+        $this->aliases->set('@some/alias', '/www');
         $this->assertEquals('/www', $this->aliases->get('@some/alias'));
 
         $erroneousAlias = '@alias_not_exists';
@@ -64,18 +64,18 @@ class AliasesTest extends TestCase
 
     public function testGetRoot()
     {
-        $this->aliases->setAlias('@yii', '/yii/framework');
+        $this->aliases->set('@yii', '/yii/framework');
         $this->assertEquals('@yii', $this->aliases->getRoot('@yii'));
         $this->assertEquals('@yii', $this->aliases->getRoot('@yii/test/file'));
-        $this->aliases->setAlias('@yii/gii', '/yii/gii');
+        $this->aliases->set('@yii/gii', '/yii/gii');
         $this->assertEquals('@yii/gii', $this->aliases->getRoot('@yii/gii'));
     }
 
     public function testSet()
     {
-        $this->aliases->setAlias('@yii/gii', '/yii/gii');
+        $this->aliases->set('@yii/gii', '/yii/gii');
         $this->assertEquals('/yii/gii', $this->aliases->get('@yii/gii'));
-        $this->aliases->setAlias('@yii/tii', '/yii/tii');
+        $this->aliases->set('@yii/tii', '/yii/tii');
         $this->assertEquals('/yii/tii', $this->aliases->get('@yii/tii'));
     }
 }
