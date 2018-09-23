@@ -28,6 +28,11 @@ class AliasesTest extends TestCase
         $this->aliases = $this->container->get('aliases');
     }
 
+    public function testDI()
+    {
+        $this->assertSame($this->aliases, $this->container->get(Aliases::class));
+    }
+
     public function testGet()
     {
         $this->assertEquals(YII_PATH, $this->aliases->get('@yii'));
