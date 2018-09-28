@@ -12,8 +12,8 @@ return [
     'factory' => [
         '__class' => yii\di\Factory::class,
         '__construct()' => [
-            0 => [],
-            1 => Reference::to('container'),
+            'definitions' => [],
+            'parent' => Reference::to('container'),
         ],
     ],
 
