@@ -25,17 +25,19 @@ class AliasesTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->aliases = $this->container->get('aliases');
+        $this->aliases = new Aliases;
     }
 
     public function testDI()
     {
-        $this->assertSame($this->aliases, $this->container->get(Aliases::class));
+        $aliases = $this->container->get('aliases');
+        $this->assertSame($aliases, $this->container->get(Aliases::class));
+
+        $this->assertEquals(YII_PATH, $aliases->get('@yii'));
     }
 
     public function testGet()
     {
-        $this->assertEquals(YII_PATH, $this->aliases->get('@yii'));
 
         $this->assertFalse($this->aliases->get('@nonexisting', false));
 

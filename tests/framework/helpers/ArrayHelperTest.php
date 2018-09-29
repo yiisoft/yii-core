@@ -11,7 +11,6 @@ use yii\base\Arrayable;
 use yii\base\BaseObject;
 use yii\data\Sort;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Yii;
 use yii\tests\TestCase;
 
 class Post1
@@ -52,8 +51,10 @@ class ArrayHelperTest extends TestCase
     {
         parent::setUp();
 
-        // destroy application, Helper must work without $this->app
-        $this->destroyApplication();
+        // TODO destroy application, Helper must work without $this->app
+        // But the tests use Sort that needs Application.
+        // $this->destroyApplication();
+        $this->mockApplication();
     }
 
     public function testToArray()
@@ -282,7 +283,7 @@ class ArrayHelperTest extends TestCase
     public function testMultisortUseSort()
     {
         // single key
-        $sort = Yii::createObject([
+        $sort = $this->factory->create([
             '__class' => Sort::class,
             'attributes' => ['name', 'age'],
             'defaultOrder' => ['name' => SORT_ASC],
@@ -301,7 +302,7 @@ class ArrayHelperTest extends TestCase
         $this->assertEquals(['name' => 'c', 'age' => 2], $array[2]);
 
         // multiple keys
-        $sort = Yii::createObject([
+        $sort = $this->factory->create([
             '__class' => Sort::class,
             'attributes' => ['name', 'age'],
             'defaultOrder' => ['name' => SORT_ASC, 'age' => SORT_DESC],
