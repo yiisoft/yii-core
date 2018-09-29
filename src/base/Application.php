@@ -31,7 +31,7 @@ use yii\profile\ProfilerInterface;
  * @property \yii\rbac\ManagerInterface $authManager The auth manager application component. Null is returned
  * if auth manager is not configured. This property is read-only.
  * @property string $basePath The root directory of the application.
- * @property \yii\caching\CacheInterface $cache The cache application component. Null if the component is not
+ * @property \yii\cache\CacheInterface $cache The cache application component. Null if the component is not
  * enabled. This property is read-only.
  * @property array $container Values given in terms of name-value pairs. This property is write-only.
  * @property \yii\db\Connection $db The database connection. This property is read-only.
@@ -651,18 +651,18 @@ abstract class Application extends Module implements Initiable
      */
     public function getAlias($alias, $throwException = true)
     {
-        return $this->get('aliases')->getAlias($alias, $throwException);
+        return $this->get('aliases')->get($alias, $throwException);
     }
 
     /**
      * Returns the root alias part of a given alias.
      * @param string $alias the alias
      * @return string|bool the root alias, or false if no root alias is found
-     * @see Aliases::getRootAlias()
+     * @see Aliases::getRoot()
      */
     public function getRootAlias($alias)
     {
-        return $this->get('aliases')->getRootAlias($alias);
+        return $this->get('aliases')->getRoot($alias);
     }
 
     /**
@@ -670,10 +670,10 @@ abstract class Application extends Module implements Initiable
      * @param string $alias the alias name (e.g. "@yii"). It must start with a '@' character.
      * @param string $path the path corresponding to the alias. If this is null, the alias will be removed.
      * @throws InvalidArgumentException if $path is an invalid alias.
-     * @see Aliases::getAlias()
+     * @see Aliases::get()
      */
     public function setAlias($alias, $path)
     {
-        return $this->get('aliases')->setAlias($alias, $path);
+        return $this->get('aliases')->set($alias, $path);
     }
 }

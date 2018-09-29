@@ -7,170 +7,59 @@
 
 namespace yii\tests\framework\i18n;
 
-use yii\helpers\Yii;
-use yii\base\Event;
-use yii\console\ExitCode;
+use m150207_210500_i18n_init;
+use yii\cache\ArrayCache;
 use yii\db\Connection;
+use yii\db\Migration;
 use yii\i18n\DbMessageSource;
-use yii\i18n\I18N;
-use yii\tests\framework\console\controllers\EchoMigrateController;
+use yii\i18n\MessageSource;
 
-/**
- * @group i18n
- * @group db
- * @group mysql
- * @author Dmitry Naumenko <d.naumenko.a@gmail.com>
- * @since 2.0.7
- */
-class DbMessageSourceTest extends I18NTest
+class DbMessageSourceTest extends MessageSourceTest
 {
-    protected static $database;
-    protected static $driverName = 'mysql';
+    private $connection;
 
-    /**
-     * @var Connection
-     */
-    protected static $db;
-
-    protected function setI18N()
+    private function getMigration(Connection $connection): Migration
     {
-        $this->i18n = new I18N([
-            'translations' => [
-                'test' => [
-                    '__class' => $this->getMessageSourceClass(),
-                    'db' => static::$db,
-                ],
-            ],
-        ]);
+        require_once \dirname(__DIR__, 3) . '/src/i18n/migrations/m150207_210500_i18n_init.php';
+        $migration = new m150207_210500_i18n_init();
+        $migration->db = $connection;
+        return $migration;
     }
 
-    private function getMessageSourceClass()
+    private function getConnection(): Connection
     {
-        return DbMessageSource::class;
-    }
-
-    protected static function runConsoleAction($route, $params = [])
-    {
-        if ($this->app === null) {
-            new \yii\console\Application([
-                'id' => 'Migrator',
-                'basePath' => '@yii/tests',
-                'controllerMap' => [
-                    'migrate' => EchoMigrateController::class,
-                ],
-                'components' => [
-                    'db' => static::getConnection(),
-                ],
-            ]);
+        if ($this->connection === null) {
+            $this->connection = new Connection();
+            $this->connection->dsn = 'sqlite::memory:';
+            $this->getMigration($this->connection)->up();
         }
 
-        ob_start();
-        $result = $this->app->runAction($route, $params);
-        echo 'Result is ' . $result;
-        if ($result !== ExitCode::OK) {
-            ob_end_flush();
-        } else {
-            ob_end_clean();
-        }
+        return $this->connection;
     }
 
-    public static function setUpBeforeClass()
+    protected function getMessageSource($sourceLanguage, $forceTranslation): MessageSource
     {
-        parent::setUpBeforeClass();
-        $databases = static::getParam('databases');
-        static::$database = $databases[static::$driverName];
-        $pdo_database = 'pdo_' . static::$driverName;
-
-        if (!extension_loaded('pdo') || !extension_loaded($pdo_database)) {
-            static::markTestSkipped('pdo and ' . $pdo_database . ' extension are required.');
-        }
-
-        static::runConsoleAction('migrate/up', ['migrationPath' => '@yii/i18n/migrations/', 'interactive' => false]);
-
-        static::$db->createCommand()->batchInsert('source_message', ['id', 'category', 'message'], [
-            [1, 'test', 'Hello world!'],
-            [2, 'test', 'The dog runs fast.'],
-            [3, 'test', 'His speed is about {n} km/h.'],
-            [4, 'test', 'His name is {name} and his speed is about {n, number} km/h.'],
-            [5, 'test', 'There {n, plural, =0{no cats} =1{one cat} other{are # cats}} on lying on the sofa!'],
-        ])->execute();
-
-        static::$db->createCommand()->batchInsert('message', ['id', 'language', 'translation'], [
-            [1, 'de', 'Hallo Welt!'],
-            [2, 'de-DE', 'Der Hund rennt schnell.'],
-            [2, 'en-US', 'The dog runs fast (en-US).'],
-            [2, 'ru', 'Собака бегает быстро.'],
-            [3, 'de-DE', 'Seine Geschwindigkeit beträgt {n} km/h.'],
-            [4, 'de-DE', 'Er heißt {name} und ist {n, number} km/h schnell.'],
-            [5, 'ru', 'На диване {n, plural, =0{нет кошек} =1{лежит одна кошка} one{лежит # кошка} few{лежит # кошки} many{лежит # кошек} other{лежит # кошки}}!'],
-        ])->execute();
+        $cache = new ArrayCache();
+        $messageSource = new DbMessageSource();
+        $messageSource->cache = $cache;
+        $messageSource->db = $this->getConnection();
+        return $messageSource;
     }
 
-    public static function tearDownAfterClass()
+    protected function prepareTranslations(TranslationsCollection $translationsCollection)
     {
-        static::runConsoleAction('migrate/down', ['migrationPath' => '@yii/i18n/migrations/', 'interactive' => false]);
-        if (static::$db) {
-            static::$db->close();
-        }
-        $this->app = null;
-        parent::tearDownAfterClass();
-    }
+        $connection = $this->getConnection();
 
-    /**
-     * @throws \yii\exceptions\InvalidArgumentException
-     * @throws \yii\db\Exception
-     * @throws \yii\exceptions\InvalidConfigException
-     * @return \yii\db\Connection
-     */
-    public static function getConnection()
-    {
-        if (static::$db == null) {
-            $db = new Connection();
-            $db->dsn = static::$database['dsn'];
-            if (isset(static::$database['username'])) {
-                $db->username = static::$database['username'];
-                $db->password = static::$database['password'];
-            }
-            if (isset(static::$database['attributes'])) {
-                $db->attributes = static::$database['attributes'];
-            }
-            if (!$db->isActive) {
-                $db->open();
-            }
-            static::$db = $db;
+        $sourceMessages = [];
+        $messages = [];
+
+        $pk = 1;
+        foreach ($translationsCollection->all() as $translation) {
+            $sourceMessages[] = [$pk, $translation->getCategory(), $translation->getMessage()];
+            $messages[] = [$pk, $translation->getLanguage(), $translation->getTranslation()];
         }
 
-        return static::$db;
-    }
-
-    public function testMissingTranslationEvent()
-    {
-        $this->assertEquals('Hallo Welt!', $this->i18n->translate('test', 'Hello world!', [], 'de-DE'));
-        $this->assertEquals('Missing translation message.', $this->i18n->translate('test', 'Missing translation message.', [], 'de-DE'));
-        $this->assertEquals('Hallo Welt!', $this->i18n->translate('test', 'Hello world!', [], 'de-DE'));
-
-        Event::on(DbMessageSource::class, DbMessageSource::EVENT_MISSING_TRANSLATION, function ($event) {});
-        $this->assertEquals('Hallo Welt!', $this->i18n->translate('test', 'Hello world!', [], 'de-DE'));
-        $this->assertEquals('Missing translation message.', $this->i18n->translate('test', 'Missing translation message.', [], 'de-DE'));
-        $this->assertEquals('Hallo Welt!', $this->i18n->translate('test', 'Hello world!', [], 'de-DE'));
-        Event::off(DbMessageSource::class, DbMessageSource::EVENT_MISSING_TRANSLATION);
-
-        Event::on(DbMessageSource::class, DbMessageSource::EVENT_MISSING_TRANSLATION, function ($event) {
-            if ($event->message == 'New missing translation message.') {
-                $event->translatedMessage = 'TRANSLATION MISSING HERE!';
-            }
-        });
-        $this->assertEquals('Hallo Welt!', $this->i18n->translate('test', 'Hello world!', [], 'de-DE'));
-        $this->assertEquals('Another missing translation message.', $this->i18n->translate('test', 'Another missing translation message.', [], 'de-DE'));
-        $this->assertEquals('Missing translation message.', $this->i18n->translate('test', 'Missing translation message.', [], 'de-DE'));
-        $this->assertEquals('TRANSLATION MISSING HERE!', $this->i18n->translate('test', 'New missing translation message.', [], 'de-DE'));
-        $this->assertEquals('Hallo Welt!', $this->i18n->translate('test', 'Hello world!', [], 'de-DE'));
-        Event::off(DbMessageSource::class, DbMessageSource::EVENT_MISSING_TRANSLATION);
-    }
-
-
-    public function testIssue11429($sourceLanguage = null)
-    {
-        $this->markTestSkipped('DbMessageSource does not produce any errors when messages file is missing.');
+        $connection->createCommand()->batchInsert('source_message', ['id', 'category', 'message'], $sourceMessages)->execute();
+        $connection->createCommand()->batchInsert('message', ['id', 'language', 'translation'], $messages)->execute();
     }
 }

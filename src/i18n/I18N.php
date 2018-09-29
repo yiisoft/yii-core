@@ -92,12 +92,13 @@ class I18N extends Component
      * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
      * @param string $language the language code (e.g. `en-US`, `en`).
      * @return string the translated and formatted message.
+     * @throws InvalidConfigException
      */
     public function translate($category, $message, $params, $language)
     {
         $messageSource = $this->getMessageSource($category);
         $translation = $messageSource->translate($category, $message, $language);
-        if ($translation === false) {
+        if ($translation === null) {
             return $this->format($message, $params, $messageSource->sourceLanguage);
         }
 

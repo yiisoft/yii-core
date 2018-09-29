@@ -241,10 +241,10 @@ class BaseYii
     /**
      * Translates a path alias into an actual path.
      *
-     * Uses @see yii\base\Aliases::getAlias() if container is set.
+     * Uses @see \yii\base\Aliases::get() if container is set.
      * Else throws exception.
      *
-     * @deprecated 3.0.0 Use [[yii\base\Application::getAlias()|Application::getAlias()]] instead
+     * @deprecated 3.0.0 Use [[yii\base\Application::get()|Application::get()]] instead
      * @param string $alias the alias to be translated.
      * @param bool $throwException whether to throw an exception if the given alias is invalid.
      * If this is false and an invalid alias is given, false will be returned by this method.
@@ -255,19 +255,19 @@ class BaseYii
      */
     public static function getAlias(string $alias, bool $throwException = true)
     {
-        return static::get('aliases')->getAlias($alias, $throwException);
+        return static::get('aliases')->get($alias, $throwException);
     }
 
     /**
      * Registers a path alias.
      *
-     * Uses @see yii\base\Aliases::setAlias() if container is set.
+     * Uses @see \yii\base\Aliases::setAlias() if container is set.
      * Else throws exception.
      *
      * @deprecated 3.0.0 Use [[yii\base\Application::setAlias()|Application::setAlias()]] instead
      * @param string $alias the alias name (e.g. "@yii"). It must start with a '@' character.
      * It may contain the forward slash '/' which serves as boundary character when performing
-     * alias translation by [[getAlias()]].
+     * alias translation by [[get()]].
      * @param string $path the path corresponding to the alias. If this is null, the alias will
      * be removed. Trailing '/' and '\' characters will be trimmed.
      * @throws InvalidArgumentException if $path is an invalid alias.
@@ -276,7 +276,7 @@ class BaseYii
      */
     public static function setAlias(string $alias, string $path)
     {
-        return static::get('aliases')->setAlias($alias, $path);
+        return static::get('aliases')->set($alias, $path);
     }
 
     /**
