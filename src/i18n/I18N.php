@@ -88,4 +88,28 @@ class I18N implements I18NInterface
 
         return $this;
     }
+
+    /**
+     * Returns a currency symbol
+     *
+     * @param string $currencyCode the 3-letter ISO 4217 currency code to get symbol for. If null,
+     * method will attempt using currency code from current locale.
+     * @return string
+     * @throws InvalidConfigException
+     */
+    public function getCurrencySymbol($currencyCode = null)
+    {
+        if (!extension_loaded('intl')) {
+            throw new InvalidConfigException('Locale component requires PHP intl extension to be installed.');
+        }
+
+        $locale = $this->locale;
+
+        if ($currencyCode !== null) {
+            $locale = $locale->withCurrency($currencyCode);
+        }
+
+        $formatter = new NumberFormatter((string)$locale, NumberFormatter::CURRENCY);
+        return $formatter->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
+    }
 }

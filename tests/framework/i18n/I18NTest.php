@@ -46,6 +46,12 @@ class I18NTest extends TestCase
         ]);
     }
 
+    public function testDI()
+    {
+        $i18n = $this->container->get('i18n');
+        $this->assertInstanceOf(I18N::class, $i18n);
+    }
+
     private function getMessageSourceClass()
     {
         return PhpMessageSource::class;
@@ -280,5 +286,17 @@ class I18NTest extends TestCase
         $message = 'Incorrect password (length must be from {min, number} to {max, number} symbols).';
         $expected = 'Incorrect password (length must be from {min} to {max} symbols).';
         $this->assertEquals($expected, $this->i18n->format($message, ['attribute' => 'password'], 'en'));
+    }
+
+    public function testGetCurrencySymbol()
+    {
+        // TODO: fixme
+//        $this->locale->locale = 'de-DE';
+//        $this->assertSame('€', $this->i18n->getCurrencySymbol('EUR'));
+//        $this->assertSame('€', $this->i18n->getCurrencySymbol());
+//
+//        $this->locale->locale = 'ru-RU';
+//        $this->assertIsOneOf($this->i18n->getCurrencySymbol('RUR'), ['р.', '₽', 'руб.']);
+//        $this->assertIsOneOf($this->i18n->getCurrencySymbol(), ['р.', '₽', 'руб.']);
     }
 }

@@ -69,23 +69,31 @@ return [
     'security' => [
         '__class' => yii\base\Security::class,
     ],
+
+    yii\i18n\LocaleInterface::class => Reference::to('locale'),
+    'locale' => [
+        '__class' => yii\i18n\Locale::class,
+        '__construct()' => [
+            'localeString' => $params['i18n.locale'],
+        ],
+    ],
     'formatter' => [
         '__class' => yii\i18n\Formatter::class,
     ],
-    'i18n' => [
-        '__class' => yii\i18n\I18N::class,
+    'translation' => [
+        '__class' => yii\i18n\Translation::class,
         'translations' => [
             '*' => [
                 '__class' => yii\i18n\PhpMessageSource::class,
             ],
         ],
     ],
-
-    yii\i18n\EncodingInterface::class => Reference::to('encoding'),
-    'encoding' => [
-        '__class' => yii\i18n\PhpEncoding::class,
+    'i18n' => [
+        '__class' => yii\i18n\I18N::class,
         '__construct()' => [
-            'encoding' => $params['encoding'],
+            'locale' => Reference::to('locale'),
+            'encoding' => $params['i18n.locale'],
+            'timezone' => $params['i18n.timezone'],
         ],
     ],
 
