@@ -144,7 +144,7 @@ class PhpMessageSource extends MessageSource
      */
     protected function getMessageFilePath($category, $language)
     {
-        $messageFile = $this->aliases->getAlias($this->basePath) . "/$language/";
+        $messageFile = $this->aliases->get($this->basePath) . "/$language/";
         if (isset($this->fileMap[$category])) {
             $messageFile .= $this->fileMap[$category];
         } else {

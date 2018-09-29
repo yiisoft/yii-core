@@ -141,7 +141,7 @@ class GettextMessageSource extends MessageSource
      */
     protected function getMessageFilePath($language)
     {
-        $messageFile = $this->aliases->getAlias($this->basePath) . '/' . $language . '/' . $this->catalog;
+        $messageFile = $this->aliases->get($this->basePath) . '/' . $language . '/' . $this->catalog;
         if ($this->useMoFile) {
             $messageFile .= self::MO_FILE_EXT;
         } else {
