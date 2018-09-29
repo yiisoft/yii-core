@@ -7,212 +7,85 @@
 
 namespace yii\i18n;
 
-use yii\base\Application;
-use yii\base\Component;
-use yii\exceptions\InvalidConfigException;
-
 /**
- * I18N provides features related with internationalization (I18N) and localization (L10N).
+ * This implementation stores:
+ * - locale in `Locale` object
+ * - encoding in PHP `default_charset` option and `mb_internal_encoding()`
+ * - time zone in `date_default_timezone_set()`
  *
- * I18N is configured as an application component in [[\yii\base\Application]] by default.
- * You can access that instance via `$this->app->i18n`.
- *
- * @property MessageFormatter $messageFormatter The message formatter to be used to format message via ICU
- * message format. Note that the type of this property differs in getter and setter. See
- * [[getMessageFormatter()]] and [[setMessageFormatter()]] for details.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @author Andrii Vasyliev <sol@hiqdev.com>
  */
-class I18N extends Component
+class I18N implements I18NInterface
 {
     /**
-     * @var array list of [[MessageSource]] configurations or objects. The array keys are message
-     * category patterns, and the array values are the corresponding [[MessageSource]] objects or the configurations
-     * for creating the [[MessageSource]] objects.
-     *
-     * The message category patterns can contain the wildcard `*` at the end to match multiple categories with the same prefix.
-     * For example, `app/*` matches both `app/cat1` and `app/cat2`.
-     *
-     * The `*` category pattern will match all categories that do not match any other category patterns.
-     *
-     * This property may be modified on the fly by extensions who want to have their own message sources
-     * registered under their own namespaces.
-     *
-     * The category `yii` and `app` are always defined. The former refers to the messages used in the Yii core
-     * framework code, while the latter refers to the default message category for custom application code.
-     * By default, both of these categories use [[PhpMessageSource]] and the corresponding message files are
-     * stored under `@yii/messages` and `@app/messages`, respectively.
-     *
-     * You may override the configuration of both categories.
+     * @param string $encoding
      */
-    public $translations;
-
-    /**
-     * @var Application
-     */
-    protected $app;
-
-    public function __construct(Application $app)
+    public function __construct(LocaleInterface $locale, string $encoding, string $timezone)
     {
-        $this->app = $app;
+        $this->setLocale($locale);
+        $this->setEncoding($encoding);
+        $this->setTimeZone($timezone);
     }
 
     /**
-     * Initializes the component by configuring the default message categories.
+     * {@inheritdoc}
      */
-    public function init()
+    public function getLocale(): LocaleInterface
     {
-        parent::init();
-        if (!isset($this->translations['yii']) && !isset($this->translations['yii*'])) {
-            $this->translations['yii'] = [
-                '__class' => PhpMessageSource::class,
-                'sourceLanguage' => 'en-US',
-                'basePath' => '@yii/messages',
-            ];
-        }
-
-        if (!isset($this->translations['app']) && !isset($this->translations['app*'])) {
-            $this->translations['app'] = [
-                '__class' => PhpMessageSource::class,
-                'sourceLanguage' => $this->app->sourceLanguage,
-                'basePath' => '@app/messages',
-            ];
-        }
+        return $this->locale;
     }
 
     /**
-     * Translates a message to the specified language.
-     *
-     * After translation the message will be formatted using [[MessageFormatter]] if it contains
-     * ICU message format and `$params` are not empty.
-     *
-     * @param string $category the message category.
-     * @param string $message the message to be translated.
-     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
-     * @param string $language the language code (e.g. `en-US`, `en`).
-     * @return string the translated and formatted message.
-     * @throws InvalidConfigException
+     * {@inheritdoc}
      */
-    public function translate($category, $message, $params, $language)
+    private function setLocale(LocaleInterface $locale): I18NInterface
     {
-        $messageSource = $this->getMessageSource($category);
-        $translation = $messageSource->translate($category, $message, $language);
-        if ($translation === null) {
-            return $this->format($message, $params, $messageSource->sourceLanguage);
-        }
+        $this->locale = $locale;
 
-        return $this->format($translation, $params, $language);
+        return $this;
     }
 
     /**
-     * Formats a message using [[MessageFormatter]].
-     *
-     * @param string $message the message to be formatted.
-     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
-     * @param string $language the language code (e.g. `en-US`, `en`).
-     * @return string the formatted message.
+     * {@inheritdoc}
      */
-    public function format($message, $params, $language)
+    public function getEncoding(): string
     {
-        $params = (array) $params;
-        if ($params === []) {
-            return $message;
-        }
-
-        if (preg_match('~{\s*[\w.]+\s*,~u', $message)) {
-            $formatter = $this->getMessageFormatter();
-            $result = $formatter->format($message, $params, $language);
-            if ($result === false) {
-                $errorMessage = $formatter->getErrorMessage();
-                $this->app->warning("Formatting message for language '$language' failed with error: $errorMessage. The message being formatted was: $message.", __METHOD__);
-
-                return $message;
-            }
-
-            return $result;
-        }
-
-        return static::substitute($message, $params);
-    }
-
-    public static function substitute($message, array $params)
-    {
-        $placeholders = [];
-        foreach ($params as $name => $value) {
-            $placeholders['{' . $name . '}'] = $value;
-        }
-
-        return empty($placeholders) ? $message : strtr($message, $placeholders);
+        return mb_internal_encoding();
     }
 
     /**
-     * @var string|array|MessageFormatter
+     * {@inheritdoc}
      */
-    private $_messageFormatter;
-
-    /**
-     * Returns the message formatter instance.
-     * @return MessageFormatter the message formatter to be used to format message via ICU message format.
-     */
-    public function getMessageFormatter()
+    private function setEncoding(string $encoding): I18NInterface
     {
-        if ($this->_messageFormatter === null) {
-            $this->_messageFormatter = new MessageFormatter();
-        } elseif (is_array($this->_messageFormatter) || is_string($this->_messageFormatter)) {
-            $this->_messageFormatter = $this->app->createObject($this->_messageFormatter);
-        }
+        ini_set('default_charset', $encoding);
+        mb_internal_encoding($encoding);
 
-        return $this->_messageFormatter;
+        return $this;
     }
 
     /**
-     * @param string|array|MessageFormatter $value the message formatter to be used to format message via ICU message format.
-     * Can be given as array or string configuration that will be given to [[$this->app->createObject]] to create an instance
-     * or a [[MessageFormatter]] instance.
+     * {@inheritdoc}
+     * This is a simple wrapper of PHP function date_default_timezone_get().
+     * If time zone is not configured in php.ini or application config,
+     * it will be set to UTC by default.
+     * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
-    public function setMessageFormatter($value)
+    public function getTimeZone(): string
     {
-        $this->_messageFormatter = $value;
+        return date_default_timezone_get();
     }
 
     /**
-     * Returns the message source for the given category.
-     * @param string $category the category name.
-     * @return MessageSource the message source for the given category.
-     * @throws InvalidConfigException if there is no message source available for the specified category.
+     * {@inheritdoc}
+     * This is a simple wrapper of PHP function date_default_timezone_set().
+     * Refer to the [php manual](http://www.php.net/manual/en/timezones.php) for available timezones.
+     * @see http://php.net/manual/en/function.date-default-timezone-set.php
      */
-    public function getMessageSource($category)
+    public function setTimeZone(string $timezone): I18NInterface
     {
-        if (isset($this->translations[$category])) {
-            $source = $this->translations[$category];
-            if ($source instanceof MessageSource) {
-                return $source;
-            }
+        date_default_timezone_set($timezone);
 
-            return $this->translations[$category] = $this->app->createObject($source);
-        }
-        // try wildcard matching
-        foreach ($this->translations as $pattern => $source) {
-            if (strpos($pattern, '*') > 0 && strpos($category, rtrim($pattern, '*')) === 0) {
-                if ($source instanceof MessageSource) {
-                    return $source;
-                }
-
-                return $this->translations[$category] = $this->translations[$pattern] = $this->app->createObject($source);
-            }
-        }
-
-        // match '*' in the last
-        if (isset($this->translations['*'])) {
-            $source = $this->translations['*'];
-            if ($source instanceof MessageSource) {
-                return $source;
-            }
-
-            return $this->translations[$category] = $this->translations['*'] = $this->app->createObject($source);
-        }
-
-        throw new InvalidConfigException("Unable to locate message source for category '$category'.");
+        return $this;
     }
 }

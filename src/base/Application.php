@@ -576,41 +576,43 @@ abstract class Application extends Module implements Initiable
 
 
     /**
-     * Returns the time zone used by this application.
-     * This is a simple wrapper of PHP function date_default_timezone_get().
-     * If time zone is not configured in php.ini or application config,
-     * it will be set to UTC by default.
-     * @return string the time zone used by this application.
-     * @see http://php.net/manual/en/function.date-default-timezone-get.php
+     * Returns the I18N time zone.
+     * @return string the time zone.
      */
-    public function getTimeZone()
+    public function getTimeZone(): string
     {
-        return date_default_timezone_get();
+        return $this->get('i18n')->getTimeZone();
     }
 
     /**
-     * Sets the time zone used by this application.
-     * This is a simple wrapper of PHP function date_default_timezone_set().
-     * Refer to the [php manual](http://www.php.net/manual/en/timezones.php) for available timezones.
-     * @param string $value the time zone used by this application.
-     * @see http://php.net/manual/en/function.date-default-timezone-set.php
-     */
-    public function setTimeZone($value)
-    {
-        date_default_timezone_set($value);
-    }
-
-    /**
-     * @param EncodingInterface|string
+     * Sets the I18N time zone.
+     * @param string $timezone the time zone.
      * @return self
      */
-    public function setEncoding($encoding): self
+    public function setTimeZone(string $timezone): self
     {
-        if (!$encoding instanceof EncodingInterface) {
-            $encoding = $this->get('encoding')->withEncoding($encoding);
-        }
+        $this->get('i18n')->setTimeZone($timezone);
 
-        return $this->set('encoding', $encoding);
+        return $this;
+    }
+
+    /**
+     * @param string
+     * @return self
+     */
+    public function setEncoding(string $encoding): self
+    {
+        $this->get('i18n')->setEncoding($encoding);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEncoding(): string
+    {
+        return $this->get('i18n')->getEncoding();
     }
 
     /**
