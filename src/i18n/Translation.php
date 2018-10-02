@@ -7,15 +7,12 @@
 
 namespace yii\i18n;
 
-use yii\base\Application;
 use yii\base\Component;
+use yii\di\Factory;
 use yii\exceptions\InvalidConfigException;
 
 /**
- * I18N provides features related with internationalization (I18N) and localization (L10N).
- *
- * I18N is configured as an application component in [[\yii\base\Application]] by default.
- * You can access that instance via `$this->app->i18n`.
+ * Translation provides translating messages with configured message sources.
  *
  * @property MessageFormatter $messageFormatter The message formatter to be used to format message via ICU
  * message format. Note that the type of this property differs in getter and setter. See
@@ -24,7 +21,7 @@ use yii\exceptions\InvalidConfigException;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class I18N extends Component
+class Translation extends Component implements TranslationInterface
 {
     /**
      * @var array list of [[MessageSource]] configurations or objects. The array keys are message
@@ -49,13 +46,13 @@ class I18N extends Component
     public $translations;
 
     /**
-     * @var Application
+     * @var Factory
      */
-    protected $app;
+    protected $factory;
 
-    public function __construct(Application $app)
+    public function __construct(Factory $factory)
     {
-        $this->app = $app;
+        $this->factory = $factory;
     }
 
     /**
@@ -89,12 +86,12 @@ class I18N extends Component
      *
      * @param string $category the message category.
      * @param string $message the message to be translated.
-     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
+     * @param array|scalar $params the parameters that will be used to replace the corresponding placeholders in the message.
      * @param string $language the language code (e.g. `en-US`, `en`).
      * @return string the translated and formatted message.
      * @throws InvalidConfigException
      */
-    public function translate($category, $message, $params, $language)
+    public function translate(string $category, string $message, $params, string $language): string
     {
         $messageSource = $this->getMessageSource($category);
         $translation = $messageSource->translate($category, $message, $language);
@@ -109,11 +106,11 @@ class I18N extends Component
      * Formats a message using [[MessageFormatter]].
      *
      * @param string $message the message to be formatted.
-     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
+     * @param array|scalar $params the parameters that will be used to replace the corresponding placeholders in the message.
      * @param string $language the language code (e.g. `en-US`, `en`).
      * @return string the formatted message.
      */
-    public function format($message, $params, $language)
+    public function format(string $message, $params, string $language): string
     {
         $params = (array) $params;
         if ($params === []) {
@@ -125,7 +122,8 @@ class I18N extends Component
             $result = $formatter->format($message, $params, $language);
             if ($result === false) {
                 $errorMessage = $formatter->getErrorMessage();
-                $this->app->warning("Formatting message for language '$language' failed with error: $errorMessage. The message being formatted was: $message.", __METHOD__);
+                /// TODO: restore this functionality with Logger
+                /// $this->app->warning("Formatting message for language '$language' failed with error: $errorMessage. The message being formatted was: $message.", __METHOD__);
 
                 return $message;
             }
@@ -160,7 +158,7 @@ class I18N extends Component
         if ($this->_messageFormatter === null) {
             $this->_messageFormatter = new MessageFormatter();
         } elseif (is_array($this->_messageFormatter) || is_string($this->_messageFormatter)) {
-            $this->_messageFormatter = $this->app->createObject($this->_messageFormatter);
+            $this->_messageFormatter = $this->factory->create($this->_messageFormatter);
         }
 
         return $this->_messageFormatter;
@@ -168,7 +166,7 @@ class I18N extends Component
 
     /**
      * @param string|array|MessageFormatter $value the message formatter to be used to format message via ICU message format.
-     * Can be given as array or string configuration that will be given to [[$this->app->createObject]] to create an instance
+     * Can be given as array or string configuration that will be given to [[$this->factory->create]] to create an instance
      * or a [[MessageFormatter]] instance.
      */
     public function setMessageFormatter($value)
@@ -190,7 +188,7 @@ class I18N extends Component
                 return $source;
             }
 
-            return $this->translations[$category] = $this->app->createObject($source);
+            return $this->translations[$category] = $this->factory->create($source);
         }
         // try wildcard matching
         foreach ($this->translations as $pattern => $source) {
@@ -199,7 +197,7 @@ class I18N extends Component
                     return $source;
                 }
 
-                return $this->translations[$category] = $this->translations[$pattern] = $this->app->createObject($source);
+                return $this->translations[$category] = $this->translations[$pattern] = $this->factory->create($source);
             }
         }
 
@@ -210,7 +208,7 @@ class I18N extends Component
                 return $source;
             }
 
-            return $this->translations[$category] = $this->translations['*'] = $this->app->createObject($source);
+            return $this->translations[$category] = $this->translations['*'] = $this->factory->create($source);
         }
 
         throw new InvalidConfigException("Unable to locate message source for category '$category'.");

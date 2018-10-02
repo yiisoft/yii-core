@@ -7,8 +7,11 @@
 
 namespace yii\i18n;
 
+use NumberFormatter;
+
 /**
- * This implementation stores:
+ * I18N provides features related with internationalization (I18N) and localization (L10N).
+ * Stores:
  * - locale in `Locale` object
  * - encoding in PHP `default_charset` option and `mb_internal_encoding()`
  * - time zone in `date_default_timezone_set()`
@@ -17,14 +20,27 @@ namespace yii\i18n;
  */
 class I18N implements I18NInterface
 {
+    private $encoding;
+
+    private $timezone;
+
+    private $locale;
+
+    private $translation;
+
     /**
      * @param string $encoding
      */
-    public function __construct(LocaleInterface $locale, string $encoding, string $timezone)
-    {
+    public function __construct(
+        string $encoding,
+        string $timezone,
+        LocaleInterface $locale,
+        TranslationInterface $translation
+    ) {
         $this->setLocale($locale);
         $this->setEncoding($encoding);
         $this->setTimeZone($timezone);
+        $this->setTranslation($translation);
     }
 
     /**
@@ -38,9 +54,9 @@ class I18N implements I18NInterface
     /**
      * {@inheritdoc}
      */
-    private function setLocale(LocaleInterface $locale): I18NInterface
+    public function setLocale($locale): I18NInterface
     {
-        $this->locale = $locale;
+        $this->locale = Locale::create($locale);
 
         return $this;
     }
@@ -56,7 +72,7 @@ class I18N implements I18NInterface
     /**
      * {@inheritdoc}
      */
-    private function setEncoding(string $encoding): I18NInterface
+    public function setEncoding(string $encoding): I18NInterface
     {
         ini_set('default_charset', $encoding);
         mb_internal_encoding($encoding);
@@ -87,6 +103,47 @@ class I18N implements I18NInterface
         date_default_timezone_set($timezone);
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTranslation(): TranslationInterface
+    {
+        return $this->translation;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    private function setTranslation(TranslationInterface $translation): I18NInterface
+    {
+        $this->translation = $translation;
+
+        return $this;
+    }
+
+    /**
+     * Translates a message to the specified language.
+     * Drops in the current locale when language is not given.
+     * @see Translation::translate()
+     */
+    public function translate(string $category, string $message, array $params = [], string $language = null)
+    {
+        return $this->translation->translate($category, $message, $params, $language ?: (string)$this->locale);
+    }
+
+    /**
+     * Formats a message using [[MessageFormatter]].
+     *
+     * @param string $message the message to be formatted.
+     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
+     * @param string $language the language code (e.g. `en-US`, `en`).
+     * @return string the formatted message.
+     */
+    public function format(string $message, array $params, string $language = null): string
+    {
+        return $this->translation->format($message, $params, $language ?: (string)$this->locale);
     }
 
     /**

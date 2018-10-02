@@ -83,6 +83,21 @@ class LocaleTest extends TestCase
         static::assertSame($localeString, (string)$locale);
     }
 
+    public function testPersian()
+    {
+        $localeString = 'fa-IR@calendar=persian';
+        $locale = new Locale($localeString);
+
+        $this->assertSame('fa', $locale->getLanguage());
+        $this->assertSame(null, $locale->getScript());
+        $this->assertSame('IR', $locale->getRegion());
+        $this->assertSame(null, $locale->getVariant());
+        $this->assertSame(null, $locale->getCurrency());
+        $this->assertSame(null, $locale->getCollation());
+        $this->assertSame('persian', $locale->getCalendar());
+
+    }
+
     public function longLanguageDataProvider()
     {
         return [

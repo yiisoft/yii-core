@@ -26,7 +26,6 @@ return [
     'app' => [
         'id' => $params['app.id'],
         'name' => $params['app.name'],
-        'language' => $params['app.language'],
         'params' => $params,
     ],
 
@@ -88,12 +87,15 @@ return [
             ],
         ],
     ],
+
+    yii\i18n\I18NInterface::class => Reference::to('i18n'),
     'i18n' => [
         '__class' => yii\i18n\I18N::class,
         '__construct()' => [
-            'locale' => Reference::to('locale'),
-            'encoding' => $params['i18n.locale'],
+            'encoding' => $params['i18n.encoding'],
             'timezone' => $params['i18n.timezone'],
+            'locale' => Reference::to('locale'),
+            'translation' => Reference::to('translation'),
         ],
     ],
 

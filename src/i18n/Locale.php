@@ -148,9 +148,23 @@ class Locale implements SourceLocaleInterface
     }
 
     /**
+     * Returns Locale.
+     * @param LocaleInterface|string $locale
+     * @return self
+     */
+    public static function create($locale): LocaleInterface
+    {
+        if ($locale instanceof LocaleInterface) {
+            return $locale;
+        }
+
+        return new self((string)$locale);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function getScript(): string
+    public function getScript(): ?string
     {
         return $this->script;
     }
@@ -169,7 +183,7 @@ class Locale implements SourceLocaleInterface
     /**
      * {@inheritdoc}
      */
-    public function getVariant(): string
+    public function getVariant(): ?string
     {
         return $this->variant;
     }
@@ -205,7 +219,7 @@ class Locale implements SourceLocaleInterface
     /**
      * {@inheritdoc}
      */
-    public function getCalendar(): string
+    public function getCalendar(): ?string
     {
         return $this->calendar;
     }
@@ -223,7 +237,7 @@ class Locale implements SourceLocaleInterface
     /**
      * {@inheritdoc}
      */
-    public function getCollation(): string
+    public function getCollation(): ?string
     {
         return $this->collation;
     }
@@ -241,7 +255,7 @@ class Locale implements SourceLocaleInterface
     /**
      * {@inheritdoc}
      */
-    public function getNumbers(): string
+    public function getNumbers(): ?string
     {
         return $this->numbers;
     }
@@ -259,7 +273,7 @@ class Locale implements SourceLocaleInterface
     /**
      * {@inheritdoc}
      */
-    public function getRegion(): string
+    public function getRegion(): ?string
     {
         return $this->region;
     }
@@ -296,7 +310,7 @@ class Locale implements SourceLocaleInterface
     /**
      * {@inheritdoc}
      */
-    public function getExtendedLanguage(): string
+    public function getExtendedLanguage(): ?string
     {
         return $this->extendedLanguage;
     }

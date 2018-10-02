@@ -280,6 +280,39 @@ class BaseYii
     }
 
     /**
+     * Returns current locale if set or default.
+     * @return string
+     */
+    public static function getLocaleString(string $default = 'en-US'): string
+    {
+        $i18n = static::get('i18n', null, false);
+
+        return $i18n ? (string)$i18n->getLocale() : $default;
+    }
+
+    /**
+     * Returns current source locale if set or default.
+     * @return string
+     */
+    public static function getSourceLocaleString(string $default = 'en-US'): string
+    {
+        $view = static::get('view', null, false);
+
+        return $view ? (string)$view->getSourceLocale() : $default;
+    }
+
+    /**
+     * Returns current timezone if set or default.
+     * @return string
+     */
+    public static function getTimeZone(string $default = 'UTC'): string
+    {
+        $i18n = static::get('i18n', null, false);
+
+        return $i18n ? (string)$i18n->getTimeZone() : $default;
+    }
+
+    /**
      * Returns service from container.
      * @param string $name service or class/interface name.
      * @param ContainerInterface $container DI container, default one will be used if not given.

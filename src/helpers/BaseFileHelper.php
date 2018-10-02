@@ -102,10 +102,10 @@ class BaseFileHelper
     public static function localize($file, $language = null, $sourceLanguage = null)
     {
         if ($language === null) {
-            $language = Yii::getApp()->language;
+            $language = Yii::getLocaleString();
         }
         if ($sourceLanguage === null) {
-            $sourceLanguage = Yii::getApp()->sourceLanguage;
+            $sourceLanguage = Yii::getSourceLocaleString();
         }
         if ($language === $sourceLanguage) {
             return $file;

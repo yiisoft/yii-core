@@ -31,20 +31,10 @@ class MessageSource extends Component
      * @var string the language that the original messages are in. If not set, it will use the value of
      * [[\yii\base\Application::sourceLanguage]].
      */
-    public $sourceLanguage;
+    public $sourceLanguage = 'en-US';
 
     private $_messages = [];
 
-
-    /**
-     * Initializes this component.
-     */
-    public function init()
-    {
-        if ($this->sourceLanguage === null) {
-            $this->sourceLanguage = Yii::getApp()->sourceLanguage;
-        }
-    }
 
     /**
      * Loads the message translation for the specified language and category.

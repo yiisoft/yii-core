@@ -30,9 +30,10 @@ interface I18NInterface
     public function getEncoding(): string;
 
     /**
+     * @param string $encoding
      * @return self
      */
-    public function setEncoding(string $language): self;
+    public function setEncoding(string $encoding): self;
 
     /**
      * Returns the time zone set for this i18n.

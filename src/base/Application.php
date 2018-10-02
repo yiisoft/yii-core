@@ -102,19 +102,6 @@ abstract class Application extends Module implements Initiable
      */
     public $name = 'My Application';
     /**
-     * @var string the language that is meant to be used for end users. It is recommended that you
-     * use [IETF language tags](http://en.wikipedia.org/wiki/IETF_language_tag). For example, `en` stands
-     * for English, while `en-US` stands for English (United States).
-     * @see sourceLanguage
-     */
-    public $language = 'en-US';
-    /**
-     * @var string the language that the application is written in. This mainly refers to
-     * the language that the messages and view files are written in.
-     * @see language
-     */
-    public $sourceLanguage = 'en-US';
-    /**
      * @var Controller the currently active controller instance
      */
     public $controller;
@@ -302,9 +289,9 @@ abstract class Application extends Module implements Initiable
      * @param string $language the language code (e.g. `en-US`, `en`). If this is null, the current language will be used.
      * @return string the translated message.
      */
-    public function t($category, $message, $params = [], $language = null)
+    public function t(string $category, string $message, array $params = [], string $language = null)
     {
-        return $this->get('i18n')->translate($category, $message, $params, $language ?: $this->language);
+        return $this->get('i18n')->translate($category, $message, $params, $language);
     }
 
     /**
@@ -613,6 +600,25 @@ abstract class Application extends Module implements Initiable
     public function getEncoding(): string
     {
         return $this->get('i18n')->getEncoding();
+    }
+
+    /**
+     * @param LocaleInterface|string
+     * @return self
+     */
+    public function setLocale($locale): self
+    {
+        $this->get('i18n')->setLocale($locale);
+
+        return $this;
+    }
+
+    /**
+     * @return LocaleInterface
+     */
+    public function getLocale(): LocaleInterface
+    {
+        return $this->get('i18n')->getLocale();
     }
 
     /**
