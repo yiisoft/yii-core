@@ -20,12 +20,14 @@ use NumberFormatter;
  */
 class I18N implements I18NInterface
 {
-    private $encoding;
-
-    private $timezone;
-
+    /**
+     * @var LocaleInterface
+     */
     private $locale;
 
+    /**
+     * @var TranslationInterface
+     */
     private $translation;
 
     /**
@@ -154,7 +156,7 @@ class I18N implements I18NInterface
      * @return string
      * @throws InvalidConfigException
      */
-    public function getCurrencySymbol($currencyCode = null)
+    public function getCurrencySymbol($currencyCode = null): string
     {
         if (!extension_loaded('intl')) {
             throw new InvalidConfigException('Locale component requires PHP intl extension to be installed.');

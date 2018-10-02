@@ -151,6 +151,7 @@ class Locale implements LocaleInterface
      * Returns Locale.
      * @param LocaleInterface|string $locale
      * @return self
+     * @throws InvalidConfigException
      */
     public static function create($locale): LocaleInterface
     {

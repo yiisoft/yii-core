@@ -20,9 +20,10 @@ interface I18NInterface
     public function getLocale(): LocaleInterface;
 
     /**
+     * @param LocaleInterface|string $locale
      * @return self
      */
-    public function setLocale(LocaleInterface $locale): self;
+    public function setLocale($locale): self;
 
     /**
      * @return string
