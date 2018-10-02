@@ -233,6 +233,12 @@ class BaseYii
         return I18N::substitute($message, $params);
     }
 
+    /**
+     * Returns current application encoding
+     * @param ContainerInterface|null $container
+     * @return string
+     * @throws InvalidConfigException
+     */
     public static function getEncoding(ContainerInterface $container = null): string
     {
         return (string)(static::get('encoding', $container, false) ?: mb_internal_encoding());

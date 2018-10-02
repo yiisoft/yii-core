@@ -7,7 +7,6 @@
 
 namespace yii\i18n;
 
-use yii\helpers\Yii;
 use yii\base\Component;
 
 /**
