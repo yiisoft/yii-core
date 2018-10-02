@@ -15,7 +15,7 @@ use yii\exceptions\InvalidConfigException;
  *
  * @author Alexander Makarov <sam@rmcreative.ru>
  */
-class Locale implements SourceLocaleInterface
+class Locale implements LocaleInterface
 {
     /**
      * @var string|null Two-letter ISO-639-2 language code
