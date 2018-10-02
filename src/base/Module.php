@@ -740,19 +740,6 @@ class Module extends Component
     }
 
     /**
-     * Creates a new object using the given configuration and constructor parameters.
-     *
-     * @param string|array|callable $config the object configuration.
-     * @param array $params the constructor parameters.
-     * @return object the created object.
-     * @see \yii\di\Factory::create()
-     */
-    public function createObject($config, array $params = [])
-    {
-        return $this->get('factory')->create($config, $params);
-    }
-
-    /**
      * Getter magic method.
      * This method is overridden to support accessing components like reading properties.
      * @param string $name component or property name
