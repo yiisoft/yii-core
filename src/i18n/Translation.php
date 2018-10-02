@@ -86,12 +86,12 @@ class Translation extends Component implements TranslationInterface
      *
      * @param string $category the message category.
      * @param string $message the message to be translated.
-     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
+     * @param array|int|float|string $params the parameters that will be used to replace the corresponding placeholders in the message.
      * @param string $language the language code (e.g. `en-US`, `en`).
      * @return string the translated and formatted message.
      * @throws InvalidConfigException
      */
-    public function translate(string $category, string $message, array $params, string $language): string
+    public function translate(string $category, string $message, $params, string $language): string
     {
         $messageSource = $this->getMessageSource($category);
         $translation = $messageSource->translate($category, $message, $language);
@@ -106,12 +106,14 @@ class Translation extends Component implements TranslationInterface
      * Formats a message using [[MessageFormatter]].
      *
      * @param string $message the message to be formatted.
-     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
+     * @param array|int|float|string $params the parameters that will be used to replace the corresponding placeholders in the message.
      * @param string $language the language code (e.g. `en-US`, `en`).
      * @return string the formatted message.
      */
-    public function format(string $message, array $params, string $language): string
+    public function format(string $message, $params, string $language): string
     {
+        $params = (array) $params;
+
         if ($params === []) {
             return $message;
         }
