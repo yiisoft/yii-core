@@ -413,10 +413,10 @@ class BaseStringHelper
     /**
      * This method provides a unicode-safe implementation of built-in PHP function `ucfirst()`.
      *
-     * @param string $string the string to be proceeded
+     * @param string $string the string to be processed
      * @param string $encoding Optional, defaults to "UTF-8"
      * @return string
-     * @see http://php.net/manual/en/function.ucfirst.php
+     * @see https://php.net/manual/en/function.ucfirst.php
      * @since 2.0.16
      */
     public static function mb_ucfirst(string $string, string $encoding = null)
@@ -430,9 +430,9 @@ class BaseStringHelper
     /**
      * This method provides a unicode-safe implementation of built-in PHP function `ucwords()`.
      *
-     * @param string $string the string to be proceeded
+     * @param string $string the string to be processed
      * @param string $encoding Optional, defaults to "UTF-8"
-     * @see http://php.net/manual/en/function.ucwords.php
+     * @see https://php.net/manual/en/function.ucwords.php
      * @return string
      */
     public static function mb_ucwords(string $string, string $encoding = null)
@@ -446,31 +446,75 @@ class BaseStringHelper
         return implode(' ', $titelized);
     }
 
-    public static function mb_strlen(string $str, string $encoding = null)
+    /**
+     * Get string length
+     *
+     * @param string $string string to calculate length for
+     * @param string|null $encoding Optional, defaults to "UTF-8"
+     * @see https://php.net/manual/en/function.mb-strlen.php
+     * @return int
+     */
+    public static function mb_strlen(string $string, string $encoding = null)
     {
-        return empty($encoding) ? \mb_strlen($str) : \mb_strlen($str, $encoding);
+        return empty($encoding) ? \mb_strlen($string) : \mb_strlen($string, $encoding);
     }
 
-    public static function mb_substr(string $str, int $start, int $length = null, string $encoding = null)
+    /**
+     * Get part of string
+     *
+     * @param string $string to get substring from
+     * @param int $start character to start at
+     * @param int|null $length number of characters to get
+     * @param string|null $encoding Optional, defaults to "UTF-8"
+     * @see https://php.net/manual/en/function.mb-substr.php
+     * @return string
+     */
+    public static function mb_substr(string $string, int $start, int $length = null, string $encoding = null)
     {
-        return empty($encoding) ? \mb_substr($str, $start, $length) : \mb_substr($str, $start, $length, $encoding);
+        return empty($encoding) ? \mb_substr($string, $start, $length) : \mb_substr($string, $start, $length, $encoding);
     }
 
-    public static function mb_strtolower(string $str, string $encoding = null)
+    /**
+     * Make a string lowercase
+     *
+     * @param string $string string to process
+     * @param string|null $encoding Optional, defaults to "UTF-8"
+     * @see https://php.net/manual/en/function.mb-strtolower.php
+     * @return string
+     */
+    public static function mb_strtolower(string $string, string $encoding = null)
     {
-        return empty($encoding) ? \mb_strtolower($str) : \mb_strtolower($str, $encoding);
+        return empty($encoding) ? \mb_strtolower($string) : \mb_strtolower($string, $encoding);
     }
 
-    public static function mb_strtoupper(string $str, string $encoding = null)
+    /**
+     * Make a string uppercase
+     *
+     * @param string $string string to process
+     * @param string|null $encoding Optional, defaults to "UTF-8"
+     * @see https://php.net/manual/en/function.mb-strtoupper.php
+     * @return string
+     */
+    public static function mb_strtoupper(string $string, string $encoding = null)
     {
-        return empty($encoding) ? \mb_strtoupper($str) : \mb_strtoupper($str, $encoding);
+        return empty($encoding) ? \mb_strtoupper($string) : \mb_strtoupper($string, $encoding);
     }
 
-    public static function htmlspecialchars(string $str, int $flags, string $encoding = null, $double_encode = true)
+    /**
+     * Convert special characters to HTML entities
+     *
+     * @param string $string string to process
+     * @param int $flags A bitmask of one or more flags
+     * @param string|null $encoding Optional, defaults to "UTF-8"
+     * @param bool $double_encode if set to false, method will not encode existing HTML entities
+     * @see https://php.net/manual/en/function.htmlspecialchars.php
+     * @return string
+     */
+    public static function htmlspecialchars(string $string, int $flags, string $encoding = null, $double_encode = true)
     {
         return empty($encoding) && $double_encode
-            ? \htmlspecialchars($str, $flags)
-            : \htmlspecialchars($str, $flags, $encoding ?: ini_get('default_charset'), $double_encode)
+            ? \htmlspecialchars($string, $flags)
+            : \htmlspecialchars($string, $flags, $encoding ?: ini_get('default_charset'), $double_encode)
         ;
     }
 }
