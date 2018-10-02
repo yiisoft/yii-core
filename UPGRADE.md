@@ -149,11 +149,8 @@ Upgrade from Yii 2.0.x
     * no own components in app and modules
     * get services implicitly with DI
 * Refactored internationalization:
-    * added classes and interfaces for locale, encoding and time zone
-    * BCP 47 compatible `Locale` instead of language
-    * `Encoding` instead of charset
-        * `encoding` service and DI injectable `EncodingInterface`
-        * `Application::setEncoding` method
+    * Added Locale class able to parse BCP 47 locale strings. It's used instead of language.
+    * `Application::setEncoding` method
         * encoding saved to `ini_set('default_charset')` and `mb_internal_encoding()`
           and thus applied by default to all PHP string functions like `mb_*`
 * Moved files around for more logic organization and more readable directories:
