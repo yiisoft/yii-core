@@ -69,7 +69,7 @@ return [
         '__class' => yii\base\Security::class,
     ],
 
-    yii\i18n\LocaleInterface::class => Reference::to('locale'),
+    yii\i18n\Locale::class => Reference::to('locale'),
     'locale' => [
         '__class' => yii\i18n\Locale::class,
         '__construct()' => [
@@ -88,7 +88,7 @@ return [
         ],
     ],
 
-    yii\i18n\I18NInterface::class => Reference::to('i18n'),
+    yii\i18n\I18N::class => Reference::to('i18n'),
     'i18n' => [
         '__class' => yii\i18n\I18N::class,
         '__construct()' => [

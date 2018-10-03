@@ -395,9 +395,9 @@ class Formatter extends Component
     }
 
     /**
-     * @return LocaleInterface
+     * @return Locale
      */
-    public function getLocale(): LocaleInterface
+    public function getLocale(): Locale
     {
         if ($this->_locale === null) {
             $this->_locale = $this->i18n->getLocale();
@@ -407,7 +407,7 @@ class Formatter extends Component
     }
 
     /**
-     * @param LocaleInterface|string $locale
+     * @param Locale|string $locale
      */
     public function setLocale($locale): self
     {
@@ -450,15 +450,15 @@ class Formatter extends Component
     private $_unitMessages = [];
 
     /**
-     * @var I18NInterface
+     * @var I18N
      */
     protected $i18n;
 
     /**
      * Formatter constructor.
-     * @param I18NInterface $i18n
+     * @param I18N $i18n
      */
-    public function __construct(I18NInterface $i18n)
+    public function __construct(I18N $i18n)
     {
         $this->i18n = $i18n;
         $this->_intlLoaded = extension_loaded('intl');

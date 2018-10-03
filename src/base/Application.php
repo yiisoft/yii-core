@@ -15,7 +15,7 @@ use yii\exceptions\ExitException;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
 use yii\i18n\I18N;
-use yii\i18n\LocaleInterface;
+use yii\i18n\Locale;
 use yii\web\Session;
 use yii\web\User;
 use yii\profile\ProfilerInterface;
@@ -628,7 +628,7 @@ abstract class Application extends Module implements Initiable
     }
 
     /**
-     * @param LocaleInterface|string
+     * @param Locale|string
      * @return self
      */
     public function setLocale($locale): self
@@ -639,9 +639,9 @@ abstract class Application extends Module implements Initiable
     }
 
     /**
-     * @return LocaleInterface
+     * @return Locale
      */
-    public function getLocale(): LocaleInterface
+    public function getLocale(): Locale
     {
         return $this->get('i18n')->getLocale();
     }

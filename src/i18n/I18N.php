@@ -18,10 +18,10 @@ use NumberFormatter;
  *
  * @author Andrii Vasyliev <sol@hiqdev.com>
  */
-class I18N implements I18NInterface
+class I18N
 {
     /**
-     * @var LocaleInterface
+     * @var Locale
      */
     private $locale;
 
@@ -36,7 +36,7 @@ class I18N implements I18NInterface
     public function __construct(
         string $encoding,
         string $timezone,
-        LocaleInterface $locale,
+        Locale $locale,
         TranslationInterface $translation
     ) {
         $this->setLocale($locale);
@@ -45,36 +45,24 @@ class I18N implements I18NInterface
         $this->setTranslation($translation);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getLocale(): LocaleInterface
+    public function getLocale(): Locale
     {
         return $this->locale;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setLocale($locale): I18NInterface
+    public function setLocale($locale): self
     {
         $this->locale = Locale::create($locale);
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getEncoding(): string
     {
         return mb_internal_encoding();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setEncoding(string $encoding): I18NInterface
+    public function setEncoding(string $encoding): self
     {
         ini_set('default_charset', $encoding);
         mb_internal_encoding($encoding);
@@ -83,7 +71,8 @@ class I18N implements I18NInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the time zone set for this i18n.
+     *
      * This is a simple wrapper of PHP function date_default_timezone_get().
      * If time zone is not configured in php.ini or application config,
      * it will be set to UTC by default.
@@ -95,30 +84,27 @@ class I18N implements I18NInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Sets the time zone for this i18n.
+     *
      * This is a simple wrapper of PHP function date_default_timezone_set().
      * Refer to the [php manual](http://www.php.net/manual/en/timezones.php) for available timezones.
      * @see http://php.net/manual/en/function.date-default-timezone-set.php
+     * @param string $timezone
+     * @return I18N
      */
-    public function setTimeZone(string $timezone): I18NInterface
+    public function setTimeZone(string $timezone): self
     {
         date_default_timezone_set($timezone);
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTranslation(): TranslationInterface
     {
         return $this->translation;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    private function setTranslation(TranslationInterface $translation): I18NInterface
+    private function setTranslation(TranslationInterface $translation): self
     {
         $this->translation = $translation;
 

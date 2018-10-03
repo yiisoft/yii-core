@@ -14,8 +14,9 @@ use yii\exceptions\InvalidConfigException;
  * https://tools.ietf.org/html/bcp47
  *
  * @author Alexander Makarov <sam@rmcreative.ru>
+ * @author Andrii Vasyliev <sol@hiqdev.com>
  */
-class Locale implements LocaleInterface
+final class Locale
 {
     /**
      * @var string|null Two-letter ISO-639-2 language code
@@ -149,13 +150,13 @@ class Locale implements LocaleInterface
 
     /**
      * Returns Locale.
-     * @param LocaleInterface|string $locale
+     * @param Locale|string $locale
      * @return self
      * @throws InvalidConfigException
      */
-    public static function create($locale): LocaleInterface
+    public static function create($locale): self
     {
-        if ($locale instanceof LocaleInterface) {
+        if ($locale instanceof self) {
             return $locale;
         }
 
@@ -163,7 +164,8 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string Four-letter ISO 15924 script code
+     * @see http://www.unicode.org/iso15924/iso15924-codes.html
      */
     public function getScript(): ?string
     {
@@ -171,9 +173,11 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param null|string $script Four-letter ISO 15924 script code
+     * @see http://www.unicode.org/iso15924/iso15924-codes.html
+     * @return self
      */
-    public function withScript(?string $script): LocaleInterface
+    public function withScript(?string $script): self
     {
         $clone = clone $this;
         $clone->script = $script;
@@ -182,7 +186,7 @@ class Locale implements LocaleInterface
 
 
     /**
-     * {@inheritdoc}
+     * @return string variant of language conventions to use
      */
     public function getVariant(): ?string
     {
@@ -190,9 +194,10 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param null|string $variant variant of language conventions to use
+     * @return self
      */
-    public function withVariant(?string $variant): LocaleInterface
+    public function withVariant(?string $variant): self
     {
         $clone = clone $this;
         $clone->variant = $variant;
@@ -200,7 +205,8 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string|null Two-letter ISO-639-2 language code
+     * @see http://www.loc.gov/standards/iso639-2/
      */
     public function getLanguage(): string
     {
@@ -208,9 +214,11 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param null|string $language Two-letter ISO-639-2 language code
+     * @see http://www.loc.gov/standards/iso639-2/
+     * @return self
      */
-    public function withLanguage(?string $language): LocaleInterface
+    public function withLanguage(?string $language): self
     {
         $clone = clone $this;
         $clone->language = $language;
@@ -218,7 +226,7 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return null|string ICU calendar
      */
     public function getCalendar(): ?string
     {
@@ -226,17 +234,19 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param null|string $calendar ICU calendar
+     * @return self
      */
-    public function withCalendar(?string $calendar): LocaleInterface
+    public function withCalendar(?string $calendar): self
     {
         $clone = clone $this;
         $clone->calendar = $calendar;
         return $clone;
     }
 
+
     /**
-     * {@inheritdoc}
+     * @return null|string ICU collation
      */
     public function getCollation(): ?string
     {
@@ -244,9 +254,10 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param null|string $collation ICU collation
+     * @return self
      */
-    public function withCollation(?string $collation): LocaleInterface
+    public function withCollation(?string $collation): self
     {
         $clone = clone $this;
         $clone->collation = $collation;
@@ -254,7 +265,7 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return null|string ICU numbers
      */
     public function getNumbers(): ?string
     {
@@ -262,9 +273,10 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param null|string $numbers ICU numbers
+     * @return self
      */
-    public function withNumbers(?string $numbers): LocaleInterface
+    public function withNumbers(?string $numbers): self
     {
         $clone = clone $this;
         $clone->numbers = $numbers;
@@ -272,7 +284,8 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string Two-letter ISO 3166-1 country code
+     * @see https://www.iso.org/iso-3166-country-codes.html
      */
     public function getRegion(): ?string
     {
@@ -280,9 +293,11 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param null|string $region Two-letter ISO 3166-1 country code
+     * @see https://www.iso.org/iso-3166-country-codes.html
+     * @return self
      */
-    public function withRegion(?string $region): LocaleInterface
+    public function withRegion(?string $region): self
     {
         $clone = clone $this;
         $clone->region = $region;
@@ -290,7 +305,7 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string ICU currency
      */
     public function getCurrency(): ?string
     {
@@ -298,9 +313,10 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param null|string $currency ICU currency
+     * @return self
      */
-    public function withCurrency(?string $currency): LocaleInterface
+    public function withCurrency(?string $currency): self
     {
         $clone = clone $this;
         $clone->currency = $currency;
@@ -309,7 +325,7 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return null|string extended language subtags
      */
     public function getExtendedLanguage(): ?string
     {
@@ -317,9 +333,10 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param null|string $extendedLanguage extended language subtags
+     * @return self
      */
-    public function withExtendedLanguage(?string $extendedLanguage): LocaleInterface
+    public function withExtendedLanguage(?string $extendedLanguage): self
     {
         $clone = clone $this;
         $clone->extendedLanguage = $extendedLanguage;
@@ -329,7 +346,7 @@ class Locale implements LocaleInterface
 
 
     /**
-     * {@inheritdoc}
+     * @return null|string
      */
     public function getPrivate(): ?string
     {
@@ -337,9 +354,10 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param null|string $private
+     * @return self
      */
-    public function withPrivate(?string $private): LocaleInterface
+    public function withPrivate(?string $private): self
     {
         $clone = clone $this;
         $clone->private = $private;
@@ -375,7 +393,7 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function asString(): string
     {
@@ -436,9 +454,11 @@ class Locale implements LocaleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns fallback locale
+     *
+     * @return self fallback locale
      */
-    public function getFallbackLocale(): LocaleInterface
+    public function getFallbackLocale(): self
     {
         if ($this->variant !== null) {
             return $this->withVariant(null);
