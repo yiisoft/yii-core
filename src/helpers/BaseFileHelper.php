@@ -79,52 +79,6 @@ class BaseFileHelper
     }
 
     /**
-     * Returns the localized version of a specified file.
-     *
-     * The searching is based on the specified language code. In particular,
-     * a file with the same name will be looked for under the subdirectory
-     * whose name is the same as the language code. For example, given the file "path/to/view.php"
-     * and language code "zh-CN", the localized file will be looked for as
-     * "path/to/zh-CN/view.php". If the file is not found, it will try a fallback with just a language code that is
-     * "zh" i.e. "path/to/zh/view.php". If it is not found as well the original file will be returned.
-     *
-     * If the target and the source language codes are the same,
-     * the original file will be returned.
-     *
-     * @param string $file the original file
-     * @param string $language the target language that the file should be localized to.
-     * If not set, the value of [[\yii\base\Application::language]] will be used.
-     * @param string $sourceLanguage the language that the original file is in.
-     * If not set, the value of [[\yii\base\Application::sourceLanguage]] will be used.
-     * @return string the matching localized file, or the original file if the localized version is not found.
-     * If the target and the source language codes are the same, the original file will be returned.
-     */
-    public static function localize($file, $language = null, $sourceLanguage = null)
-    {
-        if ($language === null) {
-            $language = Yii::getLocaleString();
-        }
-        if ($sourceLanguage === null) {
-            $sourceLanguage = Yii::getSourceLocaleString();
-        }
-        if ($language === $sourceLanguage) {
-            return $file;
-        }
-        $desiredFile = dirname($file) . DIRECTORY_SEPARATOR . $language . DIRECTORY_SEPARATOR . basename($file);
-        if (is_file($desiredFile)) {
-            return $desiredFile;
-        }
-
-        $language = substr($language, 0, 2);
-        if ($language === $sourceLanguage) {
-            return $file;
-        }
-        $desiredFile = dirname($file) . DIRECTORY_SEPARATOR . $language . DIRECTORY_SEPARATOR . basename($file);
-
-        return is_file($desiredFile) ? $desiredFile : $file;
-    }
-
-    /**
      * Determines the MIME type of the specified file.
      * This method will first try to determine the MIME type based on
      * [finfo_open](http://php.net/manual/en/function.finfo-open.php). If the `fileinfo` extension is not installed,
