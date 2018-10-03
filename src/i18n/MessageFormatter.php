@@ -9,7 +9,6 @@ namespace yii\i18n;
 
 use yii\base\Component;
 use yii\exceptions\NotSupportedException;
-use yii\helpers\Yii;
 
 /**
  * MessageFormatter allows formatting messages via [ICU message format](http://userguide.icu-project.org/formatparse/messages).
@@ -149,7 +148,7 @@ class MessageFormatter extends Component
      */
     private static function tokenizePattern($pattern)
     {
-        $charset = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
+        $charset = mb_internal_encoding();
         $depth = 1;
         if (($start = $pos = mb_strpos($pattern, '{', 0, $charset)) === false) {
             return [$pattern];
@@ -201,7 +200,7 @@ class MessageFormatter extends Component
     {
         // parsing pattern based on ICU grammar:
         // http://icu-project.org/apiref/icu4c/classMessageFormat.html#details
-        $charset = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
+        $charset = mb_internal_encoding();
         $param = trim($token[0]);
         if (isset($args[$param])) {
             $arg = $args[$param];

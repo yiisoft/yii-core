@@ -33,7 +33,7 @@ class FormatterTest extends TestCase
 
         $this->mockApplication([
             'timeZone' => 'UTC',
-            'language' => 'ru-RU',
+            'locale' => 'ru-RU',
         ]);
         $this->formatter = $this->app->createObject([
             '__class' => Formatter::class,

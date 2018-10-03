@@ -30,7 +30,7 @@ class FormatterNumberTest extends TestCase
 
         $this->mockApplication([
             'timeZone' => 'UTC',
-            'language' => 'ru-RU',
+            'locale' => 'ru-RU',
         ]);
         $this->formatter = $this->app->createObject([
             '__class' => Formatter::class,
@@ -440,7 +440,7 @@ class FormatterNumberTest extends TestCase
     {
         $this->assertSame('one hundred twenty-three', $this->formatter->asSpellout(123));
 
-        $this->formatter->locale = 'de_DE';
+        $this->formatter->locale = 'de-DE';
         $this->assertSame('ein­hundert­drei­und­zwanzig', $this->formatter->asSpellout(123));
 
         // null display
@@ -455,7 +455,7 @@ class FormatterNumberTest extends TestCase
         $this->assertSame('3rd', $this->formatter->asOrdinal(3));
         $this->assertSame('5th', $this->formatter->asOrdinal(5));
 
-        $this->formatter->locale = 'de_DE';
+        $this->formatter->locale = 'de-DE';
         $this->assertSame('0.', $this->formatter->asOrdinal(0));
         $this->assertSame('1.', $this->formatter->asOrdinal(1));
         $this->assertSame('2.', $this->formatter->asOrdinal(2));
@@ -475,7 +475,7 @@ class FormatterNumberTest extends TestCase
         $this->assertSame('15th', $f->asOrdinal($f->asDate('2017-05-15', 'php:j')));
         $this->assertSame('1st', $f->asOrdinal($f->asDate('2017-05-01', 'php:j')));
 
-        $f->locale = 'de_DE';
+        $f->locale = 'de-DE';
         $this->assertSame('15.', $f->asOrdinal($f->asDate('2017-05-15', 'php:j')));
         $this->assertSame('1.', $f->asOrdinal($f->asDate('2017-05-01', 'php:j')));
     }

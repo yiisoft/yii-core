@@ -10,12 +10,12 @@ namespace yii\base;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
-use yii\base\ErrorHandler;
 use yii\di\Initiable;
 use yii\exceptions\ExitException;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
 use yii\i18n\I18N;
+use yii\i18n\LocaleInterface;
 use yii\web\Session;
 use yii\web\User;
 use yii\profile\ProfilerInterface;
@@ -30,7 +30,7 @@ use yii\profile\ProfilerInterface;
  * @property \yii\rbac\ManagerInterface $authManager The auth manager application component. Null is returned
  * if auth manager is not configured. This property is read-only.
  * @property string $basePath The root directory of the application.
- * @property \yii\caching\CacheInterface $cache The cache application component. Null if the component is not
+ * @property \yii\cache\CacheInterface $cache The cache application component. Null if the component is not
  * enabled. This property is read-only.
  * @property array $container Values given in terms of name-value pairs. This property is write-only.
  * @property \yii\db\Connection $db The database connection. This property is read-only.
@@ -100,23 +100,6 @@ abstract class Application extends Module implements Initiable
      * @var string the application name.
      */
     public $name = 'My Application';
-    /**
-     * @var string the charset currently used for the application.
-     */
-    public $charset = 'UTF-8';
-    /**
-     * @var string the language that is meant to be used for end users. It is recommended that you
-     * use [IETF language tags](http://en.wikipedia.org/wiki/IETF_language_tag). For example, `en` stands
-     * for English, while `en-US` stands for English (United States).
-     * @see sourceLanguage
-     */
-    public $language = 'en-US';
-    /**
-     * @var string the language that the application is written in. This mainly refers to
-     * the language that the messages and view files are written in.
-     * @see language
-     */
-    public $sourceLanguage = 'en-US';
     /**
      * @var Controller the currently active controller instance
      */
@@ -331,9 +314,9 @@ abstract class Application extends Module implements Initiable
      * @param string $language the language code (e.g. `en-US`, `en`). If this is null, the current language will be used.
      * @return string the translated message.
      */
-    public function t($category, $message, $params = [], $language = null)
+    public function t(string $category, string $message, array $params = [], string $language = null)
     {
-        return $this->get('i18n')->translate($category, $message, $params, $language ?: $this->language);
+        return $this->get('i18n')->translate($category, $message, $params, $language);
     }
 
     /**
@@ -605,30 +588,63 @@ abstract class Application extends Module implements Initiable
 
 
     /**
-     * Returns the time zone used by this application.
-     * This is a simple wrapper of PHP function date_default_timezone_get().
-     * If time zone is not configured in php.ini or application config,
-     * it will be set to UTC by default.
-     * @return string the time zone used by this application.
-     * @see http://php.net/manual/en/function.date-default-timezone-get.php
+     * Returns the I18N time zone.
+     * @return string the time zone.
      */
-    public function getTimeZone()
+    public function getTimeZone(): string
     {
-        return date_default_timezone_get();
+        return $this->get('i18n')->getTimeZone();
     }
 
     /**
-     * Sets the time zone used by this application.
-     * This is a simple wrapper of PHP function date_default_timezone_set().
-     * Refer to the [php manual](http://www.php.net/manual/en/timezones.php) for available timezones.
-     * @param string $value the time zone used by this application.
-     * @see http://php.net/manual/en/function.date-default-timezone-set.php
+     * Sets the I18N time zone.
+     * @param string $timezone the time zone.
+     * @return self
      */
-    public function setTimeZone($value)
+    public function setTimeZone(string $timezone): self
     {
-        date_default_timezone_set($value);
+        $this->get('i18n')->setTimeZone($timezone);
+
+        return $this;
     }
 
+    /**
+     * @param string
+     * @return self
+     */
+    public function setEncoding(string $encoding): self
+    {
+        $this->get('i18n')->setEncoding($encoding);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEncoding(): string
+    {
+        return $this->get('i18n')->getEncoding();
+    }
+
+    /**
+     * @param LocaleInterface|string
+     * @return self
+     */
+    public function setLocale($locale): self
+    {
+        $this->get('i18n')->setLocale($locale);
+
+        return $this;
+    }
+
+    /**
+     * @return LocaleInterface
+     */
+    public function getLocale(): LocaleInterface
+    {
+        return $this->get('i18n')->getLocale();
+    }
 
     /**
      * Terminates the application.

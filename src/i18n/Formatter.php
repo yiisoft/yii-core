@@ -395,23 +395,25 @@ class Formatter extends Component
     }
 
     /**
-     * @return string
+     * @return LocaleInterface
      */
-    public function getLocale(): string
+    public function getLocale(): LocaleInterface
     {
-        if ($this->_locale === null && $this->app !== null) {
-            $this->_locale = $this->app->language;
+        if ($this->_locale === null) {
+            $this->_locale = $this->i18n->getLocale();
         }
 
         return $this->_locale;
     }
 
     /**
-     * @param string $locale
+     * @param LocaleInterface|string $locale
      */
-    public function setLocale(string $locale): void
+    public function setLocale($locale): self
     {
-        $this->_locale = $locale;
+        $this->_locale = Locale::create($locale);
+
+        return $this;
     }
 
     /**
@@ -419,8 +421,8 @@ class Formatter extends Component
      */
     public function getTimeZone(): string
     {
-        if ($this->_timeZone === null && $this->app !== null) {
-            $this->_timeZone = $this->app->timeZone;
+        if ($this->_timeZone === null) {
+            $this->_timeZone = $this->i18n->getTimeZone();
         }
 
         return $this->_timeZone;
@@ -448,17 +450,17 @@ class Formatter extends Component
     private $_unitMessages = [];
 
     /**
-     * @var Application
+     * @var I18NInterface
      */
-    protected $app;
+    protected $i18n;
 
     /**
      * Formatter constructor.
-     * @param Application $app
+     * @param I18NInterface $i18n
      */
-    public function __construct(Application $app)
+    public function __construct(I18NInterface $i18n)
     {
-        $this->app = $app;
+        $this->i18n = $i18n;
         $this->_intlLoaded = extension_loaded('intl');
         if (!$this->_intlLoaded) {
             $this->decimalSeparator = '.';

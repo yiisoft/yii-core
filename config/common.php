@@ -26,7 +26,6 @@ return [
     'app' => [
         'id' => $params['app.id'],
         'name' => $params['app.name'],
-        'language' => $params['app.language'],
         'params' => $params,
     ],
 
@@ -69,17 +68,37 @@ return [
     'security' => [
         '__class' => yii\base\Security::class,
     ],
+
+    yii\i18n\LocaleInterface::class => Reference::to('locale'),
+    'locale' => [
+        '__class' => yii\i18n\Locale::class,
+        '__construct()' => [
+            'localeString' => $params['i18n.locale'],
+        ],
+    ],
     'formatter' => [
         '__class' => yii\i18n\Formatter::class,
     ],
-    'i18n' => [
-        '__class' => yii\i18n\I18N::class,
+    'translation' => [
+        '__class' => yii\i18n\Translation::class,
         'translations' => [
             '*' => [
                 '__class' => yii\i18n\PhpMessageSource::class,
             ],
         ],
     ],
+
+    yii\i18n\I18NInterface::class => Reference::to('i18n'),
+    'i18n' => [
+        '__class' => yii\i18n\I18N::class,
+        '__construct()' => [
+            'encoding' => $params['i18n.encoding'],
+            'timezone' => $params['i18n.timezone'],
+            'locale' => Reference::to('locale'),
+            'translation' => Reference::to('translation'),
+        ],
+    ],
+
     'mutex' => [
         '__class' => yii\mutex\FileMutex::class
     ],

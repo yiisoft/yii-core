@@ -679,16 +679,13 @@ class BaseArrayHelper
      */
     public static function htmlEncode($data, $valuesOnly = true, $charset = null)
     {
-        if ($charset === null) {
-            $charset = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
-        }
         $d = [];
         foreach ($data as $key => $value) {
             if (!$valuesOnly && is_string($key)) {
-                $key = htmlspecialchars($key, ENT_QUOTES | ENT_SUBSTITUTE, $charset);
+                $key = StringHelper::htmlspecialchars($key, ENT_QUOTES | ENT_SUBSTITUTE, $charset);
             }
             if (is_string($value)) {
-                $d[$key] = htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, $charset);
+                $d[$key] = StringHelper::htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, $charset);
             } elseif (is_array($value)) {
                 $d[$key] = static::htmlEncode($value, $valuesOnly, $charset);
             } else {

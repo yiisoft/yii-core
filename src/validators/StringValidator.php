@@ -62,7 +62,7 @@ class StringValidator extends Validator implements Initiable
     public $notEqual;
     /**
      * @var string the encoding of the string value to be validated (e.g. 'UTF-8').
-     * If this property is not set, [[\yii\base\Application::charset]] will be used.
+     * If this property is not set, application wide encoding will be used.
      */
     protected $_encoding;
 
@@ -95,10 +95,17 @@ class StringValidator extends Validator implements Initiable
         }
     }
 
+    public function setEncoding(string $encoding): self
+    {
+        $this->_encoding = $encoding;
+
+        return $this;
+    }
+
     public function getEncoding(): string
     {
         if ($this->_encoding === null) {
-            $this->_encoding = Yii::getApp() ? Yii::getApp()->charset : 'UTF-8';
+            $this->_encoding = Yii::getEncoding();
         }
 
         return $this->_encoding;
@@ -139,7 +146,7 @@ class StringValidator extends Validator implements Initiable
             return [$this->message, []];
         }
 
-        $length = mb_strlen($value, $this->encoding);
+        $length = mb_strlen($value, $this->getEncoding());
 
         if ($this->min !== null && $length < $this->min) {
             return [$this->tooShort, ['min' => $this->min]];

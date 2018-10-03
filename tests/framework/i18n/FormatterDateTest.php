@@ -30,7 +30,7 @@ class FormatterDateTest extends TestCase
 
         $this->mockApplication([
             'timeZone' => 'UTC',
-            'language' => 'ru-RU',
+            'locale' => 'ru-RU',
         ]);
         $this->formatter = $this->app->createObject([
             '__class' => Formatter::class,
@@ -96,7 +96,7 @@ class FormatterDateTest extends TestCase
     public function testIntlAsDateOtherCalendars()
     {
         // Persian calendar
-        $this->formatter->locale = 'fa_IR@calendar=persian';
+        $this->formatter->locale = 'fa-IR@calendar=persian';
         $this->formatter->calendar = \IntlDateFormatter::TRADITIONAL;
         $this->formatter->timeZone = 'UTC';
 
@@ -111,7 +111,7 @@ class FormatterDateTest extends TestCase
         $this->assertSame('۱۳۹۴', $this->formatter->asDate($value, 'php:Y'));
 
         // Buddhist calendar
-        $this->formatter->locale = 'fr_FR@calendar=buddhist';
+        $this->formatter->locale = 'fr-FR@calendar=buddhist';
         $this->formatter->calendar = \IntlDateFormatter::TRADITIONAL;
         $this->formatter->timeZone = 'UTC';
 

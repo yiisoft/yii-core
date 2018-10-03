@@ -342,7 +342,7 @@ class BaseInflector
     {
         $words = static::humanize(static::underscore($words), $ucAll);
 
-        return $ucAll ? StringHelper::mb_ucwords($words, self::encoding()) : StringHelper::mb_ucfirst($words, self::encoding());
+        return $ucAll ? StringHelper::mb_ucwords($words) : StringHelper::mb_ucfirst($words);
     }
 
     /**
@@ -357,7 +357,7 @@ class BaseInflector
      */
     public static function camelize($word)
     {
-        return str_replace(' ', '', StringHelper::mb_ucwords(preg_replace('/[^\pL\pN]+/u', ' ', $word), self::encoding()));
+        return str_replace(' ', '', StringHelper::mb_ucwords(preg_replace('/[^\pL\pN]+/u', ' ', $word)));
     }
 
     /**
@@ -373,9 +373,9 @@ class BaseInflector
             '-',
             '_',
             '.',
-        ], ' ', preg_replace('/(\p{Lu})/u', ' \0', $name))), self::encoding());
+        ], ' ', preg_replace('/(\p{Lu})/u', ' \0', $name))));
 
-        return $ucwords ? StringHelper::mb_ucwords($label, self::encoding()) : $label;
+        return $ucwords ? StringHelper::mb_ucwords($label) : $label;
     }
 
     /**
@@ -391,10 +391,10 @@ class BaseInflector
     {
         $regex = $strict ? '/\p{Lu}/u' : '/(?<!\p{Lu})\p{Lu}/u';
         if ($separator === '_') {
-            return mb_strtolower(trim(preg_replace($regex, '_\0', $name), '_'), self::encoding());
+            return mb_strtolower(trim(preg_replace($regex, '_\0', $name), '_'));
         }
 
-        return mb_strtolower(trim(str_replace('_', $separator, preg_replace($regex, $separator . '\0', $name)), $separator), self::encoding());
+        return mb_strtolower(trim(str_replace('_', $separator, preg_replace($regex, $separator . '\0', $name)), $separator));
     }
 
     /**
@@ -407,7 +407,7 @@ class BaseInflector
      */
     public static function id2camel($id, $separator = '-')
     {
-        return str_replace(' ', '', StringHelper::mb_ucwords(str_replace($separator, ' ', $id), self::encoding()));
+        return str_replace(' ', '', StringHelper::mb_ucwords(str_replace($separator, ' ', $id)));
     }
 
     /**
@@ -417,7 +417,7 @@ class BaseInflector
      */
     public static function underscore($words)
     {
-        return mb_strtolower(preg_replace('/(?<=\\pL)(\\p{Lu})/u', '_\\1', $words), self::encoding());
+        return mb_strtolower(preg_replace('/(?<=\\pL)(\\p{Lu})/u', '_\\1', $words));
     }
 
     /**
@@ -429,9 +429,8 @@ class BaseInflector
     public static function humanize($word, $ucAll = false)
     {
         $word = str_replace('_', ' ', preg_replace('/_id$/', '', $word));
-        $encoding = self::encoding();
 
-        return $ucAll ? StringHelper::mb_ucwords($word, $encoding) : StringHelper::mb_ucfirst($word, $encoding);
+        return $ucAll ? StringHelper::mb_ucwords($word) : StringHelper::mb_ucfirst($word);
     }
 
     /**
@@ -447,7 +446,7 @@ class BaseInflector
     {
         $word = static::camelize($word);
 
-        return mb_strtolower(mb_substr($word, 0, 1, self::encoding())) . mb_substr($word, 1, null, self::encoding());
+        return mb_strtolower(mb_substr($word, 0, 1)) . mb_substr($word, 1, null);
     }
 
     /**
@@ -600,13 +599,4 @@ class BaseInflector
                 return implode($connector, array_slice($words, 0, -1)) . $lastWordConnector . end($words);
         }
     }
-
-    /**
-     * @return string
-     */
-    private static function encoding()
-    {
-        return Yii::getApp() !== null ? Yii::getApp()->charset : 'UTF-8';
-    }
-
 }
