@@ -26,9 +26,9 @@ class I18N
     private $locale;
 
     /**
-     * @var TranslationInterface
+     * @var Translator
      */
-    private $translation;
+    private $translator;
 
     /**
      * @param string $encoding
@@ -37,12 +37,12 @@ class I18N
         string $encoding,
         string $timezone,
         Locale $locale,
-        TranslationInterface $translation
+        Translator $translator
     ) {
         $this->setLocale($locale);
         $this->setEncoding($encoding);
         $this->setTimeZone($timezone);
-        $this->setTranslation($translation);
+        $this->setTranslator($translator);
     }
 
     public function getLocale(): Locale
@@ -99,14 +99,14 @@ class I18N
         return $this;
     }
 
-    public function getTranslation(): TranslationInterface
+    public function getTranslator(): Translator
     {
-        return $this->translation;
+        return $this->translator;
     }
 
-    private function setTranslation(TranslationInterface $translation): self
+    private function setTranslator(Translator $translator): self
     {
-        $this->translation = $translation;
+        $this->translator = $translator;
 
         return $this;
     }
@@ -114,11 +114,11 @@ class I18N
     /**
      * Translates a message to the specified language.
      * Drops in the current locale when language is not given.
-     * @see Translation::translate()
+     * @see Translator::translate()
      */
     public function translate(string $category, string $message, array $params = [], string $language = null)
     {
-        return $this->translation->translate($category, $message, $params, $language ?: (string)$this->locale);
+        return $this->translator->translate($category, $message, $params, $language ?: (string)$this->locale);
     }
 
     /**
@@ -131,7 +131,7 @@ class I18N
      */
     public function format(string $message, array $params, string $language = null): string
     {
-        return $this->translation->format($message, $params, $language ?: (string)$this->locale);
+        return $this->translator->format($message, $params, $language ?: (string)$this->locale);
     }
 
     /**

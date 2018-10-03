@@ -79,8 +79,8 @@ return [
     'formatter' => [
         '__class' => yii\i18n\Formatter::class,
     ],
-    'translation' => [
-        '__class' => yii\i18n\Translation::class,
+    'translator' => [
+        '__class' => yii\i18n\Translator::class,
         'translations' => [
             '*' => [
                 '__class' => yii\i18n\PhpMessageSource::class,

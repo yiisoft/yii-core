@@ -12,7 +12,7 @@ use yii\di\Factory;
 use yii\exceptions\InvalidConfigException;
 
 /**
- * Translation provides translating messages with configured message sources.
+ * Translator provides translating messages with configured message sources.
  *
  * @property MessageFormatter $messageFormatter The message formatter to be used to format message via ICU
  * message format. Note that the type of this property differs in getter and setter. See
@@ -21,7 +21,7 @@ use yii\exceptions\InvalidConfigException;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Translation extends Component implements TranslationInterface
+class Translator extends Component
 {
     /**
      * @var array list of [[MessageSource]] configurations or objects. The array keys are message

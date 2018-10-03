@@ -9,7 +9,7 @@ namespace yii\tests\framework\i18n;
 
 use yii\helpers\Yii;
 use yii\base\Event;
-use yii\i18n\Translation;
+use yii\i18n\Translator;
 use yii\i18n\PhpMessageSource;
 use yii\i18n\TranslationEvent;
 use yii\tests\TestCase;
@@ -19,25 +19,25 @@ use yii\tests\TestCase;
  * @since 2.0
  * @group i18n
  */
-class TranslationTest extends TestCase
+class TranslatorTest extends TestCase
 {
     /**
-     * @var Translation
+     * @var Translator
      */
-    public $translation;
+    public $translator;
 
     protected function setUp()
     {
         parent::setUp();
         $this->mockApplication();
-        $this->setTranslation();
+        $this->setTranslator();
         $this->i18n = $this->container->get('i18n');
     }
 
-    protected function setTranslation()
+    protected function setTranslator()
     {
-        $this->translation = $this->factory->create([
-            '__class' => Translation::class,
+        $this->translator = $this->factory->create([
+            '__class' => Translator::class,
             'translations' => [
                 'test' => [
                     '__class' => $this->getMessageSourceClass(),
@@ -49,8 +49,8 @@ class TranslationTest extends TestCase
 
     public function testDI()
     {
-        $translation = $this->container->get('translation');
-        $this->assertInstanceOf(Translation::class, $translation);
+        $translator = $this->container->get('translator');
+        $this->assertInstanceOf(Translator::class, $translator);
     }
 
     private function getMessageSourceClass()
@@ -63,22 +63,22 @@ class TranslationTest extends TestCase
         $msg = 'The dog runs fast.';
 
         // source = target. Should be returned as is.
-        $this->assertEquals('The dog runs fast.', $this->translation->translate('test', $msg, [], 'en-US'));
+        $this->assertEquals('The dog runs fast.', $this->translator->translate('test', $msg, [], 'en-US'));
 
         // exact match
-        $this->assertEquals('Der Hund rennt schnell.', $this->translation->translate('test', $msg, [], 'de-DE'));
+        $this->assertEquals('Der Hund rennt schnell.', $this->translator->translate('test', $msg, [], 'de-DE'));
 
         // fallback to just language code with absent exact match
-        $this->assertEquals('Собака бегает быстро.', $this->translation->translate('test', $msg, [], 'ru-RU'));
+        $this->assertEquals('Собака бегает быстро.', $this->translator->translate('test', $msg, [], 'ru-RU'));
 
         // fallback to just langauge code with present exact match
-        $this->assertEquals('Hallo Welt!', $this->translation->translate('test', 'Hello world!', [], 'de-DE'));
+        $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
     }
 
     public function testDefaultSource()
     {
-        $translation = $this->factory->create([
-            '__class' => Translation::class,
+        $translator = $this->factory->create([
+            '__class' => Translator::class,
             'translations' => [
                 '*' => [
                     '__class' => $this->getMessageSourceClass(),
@@ -94,18 +94,18 @@ class TranslationTest extends TestCase
         $msg = 'The dog runs fast.';
 
         // source = target. Should be returned as is.
-        $this->assertEquals($msg, $translation->translate('test', $msg, [], 'en-US'));
+        $this->assertEquals($msg, $translator->translate('test', $msg, [], 'en-US'));
 
         // exact match
-        $this->assertEquals('Der Hund rennt schnell.', $translation->translate('test', $msg, [], 'de-DE'));
-        $this->assertEquals('Der Hund rennt schnell.', $translation->translate('foo', $msg, [], 'de-DE'));
-        $this->assertEquals($msg, $translation->translate('bar', $msg, [], 'de-DE'));
+        $this->assertEquals('Der Hund rennt schnell.', $translator->translate('test', $msg, [], 'de-DE'));
+        $this->assertEquals('Der Hund rennt schnell.', $translator->translate('foo', $msg, [], 'de-DE'));
+        $this->assertEquals($msg, $translator->translate('bar', $msg, [], 'de-DE'));
 
         // fallback to just language code with absent exact match
-        $this->assertEquals('Собака бегает быстро.', $translation->translate('test', $msg, [], 'ru-RU'));
+        $this->assertEquals('Собака бегает быстро.', $translator->translate('test', $msg, [], 'ru-RU'));
 
         // fallback to just langauge code with present exact match
-        $this->assertEquals('Hallo Welt!', $translation->translate('test', 'Hello world!', [], 'de-DE'));
+        $this->assertEquals('Hallo Welt!', $translator->translate('test', 'Hello world!', [], 'de-DE'));
     }
 
     /**
@@ -113,8 +113,8 @@ class TranslationTest extends TestCase
      */
     public function testSourceLanguageFallback()
     {
-        $translation = $this->factory->create([
-            '__class' => Translation::class,
+        $translator = $this->factory->create([
+            '__class' => Translator::class,
             'translations' => [
                 '*' => [
                     '__class' => PhpMessageSource::class,
@@ -131,23 +131,23 @@ class TranslationTest extends TestCase
         $msg = 'The dog runs fast.';
 
         // source = target. Should be returned as is.
-        $this->assertEquals($msg, $translation->translate('test', $msg, [], 'de-DE'));
+        $this->assertEquals($msg, $translator->translate('test', $msg, [], 'de-DE'));
 
         // target is less specific, than a source. Messages from sourceLanguage file should be loaded as a fallback
-        $this->assertEquals('Der Hund rennt schnell.', $translation->translate('test', $msg, [], 'de'));
-        $this->assertEquals('Hallo Welt!', $translation->translate('test', 'Hello world!', [], 'de'));
+        $this->assertEquals('Der Hund rennt schnell.', $translator->translate('test', $msg, [], 'de'));
+        $this->assertEquals('Hallo Welt!', $translator->translate('test', 'Hello world!', [], 'de'));
 
         // target is a different language than source
-        $this->assertEquals('Собака бегает быстро.', $translation->translate('test', $msg, [], 'ru-RU'));
-        $this->assertEquals('Собака бегает быстро.', $translation->translate('test', $msg, [], 'ru'));
+        $this->assertEquals('Собака бегает быстро.', $translator->translate('test', $msg, [], 'ru-RU'));
+        $this->assertEquals('Собака бегает быстро.', $translator->translate('test', $msg, [], 'ru'));
     }
 
     public function testTranslateParams()
     {
         $msg = 'His speed is about {n} km/h.';
         $params = ['n' => 42];
-        $this->assertEquals('His speed is about 42 km/h.', $this->translation->translate('test', $msg, $params, 'en-US'));
-        $this->assertEquals('Seine Geschwindigkeit beträgt 42 km/h.', $this->translation->translate('test', $msg, $params, 'de-DE'));
+        $this->assertEquals('His speed is about 42 km/h.', $this->translator->translate('test', $msg, $params, 'en-US'));
+        $this->assertEquals('Seine Geschwindigkeit beträgt 42 km/h.', $this->translator->translate('test', $msg, $params, 'de-DE'));
     }
 
     public function testTranslateParams2()
@@ -160,18 +160,18 @@ class TranslationTest extends TestCase
             'n' => 42,
             'name' => 'DA VINCI', // http://petrix.com/dognames/d.html
         ];
-        $this->assertEquals('His name is DA VINCI and his speed is about 42 km/h.', $this->translation->translate('test', $msg, $params, 'en-US'));
-        $this->assertEquals('Er heißt DA VINCI und ist 42 km/h schnell.', $this->translation->translate('test', $msg, $params, 'de-DE'));
+        $this->assertEquals('His name is DA VINCI and his speed is about 42 km/h.', $this->translator->translate('test', $msg, $params, 'en-US'));
+        $this->assertEquals('Er heißt DA VINCI und ist 42 km/h schnell.', $this->translator->translate('test', $msg, $params, 'de-DE'));
     }
 
     public function testSpecialParams()
     {
         $msg = 'His speed is about {0} km/h.';
 
-        $this->assertEquals('His speed is about 0 km/h.', $this->translation->translate('test', $msg, 0, 'en-US'));
-        $this->assertEquals('His speed is about 42 km/h.', $this->translation->translate('test', $msg, 42, 'en-US'));
-        $this->assertEquals('His speed is about {0} km/h.', $this->translation->translate('test', $msg, null, 'en-US'));
-        $this->assertEquals('His speed is about {0} km/h.', $this->translation->translate('test', $msg, [], 'en-US'));
+        $this->assertEquals('His speed is about 0 km/h.', $this->translator->translate('test', $msg, 0, 'en-US'));
+        $this->assertEquals('His speed is about 42 km/h.', $this->translator->translate('test', $msg, 42, 'en-US'));
+        $this->assertEquals('His speed is about {0} km/h.', $this->translator->translate('test', $msg, null, 'en-US'));
+        $this->assertEquals('His speed is about {0} km/h.', $this->translator->translate('test', $msg, [], 'en-US'));
     }
 
     /**
@@ -181,7 +181,7 @@ class TranslationTest extends TestCase
      */
     public function testMissingTranslationFormatting()
     {
-        $this->assertEquals('1 item', $this->translation->translate('test', '{0, number} {0, plural, one{item} other{items}}', 1, 'hu'));
+        $this->assertEquals('1 item', $this->translator->translate('test', '{0, number} {0, plural, one{item} other{items}}', 1, 'hu'));
     }
 
     /**
@@ -189,7 +189,7 @@ class TranslationTest extends TestCase
      */
     public function testRussianPlurals()
     {
-        $this->assertEquals('На диване лежит 6 кошек!', $this->translation->translate('test', 'There {n, plural, =0{no cats} =1{one cat} other{are # cats}} on lying on the sofa!', ['n' => 6], 'ru'));
+        $this->assertEquals('На диване лежит 6 кошек!', $this->translator->translate('test', 'There {n, plural, =0{no cats} =1{one cat} other{are # cats}} on lying on the sofa!', ['n' => 6], 'ru'));
     }
 
     public function testUsingSourceLanguageForMissingTranslation()
@@ -210,14 +210,14 @@ class TranslationTest extends TestCase
      */
     public function testMissingTranslationEvent()
     {
-        $this->assertEquals('Hallo Welt!', $this->translation->translate('test', 'Hello world!', [], 'de-DE'));
-        $this->assertEquals('Missing translation message.', $this->translation->translate('test', 'Missing translation message.', [], 'de-DE'));
-        $this->assertEquals('Hallo Welt!', $this->translation->translate('test', 'Hello world!', [], 'de-DE'));
+        $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
+        $this->assertEquals('Missing translation message.', $this->translator->translate('test', 'Missing translation message.', [], 'de-DE'));
+        $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
 
         Event::on(PhpMessageSource::class, TranslationEvent::MISSING, function ($event) {});
-        $this->assertEquals('Hallo Welt!', $this->translation->translate('test', 'Hello world!', [], 'de-DE'));
-        $this->assertEquals('Missing translation message.', $this->translation->translate('test', 'Missing translation message.', [], 'de-DE'));
-        $this->assertEquals('Hallo Welt!', $this->translation->translate('test', 'Hello world!', [], 'de-DE'));
+        $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
+        $this->assertEquals('Missing translation message.', $this->translator->translate('test', 'Missing translation message.', [], 'de-DE'));
+        $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
         Event::off(PhpMessageSource::class, TranslationEvent::MISSING);
 
         Event::on(PhpMessageSource::class, TranslationEvent::MISSING, function ($event) {
@@ -225,11 +225,11 @@ class TranslationTest extends TestCase
                 $event->translatedMessage = 'TRANSLATION MISSING HERE!';
             }
         });
-        $this->assertEquals('Hallo Welt!', $this->translation->translate('test', 'Hello world!', [], 'de-DE'));
-        $this->assertEquals('Another missing translation message.', $this->translation->translate('test', 'Another missing translation message.', [], 'de-DE'));
-        $this->assertEquals('Missing translation message.', $this->translation->translate('test', 'Missing translation message.', [], 'de-DE'));
-        $this->assertEquals('TRANSLATION MISSING HERE!', $this->translation->translate('test', 'New missing translation message.', [], 'de-DE'));
-        $this->assertEquals('Hallo Welt!', $this->translation->translate('test', 'Hello world!', [], 'de-DE'));
+        $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
+        $this->assertEquals('Another missing translation message.', $this->translator->translate('test', 'Another missing translation message.', [], 'de-DE'));
+        $this->assertEquals('Missing translation message.', $this->translator->translate('test', 'Missing translation message.', [], 'de-DE'));
+        $this->assertEquals('TRANSLATION MISSING HERE!', $this->translator->translate('test', 'New missing translation message.', [], 'de-DE'));
+        $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
         Event::off(PhpMessageSource::class, TranslationEvent::MISSING);
     }
 
@@ -250,7 +250,7 @@ class TranslationTest extends TestCase
     {
         $this->destroyApplication();
         $this->mockApplication();
-        $this->setTranslation();
+        $this->setTranslator();
 
         $this->app->sourceLanguage = $sourceLanguage;
         $logger = $this->app->getLogger();
@@ -261,20 +261,20 @@ class TranslationTest extends TestCase
             return substr_compare($array[2]['category'], $className, 0, strlen($className)) === 0;
         };
 
-        $this->assertEquals('The dog runs fast.', $this->translation->translate('test', 'The dog runs fast.', [], 'en-GB'));
+        $this->assertEquals('The dog runs fast.', $this->translator->translate('test', 'The dog runs fast.', [], 'en-GB'));
         $this->assertEquals([], array_filter($logger->messages, $filter));
 
-        $this->assertEquals('The dog runs fast.', $this->translation->translate('test', 'The dog runs fast.', [], 'en'));
+        $this->assertEquals('The dog runs fast.', $this->translator->translate('test', 'The dog runs fast.', [], 'en'));
         $this->assertEquals([], array_filter($logger->messages, $filter));
 
-        $this->assertEquals('The dog runs fast.', $this->translation->translate('test', 'The dog runs fast.', [], 'en-CA'));
+        $this->assertEquals('The dog runs fast.', $this->translator->translate('test', 'The dog runs fast.', [], 'en-CA'));
         $this->assertEquals([], array_filter($logger->messages, $filter));
 
-        $this->assertEquals('The dog runs fast.', $this->translation->translate('test', 'The dog runs fast.', [], 'hz-HZ'));
+        $this->assertEquals('The dog runs fast.', $this->translator->translate('test', 'The dog runs fast.', [], 'hz-HZ'));
         $this->assertCount(1, array_filter($logger->messages, $filter));
         $logger->messages = [];
 
-        $this->assertEquals('The dog runs fast.', $this->translation->translate('test', 'The dog runs fast.', [], 'hz'));
+        $this->assertEquals('The dog runs fast.', $this->translator->translate('test', 'The dog runs fast.', [], 'hz'));
         $this->assertCount(1, array_filter($logger->messages, $filter));
         $logger->messages = [];
     }
@@ -287,6 +287,6 @@ class TranslationTest extends TestCase
     {
         $message = 'Incorrect password (length must be from {min, number} to {max, number} symbols).';
         $expected = 'Incorrect password (length must be from {min} to {max} symbols).';
-        $this->assertEquals($expected, $this->translation->format($message, ['attribute' => 'password'], 'en'));
+        $this->assertEquals($expected, $this->translator->format($message, ['attribute' => 'password'], 'en'));
     }
 }
