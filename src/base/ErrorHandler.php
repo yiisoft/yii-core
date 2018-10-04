@@ -150,7 +150,7 @@ abstract class ErrorHandler extends Component
             if (PHP_SAPI === 'cli') {
                 echo $msg . "\n";
             } else {
-                echo '<pre>' . htmlspecialchars($msg, ENT_QUOTES, $this->app->charset) . '</pre>';
+                echo '<pre>' . htmlspecialchars($msg, ENT_QUOTES, $this->app->encoding) . '</pre>';
             }
         } else {
             echo 'An internal server error occurred.';
