@@ -26,7 +26,7 @@ class DateValidatorTest extends TestCase
 
         $this->mockApplication([
             'timeZone' => 'UTC',
-            'language' => 'ru-RU',
+            'locale' => 'ru-RU',
         ]);
     }
 
@@ -51,7 +51,7 @@ class DateValidatorTest extends TestCase
         date_default_timezone_set($timezone);
         $this->testValidateValue($timezone);
 
-        $this->mockApplication(['language' => 'en-GB'], null, [
+        $this->mockApplication(['locale' => 'en-GB'], null, [
             'formatter' => [
                 '__class' => \yii\i18n\Formatter::class,
                 'dateFormat' => 'short',
@@ -65,7 +65,7 @@ class DateValidatorTest extends TestCase
         $this->assertTrue($val->validate('31/5/2017'));
         $this->assertFalse($val->validate('5/31/2017'));
 
-        $this->mockApplication(['language' => 'de-DE'], null, [
+        $this->mockApplication(['locale' => 'de-DE'], null, [
             'formatter' => [
                 '__class' => \yii\i18n\Formatter::class,
                 'dateFormat' => 'short',
@@ -317,7 +317,7 @@ class DateValidatorTest extends TestCase
 
         $this->testValidationWithTime($timezone);
 
-        $this->mockApplication(['language' => 'en-GB'], null, [
+        $this->mockApplication(['locale' => 'en-GB'], null, [
             'formatter' => [
                 '__class' => \yii\i18n\Formatter::class,
                 'dateFormat' => 'long',
@@ -331,7 +331,7 @@ class DateValidatorTest extends TestCase
         $this->assertTrue($val->validate($enGB_dateTime_valid));
         $this->assertFalse($val->validate($enGB_dateTime_invalid));
 
-        $this->mockApplication(['language' => 'de-DE'], null, [
+        $this->mockApplication(['locale' => 'de-DE'], null, [
             'formatter' => [
                 '__class' => \yii\i18n\Formatter::class,
                 'dateFormat' => 'long',

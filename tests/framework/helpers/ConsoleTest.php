@@ -213,7 +213,7 @@ class ConsoleTest extends TestCase
         $model->addError('name', 'Error message. Here are even more chars: ""');
         $model->validate(null, false);
         $options = ['showAllErrors' => true];
-        $expectedHtml =  "Error message. Here are some chars: < >\nError message. Here are even more chars: \"\"";
+        $expectedHtml =  'Error message. Here are some chars: < >' . PHP_EOL . 'Error message. Here are even more chars: ""';
         $this->assertEquals($expectedHtml, Console::errorSummary($model, $options));
     }
 }

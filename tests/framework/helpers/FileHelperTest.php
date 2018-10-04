@@ -750,31 +750,6 @@ class FileHelperTest extends TestCase
 
     }
 
-    public function testLocalizedDirectory()
-    {
-        $this->createFileStructure([
-            'views' => [
-                'faq.php' => 'English FAQ',
-                'de-DE' => [
-                    'faq.php' => 'German FAQ',
-                ],
-            ],
-        ]);
-        $viewFile = $this->testFilePath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'faq.php';
-        $sourceLanguage = 'en-US';
-
-        // Source language and target language are same. The view path should be unchanged.
-        $currentLanguage = $sourceLanguage;
-        $this->assertSame($viewFile, FileHelper::localize($viewFile, $currentLanguage, $sourceLanguage));
-
-        // Source language and target language are different. The view path should be changed.
-        $currentLanguage = 'de-DE';
-        $this->assertSame(
-            $this->testFilePath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $currentLanguage . DIRECTORY_SEPARATOR . 'faq.php',
-            FileHelper::localize($viewFile, $currentLanguage, $sourceLanguage)
-        );
-    }
-
     /**
      * @see https://github.com/yiisoft/yii2/issues/3393
      *

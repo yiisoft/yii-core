@@ -7,7 +7,6 @@
 
 namespace yii\i18n;
 
-use yii\helpers\Yii;
 use yii\base\Component;
 
 /**
@@ -31,21 +30,10 @@ class MessageSource extends Component
      * @var string the language that the original messages are in. If not set, it will use the value of
      * [[\yii\base\Application::sourceLanguage]].
      */
-    public $sourceLanguage;
+    public $sourceLanguage = 'en-US';
 
     private $_messages = [];
 
-
-    /**
-     * Initializes this component.
-     */
-    public function init()
-    {
-        parent::init();
-        if ($this->sourceLanguage === null) {
-            $this->sourceLanguage = Yii::getApp()->sourceLanguage;
-        }
-    }
 
     /**
      * Loads the message translation for the specified language and category.
@@ -74,15 +62,15 @@ class MessageSource extends Component
      * @param string $category the message category
      * @param string $message the message to be translated
      * @param string $language the target language
-     * @return string|bool the translated message or false if translation wasn't found or isn't required
+     * @return string|null the translated message or false if translation wasn't found or isn't required
      */
-    public function translate($category, $message, $language)
+    public function translate($category, $message, $language): ?string
     {
         if ($this->forceTranslation || $language !== $this->sourceLanguage) {
             return $this->translateMessage($category, $message, $language);
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -93,9 +81,9 @@ class MessageSource extends Component
      * @param string $category the category that the message belongs to.
      * @param string $message the message to be translated.
      * @param string $language the target language.
-     * @return string|bool the translated message or false if translation wasn't found.
+     * @return string|null the translated message or null if translation wasn't found.
      */
-    protected function translateMessage($category, $message, $language)
+    protected function translateMessage($category, $message, $language): ?string
     {
         $key = $language . '/' . $category;
         if (!isset($this->_messages[$key])) {
@@ -112,6 +100,6 @@ class MessageSource extends Component
             }
         }
 
-        return $this->_messages[$key][$message] = false;
+        return $this->_messages[$key][$message] = null;
     }
 }

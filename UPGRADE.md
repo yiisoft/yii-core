@@ -148,6 +148,11 @@ Upgrade from Yii 2.0.x
 * Removed `ServiceLocator` from `Application` and `Module`:
     * no own components in app and modules
     * get services implicitly with DI
+* Refactored internationalization:
+    * Added Locale class able to parse BCP 47 locale strings. It's used instead of language.
+    * `Application::setEncoding` method
+        * encoding saved to `ini_set('default_charset')` and `mb_internal_encoding()`
+          and thus applied by default to all PHP string functions like `mb_*`
 * Moved files around for more logic organization and more readable directories:
     * globally:
         * all exceptions moved into separate dirs in all packages

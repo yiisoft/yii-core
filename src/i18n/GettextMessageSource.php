@@ -7,6 +7,7 @@
 
 namespace yii\i18n;
 
+use yii\base\Aliases;
 use yii\helpers\Yii;
 
 /**
@@ -28,8 +29,8 @@ use yii\helpers\Yii;
  */
 class GettextMessageSource extends MessageSource
 {
-    const MO_FILE_EXT = '.mo';
-    const PO_FILE_EXT = '.po';
+    private const MO_FILE_EXT = '.mo';
+    private const PO_FILE_EXT = '.po';
 
     /**
      * @var string
@@ -48,6 +49,15 @@ class GettextMessageSource extends MessageSource
      */
     public $useBigEndian = false;
 
+    /**
+     * @var Aliases
+     */
+    private $aliases;
+
+    private function __construct(Aliases $aliases)
+    {
+        $this->aliases = $aliases;
+    }
 
     /**
      * Loads the message translation for the specified $language and $category.
@@ -98,7 +108,7 @@ class GettextMessageSource extends MessageSource
      * @return array the loaded messages. The keys are original messages, and the values are the translated messages.
      * @since 2.0.7
      */
-    protected function loadFallbackMessages($category, $fallbackLanguage, $messages, $originalMessageFile)
+    protected function loadFallbackMessages(string $category, string $fallbackLanguage, ?array $messages, string $originalMessageFile): array
     {
         $fallbackMessageFile = $this->getMessageFilePath($fallbackLanguage);
         $fallbackMessages = $this->loadMessagesFromFile($fallbackMessageFile, $category);
@@ -131,7 +141,7 @@ class GettextMessageSource extends MessageSource
      */
     protected function getMessageFilePath($language)
     {
-        $messageFile = Yii::getAlias($this->basePath) . '/' . $language . '/' . $this->catalog;
+        $messageFile = $this->aliases->get($this->basePath) . '/' . $language . '/' . $this->catalog;
         if ($this->useMoFile) {
             $messageFile .= self::MO_FILE_EXT;
         } else {
@@ -148,7 +158,7 @@ class GettextMessageSource extends MessageSource
      * @param string $category the message category
      * @return array|null array of messages or null if file not found
      */
-    protected function loadMessagesFromFile($messageFile, $category)
+    protected function loadMessagesFromFile($messageFile, $category): ?array
     {
         if (is_file($messageFile)) {
             if ($this->useMoFile) {
@@ -157,7 +167,7 @@ class GettextMessageSource extends MessageSource
                 $gettextFile = new GettextPoFile();
             }
             $messages = $gettextFile->load($messageFile, $category);
-            if (!is_array($messages)) {
+            if (!\is_array($messages)) {
                 $messages = [];
             }
 

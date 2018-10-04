@@ -234,6 +234,17 @@ class BaseYii
     }
 
     /**
+     * Returns current application encoding
+     * @param ContainerInterface|null $container
+     * @return string
+     * @throws InvalidConfigException
+     */
+    public static function getEncoding(ContainerInterface $container = null): string
+    {
+        return (string)(static::get('encoding', $container, false) ?: mb_internal_encoding());
+    }
+
+    /**
      * Translates a path alias into an actual path.
      *
      * Uses @see \yii\base\Aliases::get() if container is set.
@@ -272,6 +283,39 @@ class BaseYii
     public static function setAlias(string $alias, string $path)
     {
         return static::get('aliases')->set($alias, $path);
+    }
+
+    /**
+     * Returns current locale if set or default.
+     * @return string
+     */
+    public static function getLocaleString(string $default = 'en-US'): string
+    {
+        $i18n = static::get('i18n', null, false);
+
+        return $i18n ? (string)$i18n->getLocale() : $default;
+    }
+
+    /**
+     * Returns current source locale if set or default.
+     * @return string
+     */
+    public static function getSourceLocaleString(string $default = 'en-US'): string
+    {
+        $view = static::get('view', null, false);
+
+        return $view ? (string)$view->getSourceLocale() : $default;
+    }
+
+    /**
+     * Returns current timezone if set or default.
+     * @return string
+     */
+    public static function getTimeZone(string $default = 'UTC'): string
+    {
+        $i18n = static::get('i18n', null, false);
+
+        return $i18n ? (string)$i18n->getTimeZone() : $default;
     }
 
     /**

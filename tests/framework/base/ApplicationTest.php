@@ -72,6 +72,17 @@ class ApplicationTest extends TestCase
         $this->assertSame('Bootstrap with yii\base\Module', $this->app->getLogger()->messages[3][1] ?? null);
         $this->assertSame('Bootstrap with Closure', $this->app->getLogger()->messages[4][1] ?? null);
     }
+
+    public function testEncoding()
+    {
+        $this->mockApplication();
+        $this->assertSame('UTF-8', (string)$this->app->encoding);
+        $this->app->setEncoding('ISO-8859-1');
+        $this->assertSame('ISO-8859-1', (string)$this->app->encoding);
+        $this->app->setEncoding('UTF-8');
+        $this->assertSame('UTF-8', (string)$this->app->encoding);
+        $this->destroyApplication();
+    }
 }
 
 class BootstrapComponentMock extends Component implements BootstrapInterface

@@ -7,14 +7,12 @@
 
 namespace yii\i18n;
 
-use yii\helpers\Yii;
-use yii\exceptions\InvalidConfigException;
-use yii\caching\CacheInterface;
+use yii\cache\CacheInterface;
 use yii\db\Connection;
 use yii\db\Expression;
 use yii\db\Query;
-use yii\di\Instance;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Yii;
 
 /**
  * DbMessageSource extends [[MessageSource]] and represents a message source that stores translated
@@ -35,7 +33,6 @@ use yii\helpers\ArrayHelper;
  * If you don't want to use migration and need SQL instead, files for all databases are in migrations directory.
  *
  * @author resurtm <resurtm@gmail.com>
- * @since 2.0
  */
 class DbMessageSource extends MessageSource
 {
@@ -80,20 +77,20 @@ class DbMessageSource extends MessageSource
      */
     public $enableCaching = false;
 
-
-    /**
-     * Initializes the DbMessageSource component.
-     * This method will initialize the [[db]] property to make sure it refers to a valid DB connection.
-     * Configured [[cache]] component would also be initialized.
-     * @throws InvalidConfigException if [[db]] is invalid or [[cache]] is invalid.
-     */
-    public function init()
+    private function getConnection(): Connection
     {
-        parent::init();
-        $this->db = Instance::ensure($this->db, Connection::class);
-        if ($this->enableCaching) {
-            $this->cache = Instance::ensure($this->cache, CacheInterface::class);
+        if (!$this->db instanceof Connection) {
+            $this->db = Yii::ensureObject($this->db, Connection::class);
         }
+        return $this->db;
+    }
+
+    private function getCache(): CacheInterface
+    {
+        if (!$this->cache instanceof CacheInterface) {
+            $this->cache = Yii::ensureObject($this->cache, CacheInterface::class);
+        }
+        return $this->cache;
     }
 
     /**
@@ -105,6 +102,7 @@ class DbMessageSource extends MessageSource
      * @param string $language the target language
      * @return array the loaded messages. The keys are original messages, and the values
      * are translated messages.
+     * @throws \yii\db\Exception
      */
     protected function loadMessages($category, $language)
     {
@@ -114,10 +112,10 @@ class DbMessageSource extends MessageSource
                 $category,
                 $language,
             ];
-            $messages = $this->cache->get($key);
+            $messages = $this->getCache()->get($key);
             if ($messages === false) {
                 $messages = $this->loadMessagesFromDb($category, $language);
-                $this->cache->set($key, $messages, $this->cachingDuration);
+                $this->getCache()->set($key, $messages, $this->cachingDuration);
             }
 
             return $messages;
@@ -132,6 +130,7 @@ class DbMessageSource extends MessageSource
      * @param string $category the message category.
      * @param string $language the target language.
      * @return array the messages loaded from database.
+     * @throws \yii\db\Exception
      */
     protected function loadMessagesFromDb($category, $language)
     {
@@ -152,7 +151,7 @@ class DbMessageSource extends MessageSource
             $mainQuery->union($this->createFallbackQuery($category, $language, $fallbackSourceLanguage), true);
         }
 
-        $messages = $mainQuery->createCommand($this->db)->queryAll();
+        $messages = $mainQuery->createCommand($this->getConnection())->queryAll();
 
         return ArrayHelper::map($messages, 'message', 'translation');
     }
