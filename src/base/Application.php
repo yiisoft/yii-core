@@ -647,6 +647,14 @@ abstract class Application extends Module implements Initiable
     }
 
     /**
+     * @return string
+     */
+    public function getLanguage(): string
+    {
+        return $this->getLocale()->getLanguage();
+    }
+
+    /**
      * Terminates the application.
      * This method replaces the `exit()` function by ensuring the application life cycle is completed
      * before terminating the application.
