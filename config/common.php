@@ -95,7 +95,7 @@ return [
             'encoding' => $params['i18n.encoding'],
             'timezone' => $params['i18n.timezone'],
             'locale' => Reference::to('locale'),
-            'translation' => Reference::to('translation'),
+            'translator' => Reference::to('translator'),
         ],
     ],
 
