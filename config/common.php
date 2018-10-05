@@ -82,8 +82,10 @@ return [
     'translator' => [
         '__class' => yii\i18n\Translator::class,
         'translations' => [
-            '*' => [
+            'yii' => [
                 '__class' => yii\i18n\PhpMessageSource::class,
+                'sourceLanguage' => 'en-US',
+                'basePath' => '@yii/messages',
             ],
         ],
     ],
