@@ -568,7 +568,7 @@ class Model extends Component implements StaticInstanceInterface, IteratorAggreg
     public function getErrors($attribute = null)
     {
         if ($attribute === null) {
-            return $this->_errors === null ? [] : $this->_errors;
+            return $this->_errors ?? [];
         }
 
         return isset($this->_errors[$attribute]) ? $this->_errors[$attribute] : [];
@@ -846,7 +846,7 @@ class Model extends Component implements StaticInstanceInterface, IteratorAggreg
      */
     public function load($data, $formName = null)
     {
-        $scope = $formName === null ? $this->formName() : $formName;
+        $scope = $formName ?? $this->formName();
         if ($scope === '' && !empty($data)) {
             $this->setAttributes($data);
 

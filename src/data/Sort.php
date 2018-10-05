@@ -417,8 +417,8 @@ class Sort extends BaseObject implements Initiable
             $params = $request instanceof Request ? $request->getQueryParams() : [];
         }
         $params[$this->sortParam] = $this->createSortParam($attribute);
-        $params[0] = $this->route === null ? $this->app->controller->getRoute() : $this->route;
-        $urlManager = $this->urlManager === null ? $this->app->getUrlManager() : $this->urlManager;
+        $params[0] = $this->route ?? $this->app->controller->getRoute();
+        $urlManager = $this->urlManager ?? $this->app->getUrlManager();
         if ($absolute) {
             return $urlManager->createAbsoluteUrl($params);
         }

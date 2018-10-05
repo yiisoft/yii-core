@@ -147,7 +147,7 @@ class CompareValidator extends Validator
         if ($this->compareValue !== null) {
             $compareLabel = $compareValue = $compareValueOrAttribute = $this->compareValue;
         } else {
-            $compareAttribute = $this->compareAttribute === null ? $attribute . '_repeat' : $this->compareAttribute;
+            $compareAttribute = $this->compareAttribute ?? $attribute . '_repeat';
             $compareValue = $model->$compareAttribute;
             $compareLabel = $compareValueOrAttribute = $model->getAttributeLabel($compareAttribute);
         }

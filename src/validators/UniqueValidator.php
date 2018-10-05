@@ -116,7 +116,7 @@ class UniqueValidator extends Validator
     {
         /* @var $targetClass ActiveRecordInterface */
         $targetClass = $this->getTargetClass($model);
-        $targetAttribute = $this->targetAttribute === null ? $attribute : $this->targetAttribute;
+        $targetAttribute = $this->targetAttribute ?? $attribute;
         $rawConditions = $this->prepareConditions($targetAttribute, $model, $attribute);
         $conditions = [$this->targetAttributeJunction === 'or' ? 'or' : 'and'];
 
@@ -155,7 +155,7 @@ class UniqueValidator extends Validator
      */
     private function getTargetClass($model)
     {
-        return $this->targetClass === null ? get_class($model) : $this->targetClass;
+        return $this->targetClass ?? get_class($model);
     }
 
     /**

@@ -152,7 +152,7 @@ class ExistValidator extends Validator
      */
     private function checkTargetAttributeExistence($model, $attribute)
     {
-        $targetAttribute = $this->targetAttribute === null ? $attribute : $this->targetAttribute;
+        $targetAttribute = $this->targetAttribute ?? $attribute;
         $params = $this->prepareConditions($targetAttribute, $model, $attribute);
         $conditions = [$this->targetAttributeJunction == 'or' ? 'or' : 'and'];
 
@@ -169,7 +169,7 @@ class ExistValidator extends Validator
             $conditions[] = $params;
         }
 
-        $targetClass = $this->targetClass === null ? get_class($model) : $this->targetClass;
+        $targetClass = $this->targetClass ?? get_class($model);
         $query = $this->createQuery($targetClass, $conditions);
 
         if (!$this->valueExists($targetClass, $query, $model->$attribute)) {
@@ -221,7 +221,7 @@ class ExistValidator extends Validator
      */
     private function getTargetClass($model)
     {
-        return $this->targetClass === null ? get_class($model) : $this->targetClass;
+        return $this->targetClass ?? get_class($model);
     }
 
     /**

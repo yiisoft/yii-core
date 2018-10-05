@@ -277,8 +277,8 @@ class Pagination extends BaseObject implements Linkable
         } else {
             unset($params[$this->pageSizeParam]);
         }
-        $params[0] = $this->route === null ? Yii::getApp()->controller->getRoute() : $this->route;
-        $urlManager = $this->urlManager === null ? Yii::getApp()->getUrlManager() : $this->urlManager;
+        $params[0] = $this->route ?? Yii::getApp()->controller->getRoute();
+        $urlManager = $this->urlManager ?? Yii::getApp()->getUrlManager();
         if ($absolute) {
             return $urlManager->createAbsoluteUrl($params);
         }
