@@ -107,29 +107,11 @@ class FileHelperTest extends TestCase
     }
 
     /**
-     * Creates test files structure.
-     * @param array  $items    file system objects to be created in format: objectName => objectContent
-     *                         Arrays specifies directories, other values - files.
-     * @param string $basePath structure base file path.
+     * Creates test files structure in `$this->testFilePath`.
      */
-    protected function createFileStructure(array $items, $basePath = '')
+    protected function createFileStructure(array $items, string $dir = null): void
     {
-        if (empty($basePath)) {
-            $basePath = $this->testFilePath;
-        }
-        foreach ($items as $name => $content) {
-            $itemName = $basePath . DIRECTORY_SEPARATOR . $name;
-            if (is_array($content)) {
-                if (isset($content[0], $content[1]) && $content[0] === 'symlink') {
-                    symlink($content[1], $itemName);
-                } else {
-                    mkdir($itemName, 0777, true);
-                    $this->createFileStructure($content, $itemName);
-                }
-            } else {
-                file_put_contents($itemName, $content);
-            }
-        }
+        parent::createFileStructure($items, $dir ?? $this->testFilePath);
     }
 
     /**

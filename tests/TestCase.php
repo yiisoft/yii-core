@@ -218,4 +218,27 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     {
         self::assertThat($actual, new IsOneOfAssert($expected), $message);
     }
+
+    /**
+     * Creates test files structure.
+     * @param string $dir base dir path.
+     * @param array $items file system objects to be created in format: objectName => objectContent
+     * Arrays specifies directories, other values - files.
+     */
+    protected function createFileStructure(array $items, string $dir = null): void
+    {
+        foreach ($items as $name => $content) {
+            $itemName = $dir . DIRECTORY_SEPARATOR . $name;
+            if (is_array($content)) {
+                if (isset($content[0], $content[1]) && $content[0] === 'symlink') {
+                    symlink($content[1], $itemName);
+                } else {
+                    mkdir($itemName, 0777, true);
+                    $this->createFileStructure($content, $itemName);
+                }
+            } else {
+                file_put_contents($itemName, $content);
+            }
+        }
+    }
 }
