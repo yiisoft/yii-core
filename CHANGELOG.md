@@ -1,5 +1,5 @@
-Yii Framework 2 Change Log
-==========================
+Yii Framework Change Log
+========================
 
 3.0.0 under development
 -----------------------
