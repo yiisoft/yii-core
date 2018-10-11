@@ -39,7 +39,6 @@ class ActionEvent extends Event
     /**
      * Creates BEFORE event.
      * @param Action $action the action this event is fired on.
-     * @param mixed $result action result.
      * @return self created event
      */
     public static function before(Action $action): self
