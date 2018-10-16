@@ -7,7 +7,7 @@
 
 namespace yii\tests\data\ar;
 
-use yii\db\ActiveQuery;
+use yii\activerecord\ActiveQuery;
 
 /**
  * CustomerQuery.

@@ -9,13 +9,13 @@ namespace yii\data;
 
 use yii\exceptions\InvalidConfigException;
 use yii\base\Model;
-use yii\db\ActiveQueryInterface;
+use yii\activerecord\ActiveQueryInterface;
 use yii\db\Connection;
 use yii\db\QueryInterface;
 use yii\di\Instance;
 
 /**
- * ActiveDataProvider implements a data provider based on [[\yii\db\Query]] and [[\yii\db\ActiveQuery]].
+ * ActiveDataProvider implements a data provider based on [[\yii\db\Query]] and [[\yii\activerecord\ActiveQuery]].
  *
  * ActiveDataProvider provides data by performing DB queries using [[query]].
  *
@@ -66,7 +66,7 @@ class ActiveDataProvider extends BaseDataProvider
      *
      * If this is not set, the following rules will be used to determine the keys of the data models:
      *
-     * - If [[query]] is an [[\yii\db\ActiveQuery]] instance, the primary keys of [[\yii\db\ActiveQuery::modelClass]] will be used.
+     * - If [[query]] is an [[\yii\activerecord\ActiveQuery]] instance, the primary keys of [[\yii\activerecord\ActiveQuery::modelClass]] will be used.
      * - Otherwise, the keys of the [[models]] array will be used.
      *
      * @see getKeys()
@@ -133,7 +133,7 @@ class ActiveDataProvider extends BaseDataProvider
 
             return $keys;
         } elseif ($this->query instanceof ActiveQueryInterface) {
-            /* @var $class \yii\db\ActiveRecordInterface */
+            /* @var $class \yii\activerecord\ActiveRecordInterface */
             $class = $this->query->modelClass;
             $pks = $class::primaryKey();
             if (count($pks) === 1) {

@@ -142,7 +142,7 @@ class ActiveFixture extends BaseActiveFixture
         $db = $this->db;
         $tableName = $this->tableName;
         if ($tableName === null) {
-            /* @var $modelClass \yii\db\ActiveRecord */
+            /* @var $modelClass \yii\activerecord\ActiveRecord */
             $modelClass = $this->modelClass;
             $tableName = $modelClass::tableName();
         }

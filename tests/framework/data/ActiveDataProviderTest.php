@@ -9,13 +9,13 @@ namespace yii\tests\framework\data;
 
 use yii\exceptions\InvalidCallException;
 use yii\data\ActiveDataProvider;
+use yii\activerecord\tests\data\ActiveRecord;
+use yii\activerecord\tests\data\Customer;
+use yii\activerecord\tests\data\Item;
+use yii\activerecord\tests\data\Order;
 use yii\db\Query;
-use yii\tests\data\ar\ActiveRecord;
-use yii\tests\data\ar\Customer;
-use yii\tests\data\ar\Item;
-use yii\tests\data\ar\Order;
-use yii\tests\framework\db\DatabaseTestCase;
-use yii\tests\framework\db\UnqueryableQueryMock;
+use yii\db\tests\unit\DatabaseTestCase;
+use yii\db\tests\unit\UnqueryableQueryMock;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>

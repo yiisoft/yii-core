@@ -13,7 +13,7 @@ namespace yii\tests\data\ar;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class ActiveRecord extends \yii\db\ActiveRecord
+class ActiveRecord extends \yii\activerecord\ActiveRecord
 {
     public static $db;
 

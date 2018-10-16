@@ -1607,7 +1607,7 @@ EOD;
         $actual = Html::getAttributeValue($model, 'types');
         $this->assertSame($expected, $actual);
 
-        $activeRecord = $this->createMock(\yii\db\ActiveRecordInterface::class);
+        $activeRecord = $this->createMock(\yii\activerecord\ActiveRecordInterface::class);
         $activeRecord->method('getPrimaryKey')->willReturn(1);
         $model->types = $activeRecord;
 
