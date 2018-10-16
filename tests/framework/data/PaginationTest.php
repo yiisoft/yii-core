@@ -18,11 +18,11 @@ class PaginationTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockWebApplication([
-            'components' => [
-                'urlManager' => [
-                    'scriptUrl' => '/index.php',
-                ],
+        $this->mockWebApplication();
+        $this->container->setAll([
+            'urlManager' => [
+                '__class' => \yii\web\UrlManager::class,
+                'scriptUrl' => '/index.php',
             ],
         ]);
     }

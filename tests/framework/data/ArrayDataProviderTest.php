@@ -18,7 +18,7 @@ class ArrayDataProviderTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockApplication();
+        $this->mockWebApplication();
     }
 
     public function testGetModels()
@@ -27,31 +27,29 @@ class ArrayDataProviderTest extends TestCase
             ['name' => 'zero'],
             ['name' => 'one'],
         ];
-        $dataProvider = new ArrayDataProvider(['allModels' => $simpleArray]);
+        $dataProvider = new ArrayDataProvider();
+        $dataProvider->allModels = $simpleArray;
         $this->assertEquals($simpleArray, $dataProvider->getModels());
     }
 
     public function testGetSortedData()
     {
         $simpleArray = [['sortField' => 1], ['sortField' => 0]];
-        $dataProvider = new ArrayDataProvider(
-            [
-                'allModels' => $simpleArray,
+        $dataProvider = new ArrayDataProvider();
+        $dataProvider->allModels = $simpleArray;
+        $dataProvider->sort = [
+            'attributes' => [
                 'sort' => [
-                    'attributes' => [
-                        'sort' => [
-                            'asc' => ['sortField' => SORT_ASC],
-                            'desc' => ['sortField' => SORT_DESC],
-                            'label' => 'Sorting',
-                            'default' => 'asc',
-                        ],
-                    ],
-                    'defaultOrder' => [
-                        'sort' => SORT_ASC,
-                    ],
+                    'asc' => ['sortField' => SORT_ASC],
+                    'desc' => ['sortField' => SORT_DESC],
+                    'label' => 'Sorting',
+                    'default' => 'asc',
                 ],
-            ]
-        );
+            ],
+            'defaultOrder' => [
+                'sort' => SORT_ASC,
+            ],
+        ];
         $sortedArray = [['sortField' => 0], ['sortField' => 1]];
         $this->assertEquals($sortedArray, $dataProvider->getModels());
     }
@@ -62,24 +60,21 @@ class ArrayDataProviderTest extends TestCase
             ['innerArray' => ['sortField' => 1]],
             ['innerArray' => ['sortField' => 0]],
         ];
-        $dataProvider = new ArrayDataProvider(
-            [
-                'allModels' => $simpleArray,
+        $dataProvider = new ArrayDataProvider();
+        $dataProvider->allModels = $simpleArray;
+        $dataProvider->sort = [
+            'attributes' => [
                 'sort' => [
-                    'attributes' => [
-                        'sort' => [
-                            'asc' => ['innerArray.sortField' => SORT_ASC],
-                            'desc' => ['innerArray.sortField' => SORT_DESC],
-                            'label' => 'Sorting',
-                            'default' => 'asc',
-                        ],
-                    ],
-                    'defaultOrder' => [
-                        'sort' => SORT_ASC,
-                    ],
+                    'asc' => ['innerArray.sortField' => SORT_ASC],
+                    'desc' => ['innerArray.sortField' => SORT_DESC],
+                    'label' => 'Sorting',
+                    'default' => 'asc',
                 ],
-            ]
-        );
+            ],
+            'defaultOrder' => [
+                'sort' => SORT_ASC,
+            ],
+        ];
         $sortedArray = [
             ['innerArray' => ['sortField' => 0]],
             ['innerArray' => ['sortField' => 1]],
@@ -131,27 +126,21 @@ class ArrayDataProviderTest extends TestCase
             ['title' => 'zend framework', 'license' => 'BSD'],
         ];
 
-        $dataProvider = new ArrayDataProvider(
-            [
-                'allModels' => $unsortedProjects,
+        $dataProvider = new ArrayDataProvider();
+        $dataProvider->allModels = $unsortedProjects;
+        $dataProvider->sort = [
+            'attributes' => [
                 'sort' => [
-                    'attributes' => [
-                        'sort' => [
-                            'asc' => ['title' => SORT_ASC],
-                            'desc' => ['title' => SORT_DESC],
-                            'label' => 'Title',
-                            'default' => 'desc',
-                        ],
-                    ],
-                    'defaultOrder' => [
-                        'sort' => SORT_ASC,
-                    ],
+                    'asc' => ['title' => SORT_ASC],
+                    'desc' => ['title' => SORT_DESC],
+                    'label' => 'Title',
+                    'default' => 'desc',
                 ],
-                'pagination' => [
-                    'pageSize' => 100500,
-                ],
-            ]
-        );
+            ],
+            'defaultOrder' => [
+                'sort' => SORT_ASC,
+            ],
+        ];
 
         $this->assertEquals($sortedProjects, $dataProvider->getModels());
     }
@@ -165,7 +154,9 @@ class ArrayDataProviderTest extends TestCase
             ['name' => 'one'],
             ['name' => 'tow'],
         ];
-        $dataProvider = new ArrayDataProvider(['allModels' => $simpleArray, 'pagination' => $pagination]);
+        $dataProvider = new ArrayDataProvider();
+        $dataProvider->allModels = $simpleArray;
+        $dataProvider->pagination = $pagination;
         $this->assertEquals([0, 1], $dataProvider->getKeys());
 
         $namedArray = [
@@ -173,7 +164,9 @@ class ArrayDataProviderTest extends TestCase
             'key2' => ['name' => 'one'],
             'key3' => ['name' => 'two'],
         ];
-        $dataProvider = new ArrayDataProvider(['allModels' => $namedArray, 'pagination' => $pagination]);
+        $dataProvider = new ArrayDataProvider();
+        $dataProvider->allModels = $namedArray;
+        $dataProvider->pagination = $pagination;
         $this->assertEquals(['key1', 'key2'], $dataProvider->getKeys());
 
         $mixedArray = [
@@ -181,7 +174,9 @@ class ArrayDataProviderTest extends TestCase
             9 => ['name' => 'one'],
             'key3' => ['name' => 'two'],
         ];
-        $dataProvider = new ArrayDataProvider(['allModels' => $mixedArray, 'pagination' => $pagination]);
+        $dataProvider = new ArrayDataProvider();
+        $dataProvider->allModels = $mixedArray;
+        $dataProvider->pagination = $pagination;
         $this->assertEquals(['key1', 9], $dataProvider->getKeys());
     }
 }

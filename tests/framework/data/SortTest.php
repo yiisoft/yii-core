@@ -27,7 +27,8 @@ class SortTest extends TestCase
 
     public function testGetOrders()
     {
-        $sort = new Sort([
+        $sort = $this->factory->create([
+            '__class' => Sort::class,
             'attributes' => [
                 'age',
                 'name' => [
@@ -58,7 +59,8 @@ class SortTest extends TestCase
      */
     public function testGetAttributeOrders()
     {
-        $sort = new Sort([
+        $sort = $this->factory->create([
+            '__class' => Sort::class,
             'attributes' => [
                 'age',
                 'name' => [
@@ -88,7 +90,8 @@ class SortTest extends TestCase
      */
     public function testGetAttributeOrder()
     {
-        $sort = new Sort([
+        $sort = $this->factory->create([
+            '__class' => Sort::class,
             'attributes' => [
                 'age',
                 'name' => [
@@ -112,7 +115,8 @@ class SortTest extends TestCase
      */
     public function testSetAttributeOrders()
     {
-        $sort = new Sort([
+        $sort = $this->factory->create([
+            '__class' => Sort::class,
             'attributes' => [
                 'age',
                 'name' => [
@@ -148,7 +152,8 @@ class SortTest extends TestCase
 
     public function testCreateSortParam()
     {
-        $sort = new Sort([
+        $sort = $this->factory->create([
+            '__class' => Sort::class,
             'attributes' => [
                 'age',
                 'name' => [
@@ -169,13 +174,15 @@ class SortTest extends TestCase
 
     public function testCreateUrl()
     {
-        $manager = new UrlManager([
+        $manager = $this->factory->create([
+            '__class' => UrlManager::class,
             'baseUrl' => '/',
             'ScriptUrl' => '/index.php',
             'cache' => null,
         ]);
 
-        $sort = new Sort([
+        $sort = $this->factory->create([
+            '__class' => Sort::class,
             'attributes' => [
                 'age',
                 'name' => [
@@ -201,13 +208,15 @@ class SortTest extends TestCase
     public function testLink()
     {
         $this->mockApplication();
-        $manager = new UrlManager([
+        $manager = $this->factory->create([
+            '__class' => UrlManager::class,
             'baseUrl' => '/',
             'scriptUrl' => '/index.php',
             'cache' => null,
         ]);
 
-        $sort = new Sort([
+        $sort = $this->factory->create([
+            '__class' => Sort::class,
             'attributes' => [
                 'age',
                 'name' => [
@@ -228,7 +237,8 @@ class SortTest extends TestCase
 
     public function testParseSortParam()
     {
-        $sort = new CustomSort([
+        $sort = $this->factory->create([
+            '__class' => CustomSort::class,
             'attributes' => [
                 'age',
                 'name',
@@ -253,7 +263,8 @@ class SortTest extends TestCase
      */
     public function testGetExpressionOrders()
     {
-        $sort = new Sort([
+        $sort = $this->factory->create([
+            '__class' => Sort::class,
             'attributes' => [
                 'name' => [
                     'asc' => '[[last_name]] ASC NULLS FIRST',

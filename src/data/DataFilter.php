@@ -7,10 +7,10 @@
 
 namespace yii\data;
 
-use yii\helpers\Yii;
 use yii\exceptions\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Yii;
 use yii\validators\BooleanValidator;
 use yii\validators\EachValidator;
 use yii\validators\NumberValidator;
@@ -281,7 +281,7 @@ class DataFilter extends Model
     public function getSearchModel()
     {
         if (!is_object($this->_searchModel) || $this->_searchModel instanceof \Closure) {
-            $model = $this->app->createObject($this->_searchModel);
+            $model = Yii::createObject($this->_searchModel);
             if (!$model instanceof Model) {
                 throw new InvalidConfigException('`' . get_class($this) . '::$searchModel` should be an instance of `' . Model::class . '` or its DI compatible configuration.');
             }
