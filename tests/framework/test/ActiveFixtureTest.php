@@ -9,34 +9,36 @@ namespace yii\tests\framework\test;
 
 use yii\test\ActiveFixture;
 use yii\test\FixtureTrait;
-use yii\tests\data\ar\ActiveRecord;
-use yii\tests\data\ar\Customer;
-use yii\tests\framework\db\DatabaseTestCase;
+use yii\activerecord\tests\data\ActiveRecord;
+use yii\activerecord\tests\data\Animal;
+use yii\activerecord\tests\data\Customer;
+use yii\activerecord\tests\data\Profile;
+use yii\db\tests\unit\DatabaseTestCase;
 
 class ProfileFixture extends ActiveFixture
 {
-    public $modelClass = 'yii\tests\data\ar\Profile';
+    public $modelClass = Profile::class;
 }
 
 class CustomerFixture extends ActiveFixture
 {
-    public $modelClass = 'yii\tests\data\ar\Customer';
+    public $modelClass = Customer::class;
 
     public $depends = [
-        'yii\tests\framework\test\ProfileFixture',
+        ProfileFixture::class,
     ];
 }
 
 class CustomDirectoryFixture extends ActiveFixture
 {
-    public $modelClass = 'yii\tests\data\ar\Customer';
+    public $modelClass = Customer::class;
 
-    public $dataDirectory = '@app/framework/test/custom';
+    public $dataDirectory = '@yii/tests/framework/test/custom';
 }
 
 class AnimalFixture extends ActiveFixture
 {
-    public $modelClass = 'yii\tests\data\ar\Animal';
+    public $modelClass = Animal::class;
 }
 
 class BaseDbTestCase
@@ -80,7 +82,7 @@ class DataPathDbTestCase extends BaseDbTestCase
         return [
             'customers' => [
                 '__class' => CustomDirectoryFixture::class,
-                'dataFile' => '@app/framework/test/data/customer.php'
+                'dataFile' => '@yii/tests/framework/test/data/customer.php'
             ]
         ];
     }
