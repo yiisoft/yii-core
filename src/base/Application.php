@@ -10,6 +10,7 @@ namespace yii\base;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
+use yii\db\Connection;
 use yii\di\Initiable;
 use yii\exceptions\ExitException;
 use yii\exceptions\InvalidConfigException;
@@ -33,7 +34,7 @@ use yii\profile\ProfilerInterface;
  * @property \yii\cache\CacheInterface $cache The cache application component. Null if the component is not
  * enabled. This property is read-only.
  * @property array $container Values given in terms of name-value pairs. This property is write-only.
- * @property \yii\db\Connection $db The database connection. This property is read-only.
+ * @property Connection $db The database connection. This property is read-only.
  * @property \yii\web\ErrorHandler|\yii\console\ErrorHandler $errorHandler The error handler application
  * component. This property is read-only.
  * @property \yii\i18n\Formatter $formatter The formatter application component. This property is read-only.
@@ -487,6 +488,15 @@ abstract class Application extends Module implements Initiable
     public function getI18n()
     {
         return $this->get('i18n');
+    }
+
+    /**
+     * Returns the database connection component.
+     * @return Connection the database connection.
+     */
+    public function getDb()
+    {
+        return $this->get('db');
     }
 
     /**
