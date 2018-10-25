@@ -758,6 +758,10 @@ class BaseHtml
             if (isset($options['form'])) {
                 $hiddenOptions['form'] = $options['form'];
             }
+            // make sure disabled input is not sending any value
+            if (!empty($options['disabled'])) {
+                $hiddenOptions['disabled'] = $options['disabled'];
+            }
             $hidden = static::hiddenInput($name, $options['uncheck'], $hiddenOptions);
             unset($options['uncheck']);
         } else {
@@ -890,7 +894,12 @@ class BaseHtml
             if (!empty($name) && substr_compare($name, '[]', -2, 2) === 0) {
                 $name = substr($name, 0, -2);
             }
-            $hidden = static::hiddenInput($name, $options['unselect']);
+            $hiddenOptions = [];
+            // make sure disabled input is not sending any value
+            if (!empty($options['disabled'])) {
+                $hiddenOptions['disabled'] = $options['disabled'];
+            }
+            $hidden = static::hiddenInput($name, $options['unselect'], $hiddenOptions);
             unset($options['unselect']);
         } else {
             $hidden = '';
@@ -968,8 +977,13 @@ class BaseHtml
         if (isset($options['unselect'])) {
             // add a hidden field so that if the list box has no option being selected, it still submits a value
             $name2 = substr($name, -2) === '[]' ? substr($name, 0, -2) : $name;
-            $hidden = static::hiddenInput($name2, $options['unselect']);
-            unset($options['unselect']);
+            $hiddenOptions = [];
+            // make sure disabled input is not sending any value
+            if (!empty($options['disabled'])) {
+                $hiddenOptions['disabled'] = $options['disabled'];
+            }
+            $hidden = static::hiddenInput($name2, $options['unselect'], $hiddenOptions);
+            unset($options['unselect'], $options['disabled']);
         } else {
             $hidden = '';
         }
@@ -1027,9 +1041,18 @@ class BaseHtml
         $encode = ArrayHelper::remove($options, 'encode', true);
         $separator = ArrayHelper::remove($options, 'separator', "\n");
         $tag = ArrayHelper::remove($options, 'tag', 'div');
-        // add a hidden field so that if the list box has no option being selected, it still submits a value
-        $hidden = isset($options['unselect']) ? static::hiddenInput($name, $options['unselect']) : '';
-        unset($options['unselect']);
+
+        $hidden = '';
+        if (isset($options['unselect'])) {
+            // add a hidden field so that if the list box has no option being selected, it still submits a value
+            $hiddenOptions = [];
+            // make sure disabled input is not sending any value
+            if (!empty($options['disabled'])) {
+                $hiddenOptions['disabled'] = $options['disabled'];
+            }
+            $hidden =  static::hiddenInput($name, $options['unselect'], $hiddenOptions);
+            unset($options['unselect'], $options['disabled']);
+        }
 
         $lines = [];
         $index = 0;
@@ -1459,11 +1482,16 @@ class BaseHtml
         if (isset($options['name'])) {
             $hiddenOptions['name'] = $options['name'];
         }
+        // make sure disabled input is not sending any value
+        if (!empty($options['disabled'])) {
+            $hiddenOptions['disabled'] = $options['disabled'];
+        }
         $hiddenOptions = ArrayHelper::merge($hiddenOptions, ArrayHelper::remove($options, 'hiddenOptions', []));
-        // add a hidden field so that if a model only has a file field, we can
+        // Add a hidden field so that if a model only has a file field, we can
         // still use isset($_POST[$modelClass]) to detect if the input is submitted.
         // The hidden input will be assigned its own set of html options via `$hiddenOptions`.
         // This provides the possibility to interact with the hidden field via client script.
+        // Note: For file-field-only model with `disabled` option set to `true` input submitting detection won't work.
 
         return static::activeHiddenInput($model, $attribute, $hiddenOptions)
             . static::activeInput('file', $model, $attribute, $options);
