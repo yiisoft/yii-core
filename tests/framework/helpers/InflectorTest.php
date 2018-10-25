@@ -182,6 +182,13 @@ class InflectorTest extends TestCase
             $this->assertEquals($expected, Inflector::slug($source));
         }
     }
+    
+    public function testSlugReplacements()
+    {
+        $this->assertEquals('dont_replace_replacement', Inflector::slug('dont replace_replacement', '_'));
+        $this->assertEquals('remove_trailing_replacements', Inflector::slug('_remove trailing replacements_', '_'));
+        $this->assertEquals('thisrepisrepreplacement', Inflector::slug('this is REP-lacement', 'REP'));
+    }
 
     public function testSlugIntl()
     {
