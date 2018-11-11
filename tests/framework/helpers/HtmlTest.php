@@ -13,6 +13,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\tests\TestCase;
 use yii\web\Request;
+use yii\web\Response;
 
 /**
  * @group helpers
@@ -24,14 +25,14 @@ class HtmlTest extends TestCase
         parent::setUp();
         $this->container->setAll([
             'request' => [
-                '__class' => \yii\web\Request::class,
+                '__class' => Request::class,
                 'url' => '/test',
                 'scriptUrl' => '/index.php',
                 'hostInfo' => 'http://www.example.com',
                 'enableCsrfValidation' => false,
             ],
             'response' => [
-                '__class' => \yii\web\Response::class,
+                '__class' => Response::class,
             ],
         ]);
     }
@@ -109,7 +110,7 @@ class HtmlTest extends TestCase
     {
         $this->container->setAll([
             'request' => [
-                '__class' => \yii\web\Request::class,
+                '__class' => Request::class,
                 'enableCsrfValidation' => false,
             ],
         ]);
@@ -120,14 +121,15 @@ class HtmlTest extends TestCase
     {
         $this->container->setAll([
             'request' => [
-                '__class' => \yii\web\Request::class,
+                '__class' => Request::class,
                 'enableCsrfValidation' => true,
                 'cookieValidationKey' => 'key',
             ],
             'response' => [
-                '__class' => \yii\web\Response::class,
+                '__class' => Response::class,
             ],
         ]);
+        $this->container->set('request', null);
         $pattern = '<meta name="csrf-param" content="_csrf">%A<meta name="csrf-token" content="%s">';
         $actual = Html::csrfMetaTags();
         $this->assertStringMatchesFormat($pattern, $actual);
@@ -137,7 +139,7 @@ class HtmlTest extends TestCase
     {
         $this->container->setAll([
             'request' => [
-                '__class' => \yii\web\Request::class,
+                '__class' => Request::class,
                 'enableCsrfValidation' => true,
             ],
         ]);
@@ -1206,7 +1208,7 @@ EOD;
      */
     public function testActiveTextInput($value, array $options, $expectedHtml)
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $model->name = $value;
         $this->assertEquals($expectedHtml, Html::activeTextInput($model, 'name', $options));
     }
@@ -1249,7 +1251,7 @@ EOD;
      */
     public function testActivePasswordInput($value, array $options, $expectedHtml)
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $model->name = $value;
         $this->assertEquals($expectedHtml, Html::activePasswordInput($model, 'name', $options));
     }
@@ -1323,7 +1325,7 @@ EOD;
      */
     public function testErrorSummary($value, array $options, $expectedHtml, $beforeValidate = null)
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $model->name = $value;
         if ($beforeValidate !== null) {
             call_user_func($beforeValidate, $model);
@@ -1335,7 +1337,7 @@ EOD;
 
     public function testError()
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $model->validate();
         $this->assertEquals(
             '<div>Name cannot be blank.</div>',
@@ -1421,7 +1423,7 @@ EOD;
      */
     public function testActiveTextArea($value, array $options, $expectedHtml)
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $model->description = $value;
         $this->assertEquals($expectedHtml, Html::activeTextarea($model, 'description', $options));
     }
@@ -1484,7 +1486,7 @@ EOD;
      */
     public function testActiveRadio($value, array $options, $expectedHtml)
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $model->radio = $value;
         $this->assertEquals($expectedHtml, Html::activeRadio($model, 'radio', $options));
     }
@@ -1528,7 +1530,7 @@ EOD;
      */
     public function testActiveCheckbox($value, array $options, $expectedHtml)
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $model->checkbox = $value;
         $this->assertEquals($expectedHtml, Html::activeCheckbox($model, 'checkbox', $options));
     }
@@ -1609,32 +1611,32 @@ EOD;
     public function testActiveFileInput()
     {
         $expected = '<input type="hidden" name="foo" value=""><input type="file" id="htmltestmodel-types" name="foo">';
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $actual = Html::activeFileInput($model, 'types', ['name' => 'foo']);
         $this->assertEqualsWithoutLE($expected, $actual);
         
         $expected = '<input type="hidden" name="foo" value="" disabled><input type="file" id="htmltestmodel-types" name="foo" disabled>';
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $actual = Html::activeFileInput($model, 'types', ['name' => 'foo', 'disabled' => true]);
         $this->assertEqualsWithoutLE($expected, $actual);
 
         $expected = '<input type="hidden" id="specific-id" name="foo" value=""><input type="file" id="htmltestmodel-types" name="foo">';
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $actual = Html::activeFileInput($model, 'types', ['name' => 'foo', 'hiddenOptions'=>['id'=>'specific-id']]);
         $this->assertEqualsWithoutLE($expected, $actual);
 
         $expected = '<input type="hidden" id="specific-id" name="HtmlTestModel[types]" value=""><input type="file" id="htmltestmodel-types" name="HtmlTestModel[types]">';
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $actual = Html::activeFileInput($model, 'types', ['hiddenOptions'=>['id'=>'specific-id']]);
         $this->assertEqualsWithoutLE($expected, $actual);
 
         $expected = '<input type="hidden" name="HtmlTestModel[types]" value=""><input type="file" id="htmltestmodel-types" name="HtmlTestModel[types]">';
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $actual = Html::activeFileInput($model, 'types', ['hiddenOptions'=>[]]);
         $this->assertEqualsWithoutLE($expected, $actual);
 
         $expected = '<input type="hidden" name="foo" value=""><input type="file" id="htmltestmodel-types" name="foo">';
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $actual = Html::activeFileInput($model, 'types', ['name' => 'foo', 'hiddenOptions'=>[]]);
         $this->assertEqualsWithoutLE($expected, $actual);
     }
@@ -1645,13 +1647,13 @@ EOD;
      */
     public function testGetAttributeValueInvalidArgumentException()
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         Html::getAttributeValue($model, '-');
     }
 
     public function testGetAttributeValue()
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
 
         $expected = null;
         $actual = Html::getAttributeValue($model, 'types');
@@ -1680,7 +1682,7 @@ EOD;
      */
     public function testGetInputNameInvalidArgumentExceptionAttribute()
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         Html::getInputName($model, '-');
     }
 
@@ -1723,14 +1725,14 @@ EOD;
 
 </select>
 HTML;
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
         $actual = Html::activeDropDownList($model, 'types', [], ['multiple' => 'true']);
         $this->assertEqualsWithoutLE($expected, $actual);
     }
 
     public function testActiveCheckboxList()
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
 
         $expected = <<<'HTML'
 <input type="hidden" name="HtmlTestModel[types]" value=""><div id="htmltestmodel-types"><label><input type="radio" name="HtmlTestModel[types]" value="0"> foo</label></div>
@@ -1741,7 +1743,7 @@ HTML;
 
     public function testActiveRadioList()
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
 
         $expected = <<<'HTML'
 <input type="hidden" name="HtmlTestModel[types]" value=""><div id="htmltestmodel-types"><label><input type="checkbox" name="HtmlTestModel[types][]" value="0"> foo</label></div>
@@ -1752,7 +1754,7 @@ HTML;
 
     public function testActiveTextInput_placeholderFillFromModel()
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
 
         $html = Html::activeTextInput($model, 'name', ['placeholder' => true]);
 
@@ -1761,7 +1763,7 @@ HTML;
 
     public function testActiveTextInput_customPlaceholder()
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
 
         $html = Html::activeTextInput($model, 'name', ['placeholder' => 'Custom placeholder']);
 
@@ -1770,7 +1772,7 @@ HTML;
 
     public function testActiveTextInput_placeholderFillFromModelTabular()
     {
-        $model = new HtmlTestModel();
+        $model = $this->factory->create(HtmlTestModel::class);
 
         $html = Html::activeTextInput($model, '[0]name', ['placeholder' => true]);
 
@@ -1784,9 +1786,9 @@ HTML;
  * @property array types
  * @property string description
  */
-class HtmlTestModel extends DynamicModel
+class HtmlTestModel extends DynamicModel implements \yii\di\Initiable
 {
-    public function init()
+    public function init(): void
     {
         foreach (['name', 'types', 'description', 'radio', 'checkbox'] as $attribute) {
             $this->defineAttribute($attribute);

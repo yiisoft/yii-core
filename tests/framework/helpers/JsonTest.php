@@ -11,7 +11,7 @@ use yii\base\DynamicModel;
 use yii\helpers\BaseJson;
 use yii\helpers\Json;
 use yii\web\JsExpression;
-use yii\tests\framework\web\Post;
+use yii\web\tests\Post;
 use yii\tests\TestCase;
 
 /**
@@ -207,7 +207,7 @@ class JsonTest extends TestCase
 
     public function testErrorSummary()
     {
-        $model = new JsonModel();
+        $model = $this->factory->create(JsonModel::class);
         $model->name = 'not_an_integer';
         $model->addError('name', 'Error message. Here are some chars: < >');
         $model->addError('name', 'Error message. Here are even more chars: ""');
@@ -218,7 +218,7 @@ class JsonTest extends TestCase
     }
 }
 
-class JsonModel extends DynamicModel implements \JsonSerializable
+class JsonModel extends DynamicModel implements \JsonSerializable, \yii\di\Initiable
 {
     public $data = ['json' => 'serializable'];
 
@@ -235,7 +235,7 @@ class JsonModel extends DynamicModel implements \JsonSerializable
         ];
     }
 
-    public function init()
+    public function init(): void
     {
        $this->defineAttribute('name');
     }
