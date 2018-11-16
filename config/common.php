@@ -8,7 +8,10 @@ return [
         return $container;
     },
 
+    /// TODO to be removed, use FactoryInterface
     yii\di\Factory::class => Reference::to('factory'),
+
+    yii\di\FactoryInterface::class => Reference::to('factory'),
     'factory' => [
         '__class' => yii\di\Factory::class,
         '__construct()' => [
