@@ -104,7 +104,7 @@ class DbMessageSource extends MessageSource
      * are translated messages.
      * @throws \yii\db\Exception
      */
-    protected function loadMessages($category, $language)
+    protected function loadMessages($category, $language): array
     {
         if ($this->enableCaching) {
             $key = [

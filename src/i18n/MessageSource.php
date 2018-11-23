@@ -19,7 +19,7 @@ use yii\base\Component;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class MessageSource extends Component
+abstract class MessageSource extends Component
 {
     /**
      * @var bool whether to force message translation when the source and target languages are the same.
@@ -45,10 +45,7 @@ class MessageSource extends Component
      * @return array the loaded messages. The keys are original messages, and the values
      * are translated messages.
      */
-    protected function loadMessages($category, $language)
-    {
-        return [];
-    }
+    abstract protected function loadMessages($category, $language): array;
 
     /**
      * Translates a message to the specified language.
