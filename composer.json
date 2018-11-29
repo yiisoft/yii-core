@@ -62,6 +62,7 @@
         "wiki": "http://www.yiiframework.com/wiki/",
         "irc": "irc://irc.freenode.net/yii"
     },
+    "minimum-stability": "dev",
     "require": {
         "php": ">=7.1.0",
         "ext-mbstring": "*",
