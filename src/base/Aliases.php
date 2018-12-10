@@ -186,4 +186,8 @@ final class Aliases
 
         return false;
     }
+    public function getAll(): array
+    {
+        return $this->aliases;
+    }
 }
