@@ -234,17 +234,6 @@ class BaseYii
     }
 
     /**
-     * Returns current application encoding
-     * @param ContainerInterface|null $container
-     * @return string
-     * @throws InvalidConfigException
-     */
-    public static function getEncoding(ContainerInterface $container = null): string
-    {
-        return (string)(static::get('encoding', $container, false) ?: mb_internal_encoding());
-    }
-
-    /**
      * Translates a path alias into an actual path.
      *
      * Uses @see \yii\base\Aliases::get() if container is set.
@@ -316,6 +305,18 @@ class BaseYii
         $i18n = static::get('i18n', null, false);
 
         return $i18n ? (string)$i18n->getTimeZone() : $default;
+    }
+
+    /**
+     * Returns current application encoding.
+     * @param ContainerInterface|null $container
+     * @return string
+     */
+    public static function getEncoding(ContainerInterface $container = null): string
+    {
+        $i18n = static::get('i18n', $container, false);
+
+        return $i18n ? $i18n->getEncoding() : mb_internal_encoding();
     }
 
     /**
