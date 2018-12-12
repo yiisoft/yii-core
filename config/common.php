@@ -29,6 +29,7 @@ return [
     'app' => [
         'id' => $params['app.id'],
         'name' => $params['app.name'],
+        'bootstrap' => [],
         'params' => $params,
     ],
 
