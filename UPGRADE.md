@@ -56,6 +56,8 @@ Changes summary:
 * All the configuration made explicit in `config` folders of all the packages
   and recommended to be used with [composer-config-plugin].
 * [yii\base\Configurable] interface and logic are removed in favour of DI and [yii\di\Initiable] interface.
+  So `BaseObject` class and it's descendants don't have `$config` parameter in their constructors anymore.
+  But it can be added where appropriate. E.g. see `yii\validators\Validator::__construct()`.
 * No advanced app anymore. Application templating approach has been changed, please see:
     * [yiisoft/yii-project-template] - project template;
     * [yiisoft/yii-base-web] - web application base.
