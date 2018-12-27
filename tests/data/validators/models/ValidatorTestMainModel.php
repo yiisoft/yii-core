@@ -7,7 +7,7 @@
 
 namespace yii\tests\data\validators\models;
 
-use yii\tests\data\ar\ActiveRecord;
+use yii\activerecord\tests\data\ActiveRecord;
 
 class ValidatorTestMainModel extends ActiveRecord
 {

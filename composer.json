@@ -81,6 +81,7 @@
         "yiisoft/db-sqlite": "^3.0@dev",
         "yiisoft/yii-console": "^3.0@dev",
         "yiisoft/yii-web": "^3.0@dev",
+        "yiisoft/active-record": "^3.0@dev",
         "ezyang/htmlpurifier": "^4.6",
         "phpunit/phpunit": "^7.2",
         "hiqdev/composer-config-plugin": "^1.0@dev"
