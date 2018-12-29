@@ -21,7 +21,7 @@ use yii\di\Instance;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-abstract class DbFixture extends Fixture
+abstract class DbFixture extends Fixture implements \yii\di\Initiable
 {
     /**
      * @var Connection|array|string the DB connection object or the application component ID of the DB connection.
@@ -35,9 +35,8 @@ abstract class DbFixture extends Fixture
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
-        parent::init();
-        $this->db = Instance::ensure($this->db, BaseObject::class);
+        $this->db = \yii\helpers\Yii::ensureObject($this->db, BaseObject::class);
     }
 }

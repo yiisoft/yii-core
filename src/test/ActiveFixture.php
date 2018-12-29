@@ -30,7 +30,7 @@ use yii\db\TableSchema;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class ActiveFixture extends BaseActiveFixture
+class ActiveFixture extends BaseActiveFixture implements \yii\di\Initiable
 {
     /**
      * @var string the name of the database table that this fixture is about. If this property is not set,
@@ -55,7 +55,7 @@ class ActiveFixture extends BaseActiveFixture
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         if ($this->modelClass === null && $this->tableName === null) {
