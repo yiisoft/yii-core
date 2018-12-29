@@ -194,15 +194,22 @@ class TranslatorTest extends TestCase
 
     public function testUsingSourceLanguageForMissingTranslation()
     {
-        //$this->app->sourceLanguage = 'ru';
         $this->i18n->setLocale('en');
 
         $msg = '{n, plural, =0{Нет комментариев} =1{# комментарий} one{# комментарий} few{# комментария} many{# комментариев} other{# комментария}}';
-        $this->assertEquals('1 комментарий', Yii::t('yii', $msg, ['n' => 1]));
-        $this->assertEquals('3 комментария', Yii::t('yii', $msg, ['n' => 3]));
-        $this->assertEquals('5 комментариев', Yii::t('yii', $msg, ['n' => 5]));
-        $this->assertEquals('21 комментарий', Yii::t('yii', $msg, ['n' => 21]));
         $this->assertEquals('Нет комментариев', Yii::t('yii', $msg, ['n' => 0]));
+        $this->assertEquals('1 комментарий', Yii::t('yii', $msg, ['n' => 1]));
+        $this->assertEquals('2 комментария', Yii::t('yii', $msg, ['n' => 2]));
+        $this->assertEquals('3 комментария', Yii::t('yii', $msg, ['n' => 3]));
+        $this->assertEquals('4 комментария', Yii::t('yii', $msg, ['n' => 4]));
+        $this->assertEquals('5 комментариев', Yii::t('yii', $msg, ['n' => 5]));
+        $this->assertEquals('6 комментариев', Yii::t('yii', $msg, ['n' => 6]));
+        $this->assertEquals('7 комментариев', Yii::t('yii', $msg, ['n' => 7]));
+        $this->assertEquals('8 комментариев', Yii::t('yii', $msg, ['n' => 8]));
+        $this->assertEquals('9 комментариев', Yii::t('yii', $msg, ['n' => 9]));
+        $this->assertEquals('10 комментариев', Yii::t('yii', $msg, ['n' => 10]));
+        $this->assertEquals('21 комментарий', Yii::t('yii', $msg, ['n' => 21]));
+        $this->assertEquals('100 комментариев', Yii::t('yii', $msg, ['n' => 100]));
     }
 
     /**
