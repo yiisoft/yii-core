@@ -24,6 +24,7 @@ class HtmlTest extends TestCase
     {
         parent::setUp();
         $this->container->setAll([
+            'app' => $this->container->getDefinition('app'), /// Reset app object cause it caches request
             'request' => [
                 '__class' => Request::class,
                 'url' => '/test',
@@ -125,11 +126,7 @@ class HtmlTest extends TestCase
                 'enableCsrfValidation' => true,
                 'cookieValidationKey' => 'key',
             ],
-            'response' => [
-                '__class' => Response::class,
-            ],
         ]);
-        $this->container->set('request', null);
         $pattern = '<meta name="csrf-param" content="_csrf">%A<meta name="csrf-token" content="%s">';
         $actual = Html::csrfMetaTags();
         $this->assertStringMatchesFormat($pattern, $actual);
