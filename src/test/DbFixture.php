@@ -9,7 +9,8 @@ namespace yii\test;
 
 use yii\base\BaseObject;
 use yii\db\Connection;
-use yii\di\Instance;
+use yii\di\Initiable;
+use yii\helpers\Yii;
 
 /**
  * DbFixture is the base class for DB-related fixtures.
@@ -21,7 +22,7 @@ use yii\di\Instance;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-abstract class DbFixture extends Fixture implements \yii\di\Initiable
+abstract class DbFixture extends Fixture implements Initiable
 {
     /**
      * @var Connection|array|string the DB connection object or the application component ID of the DB connection.

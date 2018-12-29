@@ -113,7 +113,7 @@ class ActiveFixtureTest extends DatabaseTestCase
     {
         parent::setUp();
         $db = $this->getConnection();
-        \Yii::getApp()->set('db', $db);
+        $this->container->set('db', $db);
         ActiveRecord::$db = $db;
     }
 
