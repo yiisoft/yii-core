@@ -58,4 +58,5 @@ Yii Framework Change Log
 - Chg #16247: Cloning components will now clone their behaviors as well (brandonkelly)
 - Enh #16487: Added circular reference detection in DI container (hiqsol)
 - Enh #16495: Added method call support in DI and `Yii::configure()` (hiqsol)
+- Enh #95: Added ability to get all translation category messages with `yii\i18n\MessageSource::getMessages()` (miolae)
 

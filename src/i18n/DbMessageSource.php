@@ -100,8 +100,10 @@ class DbMessageSource extends MessageSource
      *
      * @param string $category the message category
      * @param string $language the target language
+     *
      * @return array the loaded messages. The keys are original messages, and the values
      * are translated messages.
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws \yii\db\Exception
      */
     protected function loadMessages($category, $language): array

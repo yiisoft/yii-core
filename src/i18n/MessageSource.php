@@ -48,6 +48,25 @@ abstract class MessageSource extends Component
     abstract protected function loadMessages($category, $language): array;
 
     /**
+     * Returns all messages for a given category in a given language.
+     * Returned value is a result of {@see loadMessages()}
+     *
+     * @param string $category
+     * @param string $language
+     *
+     * @return array
+     */
+    public function getMessages($category, $language)
+    {
+        $key = $language . '/' . $category;
+        if (!isset($this->_messages[$key])) {
+            $this->_messages[$key] = $this->loadMessages($category, $language);
+        }
+
+        return $this->_messages[$key];
+    }
+
+    /**
      * Translates a message to the specified language.
      *
      * Note that unless [[forceTranslation]] is true, if the target language
@@ -82,21 +101,18 @@ abstract class MessageSource extends Component
      */
     protected function translateMessage($category, $message, $language): ?string
     {
-        $key = $language . '/' . $category;
-        if (!isset($this->_messages[$key])) {
-            $this->_messages[$key] = $this->loadMessages($category, $language);
-        }
-        if (isset($this->_messages[$key][$message]) && $this->_messages[$key][$message] !== '') {
-            return $this->_messages[$key][$message];
+        $messages = $this->getMessages($category, $language);
+        if (isset($messages[$message]) && $messages[$message] !== '') {
+            return $messages[$message];
         }
         if ($this->hasEventHandlers(TranslationEvent::MISSING)) {
             $event = TranslationEvent::missing($category, $message, $language);
             $this->trigger($event);
             if ($event->translatedMessage !== null) {
-                return $this->_messages[$key][$message] = $event->translatedMessage;
+                return $messages[$message] = $event->translatedMessage;
             }
         }
 
-        return $this->_messages[$key][$message] = null;
+        return $messages[$message] = null;
     }
 }
