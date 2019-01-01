@@ -99,7 +99,7 @@ class ActiveFixture extends BaseActiveFixture implements \yii\di\Initiable
                 $dataFile = $this->getTableSchema()->fullName . '.php';
             } else {
                 $class = new \ReflectionClass($this);
-                $dataFile = dirname($class->getFileName()) . '/data/' . $this->getTableSchema()->fullName . '.php';
+                $dataFile = dirname($class->getFileName()) . '/../data/' . $this->getTableSchema()->fullName . '.php';
             }
 
             return $this->loadData($dataFile, false);
