@@ -8,7 +8,6 @@
 namespace yii\base;
 
 use yii\exceptions\InvalidConfigException;
-use yii\helpers\Yii;
 
 /**
  * Action is the base class for all controller action classes.
@@ -47,10 +46,6 @@ class Action extends Component
      * @var Controller|\yii\web\Controller|\yii\console\Controller the controller that owns this action
      */
     public $controller;
-    /**
-     * @var Application
-     */
-    protected $app;
 
     /**
      * Constructor.
@@ -62,7 +57,11 @@ class Action extends Component
     {
         $this->id = $id;
         $this->controller = $controller;
-        $this->app = $controller->getApp();
+    }
+
+    public function getApp(): Application
+    {
+        return $this->controller->getApp();
     }
 
     /**
@@ -91,7 +90,7 @@ class Action extends Component
             throw new InvalidConfigException(get_class($this) . ' must define a "run()" method.');
         }
         $args = $this->controller->bindActionParams($this, $params);
-        Yii::debug('Running action: ' . get_class($this) . '::run()', __METHOD__);
+        $this->app->debug('Running action: ' . get_class($this) . '::run()', __METHOD__);
         if ($this->app->requestedParams === null) {
             $this->app->requestedParams = $args;
         }
