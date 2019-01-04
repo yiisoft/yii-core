@@ -9,6 +9,7 @@ namespace yii\tests;
 
 use yii\base\Application;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 use yii\helpers\Yii;
 
 /**
@@ -147,7 +148,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param array $args
      * @param bool $revoke whether to make method inaccessible after execution
      * @return mixed
-     * @since 2.0.11
+     * @throws \ReflectionException
      */
     protected function invokeMethod($object, $method, $args = [], $revoke = true)
     {
@@ -168,7 +169,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param $propertyName
      * @param $value
      * @param bool $revoke whether to make property inaccessible after setting
-     * @since 2.0.11
+     * @throws \ReflectionException
      */
     protected function setInaccessibleProperty($object, $propertyName, $value, $revoke = true)
     {
@@ -190,6 +191,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param $propertyName
      * @param bool $revoke whether to make property inaccessible after getting
      * @return mixed
+     * @throws \ReflectionException
      */
     protected function getInaccessibleProperty($object, $propertyName, $revoke = true)
     {
@@ -221,19 +223,21 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * Creates test files structure.
-     * @param string $dir base dir path.
+     * @param string $baseDirectory base directory path.
      * @param array $items file system objects to be created in format: objectName => objectContent
      * Arrays specifies directories, other values - files.
      */
-    protected function createFileStructure(array $items, string $dir = null): void
+    protected function createFileStructure(array $items, string $baseDirectory = null): void
     {
         foreach ($items as $name => $content) {
-            $itemName = $dir . DIRECTORY_SEPARATOR . $name;
-            if (is_array($content)) {
+            $itemName = $baseDirectory . '/' . $name;
+            if (\is_array($content)) {
                 if (isset($content[0], $content[1]) && $content[0] === 'symlink') {
-                    symlink($content[1], $itemName);
+                    symlink($baseDirectory . DIRECTORY_SEPARATOR . $content[1], $itemName);
                 } else {
-                    mkdir($itemName, 0777, true);
+                    if (!mkdir($itemName, 0777, true) && !is_dir($itemName)) {
+                        throw new \RuntimeException(sprintf('Directory "%s" was not created', $itemName));
+                    }
                     $this->createFileStructure($content, $itemName);
                 }
             } else {

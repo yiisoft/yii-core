@@ -4,6 +4,9 @@ Yii Framework Change Log
 3.0.0 under development
 -----------------------
 
+- Chg #133: FileHelper now always uses `/` as normalized directory separator regardless of operating system used (samdark)
+- Bug #133: Fixed `FileHelper::loadMimeTypes()` to properly work with relative paths under Windows (samdark)
+- Enh #133: Made `FileHelper::createDirectory()` resistent to race conditions (samdark)
 - Bug #12895: Use custom error action when provided, regardless of the response format (erikverheij)
 - Enh #16285: Modified yii\web\XmlResponseFormatter to accept attributes for XML elements (codespede)
 - Bug #16327: Fix getComposer() yii\BaseYii::createObject(null) BaseMailer (cjtterabyte)
@@ -59,4 +62,3 @@ Yii Framework Change Log
 - Enh #16487: Added circular reference detection in DI container (hiqsol)
 - Enh #16495: Added method call support in DI and `Yii::configure()` (hiqsol)
 - Enh #95: Added ability to get all translation category messages with `yii\i18n\MessageSource::getMessages()` (miolae)
-

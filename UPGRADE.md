@@ -323,7 +323,9 @@ Upgrade from Yii 2.0.x
   symbols with `_`.
 * `yii\i18n\MessageFormatter::parse()` method was removed. If you have a rare case where it's used copy-paste it from
   2.0 branch to your project. 
-* `yii\helpers\Markdown` was removed. Use `cebe/markdown` composer package directly. 
+* `yii\helpers\Markdown` was removed. Use `cebe/markdown` composer package directly.
+* `yii\helpers\FileHelper` now always uses `/` as normalized directory separator regardless of operating system used.
+  Adjust your code that work with paths if needed.
 
 
 Upgrade from Yii 2.0.15

@@ -22,11 +22,11 @@ use yii\exceptions\InvalidArgumentException;
  */
 class BaseFileHelper
 {
-    const PATTERN_NODIR = 1;
-    const PATTERN_ENDSWITH = 4;
-    const PATTERN_MUSTBEDIR = 8;
-    const PATTERN_NEGATIVE = 16;
-    const PATTERN_CASE_INSENSITIVE = 32;
+    private const PATTERN_NODIR = 1;
+    private const PATTERN_ENDSWITH = 4;
+    private const PATTERN_MUSTBEDIR = 8;
+    private const PATTERN_NEGATIVE = 16;
+    private const PATTERN_CASE_INSENSITIVE = 32;
 
     /**
      * @var string the path (or alias) of a PHP file containing MIME type information.
@@ -44,37 +44,42 @@ class BaseFileHelper
      *
      * The normalization does the following work:
      *
-     * - Convert all directory separators into `DIRECTORY_SEPARATOR` (e.g. "\a/b\c" becomes "/a/b/c")
+     * - Convert all directory separators into `/` (e.g. "\a/b\c" becomes "/a/b/c")
      * - Remove trailing directory separators (e.g. "/a/b/c/" becomes "/a/b/c")
      * - Turn multiple consecutive slashes into a single one (e.g. "/a///b/c" becomes "/a/b/c")
      * - Remove ".." and "." based on their meanings (e.g. "/a/./b/../c" becomes "/a/c")
      *
      * @param string $path the file/directory path to be normalized
-     * @param string $ds the directory separator to be used in the normalized result. Defaults to `DIRECTORY_SEPARATOR`.
      * @return string the normalized file/directory path
      */
-    public static function normalizePath($path, $ds = DIRECTORY_SEPARATOR)
+    public static function normalizePath(string $path): string
     {
-        $path = rtrim(strtr($path, '/\\', $ds . $ds), $ds);
-        if (strpos($ds . $path, "{$ds}.") === false && strpos($path, "{$ds}{$ds}") === false) {
+        $isWindowsShare = strpos($path, '\\\\') === 0;
+        if ($isWindowsShare) {
+            $path = substr($path, 2);
+        }
+
+        $path = rtrim(strtr($path, '/\\', '//'), '/');
+        if (strpos('/' . $path, '/.') === false && strpos($path, '//') === false) {
+            if ($isWindowsShare) {
+                $path = $path = '\\\\' . $path;
+            }
             return $path;
         }
-        // the path may contain ".", ".." or double slashes, need to clean them up
-        if (strpos($path, "{$ds}{$ds}") === 0 && $ds == '\\') {
-            $parts = [$ds];
-        } else {
-            $parts = [];
-        }
-        foreach (explode($ds, $path) as $part) {
+
+        $parts = [];
+
+        foreach (explode('/', $path) as $part) {
             if ($part === '..' && !empty($parts) && end($parts) !== '..') {
                 array_pop($parts);
-            } elseif ($part === '.' || $part === '' && !empty($parts)) {
-                continue;
-            } else {
+            } elseif ($part !== '.' && ($part !== '' || empty($parts))) {
                 $parts[] = $part;
             }
         }
-        $path = implode($ds, $parts);
+        $path = implode('/', $parts);
+        if ($isWindowsShare) {
+            $path = '\\\\' . $path;
+        }
         return $path === '' ? '.' : $path;
     }
 
@@ -93,11 +98,8 @@ class BaseFileHelper
      * @return string the MIME type (e.g. `text/plain`). Null is returned if the MIME type cannot be determined.
      * @throws InvalidConfigException when the `fileinfo` PHP extension is not installed and `$checkExtension` is `false`.
      */
-    public static function getMimeType($file, $magicFile = null, $checkExtension = true)
+    public static function getMimeType(string $file, ?string $magicFile = null, bool $checkExtension = true): string
     {
-        // if ($magicFile !== null) {
-        //     $magicFile = Yii::getAlias($magicFile);
-        // }
         if (!extension_loaded('fileinfo')) {
             if ($checkExtension) {
                 return static::getMimeTypeByExtension($file, $magicFile);
@@ -127,7 +129,7 @@ class BaseFileHelper
      * If this is not set, the file specified by [[mimeMagicFile]] will be used.
      * @return string|null the MIME type. Null is returned if the MIME type cannot be determined.
      */
-    public static function getMimeTypeByExtension($file, $magicFile = null)
+    public static function getMimeTypeByExtension(string $file, ?string $magicFile = null): ?string
     {
         $mimeTypes = static::loadMimeTypes($magicFile);
 
@@ -149,7 +151,7 @@ class BaseFileHelper
      * If this is not set, the file specified by [[mimeMagicFile]] will be used.
      * @return array the extensions corresponding to the specified MIME type
      */
-    public static function getExtensionsByMimeType($mimeType, $magicFile = null)
+    public static function getExtensionsByMimeType(string $mimeType, ?string $magicFile = null): array
     {
         $aliases = static::loadMimeAliases(static::$mimeAliasesFile);
         if (isset($aliases[$mimeType])) {
@@ -164,16 +166,16 @@ class BaseFileHelper
 
     /**
      * Loads MIME types from the specified file.
-     * @param string $magicFile the path (or alias) of the file that contains all available MIME type information.
+     * @param string $magicFile the path of the file that contains all available MIME type information.
      * If this is not set, the file specified by [[mimeMagicFile]] will be used.
      * @return array the mapping from file extensions to MIME types
      */
-    protected static function loadMimeTypes($magicFile)
+    protected static function loadMimeTypes(?string $magicFile): array
     {
         if ($magicFile === null) {
             $magicFile = static::$mimeMagicFile;
         }
-        if (strncmp($magicFile, '/', 1) !== 0) {
+        if (!static::isAbsolutePath($magicFile)) {
             $magicFile = __DIR__ . '/' . $magicFile;
         }
         if (!isset(self::$_mimeTypes[$magicFile])) {
@@ -181,6 +183,22 @@ class BaseFileHelper
         }
 
         return self::$_mimeTypes[$magicFile];
+    }
+
+    /**
+     * Checks if path provided is absolute
+     * @param string $file
+     * @return bool
+     */
+    protected static function isAbsolutePath(string $file): bool
+    {
+        return strspn($file, '/\\', 0, 1)
+            || (\strlen($file) > 3 && ctype_alpha($file[0])
+                && $file[1] === ':'
+                && strspn($file, '/\\', 2, 1)
+            )
+            || null !== parse_url($file, PHP_URL_SCHEME)
+        ;
     }
 
     private static $_mimeAliases = [];
@@ -192,7 +210,7 @@ class BaseFileHelper
      * @return array the mapping from file extensions to MIME types
      * @since 2.0.14
      */
-    protected static function loadMimeAliases($aliasesFile)
+    protected static function loadMimeAliases(?string $aliasesFile): array
     {
         if ($aliasesFile === null) {
             $aliasesFile = static::$mimeAliasesFile;
@@ -210,8 +228,8 @@ class BaseFileHelper
     /**
      * Copies a whole directory as another one.
      * The files and sub-directories will also be copied over.
-     * @param string $src the source directory
-     * @param string $dst the destination directory
+     * @param string $source the source directory
+     * @param string $destination the destination directory
      * @param array $options options for directory copy. Valid options are:
      *
      * - dirMode: integer, the permission to be set for newly copied directories. Defaults to 0775.
@@ -249,58 +267,57 @@ class BaseFileHelper
      *   do not contain files at the target destination because files have been filtered via `only` or `except`.
      *   Defaults to true. This option is available since version 2.0.12. Before 2.0.12 empty directories are always copied.
      * @throws InvalidArgumentException if unable to open directory
+     * @throws \yii\exceptions\Exception
      */
-    public static function copyDirectory($src, $dst, $options = [])
+    public static function copyDirectory(string $source, string $destination, $options = []): void
     {
-        $src = static::normalizePath($src);
-        $dst = static::normalizePath($dst);
+        $source = static::normalizePath($source);
+        $destination = static::normalizePath($destination);
 
-        if ($src === $dst || strpos($dst, $src . DIRECTORY_SEPARATOR) === 0) {
+        if ($source === $destination || strpos($destination, $source . '/') === 0) {
             throw new InvalidArgumentException('Trying to copy a directory to itself or a subdirectory.');
         }
-        $dstExists = is_dir($dst);
-        if (!$dstExists && (!isset($options['copyEmptyDirectories']) || $options['copyEmptyDirectories'])) {
-            static::createDirectory($dst, $options['dirMode'] ?? 0775, true);
-            $dstExists = true;
+        $destinationExists = is_dir($destination);
+        if (!$destinationExists && (!isset($options['copyEmptyDirectories']) || $options['copyEmptyDirectories'])) {
+            static::createDirectory($destination, $options['dirMode'] ?? 0775, true);
+            $destinationExists = true;
         }
 
-        $handle = opendir($src);
+        $handle = opendir($source);
         if ($handle === false) {
-            throw new InvalidArgumentException("Unable to open directory: $src");
+            throw new InvalidArgumentException("Unable to open directory: $source");
         }
         if (!isset($options['basePath'])) {
             // this should be done only once
-            $options['basePath'] = realpath($src);
+            $options['basePath'] = realpath($source);
             $options = static::normalizeOptions($options);
         }
         while (($file = readdir($handle)) !== false) {
             if ($file === '.' || $file === '..') {
                 continue;
             }
-            $from = $src . DIRECTORY_SEPARATOR . $file;
-            $to = $dst . DIRECTORY_SEPARATOR . $file;
+            $from = $source . '/' . $file;
+            $to = $destination . '/' . $file;
             if (static::filterPath($from, $options)) {
-                if (isset($options['beforeCopy']) && !call_user_func($options['beforeCopy'], $from, $to)) {
+                if (isset($options['beforeCopy']) && !\call_user_func($options['beforeCopy'], $from, $to)) {
                     continue;
                 }
                 if (is_file($from)) {
-                    if (!$dstExists) {
+                    if (!$destinationExists) {
                         // delay creation of destination directory until the first file is copied to avoid creating empty directories
-                        static::createDirectory($dst, $options['dirMode'] ?? 0775, true);
-                        $dstExists = true;
+                        static::createDirectory($destination, $options['dirMode'] ?? 0775, true);
+                        $destinationExists = true;
                     }
                     copy($from, $to);
                     if (isset($options['fileMode'])) {
                         @chmod($to, $options['fileMode']);
                     }
-                } else {
+                } else if (!isset($options['recursive']) || $options['recursive']) {
                     // recursive copy, defaults to true
-                    if (!isset($options['recursive']) || $options['recursive']) {
-                        static::copyDirectory($from, $to, $options);
-                    }
+                    static::copyDirectory($from, $to, $options);
                 }
                 if (isset($options['afterCopy'])) {
-                    call_user_func($options['afterCopy'], $from, $to);
+                    \call_user_func($options['afterCopy'], $from, $to);
                 }
             }
         }
@@ -319,7 +336,7 @@ class BaseFileHelper
      *
      * @throws ErrorException in case of failure
      */
-    public static function removeDirectory($dir, $options = [])
+    public static function removeDirectory($dir, $options = []): void
     {
         if (!is_dir($dir)) {
             return;
@@ -332,7 +349,7 @@ class BaseFileHelper
                 if ($file === '.' || $file === '..') {
                     continue;
                 }
-                $path = $dir . DIRECTORY_SEPARATOR . $file;
+                $path = $dir . '/' . $file;
                 if (is_dir($path)) {
                     static::removeDirectory($path, $options);
                 } else {
@@ -356,7 +373,7 @@ class BaseFileHelper
      *
      * @since 2.0.14
      */
-    public static function unlink($path)
+    public static function unlink($path): bool
     {
         $isWindows = DIRECTORY_SEPARATOR === '\\';
 
@@ -368,14 +385,7 @@ class BaseFileHelper
             return rmdir($path);
         }
 
-        try {
-            return unlink($path);
-        } catch (ErrorException $e) {
-            // last resort measure for Windows
-            $lines = [];
-            exec('DEL /F/Q ' . escapeshellarg($path), $lines, $deleteError);
-            return $deleteError !== 0;
-        }
+        return unlink($path);
     }
 
     /**
@@ -413,7 +423,7 @@ class BaseFileHelper
      * @return array files found under the directory, in no particular order. Ordering depends on the files system used.
      * @throws InvalidArgumentException if the dir is invalid.
      */
-    public static function findFiles($dir, $options = [])
+    public static function findFiles($dir, $options = []): array
     {
         $dir = self::clearDir($dir);
         $options = self::setBasePath($dir, $options);
@@ -423,11 +433,11 @@ class BaseFileHelper
             if ($file === '.' || $file === '..') {
                 continue;
             }
-            $path = $dir . DIRECTORY_SEPARATOR . $file;
+            $path = $dir . '/'. $file;
             if (static::filterPath($path, $options)) {
                 if (is_file($path)) {
                     $list[] = $path;
-                } elseif (is_dir($path) && (!isset($options['recursive']) || $options['recursive'])) {
+                } elseif ((!isset($options['recursive']) || $options['recursive']) && is_dir($path)) {
                     $list = array_merge($list, static::findFiles($path, $options));
                 }
             }
@@ -454,7 +464,7 @@ class BaseFileHelper
      * @throws InvalidArgumentException if the dir is invalid.
      * @since 2.0.14
      */
-    public static function findDirectories($dir, $options = [])
+    public static function findDirectories($dir, $options = []): array
     {
         $dir = self::clearDir($dir);
         $options = self::setBasePath($dir, $options);
@@ -464,7 +474,7 @@ class BaseFileHelper
             if ($file === '.' || $file === '..') {
                 continue;
             }
-            $path = $dir . DIRECTORY_SEPARATOR . $file;
+            $path = $dir . '/'. $file;
             if (is_dir($path) && static::filterPath($path, $options)) {
                 $list[] = $path;
                 if (!isset($options['recursive']) || $options['recursive']) {
@@ -480,7 +490,7 @@ class BaseFileHelper
     /*
      * @param string $dir
      */
-    private static function setBasePath($dir, $options)
+    private static function setBasePath($dir, $options): array
     {
         if (!isset($options['basePath'])) {
             // this should be done only once
@@ -506,12 +516,12 @@ class BaseFileHelper
     /*
      * @param string $dir
      */
-    private static function clearDir($dir)
+    private static function clearDir($dir): string
     {
         if (!is_dir($dir)) {
             throw new InvalidArgumentException("The dir argument must be a directory: $dir");
         }
-        return rtrim($dir, DIRECTORY_SEPARATOR);
+        return rtrim($dir, '/');
     }
 
     /**
@@ -521,11 +531,11 @@ class BaseFileHelper
      * the supported options.
      * @return bool whether the file or directory satisfies the filtering options.
      */
-    public static function filterPath($path, $options)
+    public static function filterPath($path, $options): bool
     {
         if (isset($options['filter'])) {
-            $result = call_user_func($options['filter'], $path);
-            if (is_bool($result)) {
+            $result = \call_user_func($options['filter'], $path);
+            if (\is_bool($result)) {
                 return $result;
             }
         }
@@ -537,18 +547,15 @@ class BaseFileHelper
         $path = str_replace('\\', '/', $path);
 
         if (!empty($options['except'])) {
-            if (($except = self::lastExcludeMatchingFromList($options['basePath'], $path, $options['except'])) !== null) {
+            $except = self::lastExcludeMatchingFromList($options['basePath'], $path, $options['except']);
+            if ($except !== null) {
                 return $except['flags'] & self::PATTERN_NEGATIVE;
             }
         }
 
         if (!empty($options['only']) && !is_dir($path)) {
-            if (($except = self::lastExcludeMatchingFromList($options['basePath'], $path, $options['only'])) !== null) {
-                // don't check PATTERN_NEGATIVE since those entries are not prefixed with !
-                return true;
-            }
-
-            return false;
+            // don't check PATTERN_NEGATIVE since those entries are not prefixed with !
+            return self::lastExcludeMatchingFromList($options['basePath'], $path, $options['only']) !== null;
         }
 
         return true;
@@ -567,18 +574,18 @@ class BaseFileHelper
      * @return bool whether the directory is created successfully
      * @throws \yii\exceptions\Exception if the directory could not be created (i.e. php error due to parallel changes)
      */
-    public static function createDirectory($path, $mode = 0775, $recursive = true)
+    public static function createDirectory($path, $mode = 0775, $recursive = true): bool
     {
         if (is_dir($path)) {
             return true;
         }
-        $parentDir = dirname($path);
+        $parentDir = \dirname($path);
         // recurse if parent dir does not exist and we are not at the root of the file system.
-        if ($recursive && !is_dir($parentDir) && $parentDir !== $path) {
+        if ($recursive && $parentDir !== $path && !is_dir($parentDir)) {
             static::createDirectory($parentDir, $mode, true);
         }
         try {
-            if (!mkdir($path, $mode)) {
+            if (!mkdir($path, $mode) && !is_dir($path)) {
                 return false;
             }
         } catch (\Exception $e) {
@@ -604,7 +611,7 @@ class BaseFileHelper
      * @param int $flags pattern flags
      * @return bool whether the name matches against pattern
      */
-    private static function matchBasename($baseName, $pattern, $firstWildcard, $flags)
+    private static function matchBasename($baseName, $pattern, $firstWildcard, $flags): bool
     {
         if ($firstWildcard === false) {
             if ($pattern === $baseName) {
@@ -638,10 +645,10 @@ class BaseFileHelper
      * @param int $flags pattern flags
      * @return bool whether the path part matches against pattern
      */
-    private static function matchPathname($path, $basePath, $pattern, $firstWildcard, $flags)
+    private static function matchPathname($path, $basePath, $pattern, $firstWildcard, $flags): bool
     {
         // match with FNM_PATHNAME; the pattern has base implicitly in front of it.
-        if (isset($pattern[0]) && $pattern[0] === '/') {
+        if (strpos($pattern, '/') === 0) {
             $pattern = StringHelper::byteSubstr($pattern, 1, StringHelper::byteLength($pattern));
             if ($firstWildcard !== false && $firstWildcard !== 0) {
                 $firstWildcard--;
@@ -696,16 +703,16 @@ class BaseFileHelper
      * @return array|null null or one of $excludes item as an array with keys: 'pattern', 'flags'
      * @throws InvalidArgumentException if any of the exclude patterns is not a string or an array with keys: pattern, flags, firstWildcard.
      */
-    private static function lastExcludeMatchingFromList($basePath, $path, $excludes)
+    private static function lastExcludeMatchingFromList($basePath, $path, $excludes): ?array
     {
         foreach (array_reverse($excludes) as $exclude) {
-            if (is_string($exclude)) {
+            if (\is_string($exclude)) {
                 $exclude = self::parseExcludePattern($exclude, false);
             }
-            if (!isset($exclude['pattern']) || !isset($exclude['flags']) || !isset($exclude['firstWildcard'])) {
+            if (!isset($exclude['pattern'], $exclude['flags'], $exclude['firstWildcard'])) {
                 throw new InvalidArgumentException('If exclude/include pattern is an array it must contain the pattern, flags and firstWildcard keys.');
             }
-            if ($exclude['flags'] & self::PATTERN_MUSTBEDIR && !is_dir($path)) {
+            if (($exclude['flags'] & self::PATTERN_MUSTBEDIR) && !is_dir($path)) {
                 continue;
             }
 
@@ -731,9 +738,9 @@ class BaseFileHelper
      * @throws InvalidArgumentException
      * @return array with keys: (string) pattern, (int) flags, (int|bool) firstWildcard
      */
-    private static function parseExcludePattern($pattern, $caseSensitive)
+    private static function parseExcludePattern($pattern, $caseSensitive): array
     {
-        if (!is_string($pattern)) {
+        if (!\is_string($pattern)) {
             throw new InvalidArgumentException('Exclude/include pattern must be a string.');
         }
 
@@ -751,7 +758,7 @@ class BaseFileHelper
             return $result;
         }
 
-        if ($pattern[0] === '!') {
+        if (strpos($pattern, '!') === 0) {
             $result['flags'] |= self::PATTERN_NEGATIVE;
             $pattern = StringHelper::byteSubstr($pattern, 1, StringHelper::byteLength($pattern));
         }
@@ -763,7 +770,7 @@ class BaseFileHelper
             $result['flags'] |= self::PATTERN_NODIR;
         }
         $result['firstWildcard'] = self::firstWildcardInPattern($pattern);
-        if ($pattern[0] === '*' && self::firstWildcardInPattern(StringHelper::byteSubstr($pattern, 1, StringHelper::byteLength($pattern))) === false) {
+        if (strpos($pattern, '*') === 0 && self::firstWildcardInPattern(StringHelper::byteSubstr($pattern, 1, StringHelper::byteLength($pattern))) === false) {
             $result['flags'] |= self::PATTERN_ENDSWITH;
         }
         $result['pattern'] = $pattern;
@@ -779,10 +786,14 @@ class BaseFileHelper
     private static function firstWildcardInPattern($pattern)
     {
         $wildcards = ['*', '?', '[', '\\'];
-        $wildcardSearch = function ($r, $c) use ($pattern) {
-            $p = strpos($pattern, $c);
+        $wildcardSearch = function ($carry, $item) use ($pattern) {
+            $position = strpos($pattern, $item);
 
-            return $r === false ? $p : ($p === false ? $r : min($r, $p));
+            if ($position === false) {
+                return $carry === false ? $position : $carry;
+            }
+
+            return $carry === false ? $position : min($carry, $position);
         };
 
         return array_reduce($wildcards, $wildcardSearch, false);
@@ -793,21 +804,21 @@ class BaseFileHelper
      * @return array normalized options
      * @since 2.0.12
      */
-    protected static function normalizeOptions(array $options)
+    protected static function normalizeOptions(array $options): array
     {
         if (!array_key_exists('caseSensitive', $options)) {
             $options['caseSensitive'] = true;
         }
         if (isset($options['except'])) {
             foreach ($options['except'] as $key => $value) {
-                if (is_string($value)) {
+                if (\is_string($value)) {
                     $options['except'][$key] = self::parseExcludePattern($value, $options['caseSensitive']);
                 }
             }
         }
         if (isset($options['only'])) {
             foreach ($options['only'] as $key => $value) {
-                if (is_string($value)) {
+                if (\is_string($value)) {
                     $options['only'][$key] = self::parseExcludePattern($value, $options['caseSensitive']);
                 }
             }
