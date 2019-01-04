@@ -7,8 +7,8 @@
 
 namespace yii\tests\framework\i18n;
 
-use yii\helpers\Yii;
 use yii\base\Event;
+use yii\i18n\I18N;
 use yii\i18n\Translator;
 use yii\i18n\PhpMessageSource;
 use yii\i18n\TranslationEvent;
@@ -25,6 +25,11 @@ class TranslatorTest extends TestCase
      * @var Translator
      */
     public $translator;
+
+    /**
+     * @var I18N
+     */
+    private $i18n;
 
     protected function setUp()
     {
@@ -189,27 +194,21 @@ class TranslatorTest extends TestCase
      */
     public function testRussianPlurals()
     {
-        $this->assertEquals('На диване лежит 6 кошек!', $this->translator->translate('test', 'There {n, plural, =0{no cats} =1{one cat} other{are # cats}} on lying on the sofa!', ['n' => 6], 'ru'));
+        $this->assertEquals('На диване лежит 6 кошек!', $this->translator->translate('test', 'There {n, plural, =0{are no cats} =1{is one cat} other{are # cats}} lying on the sofa!', ['n' => 6], 'ru'));
     }
 
+    /**
+     * We try translating from en-US to ru-RU. In case of missing translation source string is used which is in en-US.
+     * Therefore locale data used for translation should be for en-US.
+     */
     public function testUsingSourceLanguageForMissingTranslation()
     {
-        $this->i18n->setLocale('en');
+        $targetLanguage = 'ru-RU';
 
-        $msg = '{n, plural, =0{Нет комментариев} =1{# комментарий} one{# комментарий} few{# комментария} many{# комментариев} other{# комментария}}';
-        $this->assertEquals('Нет комментариев', Yii::t('yii', $msg, ['n' => 0]));
-        $this->assertEquals('1 комментарий', Yii::t('yii', $msg, ['n' => 1]));
-        $this->assertEquals('2 комментария', Yii::t('yii', $msg, ['n' => 2]));
-        $this->assertEquals('3 комментария', Yii::t('yii', $msg, ['n' => 3]));
-        $this->assertEquals('4 комментария', Yii::t('yii', $msg, ['n' => 4]));
-        $this->assertEquals('5 комментариев', Yii::t('yii', $msg, ['n' => 5]));
-        $this->assertEquals('6 комментариев', Yii::t('yii', $msg, ['n' => 6]));
-        $this->assertEquals('7 комментариев', Yii::t('yii', $msg, ['n' => 7]));
-        $this->assertEquals('8 комментариев', Yii::t('yii', $msg, ['n' => 8]));
-        $this->assertEquals('9 комментариев', Yii::t('yii', $msg, ['n' => 9]));
-        $this->assertEquals('10 комментариев', Yii::t('yii', $msg, ['n' => 10]));
-        $this->assertEquals('21 комментарий', Yii::t('yii', $msg, ['n' => 21]));
-        $this->assertEquals('100 комментариев', Yii::t('yii', $msg, ['n' => 100]));
+        // There are only "one" and "other" in English unlike Russian where there are "one", "few", "many" and "other"
+        $this->assertEquals('one', $this->translator->translate('test', '{n, plural, one{one} few{few} many{many} other{other}}', ['n' => 1], $targetLanguage));
+        $this->assertEquals('other', $this->translator->translate('test', '{n, plural, one{one} few{few} many{many} other{other}}', ['n' => 2], $targetLanguage));
+        $this->assertEquals('other', $this->translator->translate('test', '{n, plural, one{one} few{few} many{many} other{other}}', ['n' => 5], $targetLanguage));
     }
 
     /**
@@ -221,7 +220,9 @@ class TranslatorTest extends TestCase
         $this->assertEquals('Missing translation message.', $this->translator->translate('test', 'Missing translation message.', [], 'de-DE'));
         $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
 
-        Event::on(PhpMessageSource::class, TranslationEvent::MISSING, function ($event) {});
+        Event::on(PhpMessageSource::class, TranslationEvent::MISSING, function () {
+            // do nothing
+        });
         $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
         $this->assertEquals('Missing translation message.', $this->translator->translate('test', 'Missing translation message.', [], 'de-DE'));
         $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
