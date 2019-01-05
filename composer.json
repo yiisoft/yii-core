@@ -92,7 +92,7 @@
         "yiisoft/di": "DI container implementation",
         "yiisoft/log": "Logging implementation",
         "yiisoft/cache": "Caching implementation",
-        "ezyang/htmlpurifier": "Version '^4.6' is required at 'yii\\helpers\\HtmlPurifier' for 'html' data format support (e.g. 'yii\\i18n\\Formatter:asHtml()' and 'yii\\helpers\\StringHelper::truncateHtml()')",
+        "ezyang/htmlpurifier": "Version '^4.6' is required at 'yii\\helpers\\HtmlPurifier' and for 'html' data format support (e.g. 'yii\\i18n\\Formatter:asHtml()')",
         "yiisoft/db": "Required for i18n DbMessageSource",
         "ext-intl": "Required for advanced i18n"
     },

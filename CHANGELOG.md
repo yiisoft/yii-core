@@ -4,7 +4,9 @@ Yii Framework Change Log
 3.0.0 under development
 -----------------------
 
-- Chg #133: FileHelper now always uses `/` as normalized directory separator regardless of operating system used (samdark)
+- Chg #134: `StringHelper::truncate()` was renamed to `StringHelper::truncateCharacters()` (samdark)
+- Chg #134: Ability to truncate taking HTML into account was removed from `StringHelper` in favor of `HtmlPurifier` helper (samdark)
+- Chg #133: `FileHelper` now always uses `/` as normalized directory separator regardless of operating system used (samdark)
 - Bug #133: Fixed `FileHelper::loadMimeTypes()` to properly work with relative paths under Windows (samdark)
 - Enh #133: Made `FileHelper::createDirectory()` resistent to race conditions (samdark)
 - Bug #12895: Use custom error action when provided, regardless of the response format (erikverheij)

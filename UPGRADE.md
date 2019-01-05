@@ -326,6 +326,7 @@ Upgrade from Yii 2.0.x
 * `yii\helpers\Markdown` was removed. Use `cebe/markdown` composer package directly.
 * `yii\helpers\FileHelper` now always uses `/` as normalized directory separator regardless of operating system used.
   Adjust your code that work with paths if needed.
+* Ability to truncate content taking HTML into account was removed from `StringHelper` in favor of `HtmlPurifier` helper.
 
 
 Upgrade from Yii 2.0.15

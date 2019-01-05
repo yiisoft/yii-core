@@ -111,30 +111,9 @@ class StringHelperTest extends TestCase
 
     public function testTruncate()
     {
-        $this->assertEquals('привет, я multibyte...', StringHelper::truncate('привет, я multibyte строка!', 20));
-        $this->assertEquals('Не трогаем строку', StringHelper::truncate('Не трогаем строку', 20));
-        $this->assertEquals('исполь!!!', StringHelper::truncate('используем восклицательные знаки', 6, '!!!'));
-    }
-
-    public function testTruncateHtml()
-    {
-        if (!class_exists(\HTMLPurifier_Config::class)) {
-            $this->markTestSkipped('"ezyang/htmlpurifier" package required');
-            return;
-        }
-
-        $this->assertEquals('<span>This is a test</span>...', StringHelper::truncate('<span>This is a test sentance</span>', 14, '...', null, true));
-        $this->assertEquals('<span>This is a test</span>...', StringHelper::truncate('<span>This is a test </span>sentance', 14, '...', null, true));
-        $this->assertEquals('<span>This is a test </span><strong>for</strong>...', StringHelper::truncate('<span>This is a test </span><strong>for a sentance</strong>', 18, '...', null, true));
-        $this->assertEquals('<span>This is a test</span><strong> for</strong>...', StringHelper::truncate('<span>This is a test</span><strong> for a sentance</strong>', 18, '...', null, true));
-
-        $this->assertEquals('<span><img src="image.png" />This is a test</span>...', StringHelper::truncate('<span><img src="image.png" />This is a test sentance</span>', 14, '...', null, true));
-        $this->assertEquals('<span><img src="image.png" />This is a test</span>...', StringHelper::truncate('<span><img src="image.png" />This is a test </span>sentance', 14, '...', null, true));
-        $this->assertEquals('<span><img src="image.png" />This is a test </span><strong>for</strong>...', StringHelper::truncate('<span><img src="image.png" />This is a test </span><strong>for a sentance</strong>', 18, '...', null, true));
-
-        $this->assertEquals('<p>This is a test</p><ul><li>bullet1</li><li>b</li></ul>...', StringHelper::truncate('<p>This is a test</p><ul><li>bullet1</li><li>bullet2</li><li>bullet3</li><li>bullet4</li></ul>', 22, '...', null, true));
-
-        $this->assertEquals('<div><ul><li>bullet1</li><li><div>b</div></li></ul></div>...', StringHelper::truncate('<div><ul><li>bullet1</li><li><div>bullet2</div></li></ul><br></div>', 8, '...', null, true));
+        $this->assertEquals('привет, я multibyte...', StringHelper::truncateCharacters('привет, я multibyte строка!', 20));
+        $this->assertEquals('Не трогаем строку', StringHelper::truncateCharacters('Не трогаем строку', 20));
+        $this->assertEquals('исполь!!!', StringHelper::truncateCharacters('используем восклицательные знаки', 6, '!!!'));
     }
 
     public function testTruncateWords()
@@ -143,26 +122,6 @@ class StringHelperTest extends TestCase
         $this->assertEquals('это тестовая multibyte...', StringHelper::truncateWords('это тестовая multibyte строка', 3));
         $this->assertEquals('это тестовая multibyte!!!', StringHelper::truncateWords('это тестовая multibyte строка', 3, '!!!'));
         $this->assertEquals('это строка с          неожиданными...', StringHelper::truncateWords('это строка с          неожиданными пробелами', 4));
-    }
-
-    public function testTruncateWordsHtml()
-    {
-        if (!class_exists(\HTMLPurifier_Config::class)) {
-            $this->markTestSkipped('"ezyang/htmlpurifier" package required');
-            return;
-        }
-
-        $this->assertEquals('lorem ipsum', StringHelper::truncateWords('lorem ipsum', 3, '...', true));
-        $this->assertEquals(' lorem ipsum', StringHelper::truncateWords(' lorem ipsum', 3, '...', true));
-
-        $this->assertEquals('<span>This is a test</span>...', StringHelper::truncateWords('<span>This is a test sentance</span>', 4, '...', true));
-        $this->assertEquals('<span>This is a test </span><strong>for</strong>...', StringHelper::truncateWords('<span>This is a test </span><strong>for a sentance</strong>', 5, '...', true));
-        $this->assertEquals('<span>This is a test</span><strong> for</strong>...', StringHelper::truncateWords('<span>This is a test</span><strong> for a sentance</strong>', 5, '...', true));
-        $this->assertEquals('<p> раз два три четыре пять </p> <p> шесть</p>...', StringHelper::truncateWords('<p> раз два три четыре пять </p> <p> шесть семь восемь девять десять</p>', 6, '...', true));
-
-        $this->assertEquals('<span><img src="image.png" />This is a test</span>...', StringHelper::truncateWords('<span><img src="image.png" />This is a test sentance</span>', 4, '...', true));
-        $this->assertEquals('<span><img src="image.png" />This is a test </span><strong>for</strong>...', StringHelper::truncateWords('<span><img src="image.png" />This is a test </span><strong>for a sentance</strong>', 5, '...', true));
-        $this->assertEquals('<span><img src="image.png" />This is a test</span><strong> for</strong>...', StringHelper::truncateWords('<span><img src="image.png" />This is a test</span><strong> for a sentance</strong>', 5, '...', true));
     }
 
     /**

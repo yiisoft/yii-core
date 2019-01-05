@@ -7,7 +7,6 @@
 
 namespace yii\helpers;
 
-use yii\helpers\Yii;
 use yii\exceptions\InvalidConfigException;
 
 /**
@@ -51,33 +50,33 @@ class BaseHtmlPurifier
      *   });
      * ```
      * @return string the purified HTML content.
+     * @throws InvalidConfigException
      */
-    public static function process($content, $config = null)
+    public static function process(string $content, $config = null): string
     {
         $configInstance = static::createConfig($config);
         $configInstance->autoFinalize = false;
 
-        $purifier = \HTMLPurifier::instance($configInstance);
-
-        return $purifier->purify($content);
+        return \HTMLPurifier::instance($configInstance)->purify($content);
     }
 
     /**
-     * Truncate a HTML string.
+     * Truncate a HTML string to count of characters specified.
      *
-     * @param string $html The HTML string to be truncated.
+     * @param string $content The string to be truncated.
      * @param int $count
-     * @param string $suffix String to append to the end of the truncated string.
-     * @param string|bool $encoding
+     * @param string $suffix String to append to the end of the truncated string. Default is empty string.
+     * @param string $encoding
+     * @param array|\Closure|null $config The config to use for HtmlPurifier.
      * @return string
-     * @since 3.0.0
+     * @throws InvalidConfigException
+     * @throws \HTMLPurifier_Exception
      */
-    public static function truncate($html, $count, $suffix, $encoding = false)
+    public static function truncateCharacters(string $content, int $count, string $suffix = '...', string $encoding = 'utf-8', $config = null): string
     {
-        $config = static::createConfig();
+        $config = static::createConfig($config);
 
-        $lexer = \HTMLPurifier_Lexer::create($config);
-        $tokens = $lexer->tokenizeHTML($html, $config, new \HTMLPurifier_Context());
+        $tokens = \HTMLPurifier_Lexer::create($config)->tokenizeHTML($content, $config, new \HTMLPurifier_Context());
         $openTokens = [];
         $totalCount = 0;
         $depth = 0;
@@ -88,14 +87,65 @@ class BaseHtmlPurifier
                 $truncated[] = $token;
                 ++$depth;
             } elseif ($token instanceof \HTMLPurifier_Token_Text && $totalCount <= $count) { //Text
-                if ($encoding === false) {
-                    preg_match('/^(\s*)/um', $token->data, $prefixSpace) ?: $prefixSpace = ['', ''];
-                    $token->data = $prefixSpace[1] . StringHelper::truncateWords(ltrim($token->data), $count - $totalCount, '');
-                    $currentCount = StringHelper::countWords($token->data);
-                } else {
-                    $token->data = StringHelper::truncate($token->data, $count - $totalCount, '', $encoding);
-                    $currentCount = mb_strlen($token->data, $encoding);
+                $token->data = StringHelper::truncateCharacters($token->data, $count - $totalCount, '', $encoding);
+                $currentCount = mb_strlen($token->data, $encoding);
+                $totalCount += $currentCount;
+                $truncated[] = $token;
+            } elseif ($token instanceof \HTMLPurifier_Token_End) { //Tag ends
+                if ($token->name === $openTokens[$depth - 1]) {
+                    --$depth;
+                    unset($openTokens[$depth]);
+                    $truncated[] = $token;
                 }
+            } elseif ($token instanceof \HTMLPurifier_Token_Empty) { //Self contained tags, i.e. <img/> etc.
+                $truncated[] = $token;
+            }
+            if ($totalCount >= $count) {
+                if (0 < count($openTokens)) {
+                    krsort($openTokens);
+                    foreach ($openTokens as $name) {
+                        $truncated[] = new \HTMLPurifier_Token_End($name);
+                    }
+                }
+                break;
+            }
+        }
+        $context = new \HTMLPurifier_Context();
+        $generator = new \HTMLPurifier_Generator($config, $context);
+
+        return $generator->generateFromTokens($truncated) . ($totalCount >= $count ? $suffix : '');
+    }
+
+    /**
+     * Truncate a HTML string to count of words specified.
+     *
+     * @param string $content The string to be truncated.
+     * @param int $count
+     * @param string $suffix String to append to the end of the truncated string. Default is empty string.
+     * @param string $encoding
+     * @param array|\Closure|null $config The config to use for HtmlPurifier.
+     * @return string
+     * @throws InvalidConfigException
+     * @throws \HTMLPurifier_Exception
+     */
+    public static function truncateWords(string $content, int $count, string $suffix = '...', string $encoding = 'utf-8', $config = null): string
+    {
+        $config = static::createConfig($config);
+
+        $tokens = \HTMLPurifier_Lexer::create($config)->tokenizeHTML($content, $config, new \HTMLPurifier_Context());
+        $openTokens = [];
+        $totalCount = 0;
+        $depth = 0;
+        $truncated = [];
+        foreach ($tokens as $token) {
+            if ($token instanceof \HTMLPurifier_Token_Start) { //Tag begins
+                $openTokens[$depth] = $token->name;
+                $truncated[] = $token;
+                ++$depth;
+            } elseif ($token instanceof \HTMLPurifier_Token_Text && $totalCount <= $count) { //Text
+                preg_match('/^(\s*)/um', $token->data, $prefixSpace) ?: $prefixSpace = ['', ''];
+                $token->data = $prefixSpace[1] . StringHelper::truncateWords(ltrim($token->data), $count - $totalCount, '');
+                $currentCount = StringHelper::countWords($token->data);
                 $totalCount += $currentCount;
                 $truncated[] = $token;
             } elseif ($token instanceof \HTMLPurifier_Token_End) { //Tag ends
@@ -149,7 +199,7 @@ class BaseHtmlPurifier
      * @throws InvalidConfigException in case "ezyang/htmlpurifier" package is not available.
      * @since 3.0.0
      */
-    public static function createConfig($config = null)
+    public static function createConfig($config = null): \HTMLPurifier_Config
     {
         if (!class_exists(\HTMLPurifier_Config::class)) {
             throw new InvalidConfigException('Unable to load "' . \HTMLPurifier_Config::class . '" class. Make sure you have installed "ezyang/htmlpurifier:~4.6" composer package.');
@@ -163,7 +213,7 @@ class BaseHtmlPurifier
 
         static::configure($configInstance);
         if ($config instanceof \Closure) {
-            call_user_func($config, $configInstance);
+            $config($configInstance);
         }
 
         return $configInstance;
@@ -174,7 +224,7 @@ class BaseHtmlPurifier
      * @param \HTMLPurifier_Config $config HTMLPurifier config instance.
      * @since 2.0.3
      */
-    protected static function configure($config)
+    protected static function configure(\HTMLPurifier_Config $config): void
     {
     }
 }
