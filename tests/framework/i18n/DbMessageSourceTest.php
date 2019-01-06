@@ -31,7 +31,9 @@ class DbMessageSourceTest extends MessageSourceTest
         if ($this->connection === null) {
             $this->connection = new Connection();
             $this->connection->dsn = 'sqlite::memory:';
+            ob_start();
             $this->getMigration($this->connection)->up();
+            ob_end_clean();
         }
 
         return $this->connection;
@@ -57,6 +59,7 @@ class DbMessageSourceTest extends MessageSourceTest
         foreach ($translationsCollection->all() as $translation) {
             $sourceMessages[] = [$pk, $translation->getCategory(), $translation->getMessage()];
             $messages[] = [$pk, $translation->getLanguage(), $translation->getTranslation()];
+            $pk++;
         }
 
         $connection->createCommand()->batchInsert('source_message', ['id', 'category', 'message'], $sourceMessages)->execute();
