@@ -44,7 +44,6 @@ class PhpMessageSourceTest extends MessageSourceTest
 
     public static function tearDownAfterClass()
     {
-        echo 'rm ' . self::getMessagesPath() . "\n";
         FileHelper::removeDirectory(self::getMessagesPath());
     }
 }
