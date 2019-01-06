@@ -5,15 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\tests\framework;
+namespace yii\tests\framework\helpers;
 
 use Psr\Log\LogLevel;
-use yii\helpers\Yii;
-use yii\exceptions\InvalidArgumentException;
 use yii\helpers\BaseYii;
-use yii\di\Container;
 use yii\log\Logger;
-use yii\profile\Profiler;
 use yii\tests\data\base\Singer;
 use yii\tests\TestCase;
 
@@ -110,10 +106,10 @@ class BaseYiiTest extends TestCase
     }
 
     /**
-     * @covers \yii\BaseYii::info()
-     * @covers \yii\BaseYii::warning()
-     * @covers \yii\BaseYii::debug()
-     * @covers \yii\BaseYii::error()
+     * @covers \yii\helpers\BaseYii::info()
+     * @covers \yii\helpers\BaseYii::warning()
+     * @covers \yii\helpers\BaseYii::debug()
+     * @covers \yii\helpers\BaseYii::error()
      */
     public function testLog()
     {
@@ -179,8 +175,8 @@ class BaseYiiTest extends TestCase
     }
 
     /**
-     * @covers \yii\BaseYii::beginProfile()
-     * @covers \yii\BaseYii::endProfile()
+     * @covers \yii\helpers\BaseYii::beginProfile()
+     * @covers \yii\helpers\BaseYii::endProfile()
      */
     public function testProfile()
     {
