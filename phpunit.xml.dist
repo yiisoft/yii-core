@@ -12,7 +12,15 @@
     printerClass="yii\tests\ResultPrinter">
     <testsuites>
         <testsuite name="Yii Test Suite">
-            <directory>./tests</directory>
+            <directory suffix=".php">./tests</directory>
         </testsuite>
     </testsuites>
+    <filter>
+      <whitelist processUncoveredFilesFromWhitelist="true">
+        <directory suffix=".php">./src</directory>
+        <exclude>
+            <directory>./src/requirements</directory>
+        </exclude>
+      </whitelist>
+    </filter>
 </phpunit>
