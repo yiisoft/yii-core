@@ -1368,7 +1368,7 @@ EOD;
         $model->addError('attr1', 'error2');
         $model->addError('attr2', 'error1');
 
-        $this->assertEquals(
+        $this->assertEqualsWithoutLE(
             '<div><p>Please fix the following errors:</p><ul><li>error1</li>
 <li>error2</li></ul></div>',
             Html::errorSummary($model, ['showAllErrors' => true])
