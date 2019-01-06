@@ -25,6 +25,8 @@ class m150207_210500_i18n_init extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
+        $sourceMessageTable = $this->db->schema->quoteTableName('{{%source_message}}');
+
         $this->createTable('{{%source_message}}', [
             'id' => $this->primaryKey(),
             'category' => $this->string(),
@@ -35,10 +37,10 @@ class m150207_210500_i18n_init extends Migration
             'id' => $this->integer()->notNull(),
             'language' => $this->string(16)->notNull(),
             'translation' => $this->text(),
+            'PRIMARY KEY (id, language)',
+            "FOREIGN KEY (id) REFERENCES $sourceMessageTable(id) ON DELETE CASCADE ON UPDATE RESTRICT"
         ], $tableOptions);
 
-        $this->addPrimaryKey('pk_message_id_language', '{{%message}}', ['id', 'language']);
-        $this->addForeignKey('fk_message_source_message', '{{%message}}', 'id', '{{%source_message}}', 'id', 'CASCADE', 'RESTRICT');
         $this->createIndex('idx_source_message_category', '{{%source_message}}', 'category');
         $this->createIndex('idx_message_language', '{{%message}}', 'language');
     }
