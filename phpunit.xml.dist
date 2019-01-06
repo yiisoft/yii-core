@@ -20,6 +20,8 @@
         <directory suffix=".php">./src</directory>
         <exclude>
             <directory>./src/requirements</directory>
+            <directory>./tests/data/console/migrate_create</directory>
+            <directory>./tests/data/views</directory>
         </exclude>
       </whitelist>
     </filter>
