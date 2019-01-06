@@ -106,7 +106,7 @@ class BaseIpHelper
     public static function ip2bin($ip)
     {
         if (static::getIpVersion($ip) === self::IPV4) {
-            return str_pad(base_convert(ip2long($ip), 10, 2), self::IPV4_ADDRESS_LENGTH, '0', STR_PAD_LEFT);
+            return str_pad(base_convert(sprintf('%u', ip2long($ip)), 10, 2), self::IPV4_ADDRESS_LENGTH, '0', STR_PAD_LEFT);
         }
 
         $unpack = unpack('A16', inet_pton($ip));

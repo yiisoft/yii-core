@@ -4,6 +4,7 @@ Yii Framework Change Log
 3.0.0 under development
 -----------------------
 
+- Bug #145: Fixed `IpHelper::ip2bin()` to work properly on 32-bit architectures (samdark) 
 - Chg #134: `StringHelper::truncate()` was renamed to `StringHelper::truncateCharacters()` (samdark)
 - Chg #134: Ability to truncate taking HTML into account was removed from `StringHelper` in favor of `HtmlPurifier` helper (samdark)
 - Chg #133: `FileHelper` now always uses `/` as normalized directory separator regardless of operating system used (samdark)
