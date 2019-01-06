@@ -51,7 +51,6 @@ matrix:
   include:
     - php: 7.3
     - php: 7.2
-    # run tests coverage on PHP 7.1
     - php: 7.1
     - php: nightly
       services:
@@ -95,7 +94,8 @@ before_script:
   - psql -U postgres -c 'CREATE DATABASE yiitest;';
 script:
   # PHP tests
-  - phpdbg -qrr vendor/bin/phpunit --verbose --coverage-clover=coverage.clover --exclude-group wincache,xcache
-after_script:
-  - travis_retry wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  vendor/bin/phpunit --verbose --exclude-group wincache,xcache
+  #- phpdbg -qrr vendor/bin/phpunit --verbose --coverage-clover=coverage.clover --exclude-group wincache,xcache
+#after_script:
+  #- travis_retry wget https://scrutinizer-ci.com/ocular.phar
+  #- php ocular.phar code-coverage:upload --format=php-clover coverage.clover
