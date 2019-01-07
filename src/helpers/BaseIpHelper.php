@@ -89,11 +89,16 @@ class BaseIpHelper
      * For example `2001:db8::1` will be expanded to `2001:0db8:0000:0000:0000:0000:0000:0001`
      *
      * @param string $ip the original valid IPv6 address
-     * @return string the expanded IPv6 address
+     * @return string|false the expanded IPv6 address; or boolean false, if IP address parsing failed
      */
     public static function expandIPv6($ip)
     {
-        $hex = unpack('H*hex', inet_pton($ip));
+        $addr = inet_pton($ip);
+        if ($addr === false) {
+            return false;
+        }
+
+        $hex = unpack('H*hex', $addr);
         return substr(preg_replace('/([a-f0-9]{4})/i', '$1:', $hex['hex']), 0, -1);
     }
 
