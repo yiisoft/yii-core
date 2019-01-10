@@ -11,6 +11,7 @@ use Closure;
 use yii\base\Behavior;
 use yii\base\Event;
 use yii\activerecord\ActiveRecord;
+use yii\activerecord\ActiveRecordSaveEvent;
 
 /**
  * AttributeBehavior automatically assigns a specified value to one or multiple attributes of an ActiveRecord
@@ -110,7 +111,7 @@ class AttributeBehavior extends Behavior
     public function evaluateAttributes($event)
     {
         if ($this->skipUpdateOnClean
-            && $event->name == ActiveRecord::EVENT_BEFORE_UPDATE
+            && $event->name == ActiveRecordSaveEvent::BEFORE_UPDATE
             && empty($this->owner->dirtyAttributes)
         ) {
             return;

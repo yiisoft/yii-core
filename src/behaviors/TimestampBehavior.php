@@ -9,6 +9,7 @@ namespace yii\behaviors;
 
 use yii\exceptions\InvalidCallException;
 use yii\db\BaseActiveRecord;
+use yii\activerecord\ActiveRecordSaveEvent;
 
 /**
  * TimestampBehavior automatically fills the specified attributes with the current timestamp.
@@ -75,12 +76,12 @@ class TimestampBehavior extends AttributeBehavior
      * @var string the attribute that will receive timestamp value
      * Set this property to false if you do not want to record the creation time.
      */
-    public $createdAtAttribute = 'created_at';
+    private $createdAtAttribute = 'created_at';
     /**
      * @var string the attribute that will receive timestamp value.
      * Set this property to false if you do not want to record the update time.
      */
-    public $updatedAtAttribute = 'updated_at';
+    private $updatedAtAttribute = 'updated_at';
     /**
      * {@inheritdoc}
      *
@@ -91,16 +92,18 @@ class TimestampBehavior extends AttributeBehavior
 
 
     /**
-     * {@inheritdoc}
+     * @param string $createdAtAttribute the attribute that will receive timestamp value 
+     * @param string $updatedAtAttribute the attribute that will receive timestamp value.
      */
-    public function init()
+    public function __construct(string $createdAtAttribute = 'created_at', string $updatedAtAttribute = 'updated_at')
     {
-        parent::init();
+        $this->createdAtAttribute = $createdAtAttribute;
+        $this->updatedAtAttribute = $updatedAtAttribute;
 
         if (empty($this->attributes)) {
             $this->attributes = [
-                BaseActiveRecord::EVENT_BEFORE_INSERT => [$this->createdAtAttribute, $this->updatedAtAttribute],
-                BaseActiveRecord::EVENT_BEFORE_UPDATE => $this->updatedAtAttribute,
+                ActiveRecordSaveEvent::BEFORE_INSERT => [$this->createdAtAttribute, $this->updatedAtAttribute],
+                ActiveRecordSaveEvent::BEFORE_UPDATE => $this->updatedAtAttribute,
             ];
         }
     }
@@ -137,5 +140,15 @@ class TimestampBehavior extends AttributeBehavior
             throw new InvalidCallException('Updating the timestamp is not possible on a new record.');
         }
         $owner->updateAttributes(array_fill_keys((array) $attribute, $this->getValue(null)));
+    }
+
+    public function getCreatedAtAttribute() : string
+    {
+        return $this->createdAtAttribute;
+    }
+
+    public function getUpdatedAtAttribute() : string
+    {
+        return $this->updatedAtAttribute;
     }
 }

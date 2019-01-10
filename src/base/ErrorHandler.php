@@ -14,6 +14,7 @@ use yii\helpers\VarDumper;
 use yii\helpers\Yii;
 use yii\profile\ProfilerInterface;
 use yii\web\exceptions\HttpException;
+use yii\exceptions\UserException;
 
 /**
  * ErrorHandler handles uncaught PHP errors and exceptions.
