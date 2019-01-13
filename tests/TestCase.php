@@ -99,6 +99,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
                 'scriptFile' => __DIR__ . '/index.php',
                 'scriptUrl' => '/index.php',
             ],
+            'response' => [
+                '__class' => \yii\web\Response::class,
+            ]
         ]);
         return $this->mockApplication($config, $appClass, $services);
     }

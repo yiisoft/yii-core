@@ -44,8 +44,7 @@ class ResourceStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'read.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'rb');
+        $stream = new ResourceStream(fopen($filename, 'rb'));
 
         $this->assertTrue($stream->isReadable());
         $this->assertTrue($stream->isSeekable());
@@ -66,8 +65,7 @@ class ResourceStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'seek.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'rb');
+        $stream = new ResourceStream(fopen($filename, 'rb'));
 
         $stream->seek(5);
         $this->assertSame('56789', $stream->read(5));
@@ -84,8 +82,7 @@ class ResourceStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'get-content.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'rb');
+        $stream = new ResourceStream(fopen($filename, 'rb'));
 
         $this->assertSame('0123456789', $stream->getContents());
 
@@ -101,8 +98,7 @@ class ResourceStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'to-string.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'rb');
+        $stream = new ResourceStream(fopen($filename, 'rb'));
 
         $this->assertSame('0123456789', (string)$stream);
 
@@ -117,8 +113,7 @@ class ResourceStreamTest extends TestCase
     {
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'write.txt';
 
-        $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'wb+');
+        $stream = new ResourceStream(fopen($filename, 'wb+'));
 
         $this->assertTrue($stream->isWritable());
 
@@ -138,8 +133,7 @@ class ResourceStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'get-size.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'rb');
+        $stream = new ResourceStream(fopen($filename, 'rb'));
 
         $this->assertSame(10, $stream->getSize());
 
@@ -155,8 +149,7 @@ class ResourceStreamTest extends TestCase
         $filename = $this->testFilePath . DIRECTORY_SEPARATOR . 'get-meta-data.txt';
         file_put_contents($filename, '0123456789');
 
-        $stream = new ResourceStream();
-        $stream->resource = fopen($filename, 'rb');
+        $stream = new ResourceStream(fopen($filename, 'rb'));
 
         $metadata = $stream->getMetadata();
 
@@ -207,6 +200,7 @@ class ResourceStreamTest extends TestCase
     {
         /* @var $stream ResourceStream|\PHPUnit_Framework_MockObject_MockObject */
         $stream = $this->getMockBuilder(ResourceStream::class)
+            ->setConstructorArgs([null])
             ->setMethods(['getMetadata'])
             ->getMock();
 
@@ -230,6 +224,7 @@ class ResourceStreamTest extends TestCase
     {
         /* @var $stream ResourceStream|\PHPUnit_Framework_MockObject_MockObject */
         $stream = $this->getMockBuilder(ResourceStream::class)
+            ->setConstructorArgs([null])
             ->setMethods(['getMetadata'])
             ->getMock();
 

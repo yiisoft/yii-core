@@ -37,13 +37,20 @@ class ResourceStream extends BaseObject implements StreamInterface
     /**
      * @var resource stream resource.
      */
-    public $resource;
+    private $resource;
 
     /**
      * @var array a resource metadata.
      */
     private $_metadata;
 
+    /**
+     * Constructor
+     */
+    public function __construct($resource)
+    {
+        $this->resource = $resource;
+    }
 
     /**
      * Destructor.
@@ -237,5 +244,10 @@ class ResourceStream extends BaseObject implements StreamInterface
         }
 
         return $this->_metadata[$key] ?? null;
+    }
+
+    public function getResource()
+    {
+        return $this->resource;
     }
 }

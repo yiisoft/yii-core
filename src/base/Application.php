@@ -178,7 +178,7 @@ abstract class Application extends Module implements Initiable
 
     /**
      * Constructor.
-     * @param array $config name-value pairs that will be used to initialize the object properties.
+     * @param ContainerInterface $object that must contain both [[id]] and [[basePath]].
      * Note that the configuration must contain both [[id]] and [[basePath]].
      * @throws InvalidConfigException if either [[id]] or [[basePath]] configuration is missing.
      */
