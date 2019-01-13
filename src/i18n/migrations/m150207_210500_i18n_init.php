@@ -38,7 +38,7 @@ class m150207_210500_i18n_init extends Migration
             'language' => $this->string(16)->notNull(),
             'translation' => $this->text(),
             'PRIMARY KEY (id, language)',
-            "FOREIGN KEY (id) REFERENCES $sourceMessageTable(id) ON DELETE CASCADE ON UPDATE RESTRICT"
+            "CONSTRAINT `fk_message_source_message` FOREIGN KEY (id) REFERENCES $sourceMessageTable(id) ON DELETE CASCADE ON UPDATE RESTRICT"
         ], $tableOptions);
 
         $this->createIndex('idx_source_message_category', '{{%source_message}}', 'category');
