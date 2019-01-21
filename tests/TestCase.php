@@ -101,6 +101,21 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             ],
             'response' => [
                 '__class' => \yii\web\Response::class,
+                'formatters' => [
+                    \yii\web\Response::FORMAT_HTML => [
+                        '__class' => \yii\web\formatters\HtmlResponseFormatter::class,
+                    ],
+                    \yii\web\Response::FORMAT_XML => [
+                        '__class' => \yii\web\formatters\XmlResponseFormatter::class,
+                    ],
+                    \yii\web\Response::FORMAT_JSON => [
+                        '__class' => \yii\web\formatters\JsonResponseFormatter::class,
+                    ],
+                    \yii\web\Response::FORMAT_JSONP => [
+                        '__class' => \yii\web\formatters\JsonResponseFormatter::class,
+                        'useJsonp' => true,
+                    ],
+                ],
             ]
         ]);
         return $this->mockApplication($config, $appClass, $services);
