@@ -613,14 +613,14 @@ life cycle will happen:
 
 1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]: triggers 
    an [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] event. If the method returns `false`
-   or [[yii\base\ModelEvent::isValid]] is `false`, the rest of the steps will be skipped.
+   or [[yii\base\ValidationEvent::isValid]] is `false`, the rest of the steps will be skipped.
 2. Performs data validation. If data validation fails, the steps after Step 3 will be skipped. 
 3. [[yii\db\ActiveRecord::afterValidate()|afterValidate()]]: triggers 
    an [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]] event.
 4. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]: triggers 
    an [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] 
    or [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]] event. If the method returns `false`
-   or [[yii\base\ModelEvent::isValid]] is `false`, the rest of the steps will be skipped.
+   or [[yii\base\ValidationEvent::isValid]] is `false`, the rest of the steps will be skipped.
 5. Performs the actual data insertion or updating.
 6. [[yii\db\ActiveRecord::afterSave()|afterSave()]]: triggers
    an [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 
@@ -634,7 +634,7 @@ life cycle will happen:
 
 1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]: triggers
    an [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]] event. If the method returns `false`
-   or [[yii\base\ModelEvent::isValid]] is `false`, the rest of the steps will be skipped.
+   or [[yii\base\ValidationEvent::isValid]] is `false`, the rest of the steps will be skipped.
 2. Performs the actual data deletion.
 3. [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: triggers
    an [[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]] event.

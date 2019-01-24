@@ -600,14 +600,14 @@ Customer::deleteAll(['status' => Customer::STATUS_INACTIVE]);
 
 1. Вызывается [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]: инициируется событие 
    [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]]. Если метод возвращает `false` или свойство
-   события [[yii\base\ModelEvent::isValid]] равно `false`, оставшиеся шаги не выполняются.
+   события [[yii\base\ValidationEvent::isValid]] равно `false`, оставшиеся шаги не выполняются.
 2. Осуществляется валидация данных. Если валидация закончилась неудачей, после 3-го шага остальные шаги не выполняются.
 3. Вызывается [[yii\db\ActiveRecord::afterValidate()|afterValidate()]]: инициируется событие 
    [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]].
 4. Вызывается [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]: инициируется событие 
    [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] или событие
    [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]]. Если метод возвращает `false` или свойство события
-   [[yii\base\ModelEvent::isValid]] равно `false`, оставшиеся шаги не выполняются.
+   [[yii\base\ValidationEvent::isValid]] равно `false`, оставшиеся шаги не выполняются.
 5. Осуществляется фактическая вставка или обновление данных в базу данных;
 6. Вызывается [[yii\db\ActiveRecord::afterSave()|afterSave()]]: инициируется событие
    [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] или событие
@@ -621,7 +621,7 @@ Customer::deleteAll(['status' => Customer::STATUS_INACTIVE]);
 
 1. Вызывается [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]: инициируется событие
    [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]]. Если метод возвращает `false` или свойство события
-   [[yii\base\ModelEvent::isValid]] равно `false`, остальные шаги не выполняются.
+   [[yii\base\ValidationEvent::isValid]] равно `false`, остальные шаги не выполняются.
 2. Осуществляется фактическое удаление данных из базы данных.
 3. Вызывается [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: инициируется событие
    [[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]].

@@ -612,14 +612,14 @@ Customer::deleteAll(['status' => Customer::STATUS_INACTIVE]);
 次のライフサイクルを経ます。
 
 1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]: [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] イベントをトリガ。
-   このメソッドが `false` を返すか、[[yii\base\ModelEvent::isValid]] が `false` であった場合、
+   このメソッドが `false` を返すか、[[yii\base\ValidationEvent::isValid]] が `false` であった場合、
    残りのステップはスキップされる。
 2. データ検証を実行。データ検証が失敗した場合、3 より後のステップはスキップされる。
 3. [[yii\db\ActiveRecord::afterValidate()|afterValidate()]]: [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]]
    イベントをトリガ。
 4. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]: [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]]
    または [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]] イベントをトリガ。
-   このメソッドが `false` を返すか、[[yii\base\ModelEvent::isValid]] が `false` であった場合、
+   このメソッドが `false` を返すか、[[yii\base\ValidationEvent::isValid]] が `false` であった場合、
    残りのステップはスキップされる。
 5. 実際のデータの挿入または更新を実行。
 6. [[yii\db\ActiveRecord::afterSave()|afterSave()]]: [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]
@@ -633,7 +633,7 @@ Customer::deleteAll(['status' => Customer::STATUS_INACTIVE]);
 次のライフサイクルを経ます。
 
 1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]: [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]]
-   イベントをトリガ。このメソッドが `false` を返すか、[[yii\base\ModelEvent::isValid]] が `false` であった場合は、
+   イベントをトリガ。このメソッドが `false` を返すか、[[yii\base\ValidationEvent::isValid]] が `false` であった場合は、
    残りのステップはスキップされる。
 2. 実際のデータの削除を実行。
 3. [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: [[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]]

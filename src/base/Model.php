@@ -32,8 +32,8 @@ use yii\validators\Validator;
  *
  * Model also raises the following events when performing data validation:
  *
- * - [[ModelEvent::BEFORE_VALIDATE]]: an event raised at the beginning of [[validate()]]
- * - [[ModelEvent::AFTER_VALIDATE]]: an event raised at the end of [[validate()]]
+ * - [[ValidationEvent::BEFORE_VALIDATE]]: an event raised at the beginning of [[validate()]]
+ * - [[ValidationEvent::AFTER_VALIDATE]]: an event raised at the end of [[validate()]]
  *
  * You may directly use Model to store model data, or extend it with customization.
  *

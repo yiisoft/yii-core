@@ -435,11 +435,11 @@ Lorsque vous effectuez une requête de données via l'une des [méthodes de requ
 
 En appelant [[yii\db\ActiveRecord::save()|save()]] pour insérer ou mettre à jour une instance d'enregistrement actif, le cycle de vie suivant se réalise :
 
-1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] . Si la méthode retourne `false` (faux), ou si [[yii\base\ModelEvent::isValid]] est `false`, les étapes suivantes sont sautées.
+1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] . Si la méthode retourne `false` (faux), ou si [[yii\base\ValidationEvent::isValid]] est `false`, les étapes suivantes sont sautées.
 2. Effectue la validation des données. Si la validation échoue, les étapes après l'étape 3 saut sautées. 
 3. [[yii\db\ActiveRecord::afterValidate()|afterValidate()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]].
 4. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] 
-   ou un événement [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]]. Si la méthode retourne `false` ou si [[yii\base\ModelEvent::isValid]] est `false`, les étapes suivantes sont sautées. 
+   ou un événement [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]]. Si la méthode retourne `false` ou si [[yii\base\ValidationEvent::isValid]] est `false`, les étapes suivantes sont sautées. 
 5. Effectue l'insertion ou la mise à jour réelle.
 6. [[yii\db\ActiveRecord::afterSave()|afterSave()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] ou un événement [[yii\db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]].
    
@@ -448,7 +448,7 @@ En appelant [[yii\db\ActiveRecord::save()|save()]] pour insérer ou mettre à jo
 
 En appelant [[yii\db\ActiveRecord::delete()|delete()]] pour supprimer une instance d'enregistrement actif, le cycle suivant se déroule :
 
-1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]]. Si la méthode retourne `false` ou si [[yii\base\ModelEvent::isValid]] est `false`, les étapes suivantes sont sautées. 
+1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]]. Si la méthode retourne `false` ou si [[yii\base\ValidationEvent::isValid]] est `false`, les étapes suivantes sont sautées. 
 2. Effectue la suppression réelle des données.
 3. [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]].
 

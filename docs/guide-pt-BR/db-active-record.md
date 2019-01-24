@@ -436,10 +436,10 @@ Quando se pesquisa dados através de um dos [métodos de consulta](#querying-dat
 
 Quando se chama [[yii\db\ActiveRecord::save()|save()]] para inserir ou atualizar uma instância de Active Record, acontece o seguinte ciclo de vida:
 
-1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]: dispara um evento [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]]. se o método retornar falso ou [[yii\base\ModelEvent::isValid]] for falso, o restante das etapas serão ignoradas.
+1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]: dispara um evento [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]]. se o método retornar falso ou [[yii\base\ValidationEvent::isValid]] for falso, o restante das etapas serão ignoradas.
 2. Executa a validação de dados. Se a validação de dados falhar, Os passos após o passo 3 serão ignorados. 
 3. [[yii\db\ActiveRecord::afterValidate()|afterValidate()]]: dispara um evento [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]].
-4. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]: dispara um evento [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] ou evento [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]]. Se o método retornar falso ou [[yii\base\ModelEvent::isValid]] for falso, o restante dos passos serão ignorados.
+4. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]: dispara um evento [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] ou evento [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]]. Se o método retornar falso ou [[yii\base\ValidationEvent::isValid]] for falso, o restante dos passos serão ignorados.
 5. Realiza a atual inserção ou atualização de dados;
 6. [[yii\db\ActiveRecord::afterSave()|afterSave()]]: dispara um evento [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] ou evento [[yii\db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]].
   
@@ -448,7 +448,7 @@ Quando se chama [[yii\db\ActiveRecord::save()|save()]] para inserir ou atualizar
 
 Quando se chama [[yii\db\ActiveRecord::delete()|delete()]] para deletar uma instância de Active Record, acontece o seguinte ciclo de vida:
 
-1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]: dispara um evento [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]]. Se o método retornar falso ou [[yii\base\ModelEvent::isValid]] for falso, o restante dos passos serão ignorados.
+1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]: dispara um evento [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]]. Se o método retornar falso ou [[yii\base\ValidationEvent::isValid]] for falso, o restante dos passos serão ignorados.
 2. Executa a atual deleção de dados.
 3. [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: dispara um evento [[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]].
 

@@ -614,14 +614,14 @@ Customer::deleteAll(['status' => Customer::STATUS_INACTIVE]);
 
 1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]：触发 
    [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] 事件。如果这方法返回 `false` 
-   或者 [[yii\base\ModelEvent::isValid]] 值为 `false`，接下来的步骤都会被跳过。
+   或者 [[yii\base\ValidationEvent::isValid]] 值为 `false`，接下来的步骤都会被跳过。
 2. 执行数据验证。如果数据验证失败，步骤 3 之后的步骤将被跳过。
 3. [[yii\db\ActiveRecord::afterValidate()|afterValidate()]]：触发
    [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]] 事件。
 4. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]：触发
    [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] 
    或者 [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]] 事件。 如果这方法返回 `false` 
-   或者 [[yii\base\ModelEvent::isValid]] 值为 `false`，接下来的步骤都会被跳过。
+   或者 [[yii\base\ValidationEvent::isValid]] 值为 `false`，接下来的步骤都会被跳过。
 5. 执行真正的数据插入或者更新。
 6. [[yii\db\ActiveRecord::afterSave()|afterSave()]]：触发
    [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 
@@ -635,7 +635,7 @@ Customer::deleteAll(['status' => Customer::STATUS_INACTIVE]);
 
 1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]：触发
    [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]] 事件。 如果这方法返回 `false` 
-   或者 [[yii\base\ModelEvent::isValid]] 值为 `false`，接下来的步骤都会被跳过。
+   或者 [[yii\base\ValidationEvent::isValid]] 值为 `false`，接下来的步骤都会被跳过。
 2. 执行真正的数据删除。
 3. [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]：触发
    [[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]] 事件。
