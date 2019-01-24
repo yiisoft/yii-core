@@ -29,6 +29,8 @@ These are main plans that are additional to [open issues](https://github.com/yii
 - [ ] [Split `IdentityInterface`](https://github.com/yiisoft/yii2/issues/13825).
 - [ ] Use dependency injection properly. Make sure container is not passed around and static variables aren't used.
 - [ ] Decouple components as much as possible.
+- [ ] Use type-hinting everywhere.
+- [ ] Increase type strictness.
 
 ## Architecture
 
