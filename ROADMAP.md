@@ -27,10 +27,15 @@ These are main plans that are additional to [open issues](https://github.com/yii
 - [ ] See if more PHP 7.1 features could be used and more compatibility hacks removed.
 - [ ] [Cleanup `ErrorHandler`](https://github.com/yiisoft/yii2/issues/14348).
 - [ ] [Split `IdentityInterface`](https://github.com/yiisoft/yii2/issues/13825).
+- [ ] Use dependency injection properly. Make sure container is not passed around and static variables aren't used.
+- [ ] Decouple components as much as possible.
 
-## Middleware
+## Architecture
 
-- [ ] [Consider PSR-15 compatible middleware](https://github.com/yiisoft/yii2/issues/15438).
+- [ ] Revise application lifecycle.
+- [ ] [PSR-15 compatible middleware](https://github.com/yiisoft/yii2/issues/15438).
+- [ ] Prefer throwing exceptions to fixing input.
+- [ ] Make sure error handler catches fatals and is using response.
 
 ## i18n
 
@@ -40,7 +45,7 @@ These are main plans that are additional to [open issues](https://github.com/yii
 
 - [ ] Remove all widgets that doing things that could be done simpler via plain HTML.
 
-## Questionable
+## Less Dependencies
 
 - [ ] [Re-write Gii JavaScript not to use jQuery](https://github.com/yiisoft/yii2-gii/issues/282).
 - [ ] [Re-write Debug JavaScript not to use jQuery](https://github.com/yiisoft/yii2-debug/issues/246).
