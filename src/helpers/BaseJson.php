@@ -52,17 +52,18 @@ class BaseJson
      * @param mixed $value the data to be encoded.
      * @param int $options the encoding options. For more details please refer to
      * <http://www.php.net/manual/en/function.json-encode.php>. Default is `JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE`.
+     * @param int $depth the maximum depth.
      * @return string the encoding result.
      * @throws InvalidArgumentException if there is any encoding error.
      */
-    public static function encode($value, $options = 320)
+    public static function encode($value, $options = 320, $depth = 512)
     {
         $expressions = [];
         $value = static::processData($value, $expressions, uniqid('', true));
         set_error_handler(function () {
             static::handleJsonError(JSON_ERROR_SYNTAX);
         }, E_WARNING);
-        $json = json_encode($value, $options);
+        $json = json_encode($value, $options, $depth);
         restore_error_handler();
         static::handleJsonError(json_last_error());
 
@@ -93,17 +94,19 @@ class BaseJson
      * Decodes the given JSON string into a PHP data structure.
      * @param string $json the JSON string to be decoded
      * @param bool $asArray whether to return objects in terms of associative arrays.
+     * @param int $depth the recursion depth.
+     * @param int $options the decode options.
      * @return mixed the PHP data
      * @throws InvalidArgumentException if there is any decoding error
      */
-    public static function decode($json, $asArray = true)
+    public static function decode($json, $asArray = true, $depth = 512, $options = 0)
     {
         if (is_array($json)) {
             throw new InvalidArgumentException('Invalid JSON data.');
         } elseif ($json === null || $json === '') {
             return null;
         }
-        $decode = json_decode((string) $json, $asArray);
+        $decode = json_decode((string) $json, $asArray, $depth, $options);
         static::handleJsonError(json_last_error());
 
         return $decode;
