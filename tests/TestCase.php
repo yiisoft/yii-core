@@ -116,7 +116,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
                         'useJsonp' => true,
                     ],
                 ],
-            ]
+            ],
+            'errorHandler' => [
+                '__class' => \yii\web\ErrorHandler::class,
+                'errorAction' => 'site/error',
+            ],
         ]);
         return $this->mockApplication($config, $appClass, $services);
     }
