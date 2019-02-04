@@ -11,7 +11,7 @@ use yii\base\DynamicModel;
 use yii\helpers\BaseJson;
 use yii\helpers\Json;
 use yii\web\JsExpression;
-use yii\web\tests\Post;
+use yii\web\tests\stubs\Post;
 use yii\tests\TestCase;
 
 /**

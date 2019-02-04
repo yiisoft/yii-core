@@ -238,7 +238,7 @@ class Filter3 extends ActionFilter
 
 class MockUser extends User
 {
-    public function init()
+    public function init(): void
     {
         // do not call parent to avoid the need to mock configuration
     }
