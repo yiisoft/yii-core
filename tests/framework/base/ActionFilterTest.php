@@ -23,6 +23,10 @@ class ActionFilterTest extends TestCase
     {
         parent::setUp();
         $this->mockApplication();
+        $this->container->set('user', [
+            '__class' => \yii\web\User::class,
+            'identityClass' => \yii\web\tests\UserIdentity::class,
+        ]);
     }
 
     public function testFilter()
@@ -87,13 +91,7 @@ class ActionFilterTest extends TestCase
     public function actionFilterProvider()
     {
         return [
-            [
-                '__class' => \yii\web\filters\AccessControl::class,
-                '__construct()' => [
-                    'app' => $this->app,
-                    'user' => \yii\tests\framework\base\MockUser::class,
-                ],
-            ],
+            [\yii\web\filters\AccessControl::class],
             [\yii\web\filters\ContentNegotiator::class],
             [\yii\web\filters\Cors::class],
             [\yii\web\filters\HttpCache::class],
