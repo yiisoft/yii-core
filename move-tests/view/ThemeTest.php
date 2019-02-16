@@ -8,7 +8,7 @@
 namespace yii\tests\framework\base;
 
 use yii\helpers\Yii;
-use yii\base\Theme;
+use yii\view\Theme;
 use yii\tests\TestCase;
 
 /**
