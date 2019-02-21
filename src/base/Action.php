@@ -91,9 +91,6 @@ class Action extends Component
         }
         $args = $this->controller->bindActionParams($this, $params);
         $this->app->debug('Running action: ' . get_class($this) . '::run()', __METHOD__);
-        if ($this->app->requestedParams === null) {
-            $this->app->requestedParams = $args;
-        }
         if ($this->beforeRun()) {
             $result = $this->run(...$args);
             $this->afterRun();
