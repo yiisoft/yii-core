@@ -172,28 +172,6 @@ class Controller extends Component implements ViewContextInterface
     }
 
     /**
-     * Runs a request specified in terms of a route.
-     * The route can be either an ID of an action within this controller or a complete route consisting
-     * of module IDs, controller ID and action ID. If the route starts with a slash '/', the parsing of
-     * the route will start from the application; otherwise, it will start from the parent module of this controller.
-     * @param string $route the route to be handled, e.g., 'view', 'comment/view', '/admin/comment/view'.
-     * @param array $params the parameters to be passed to the action.
-     * @return mixed the result of the action.
-     * @see runAction()
-     */
-    public function run($route, $params = [])
-    {
-        $pos = strpos($route, '/');
-        if ($pos === false) {
-            return $this->runAction($route, $params);
-        } elseif ($pos > 0) {
-            return $this->module->runAction($route, $params);
-        }
-
-        return $this->app->runAction(ltrim($route, '/'), $params);
-    }
-
-    /**
      * Binds the parameters to the action.
      * This method is invoked by [[Action]] when it begins to run with the given parameters.
      * @param Action $action the action to be bound with parameters.
