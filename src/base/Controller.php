@@ -53,7 +53,7 @@ class Controller extends Component implements ViewContextInterface
     public $layout;
     /**
      * @var Action the action that is currently being executed. This property will be set
-     * by [[run()]] when it is called by [[Application]] to run an action.
+     * by [[runAction()]] when it is called to run an action.
      */
     public $action;
 
