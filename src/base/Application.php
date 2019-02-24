@@ -111,6 +111,18 @@ abstract class Application extends Module implements Initiable
      */
     public $layout = 'main';
     /**
+     * @var string the requested route
+     */
+    public $requestedRoute;
+    /**
+     * @var Action the requested Action. If null, it means the request cannot be resolved into an action.
+     */
+    public $requestedAction;
+    /**
+     * @var array the parameters supplied to the requested action.
+     */
+    public $requestedParams;
+    /**
      * @var array list of installed Yii extensions. Each array element represents a single extension
      * with the following structure:
      *

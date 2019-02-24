@@ -133,6 +133,10 @@ class Controller extends Component implements ViewContextInterface
 
         $this->app->debug('Route to run: ' . $action->getUniqueId(), __METHOD__);
 
+        if ($this->app->requestedAction === null) {
+            $this->app->requestedAction = $action;
+        }
+
         $oldAction = $this->action;
         $this->action = $action;
 
