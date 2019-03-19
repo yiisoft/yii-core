@@ -1,3 +1,6 @@
+> Warning: Main roadmap was moved to https://github.com/yiisoft/docs/blob/master/003-roadmap.md.
+
+
 These are main plans that are additional to [open issues](https://github.com/yiisoft/yii-core/milestones/3.0.0).
 
 # 3.0
