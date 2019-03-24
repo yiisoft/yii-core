@@ -1,0 +1,6 @@
+preset: psr2
+
+finder:
+  exclude:
+    - docs
+    - vendor
