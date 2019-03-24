@@ -117,7 +117,6 @@ class BaseStringHelper
      */
     public static function truncateWords($string, $count, $suffix = '...'): string
     {
-
         $words = preg_split('/(\s+)/u', trim($string), null, PREG_SPLIT_DELIM_CAPTURE);
         if (count($words) / 2 > $count) {
             return implode('', \array_slice($words, 0, ($count * 2) - 1)) . $suffix;
@@ -142,7 +141,6 @@ class BaseStringHelper
         }
         if ($caseSensitive) {
             return strncmp($string, $with, $bytes) === 0;
-
         }
 
         return static::mb_strtolower(static::mb_substr($string, 0, $bytes, '8bit')) === static::mb_strtolower($with);

@@ -694,7 +694,6 @@ class FileHelperTest extends TestCase
         // https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247%28v=vs.85%29.aspx
         // https://github.com/yiisoft/yii2/issues/13034
         $this->assertEquals('\\\\server/share/path/file', FileHelper::normalizePath('\\\\server\share\path\file', '\\'));
-
     }
 
     /**

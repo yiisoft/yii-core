@@ -94,7 +94,6 @@ class ActiveFixture extends BaseActiveFixture implements \yii\di\Initiable
     protected function getData()
     {
         if ($this->dataFile === null) {
-
             if ($this->dataDirectory !== null) {
                 $dataFile = $this->getTableSchema()->fullName . '.php';
             } else {

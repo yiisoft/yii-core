@@ -237,6 +237,6 @@ class JsonModel extends DynamicModel implements \JsonSerializable, \yii\di\Initi
 
     public function init(): void
     {
-       $this->defineAttribute('name');
+        $this->defineAttribute('name');
     }
 }

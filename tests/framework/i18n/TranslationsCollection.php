@@ -3,7 +3,6 @@
 
 namespace yii\tests\framework\i18n;
 
-
 class TranslationsCollection
 {
     /**

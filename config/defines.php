@@ -45,4 +45,3 @@ defined('YII_DEBUG') or define('YII_DEBUG', YII_ENV_DEV);
  * This constant defines whether error handling should be enabled. Defaults to true.
  */
 defined('YII_ENABLE_ERROR_HANDLER') or define('YII_ENABLE_ERROR_HANDLER', true);
-

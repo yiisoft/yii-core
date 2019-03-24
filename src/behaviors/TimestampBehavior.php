@@ -92,7 +92,7 @@ class TimestampBehavior extends AttributeBehavior
 
 
     /**
-     * @param string $createdAtAttribute the attribute that will receive timestamp value 
+     * @param string $createdAtAttribute the attribute that will receive timestamp value
      * @param string $updatedAtAttribute the attribute that will receive timestamp value.
      */
     public function __construct(string $createdAtAttribute = 'created_at', string $updatedAtAttribute = 'updated_at')

@@ -312,7 +312,7 @@ class BaseFileHelper
                     if (isset($options['fileMode'])) {
                         @chmod($to, $options['fileMode']);
                     }
-                } else if (!isset($options['recursive']) || $options['recursive']) {
+                } elseif (!isset($options['recursive']) || $options['recursive']) {
                     // recursive copy, defaults to true
                     static::copyDirectory($from, $to, $options);
                 }

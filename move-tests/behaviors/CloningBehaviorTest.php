@@ -54,4 +54,3 @@ class BehaviorWithProperty extends Behavior
 {
     public $myBehaviorProperty;
 }
-
