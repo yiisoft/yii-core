@@ -13,17 +13,17 @@ use yii\exceptions\InvalidCallException;
 use yii\validators\NumberValidator;
 
 /**
- * OptimisticLockBehavior automatically upgrades a model's lock version using the column name 
+ * OptimisticLockBehavior automatically upgrades a model's lock version using the column name
  * returned by [[\yii\db\BaseActiveRecord::optimisticLock()|optimisticLock()]].
  *
  * Optimistic locking allows multiple users to access the same record for edits and avoids
  * potential conflicts. In case when a user attempts to save the record upon some staled data
  * (because another user has modified the data), a [[StaleObjectException]] exception will be thrown,
  * and the update or deletion is skipped.
- * 
- * To use this behavior, first enable optimistic lock by following the steps listed in 
- * [[\yii\db\BaseActiveRecord::optimisticLock()|optimisticLock()]], remove the column name 
- * holding the lock version from the [[\yii\base\Model::rules()|rules()]] method of your 
+ *
+ * To use this behavior, first enable optimistic lock by following the steps listed in
+ * [[\yii\db\BaseActiveRecord::optimisticLock()|optimisticLock()]], remove the column name
+ * holding the lock version from the [[\yii\base\Model::rules()|rules()]] method of your
  * ActiveRecord class, then add the following code to it:
  *
  * ```php
@@ -40,10 +40,10 @@ use yii\validators\NumberValidator;
  * By default, OptimisticLockBehavior will use [[\yii\web\Request::getParsedBodyParam()|getParsedBodyParam()]] to parse
  * the submitted value or set it to 0 on any fail. That means a request not holding the version attribute
  * may achieve a first successful update to entity, but starting from there any further try should fail
- * unless the request is holding the expected version number. You can also configure the [[value]] property 
+ * unless the request is holding the expected version number. You can also configure the [[value]] property
  * with a PHP callable to implement a different logic.
- * 
- * OptimisticLockBehavior also provides a method named [[upgrade()]] that increases a model's 
+ *
+ * OptimisticLockBehavior also provides a method named [[upgrade()]] that increases a model's
  * version by one, that may be useful when you need to mark an entity as stale among connected clients
  * and avoid any change to it until they load it again:
  *

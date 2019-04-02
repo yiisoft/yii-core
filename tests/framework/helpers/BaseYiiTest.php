@@ -148,7 +148,6 @@ class BaseYiiTest extends TestCase
         BaseYii::warning('warning message', 'warning category');
         BaseYii::debug('trace message', 'trace category');
         BaseYii::error('error message', 'error category');
-
     }
 
     /*

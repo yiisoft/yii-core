@@ -1775,7 +1775,6 @@ HTML;
 
         $this->assertContains('placeholder="Name"', $html);
     }
-
 }
 
 /**

@@ -95,7 +95,6 @@ class LocaleTest extends TestCase
         $this->assertSame(null, $locale->getCurrency());
         $this->assertSame(null, $locale->getCollation());
         $this->assertSame('persian', $locale->getCalendar());
-
     }
 
     public function longLanguageDataProvider()

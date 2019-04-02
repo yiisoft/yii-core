@@ -490,11 +490,11 @@ class ReleaseController extends Controller
 
 
 //        $this->resortChangelogs($what, $version);
-  //        $this->closeChangelogs($what, $version);
-  //        $this->composerSetStability($what, $version);
-  //        if (in_array('framework', $what)) {
-  //            $this->updateYiiVersion($version);
-  //        }
+        //        $this->closeChangelogs($what, $version);
+        //        $this->composerSetStability($what, $version);
+        //        if (in_array('framework', $what)) {
+        //            $this->updateYiiVersion($version);
+        //        }
 
 
         // if done:

@@ -198,7 +198,7 @@ class OptimisticLockBehaviorTest extends TestCase
         $this->assertEquals(2, $model->version, 'updated version should equal 2');
     }
 
-     public function testDeleteRecord()
+    public function testDeleteRecord()
     {
         $request = new Request();
         Yii::getApp()->set('request', $request);

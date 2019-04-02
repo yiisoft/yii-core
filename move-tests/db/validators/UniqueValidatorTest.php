@@ -449,7 +449,7 @@ abstract class UniqueValidatorTest extends DatabaseTestCase
         ActiveRecord::$db = $connection;
 
         $model = null;
-        $connection->useMaster(function() use (&$model) {
+        $connection->useMaster(function () use (&$model) {
             $model = WithCustomer::find()->one();
         });
 
@@ -470,8 +470,10 @@ abstract class UniqueValidatorTest extends DatabaseTestCase
     }
 }
 
-class WithCustomer extends Customer {
-    public static function find() {
+class WithCustomer extends Customer
+{
+    public static function find()
+    {
         $res = parent::find();
 
         $res->with('profile');

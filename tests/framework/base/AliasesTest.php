@@ -38,7 +38,6 @@ class AliasesTest extends TestCase
 
     public function testGet()
     {
-
         $this->assertFalse($this->aliases->get('@nonexisting', false));
 
         $aliasNotBeginsWithAt = 'alias not begins with @';

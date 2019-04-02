@@ -132,7 +132,7 @@ class ExistValidator extends Validator
         }
 
         if ($this->forceMasterDb && method_exists($model::getDb(), 'useMaster')) {
-            $model::getDb()->useMaster(function() use ($relationQuery, &$exists) {
+            $model::getDb()->useMaster(function () use ($relationQuery, &$exists) {
                 $exists = $relationQuery->exists();
             });
         } else {

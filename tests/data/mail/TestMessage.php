@@ -119,13 +119,21 @@ class TestMessage extends BaseMessage
         return $this;
     }
 
-    public function attachContent($content, array $options = []) {}
+    public function attachContent($content, array $options = [])
+    {
+    }
 
-    public function attach($fileName, array $options = []) {}
+    public function attach($fileName, array $options = [])
+    {
+    }
 
-    public function embed($fileName, array $options = []) {}
+    public function embed($fileName, array $options = [])
+    {
+    }
 
-    public function embedContent($content, array $options = []) {}
+    public function embedContent($content, array $options = [])
+    {
+    }
 
     public function toString()
     {
@@ -136,11 +144,19 @@ class TestMessage extends BaseMessage
         return $s;
     }
 
-    public function addHeader($name, $value) {}
+    public function addHeader($name, $value)
+    {
+    }
 
-    public function setHeader($name, $value) {}
+    public function setHeader($name, $value)
+    {
+    }
 
-    public function getHeader($name) {}
+    public function getHeader($name)
+    {
+    }
 
-    public function setHeaders($headers) {}
+    public function setHeaders($headers)
+    {
+    }
 }

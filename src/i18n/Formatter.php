@@ -1303,7 +1303,7 @@ class Formatter extends Component
      * to work, but it is highly recommended to install it to get good formatting results.
      *
      * Since 2.0.16 numbers that are mispresented after normalization are formatted as strings using fallback function
-     * without PHP intl extension support. For very big numbers it's recommended to pass them as strings and not use 
+     * without PHP intl extension support. For very big numbers it's recommended to pass them as strings and not use
      * scientific notation otherwise the output might be wrong.
      *
      * @param mixed $value the value to be formatted.

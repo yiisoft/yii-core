@@ -62,7 +62,8 @@ class ApplicationTest extends TestCase
                 'withoutBootstrapInterface',
                 'withBootstrapInterface',
                 'moduleX',
-                function () {},
+                function () {
+                },
             ],
         ]);
 

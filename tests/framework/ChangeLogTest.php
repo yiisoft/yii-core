@@ -17,14 +17,13 @@ class ChangeLogTest extends TestCase
 {
     public function changeProvider()
     {
-
         $lines = preg_split('~\R~', file_get_contents(__DIR__ . '/../../CHANGELOG.md'), -1, PREG_SPLIT_NO_EMPTY);
 
         // Don't check last $skip lines, they are old and often don't obey the standard.
         $skip = 0;
         $lastIndex = \count($lines) - $skip;
         $result = [];
-        foreach($lines as $i => $line) {
+        foreach ($lines as $i => $line) {
             if (strncmp('- ', $line, 2) === 0) {
                 $result[] = [$line];
             }
