@@ -3,7 +3,6 @@
 
 namespace yii\i18n\event;
 
-
 class OnMissingTranslation
 {
     private $category;
