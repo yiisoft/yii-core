@@ -7,7 +7,9 @@
 
 namespace yii\i18n;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
 use yii\base\Component;
+use yii\i18n\event\OnMissingTranslation;
 
 /**
  * MessageSource is the base class for message translation repository classes.
@@ -21,6 +23,8 @@ use yii\base\Component;
  */
 abstract class MessageSource extends Component
 {
+    private $eventDispatcher;
+
     /**
      * @var bool whether to force message translation when the source and target languages are the same.
      * Defaults to false, meaning translation is only performed when source and target languages are different.
@@ -32,7 +36,12 @@ abstract class MessageSource extends Component
      */
     public $sourceLanguage = 'en-US';
 
-    private $_messages = [];
+    private $messages = [];
+
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
 
 
     /**
@@ -59,11 +68,11 @@ abstract class MessageSource extends Component
     public function getMessages($category, $language)
     {
         $key = $language . '/' . $category;
-        if (!isset($this->_messages[$key])) {
-            $this->_messages[$key] = $this->loadMessages($category, $language);
+        if (!isset($this->messages[$key])) {
+            $this->messages[$key] = $this->loadMessages($category, $language);
         }
 
-        return $this->_messages[$key];
+        return $this->messages[$key];
     }
 
     /**
@@ -105,13 +114,15 @@ abstract class MessageSource extends Component
         if (isset($messages[$message]) && $messages[$message] !== '') {
             return $messages[$message];
         }
-        if ($this->hasEventHandlers(TranslationEvent::MISSING)) {
-            $event = TranslationEvent::missing($category, $message, $language);
-            $this->trigger($event);
-            if ($event->translatedMessage !== null) {
-                return $messages[$message] = $event->translatedMessage;
-            }
+
+        $missingTranslation = new OnMissingTranslation($category, $language, $message);
+        $this->eventDispatcher->dispatch($missingTranslation);
+
+
+        if ($missingTranslation->hasFallback()) {
+            return $messages[$message] = $missingTranslation->fallback();
         }
+
 
         return $messages[$message] = null;
     }

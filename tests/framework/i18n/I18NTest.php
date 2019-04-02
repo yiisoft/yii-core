@@ -7,11 +7,6 @@
 
 namespace yii\tests\framework\i18n;
 
-use yii\helpers\Yii;
-use yii\base\Event;
-use yii\i18n\Translator;
-use yii\i18n\PhpMessageSource;
-use yii\i18n\TranslationEvent;
 use yii\tests\TestCase;
 
 /**

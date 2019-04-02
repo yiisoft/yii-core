@@ -1,13 +1,35 @@
 <?php
 namespace yii\tests\framework\i18n;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Yii\EventDispatcher\Dispatcher;
+use Yii\EventDispatcher\Provider\Provider;
+use yii\i18n\event\OnMissingTranslation;
 use yii\i18n\MessageSource;
-use yii\i18n\TranslationEvent;
 
 abstract class MessageSourceTest extends \PHPUnit\Framework\TestCase
 {
     abstract protected function getMessageSource($sourceLanguage, $forceTranslation): MessageSource;
     abstract protected function prepareTranslations(TranslationsCollection $translationsCollection);
+
+    private $listenerProvider;
+    private $eventDispatcher;
+
+    public function getListenerProvider(): Provider
+    {
+        if ($this->listenerProvider === null) {
+            $this->listenerProvider = new Provider();
+        }
+        return $this->listenerProvider;
+    }
+
+    public function getEventDispatcher(): EventDispatcherInterface
+    {
+        if ($this->eventDispatcher === null) {
+            $this->eventDispatcher = new Dispatcher($this->getListenerProvider());
+        }
+        return $this->eventDispatcher;
+    }
 
     public function testSameLanguagesNoTranslation()
     {
@@ -40,14 +62,14 @@ abstract class MessageSourceTest extends \PHPUnit\Framework\TestCase
     {
         $messageSource = $this->getMessageSource('en_US', false);
 
-        $translationMissing = false;
-        $messageSource->on(TranslationEvent::MISSING, function () use (&$translationMissing) {
-            $translationMissing = true;
+        $isMissing = false;
+        $this->getListenerProvider()->attach(function (OnMissingTranslation $missingTranslation) use ($isMissing) {
+            $isMissing = true;
         });
         
         $result = $messageSource->translate('test', 'There is no such message', 'ru_RU');
 
-        self::assertTrue($translationMissing);
+        self::assertTrue($isMissing);
         self::assertNull($result);
     }
 

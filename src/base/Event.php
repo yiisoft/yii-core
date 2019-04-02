@@ -30,6 +30,7 @@ use yii\helpers\StringHelper;
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
+ * @deprecated
  */
 class Event extends BaseObject
 {

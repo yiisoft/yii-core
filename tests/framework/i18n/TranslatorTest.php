@@ -7,11 +7,13 @@
 
 namespace yii\tests\framework\i18n;
 
-use yii\base\Event;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Yii\EventDispatcher\Dispatcher;
+use Yii\EventDispatcher\Provider\Provider;
+use yii\i18n\event\OnMissingTranslation;
 use yii\i18n\I18N;
-use yii\i18n\Translator;
 use yii\i18n\PhpMessageSource;
-use yii\i18n\TranslationEvent;
+use yii\i18n\Translator;
 use yii\tests\TestCase;
 
 /**
@@ -30,6 +32,25 @@ class TranslatorTest extends TestCase
      * @var I18N
      */
     private $i18n;
+
+    private $listenerProvider;
+    private $eventDispatcher;
+
+    public function getListenerProvider(): Provider
+    {
+        if ($this->listenerProvider === null) {
+            $this->listenerProvider = new Provider();
+        }
+        return $this->listenerProvider;
+    }
+
+    public function getEventDispatcher(): EventDispatcherInterface
+    {
+        if ($this->eventDispatcher === null) {
+            $this->eventDispatcher = new Dispatcher($this->getListenerProvider());
+        }
+        return $this->eventDispatcher;
+    }
 
     protected function setUp()
     {
@@ -220,25 +241,30 @@ class TranslatorTest extends TestCase
         $this->assertEquals('Missing translation message.', $this->translator->translate('test', 'Missing translation message.', [], 'de-DE'));
         $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
 
-        Event::on(PhpMessageSource::class, TranslationEvent::MISSING, function () {
+        $listenerProvider = $this->getListenerProvider();
+
+        $listenerProvider->attach(function (OnMissingTranslation $missingTranslation) {
             // do nothing
         });
+
         $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
         $this->assertEquals('Missing translation message.', $this->translator->translate('test', 'Missing translation message.', [], 'de-DE'));
         $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
-        Event::off(PhpMessageSource::class, TranslationEvent::MISSING);
+        $listenerProvider->detach(OnMissingTranslation::class);
 
-        Event::on(PhpMessageSource::class, TranslationEvent::MISSING, function ($event) {
-            if ($event->message === 'New missing translation message.') {
-                $event->translatedMessage = 'TRANSLATION MISSING HERE!';
+        $listenerProvider->attach(function (OnMissingTranslation $missingTranslation) {
+            if ($missingTranslation->id() === 'New missing translation message.') {
+                $missingTranslation->setFallback('TRANSLATION MISSING HERE!');
             }
         });
+
         $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
         $this->assertEquals('Another missing translation message.', $this->translator->translate('test', 'Another missing translation message.', [], 'de-DE'));
         $this->assertEquals('Missing translation message.', $this->translator->translate('test', 'Missing translation message.', [], 'de-DE'));
         $this->assertEquals('TRANSLATION MISSING HERE!', $this->translator->translate('test', 'New missing translation message.', [], 'de-DE'));
         $this->assertEquals('Hallo Welt!', $this->translator->translate('test', 'Hello world!', [], 'de-DE'));
-        Event::off(PhpMessageSource::class, TranslationEvent::MISSING);
+
+        $listenerProvider->detach(OnMissingTranslation::class);
     }
 
     public function sourceLanguageDataProvider()
