@@ -64,17 +64,19 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.1.0",
+        "php": "^7.2",
         "ext-mbstring": "*",
         "ext-ctype": "*",
         "lib-pcre": "*",
         "psr/log-implementation": "^1.0",
         "psr/container-implementation": "^1.0",
-        "psr/simple-cache-implementation": "^1.0"
+        "psr/simple-cache-implementation": "^1.0",
+        "psr/event-dispatcher-implementation": "^1.0"
     },
     "require-dev": {
         "yiisoft/di": "^3.0@dev",
         "yiisoft/log": "^3.0@dev",
+        "yiisoft/event-dispatcher": "^3.0@dev",
         "yiisoft/view": "^3.0@dev",
         "yiisoft/rbac": "^3.0@dev",
         "yiisoft/cache": "^3.0@dev",
