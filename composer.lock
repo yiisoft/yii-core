@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8e9f6627ea5b0fbd7b6e1834da28e71",
+    "content-hash": "df0c7e58c97496e2c631428723fc5106",
     "packages": [
         {
             "name": "psr/container",
@@ -312,12 +312,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/di.git",
-                "reference": "2bde70dfac3e4afdc24685712585e488269411e4"
+                "reference": "c89d940f4d98820f3ed538bfc21770e1215e799b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/di/zipball/2bde70dfac3e4afdc24685712585e488269411e4",
-                "reference": "2bde70dfac3e4afdc24685712585e488269411e4",
+                "url": "https://api.github.com/repos/yiisoft/di/zipball/c89d940f4d98820f3ed538bfc21770e1215e799b",
+                "reference": "c89d940f4d98820f3ed538bfc21770e1215e799b",
                 "shasum": ""
             },
             "require": {
@@ -365,7 +365,7 @@
                 "injection",
                 "injector"
             ],
-            "time": "2019-03-24T20:22:22+00:00"
+            "time": "2019-04-02T17:15:12+00:00"
         },
         {
             "name": "yiisoft/event-dispatcher",
@@ -373,12 +373,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/event-dispatcher.git",
-                "reference": "bb497c16b380e3db33ad14a21d21569942329efa"
+                "reference": "c7af1f9b529841b4d38184bc56f36345e7c47ad0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/event-dispatcher/zipball/bb497c16b380e3db33ad14a21d21569942329efa",
-                "reference": "bb497c16b380e3db33ad14a21d21569942329efa",
+                "url": "https://api.github.com/repos/yiisoft/event-dispatcher/zipball/c7af1f9b529841b4d38184bc56f36345e7c47ad0",
+                "reference": "c7af1f9b529841b4d38184bc56f36345e7c47ad0",
                 "shasum": ""
             },
             "require": {
@@ -421,7 +421,7 @@
                 "event dispatcher",
                 "psr-14"
             ],
-            "time": "2019-04-02T10:46:05+00:00"
+            "time": "2019-04-03T19:33:24+00:00"
         },
         {
             "name": "yiisoft/log",
@@ -2155,16 +2155,16 @@
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "cb2f008f3f05af2893a87208fe6a6c4985483f8b"
+                "reference": "06b6ce404ee574e9c1787fb67bb9980ca4387c34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/cb2f008f3f05af2893a87208fe6a6c4985483f8b",
-                "reference": "cb2f008f3f05af2893a87208fe6a6c4985483f8b",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/06b6ce404ee574e9c1787fb67bb9980ca4387c34",
+                "reference": "06b6ce404ee574e9c1787fb67bb9980ca4387c34",
                 "shasum": ""
             },
             "require": {
@@ -2191,7 +2191,7 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
-            "time": "2017-04-07T12:08:54+00:00"
+            "time": "2019-04-03T18:37:40+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -3113,7 +3113,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1.0",
+        "php": "^7.2",
         "ext-mbstring": "*",
         "ext-ctype": "*",
         "lib-pcre": "*"

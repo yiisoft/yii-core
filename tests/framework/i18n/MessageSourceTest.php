@@ -63,7 +63,7 @@ abstract class MessageSourceTest extends \PHPUnit\Framework\TestCase
         $messageSource = $this->getMessageSource('en_US', false);
 
         $isMissing = false;
-        $this->getListenerProvider()->attach(function (OnMissingTranslation $missingTranslation) use ($isMissing) {
+        $this->getListenerProvider()->attach(function (OnMissingTranslation $missingTranslation) use (&$isMissing) {
             $isMissing = true;
         });
         

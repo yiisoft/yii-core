@@ -16,7 +16,7 @@ class PhpMessageSourceTest extends MessageSourceTest
     protected function getMessageSource($sourceLanguage, $forceTranslation): MessageSource
     {
         $aliases = new Aliases();
-        $phpMessageSource = new PhpMessageSource($aliases);
+        $phpMessageSource = new PhpMessageSource($aliases, $this->getEventDispatcher());
         $phpMessageSource->basePath = self::getMessagesPath();
         return $phpMessageSource;
     }

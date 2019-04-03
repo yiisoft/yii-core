@@ -8,6 +8,7 @@
 namespace yii\tests\framework\i18n;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
+use yii\base\Aliases;
 use Yii\EventDispatcher\Dispatcher;
 use Yii\EventDispatcher\Provider\Provider;
 use yii\i18n\event\OnMissingTranslation;
@@ -67,6 +68,7 @@ class TranslatorTest extends TestCase
             'translations' => [
                 'test' => [
                     '__class' => $this->getMessageSourceClass(),
+                    '__construct()' => [new Aliases(), $this->getEventDispatcher()],
                     'basePath' => '@yii/tests/data/i18n/messages',
                 ],
             ],

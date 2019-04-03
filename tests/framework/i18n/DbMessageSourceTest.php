@@ -42,7 +42,7 @@ class DbMessageSourceTest extends MessageSourceTest
     protected function getMessageSource($sourceLanguage, $forceTranslation): MessageSource
     {
         $cache = new ArrayCache();
-        $messageSource = new DbMessageSource();
+        $messageSource = new DbMessageSource($this->getEventDispatcher());
         $messageSource->cache = $cache;
         $messageSource->db = $this->getConnection();
         return $messageSource;

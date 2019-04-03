@@ -7,6 +7,7 @@
 
 namespace yii\i18n;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
 use yii\base\Aliases;
 use yii\helpers\Yii;
 
@@ -56,9 +57,10 @@ class PhpMessageSource extends MessageSource
      */
     protected $aliases;
 
-    public function __construct(Aliases $aliases)
+    public function __construct(Aliases $aliases, EventDispatcherInterface $eventDispatcher)
     {
         $this->aliases = $aliases;
+        parent::__construct($eventDispatcher);
     }
 
     /**
