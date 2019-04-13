@@ -117,7 +117,7 @@ se você não especificar sua classe, a padrão será utilizada.
   a seção [Formatação de Dados](output-formatting.md) para mais detalhes.
 * [[yii\i18n\I18N|i18n]]: suporta a tradução e formatação de mensagens. Por favor
   consulte a seção [Internacionalização](tutorial-i18n.md) para mais detalhes.
-* [[yii\log\Dispatcher|log]]: gerencia alvos de logs. Por favor consulte a seção
+* [[Yii\Log\Dispatcher|log]]: gerencia alvos de logs. Por favor consulte a seção
   [Gerenciamento de Logs](runtime-logging.md) para mais detalhes.
 * [[yii\swiftmailer\Mailer|mail]]: suporta a composição e envio de e-mails. Por
   favor consulte a seção [Enviando E-mails](tutorial-mailing.md) para mais

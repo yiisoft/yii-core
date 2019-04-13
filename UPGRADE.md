@@ -224,12 +224,12 @@ Upgrade from Yii 2.0.x
   Mail view rendering is now encapsulated into `yii\mail\Template` class.
 * Properties `view`, `viewPath`, `htmlLayout` and `textLayout` have been moved from `yii\mail\BaseMailer` to `yii\mail\Composer` class,
   which now encapsulates message composition.
-* Interface of `yii\log\Logger` has been changed according to [PSR-3] `Psr\Log\LoggerInterface`.
+* Interface of `Yii\Log\Logger` has been changed according to [PSR-3] `Psr\Log\LoggerInterface`.
   Make sure you update your code accordingly in case you invoke `Logger` methods directly.
-* Constants `yii\log\Logger::LEVEL_ERROR`, `yii\log\Logger::LEVEL_WARNING` and so on have been removed.
+* Constants `Yii\Log\Logger::LEVEL_ERROR`, `Yii\Log\Logger::LEVEL_WARNING` and so on have been removed.
   Use constants from `Psr\Log\LogLevel` instead.
 * Method `yii\BaseYii::trace()` has been renamed to `debug()`. Make sure you use correct name for it.
-* Class `yii\log\Dispatcher` has been removed as well as application 'log' component. Log targets
+* Class `Yii\Log\Dispatcher` has been removed as well as application 'log' component. Log targets
   now should be configured using `yii\base\Application::$logger` property. Neither 'log' or 'logger'
   components should be present at `yii\base\Application::$bootstrap`
 * Profiling related functionality has been extracted into a separated component under `yii\profile\ProfilerInterface`.
@@ -421,7 +421,7 @@ Upgrade from Yii 2.0.13
   In case you override default ActiveQuery implementation and relied on that behavior, call `yii\db\Query::populate()`
   method instead to index query results according to the `indexBy` parameter.
 
-* Log targets (like `yii\log\EmailTarget`) are now throwing `yii\log\LogRuntimeException` in case log can not be properly exported.
+* Log targets (like `Yii\Log\EmailTarget`) are now throwing `Yii\Log\LogRuntimeException` in case log can not be properly exported.
 
 * You can start preparing your application for Yii 3.0 by doing the following:
 
@@ -807,7 +807,7 @@ Upgrade from Yii 2.0 Beta
 
 * `yii\console\controllers\AssetController` is now using hashes instead of timestamps. Replace all `{ts}` with `{hash}`.
 
-* The database table of the `yii\log\DbTarget` now needs a `prefix` column to store context information.
+* The database table of the `Yii\Log\DbTarget` now needs a `prefix` column to store context information.
   You can add it with `ALTER TABLE log ADD COLUMN prefix TEXT AFTER log_time;`.
 
 * The `fileinfo` PHP extension is now required by Yii. If you use  `yii\helpers\FileHelper::getMimeType()`, make sure
@@ -833,7 +833,7 @@ Upgrade from Yii 2.0 Beta
   you should explicitly configure `yii\web\User::enableSession` in the application configuration to be false to avoid
   starting a session when authentication is performed. Previously this was done automatically by authentication method.
 
-* `mail` component was renamed to `mailer`, `yii\log\EmailTarget::$mail` was renamed to `yii\log\EmailTarget::$mailer`.
+* `mail` component was renamed to `mailer`, `Yii\Log\EmailTarget::$mail` was renamed to `Yii\Log\EmailTarget::$mailer`.
   Please update all references in the code and config files.
 
 * `yii\caching\GroupDependency` was renamed to `TagDependency`. You should create such a dependency using the code

@@ -37,12 +37,12 @@ Yii::debug('start calculating average revenue', __METHOD__);
 
 La constante magique `__METHOD__` est évaluée comme le nom de la méthode (préfixée par le nom pleinement qualifié de la classe), là où la constante apparaît. Par exemple, elle est égale à `'app\controllers\RevenueController::calculate'` si la ligne suivante est utilisée dans cette méthode. 
 
-> Info: les méthodes d'enregistrement décrites plus haut sont en fait des raccourcis pour la méthode  [[yii\log\Logger::log()|log()]] de l'[[yii\log\Logger|objet logger]] qui est un singleton accessible via l'expression `Yii::getLogger()`. Lorsque suffisamment de messages ont été enregistrés, ou quand l'application se termine, l'objet *logger* appelle un [[yii\log\Dispatcher|distributeur de messages]] pour envoyer les messages enregistrés aux [cibles d'enregistrement](#log-targets).
+> Info: les méthodes d'enregistrement décrites plus haut sont en fait des raccourcis pour la méthode  [[Yii\Log\Logger::log()|log()]] de l'[[Yii\Log\Logger|objet logger]] qui est un singleton accessible via l'expression `Yii::getLogger()`. Lorsque suffisamment de messages ont été enregistrés, ou quand l'application se termine, l'objet *logger* appelle un [[Yii\Log\Dispatcher|distributeur de messages]] pour envoyer les messages enregistrés aux [cibles d'enregistrement](#log-targets).
 
 
 ## Cibles d'enregistrement <span id="log-targets"></span>
 
-Une cible d'enregistrement est une instance de la classe [[yii\log\Target]] ou d'une de ses classe filles. Elle filtre les messages enregistrés selon leur degré de sévérité et leur catégorie et les exporte vers un média donné. Par exemple, une [[yii\log\DbTarget|cible base données]] exporte les messages enregistrés et filtrés vers une base de données, tandis qu'une [[yii\log\EmailTarget|cible courriel]] exporte les messages vers l'adresse de courriel spécifiée.
+Une cible d'enregistrement est une instance de la classe [[Yii\Log\Target]] ou d'une de ses classe filles. Elle filtre les messages enregistrés selon leur degré de sévérité et leur catégorie et les exporte vers un média donné. Par exemple, une [[Yii\Log\DbTarget|cible base données]] exporte les messages enregistrés et filtrés vers une base de données, tandis qu'une [[Yii\Log\EmailTarget|cible courriel]] exporte les messages vers l'adresse de courriel spécifiée.
 
 Vous pouvez enregistrer plusieurs cibles d'enregistrement dans votre application en les configurant, via le [composant d'application](structure-application-components.md)`log` dans la configuration de l'application, de la manière suivante :
 
@@ -55,11 +55,11 @@ return [
         'log' => [
             'targets' => [
                 [
-                    'class' => 'yii\log\DbTarget',
+                    'class' => 'Yii\Log\DbTarget',
                     'levels' => ['error', 'warning'],
                 ],
                 [
-                    'class' => 'yii\log\EmailTarget',
+                    'class' => 'Yii\Log\EmailTarget',
                     'levels' => ['error'],
                     'categories' => ['yii\db\*'],
                     'message' => [
@@ -76,26 +76,26 @@ return [
 
 > Note: le composant `log` doit être chargé durant le  [processus d'amorçage](runtime-bootstrapping.md) afin qu'il puisse distribuer les messages enregistrés aux cibles rapidement. C'est pourquoi il est listé dans le tableau `bootstrap` comme nous le montrons ci-dessus.
 
-Dans le code précédent, deux cibles d'enregistrement sont enregistrées dan la propriété [[yii\log\Dispatcher::targets]] : 
+Dans le code précédent, deux cibles d'enregistrement sont enregistrées dan la propriété [[Yii\Log\Dispatcher::targets]] : 
 
 * la première cible sélectionne les messages d'erreurs et les avertissements et les sauvegarde dans une table de base de données ; 
 * la deuxième cible sélectionne les messages d'erreur dont le nom de la catégorie commence par `yii\db\`, et les envoie dans un courriel à la fois à `admin@example.com` et à `developer@example.com`.
 
 Yii est fourni avec les cibles pré-construites suivantes. Reportez-vous à la documentation de l'API pour en savoir plus sur ces classes, en particulier comment les configurer et les utiliser. 
 
-* [[yii\log\DbTarget]]: stocke les messages enregistrés dans une table de base de données.
-* [[yii\log\EmailTarget]]: envoie les messages enregistrés vers une adresse de courriel spécifiée préalablement. 
-* [[yii\log\FileTarget]]: sauvegarde les messages enregistrés dans des fichiers. 
-* [[yii\log\SyslogTarget]]: sauvegarde les messages enregistrés vers *syslog* en appelant la fonction PHP `syslog()`.
+* [[Yii\Log\DbTarget]]: stocke les messages enregistrés dans une table de base de données.
+* [[Yii\Log\EmailTarget]]: envoie les messages enregistrés vers une adresse de courriel spécifiée préalablement. 
+* [[Yii\Log\FileTarget]]: sauvegarde les messages enregistrés dans des fichiers. 
+* [[Yii\Log\SyslogTarget]]: sauvegarde les messages enregistrés vers *syslog* en appelant la fonction PHP `syslog()`.
 
 Dans la suite de ce document, nous décrivons les fonctionnalités communes à toutes les cibles d'enregistrement. 
 
   
 ### Filtrage des messages <span id="message-filtering"></span>
 
-Vous pouvez configurer les propriétés [[yii\log\Target::levels|levels]] et [[yii\log\Target::categories|categories]] de chacune des cibles d'enregistrement pour spécifier les niveaux de sévérité et les catégories que la cible doit traiter. 
+Vous pouvez configurer les propriétés [[Yii\Log\Target::levels|levels]] et [[Yii\Log\Target::categories|categories]] de chacune des cibles d'enregistrement pour spécifier les niveaux de sévérité et les catégories que la cible doit traiter. 
 
-La propriété [[yii\log\Target::levels|levels]] accepte un tableau constitué d'une ou plusieurs des valeurs suivantes :
+La propriété [[Yii\Log\Target::levels|levels]] accepte un tableau constitué d'une ou plusieurs des valeurs suivantes :
 
 * `error`: correspondant aux messages enregistrés par [[Yii::error()]].
 * `warning`: correspondant aux messages enregistrés par [[Yii::warning()]].
@@ -103,23 +103,23 @@ La propriété [[yii\log\Target::levels|levels]] accepte un tableau constitué d
 * `trace`: correspondant aux messages enregistrés par [[Yii::debug()]].
 * `profile`: correspondant aux messages enregistrés par [[Yii::beginProfile()]] et [[Yii::endProfile()]], et qui sera expliqué en détails dans la sous-section [Profilage de la performance](#performance-profiling).
 
-Si vous ne spécifiez pas la propriété [[yii\log\Target::levels|levels]], cela signifie que la cible traitera les messages de *n'importe quel* niveau de sévérité. 
+Si vous ne spécifiez pas la propriété [[Yii\Log\Target::levels|levels]], cela signifie que la cible traitera les messages de *n'importe quel* niveau de sévérité. 
 
-La propriété [[yii\log\Target::categories|categories]] accepte un tableau constitué de noms ou de motifs de noms de catégorie de messages. Une cible ne traite 
+La propriété [[Yii\Log\Target::categories|categories]] accepte un tableau constitué de noms ou de motifs de noms de catégorie de messages. Une cible ne traite 
 que les messages dont la catégorie est trouvée ou correspond aux motifs de ce tableau. Un motif de nom de catégorie est un préfixe de nom de catégorie 
 suivi d'une astérisque `*`. Un nom de catégorie correspond à un motif de nom de catégorie s'il commence par le préfixe du motif. 
 Par exemple, `yii\db\Command::execute` et `yii\db\Command::query` sont utilisés comme noms de catégorie pour les messages enregistrés dans la classe [[yii\db\Command]]. Ils correspondent tous deux au motif `yii\db\*`.
 
-Si vous ne spécifiez pas la propriété [[yii\log\Target::categories|categories]], cela signifie que le cible traite les messages de *n'importe quelle* catégorie. 
+Si vous ne spécifiez pas la propriété [[Yii\Log\Target::categories|categories]], cela signifie que le cible traite les messages de *n'importe quelle* catégorie. 
 
-En plus d'inscrire des catégories en liste blanche via la propriété [[yii\log\Target::categories|categories]], vous pouvez également inscrire certaines catégories
-en liste noire via la propriété [[yii\log\Target::except|except]]. Si la catégorie d'un message est trouvée ou correspond à un des motifs de cette propriété, ce message n'est PAS traité par la cible. 
+En plus d'inscrire des catégories en liste blanche via la propriété [[Yii\Log\Target::categories|categories]], vous pouvez également inscrire certaines catégories
+en liste noire via la propriété [[Yii\Log\Target::except|except]]. Si la catégorie d'un message est trouvée ou correspond à un des motifs de cette propriété, ce message n'est PAS traité par la cible. 
  
 La configuration suivante de cible spécifie que la cible  traitera les messages d'erreur ou d'avertissement des catégories dont le nom correspond soit à `yii\db\*`, soit `yii\web\HttpException:*`, mais pas `yii\web\HttpException:404`.
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    'class' => 'Yii\Log\FileTarget',
     'levels' => ['error', 'warning'],
     'categories' => [
         'yii\db\*',
@@ -136,23 +136,23 @@ La configuration suivante de cible spécifie que la cible  traitera les messages
 
 ### Formatage des messages <span id="message-formatting"></span>
 
-Les cibles d'enregistrement exportent les messages enregistrés et filtrés dans un certain format. Par exemple, si vous installez une cible d'enregistrement de classe [[yii\log\FileTarget]], vous pouvez trouver un message enregistré similaire au suivant dans le fichier `runtime/log/app.log` file:
+Les cibles d'enregistrement exportent les messages enregistrés et filtrés dans un certain format. Par exemple, si vous installez une cible d'enregistrement de classe [[Yii\Log\FileTarget]], vous pouvez trouver un message enregistré similaire au suivant dans le fichier `runtime/log/app.log` file:
 
 ```
 2014-10-04 18:10:15 [::1][][-][trace][yii\base\Module::getModule] Loading module: debug
 ```
 
-Par défaut, les messages enregistrés sont formatés comme suit par la méthode [[yii\log\Target::formatMessage()]]:
+Par défaut, les messages enregistrés sont formatés comme suit par la méthode [[Yii\Log\Target::formatMessage()]]:
 
 ```
 Horodate [adresse IP][identifiant utilisateur][identifiant de session][niveau de sévérité][catégorie] Texte du message
 ```
 
-Vous pouvez personnaliser ce format en configurant la propriété [[yii\log\Target::prefix]] qui accepte une fonction PHP appelable qui retourne un message de préfixe personnalisé. Par exemple, le code suivant configure une cible d'enregistrement pour qu'elle préfixe chaque message enregistré avec l'identifiant de l'utilisateur courant (l'adresse IP et l'identifiant de session étant retirés pour des raisons de protection de la vie privée).
+Vous pouvez personnaliser ce format en configurant la propriété [[Yii\Log\Target::prefix]] qui accepte une fonction PHP appelable qui retourne un message de préfixe personnalisé. Par exemple, le code suivant configure une cible d'enregistrement pour qu'elle préfixe chaque message enregistré avec l'identifiant de l'utilisateur courant (l'adresse IP et l'identifiant de session étant retirés pour des raisons de protection de la vie privée).
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    'class' => 'Yii\Log\FileTarget',
     'prefix' => function ($message) {
         $user = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
         $userID = $user ? $user->getId(false) : '-';
@@ -162,20 +162,20 @@ Vous pouvez personnaliser ce format en configurant la propriété [[yii\log\Targ
 ```
 
 En plus des préfixes de messages, les cibles d'enregistrement ajoutent aussi quelques informations de contexte à chaque lot de messages enregistrés. 
-Par défaut, les valeurs de ces variables PHP globales sont incluses : `$_GET`, `$_POST`, `$_FILES`, `$_COOKIE`, `$_SESSION` et `$_SERVER`. Vous pouvez ajuster ce comportement en configurant la propriété [[yii\log\Target::logVars]] avec les noms des variables globales que vous voulez que la cible d'enregistrement inclue. Par exemple, la cible d'enregistrement suivante spécifie que seules les valeurs de la variable `$_SERVER` seront ajoutées aux messages enregistrés.
+Par défaut, les valeurs de ces variables PHP globales sont incluses : `$_GET`, `$_POST`, `$_FILES`, `$_COOKIE`, `$_SESSION` et `$_SERVER`. Vous pouvez ajuster ce comportement en configurant la propriété [[Yii\Log\Target::logVars]] avec les noms des variables globales que vous voulez que la cible d'enregistrement inclue. Par exemple, la cible d'enregistrement suivante spécifie que seules les valeurs de la variable `$_SERVER` seront ajoutées aux messages enregistrés.
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    'class' => 'Yii\Log\FileTarget',
     'logVars' => ['_SERVER'],
 ]
 ```
 
-Vous pouvez configurer  `logVars` comme un tableau vide pour désactiver totalement l'inclusion d'informations de contexte. Ou si vous voulez mettre en œuvre votre propre façon de fournir les informations contextuelles, vous pouvez redéfinir la méthode [[yii\log\Target::getContextMessage()]].
+Vous pouvez configurer  `logVars` comme un tableau vide pour désactiver totalement l'inclusion d'informations de contexte. Ou si vous voulez mettre en œuvre votre propre façon de fournir les informations contextuelles, vous pouvez redéfinir la méthode [[Yii\Log\Target::getContextMessage()]].
 
 
 ### Niveaux de la trace de message <span id="trace-level"></span>
 
-Lors du développement, vous cherchez souvent à voir d'où provient chacun des messages enregistrés. Cela est possible en configurant la propriété [[yii\log\Dispatcher::traceLevel|traceLevel]] du composant`log` de la façon suivante :
+Lors du développement, vous cherchez souvent à voir d'où provient chacun des messages enregistrés. Cela est possible en configurant la propriété [[Yii\Log\Dispatcher::traceLevel|traceLevel]] du composant`log` de la façon suivante :
 
 ```php
 return [
@@ -189,14 +189,14 @@ return [
 ];
 ```
 
-La configuration de l'application ci-dessus statue que le [[yii\log\Dispatcher::traceLevel|niveau de trace ]] sera  3 si `YII_DEBUG` est activé et 0 si `YII_DEBUG` est désactivé. Cela veut dire que, si `YII_DEBUG` est activé, au plus trois niveaux de la pile des appels seront ajoutés à chaque message enregistré, là où le messages est enregistré ; et, si  `YII_DEBUG`  est désactivé, aucune information de la pile des appels ne sera incluse. 
+La configuration de l'application ci-dessus statue que le [[Yii\Log\Dispatcher::traceLevel|niveau de trace ]] sera  3 si `YII_DEBUG` est activé et 0 si `YII_DEBUG` est désactivé. Cela veut dire que, si `YII_DEBUG` est activé, au plus trois niveaux de la pile des appels seront ajoutés à chaque message enregistré, là où le messages est enregistré ; et, si  `YII_DEBUG`  est désactivé, aucune information de la pile des appels ne sera incluse. 
 
 > Info: obtenir les informations de la pile des appels n'a rien de trivial. En conséquence, vous ne devriez utiliser cette fonctionnalité que durant le développement ou le débogage d'une application. 
 
 
 ### Purge et exportation des messages <span id="flushing-exporting"></span>
 
-Comme nous l'avons dit plus haut, les messages enregistrés sont conservés dans un tableau par l'[[yii\log\Logger|objet *logger*]]. Pour limiter la consommation de mémoire par ce tableau, l'objet *logger* purge les messages enregistrés vers les [cibles d'enregistrement](#log-targets) chaque fois que leur nombre atteint une certaine valeur. Vous pouvez personnaliser ce nombre en configurant la propriété [[yii\log\Dispatcher::flushInterval|flushInterval]] du composant `log` :
+Comme nous l'avons dit plus haut, les messages enregistrés sont conservés dans un tableau par l'[[Yii\Log\Logger|objet *logger*]]. Pour limiter la consommation de mémoire par ce tableau, l'objet *logger* purge les messages enregistrés vers les [cibles d'enregistrement](#log-targets) chaque fois que leur nombre atteint une certaine valeur. Vous pouvez personnaliser ce nombre en configurant la propriété [[Yii\Log\Dispatcher::flushInterval|flushInterval]] du composant `log` :
 
 
 ```php
@@ -213,16 +213,16 @@ return [
 
 > Info: la purge des messages intervient aussi lorsque l'application se termine, ce qui garantit que les cibles d'enregistrement reçoivent des messages enregistrés complets. 
 
-Lorsque l'[[yii\log\Logger|objet *logger*]] purge les messages enregistrés vers les [cibles d'enregistrement](#log-targets), ils ne sont pas exportés immédiatement. Au lieu de cela, l'exportation des messages ne se produit que lorsque la cible d'enregistrement a accumulé un certain nombre de messages filtrés. Vous pouvez personnaliser ce nombre en configurant la propriété [[yii\log\Target::exportInterval|exportInterval]] de chacune des [cibles d'enregistrement](#log-targets), comme ceci :
+Lorsque l'[[Yii\Log\Logger|objet *logger*]] purge les messages enregistrés vers les [cibles d'enregistrement](#log-targets), ils ne sont pas exportés immédiatement. Au lieu de cela, l'exportation des messages ne se produit que lorsque la cible d'enregistrement a accumulé un certain nombre de messages filtrés. Vous pouvez personnaliser ce nombre en configurant la propriété [[Yii\Log\Target::exportInterval|exportInterval]] de chacune des [cibles d'enregistrement](#log-targets), comme ceci :
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    'class' => 'Yii\Log\FileTarget',
     'exportInterval' => 100,  // default is 1000
 ]
 ```
 
-À cause des niveaux de purge et d'exportation, par défaut, lorsque vous appelez `Yii::debug()` ou toute autre méthode d'enregistrement, vous ne voyez PAS immédiatement le message enregistré dans la cible. Cela peut représenter un problème pour pour certaines applications de console qui durent longtemps. Pour faire en sorte que les messages apparaissent immédiatement dans les cibles d'enregistrement, vous devriez définir les propriétés [[yii\log\Dispatcher::flushInterval|flushInterval]] et [[yii\log\Target::exportInterval|exportInterval]] toutes deux à 1, comme montré ci-après :
+À cause des niveaux de purge et d'exportation, par défaut, lorsque vous appelez `Yii::debug()` ou toute autre méthode d'enregistrement, vous ne voyez PAS immédiatement le message enregistré dans la cible. Cela peut représenter un problème pour pour certaines applications de console qui durent longtemps. Pour faire en sorte que les messages apparaissent immédiatement dans les cibles d'enregistrement, vous devriez définir les propriétés [[Yii\Log\Dispatcher::flushInterval|flushInterval]] et [[Yii\Log\Target::exportInterval|exportInterval]] toutes deux à 1, comme montré ci-après :
 
 ```php
 return [
@@ -232,7 +232,7 @@ return [
             'flushInterval' => 1,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => 'Yii\Log\FileTarget',
                     'exportInterval' => 1,
                 ],
             ],
@@ -246,7 +246,7 @@ return [
 
 ### Activation, désactivation des cibles d'enregistrement <span id="toggling-log-targets"></span>
 
-Vous pouvez activer ou désactiver une cible d'enregistrement en configurant sa propriété [[yii\log\Target::enabled|enabled]]. Vous pouvez le faire via la configuration de la cible d'enregistrement ou en utilisant l'instruction suivante dans votre code PHP :
+Vous pouvez activer ou désactiver une cible d'enregistrement en configurant sa propriété [[Yii\Log\Target::enabled|enabled]]. Vous pouvez le faire via la configuration de la cible d'enregistrement ou en utilisant l'instruction suivante dans votre code PHP :
 
 ```php
 Yii::$app->log->targets['file']->enabled = false;
@@ -261,10 +261,10 @@ return [
         'log' => [
             'targets' => [
                 'file' => [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => 'Yii\Log\FileTarget',
                 ],
                 'db' => [
-                    'class' => 'yii\log\DbTarget',
+                    'class' => 'Yii\Log\DbTarget',
                 ],
             ],
         ],
@@ -275,7 +275,7 @@ return [
 
 ### Création d'une cible d'enregistrement <span id="new-targets"></span>
 
-La création d'une classe de cible d'enregistrement est très simple. Vous devez essentiellement implémenter [[yii\log\Target::export()]] en envoyant le contenu du tableau des [[yii\log\Target::messages]] vers un média désigné. Vous pouvez appeler la méthode [[yii\log\Target::formatMessage()]] pour formater chacun des messages. Pour plus de détails, reportez-vous à n'importe quelle classe de cible de messages incluse dans la version de Yii. 
+La création d'une classe de cible d'enregistrement est très simple. Vous devez essentiellement implémenter [[Yii\Log\Target::export()]] en envoyant le contenu du tableau des [[Yii\Log\Target::messages]] vers un média désigné. Vous pouvez appeler la méthode [[Yii\Log\Target::formatMessage()]] pour formater chacun des messages. Pour plus de détails, reportez-vous à n'importe quelle classe de cible de messages incluse dans la version de Yii. 
 
 
 ## Profilage de la performance <span id="performance-profiling"></span>

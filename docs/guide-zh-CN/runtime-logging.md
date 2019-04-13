@@ -50,18 +50,18 @@ Yii::trace('start calculating average revenue', __METHOD__);
 例如，假如上面那行代码在这个方法内被调用，则它将等于字符串
 `'app\controllers\RevenueController::calculate'`。
 
-> Note: 上面所描述的日志方法实际上是 [[yii\log\Logger|logger object]] 对象（一个通过表达式 `Yii::getLogger()` 可访问的单例）
-的方法 [[yii\log\Logger::log()|log()]] 的一个快捷方式。当足够的消息被记录或者当应用结束时，
-日志对象将会调用一个 [[yii\log\Dispatcher|message dispatcher]]
+> Note: 上面所描述的日志方法实际上是 [[Yii\Log\Logger|logger object]] 对象（一个通过表达式 `Yii::getLogger()` 可访问的单例）
+的方法 [[Yii\Log\Logger::log()|log()]] 的一个快捷方式。当足够的消息被记录或者当应用结束时，
+日志对象将会调用一个 [[Yii\Log\Dispatcher|message dispatcher]]
 调度对象将已经记录的日志消息发送到已注册的 [log targets](#log-targets) 目标中。
 
 
 ## 日志目标 <span id="log-targets"></span>
 
-一个日志目标是一个 [[yii\log\Target]] 类或者它的子类的实例。
+一个日志目标是一个 [[Yii\Log\Target]] 类或者它的子类的实例。
 它将通过他们的严重层级和类别来过滤日志消息，然后将它们导出到一些媒介中。
-例如，一个 [[yii\log\DbTarget|database target]] 目标导出已经过滤的日志消息到一个数据的表里面，
-而一个 [[yii\log\EmailTarget|email target]]目标将日志消息导出到指定的邮箱地址里。
+例如，一个 [[Yii\Log\DbTarget|database target]] 目标导出已经过滤的日志消息到一个数据的表里面，
+而一个 [[Yii\Log\EmailTarget|email target]]目标将日志消息导出到指定的邮箱地址里。
 
 在一个应用里，通过配置在应用配置里的 `log` [application component](structure-application-components.md) ，你可以注册多个日志目标。
 就像下面这样：
@@ -75,11 +75,11 @@ return [
         'log' => [
             'targets' => [
                 [
-                    'class' => 'yii\log\DbTarget',
+                    'class' => 'Yii\Log\DbTarget',
                     'levels' => ['error', 'warning'],
                 ],
                 [
-                    'class' => 'yii\log\EmailTarget',
+                    'class' => 'Yii\Log\EmailTarget',
                     'levels' => ['error'],
                     'categories' => ['yii\db\*'],
                     'message' => [
@@ -97,7 +97,7 @@ return [
 > Note: `log` 组件必须在 [bootstrapping](runtime-bootstrapping.md) 期间就被加载，以便于它能够及时调度日志消息到目标里。
 这是为什么在上面的代码中，它被列在 `bootstrap` 数组中的原因。
 
-在上面的代码中，在 [[yii\log\Dispatcher::targets]] 属性里有两个日志目标被注册：
+在上面的代码中，在 [[Yii\Log\Dispatcher::targets]] 属性里有两个日志目标被注册：
 
 * 第一个目标选择的是错误和警告层级的消息，并且在数据库表里保存他们；
 * 第二个目标选择的是错误层级的消息并且是在以 `yii\db\` 开头的分类下，并且在一个邮件里将它们发送到 `admin@example.com`
@@ -106,20 +106,20 @@ return [
 Yii配备了以下的内建日志目标。请参考关于这些类的API文档，
 并且学习怎样配置和使用他们。
 
-* [[yii\log\DbTarget]]：在数据库表里存储日志消息。
-* [[yii\log\EmailTarget]]：发送日志消息到预先指定的邮箱地址。
-* [[yii\log\FileTarget]]：保存日志消息到文件中.
-* [[yii\log\SyslogTarget]]：通过调用PHP函数 `syslog()` 将日志消息保存到系统日志里。
+* [[Yii\Log\DbTarget]]：在数据库表里存储日志消息。
+* [[Yii\Log\EmailTarget]]：发送日志消息到预先指定的邮箱地址。
+* [[Yii\Log\FileTarget]]：保存日志消息到文件中.
+* [[Yii\Log\SyslogTarget]]：通过调用PHP函数 `syslog()` 将日志消息保存到系统日志里。
 
 下面，我们将描述所有日志目标的公共特性。
   
 
 ### 消息过滤 <span id="message-filtering"></span>
 
-对于每一个日志目标，你可以配置它的 [[yii\log\Target::levels|levels]] 和 
-[[yii\log\Target::categories|categories]] 属性来指定哪个消息的严重程度和分类目标应该处理。
+对于每一个日志目标，你可以配置它的 [[Yii\Log\Target::levels|levels]] 和 
+[[Yii\Log\Target::categories|categories]] 属性来指定哪个消息的严重程度和分类目标应该处理。
 
-[[yii\log\Target::levels|levels]] 属性是由一个或者若干个以下值组成的数组：
+[[Yii\Log\Target::levels|levels]] 属性是由一个或者若干个以下值组成的数组：
 
 * `error`：相应的消息通过 [[Yii::error()]] 被记录。
 * `warning`：相应的消息通过 [[Yii::warning()]] 被记录。
@@ -128,20 +128,20 @@ Yii配备了以下的内建日志目标。请参考关于这些类的API文档�
 * `profile`：相应的消息通过 [[Yii::beginProfile()]] 和 [[Yii::endProfile()]] 被记录。更多细节将在
 [Profiling](#performance-profiling) 分段解释。
 
-如果你没有指定 [[yii\log\Target::levels|levels]] 的属性，
+如果你没有指定 [[Yii\Log\Target::levels|levels]] 的属性，
 那就意味着目标将处理 *任何* 严重程度的消息。
 
-[[yii\log\Target::categories|categories]] 属性是一个包含消息分类名称或者模式的数组。
+[[Yii\Log\Target::categories|categories]] 属性是一个包含消息分类名称或者模式的数组。
 一个目标将只处理那些在这个数组中能够找到对应的分类或者其中一个相匹配的模式的消息。
 一个分类模式是一个以星号 `*` 结尾的分类名前缀。假如一个分类名与分类模式具有相同的前缀，
 那么该分类名将和分类模式相匹配。例如，
 `yii\db\Command::execute` 和 `yii\db\Command::query` 都是作为分类名称运用在 [[yii\db\Command]] 类来记录日志消息的。
 它们都是匹配模式 `yii\db\*`。
 
-假如你没有指定 [[yii\log\Target::categories|categories]] 属性，
+假如你没有指定 [[Yii\Log\Target::categories|categories]] 属性，
 这意味着目标将会处理 *任何* 分类的消息。 
 
-除了通过 [[yii\log\Target::categories|categories]] 属性设置白名单分类，你也可以通过 [[yii\log\Target::except|except]]
+除了通过 [[Yii\Log\Target::categories|categories]] 属性设置白名单分类，你也可以通过 [[Yii\Log\Target::except|except]]
 属性来设置某些分类作为黑名单。假如一条消息的分类在这个属性中被发现或者是匹配其中一个，
 那么它将不会在目标中被处理。
 
@@ -150,7 +150,7 @@ Yii配备了以下的内建日志目标。请参考关于这些类的API文档�
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    'class' => 'Yii\Log\FileTarget',
     'levels' => ['error', 'warning'],
     'categories' => [
         'yii\db\*',
@@ -170,26 +170,26 @@ Yii配备了以下的内建日志目标。请参考关于这些类的API文档�
 ### 消息格式化 <span id="message-formatting"></span>
 
 日志目标以某种格式导出过滤过的日志消息。例如，
-假如你安装一个 [[yii\log\FileTarget]] 类的日志目标，
+假如你安装一个 [[Yii\Log\FileTarget]] 类的日志目标，
 你应该能找出一个日志消息类似下面的 `runtime/log/app.log` 文件：
 
 ```
 2014-10-04 18:10:15 [::1][][-][trace][yii\base\Module::getModule] Loading module: debug
 ```
 
-默认情况下，日志消息将被格式化，格式化的方式遵循 [[yii\log\Target::formatMessage()]]：
+默认情况下，日志消息将被格式化，格式化的方式遵循 [[Yii\Log\Target::formatMessage()]]：
 
 ```
 Timestamp [IP address][User ID][Session ID][Severity Level][Category] Message Text
 ```
 
-你可以通过配置 [[yii\log\Target::prefix]] 的属性来自定义格式，这个属性是一个PHP可调用体返回的自定义消息前缀。
+你可以通过配置 [[Yii\Log\Target::prefix]] 的属性来自定义格式，这个属性是一个PHP可调用体返回的自定义消息前缀。
 例如，下面的代码配置了一个日志目标的前缀是每个日志消息中当前用户的ID(IP地址和Session ID被删除是由于隐私的原因)。
 
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    'class' => 'Yii\Log\FileTarget',
     'prefix' => function ($message) {
         $user = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
         $userID = $user ? $user->getId(false) : '-';
@@ -200,25 +200,25 @@ Timestamp [IP address][User ID][Session ID][Severity Level][Category] Message Te
 
 除了消息前缀以外，日志目标也可以追加一些上下文信息到每组日志消息中。
 默认情况下，这些全局的PHP变量的值被包含在：`$_GET`, `$_POST`, `$_FILES`, `$_COOKIE`,`$_SESSION` 和 `$_SERVER` 中。
-你可以通过配置 [[yii\log\Target::logVars]] 属性适应这个行为，
+你可以通过配置 [[Yii\Log\Target::logVars]] 属性适应这个行为，
 这个属性是你想要通过日志目标包含的全局变量名称。
 举个例子，下面的日志目标配置指明了只有 `$_SERVER` 变量的值将被追加到日志消息中。
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    'class' => 'Yii\Log\FileTarget',
     'logVars' => ['_SERVER'],
 ]
 ```
 
 你可以将 `logVars` 配置成一个空数组来完全禁止上下文信息包含。
 或者假如你想要实现你自己提供上下文信息的方式，
-你可以重写 [[yii\log\Target::getContextMessage()]] 方法。
+你可以重写 [[Yii\Log\Target::getContextMessage()]] 方法。
 
 
 ### 消息跟踪级别 <span id="trace-level"></span>
 
-在开发的时候，通常希望看到每个日志消息来自哪里。这个是能够被实现的，通过配置 `log` 组件的 [[yii\log\Dispatcher::traceLevel|traceLevel]] 属性，
+在开发的时候，通常希望看到每个日志消息来自哪里。这个是能够被实现的，通过配置 `log` 组件的 [[Yii\Log\Dispatcher::traceLevel|traceLevel]] 属性，
 就像下面这样：
 
 ```php
@@ -233,7 +233,7 @@ return [
 ];
 ```
 
-上面的应用配置设置了 [[yii\log\Dispatcher::traceLevel|traceLevel]] 的层级，假如 `YII_DEBUG` 开启则是3，否则是0。
+上面的应用配置设置了 [[Yii\Log\Dispatcher::traceLevel|traceLevel]] 的层级，假如 `YII_DEBUG` 开启则是3，否则是0。
 这意味着，假如 `YII_DEBUG` 开启，每个日志消息在日志消息被记录的时候，
 将被追加最多3个调用堆栈层级；假如 `YII_DEBUG` 关闭，
 那么将没有调用堆栈信息被包含。
@@ -244,10 +244,10 @@ return [
 
 ### 消息刷新和导出 <span id="flushing-exporting"></span>
 
-如上所述，通过 [[yii\log\Logger|logger object]] 对象，日志消息被保存在一个数组里。
+如上所述，通过 [[Yii\Log\Logger|logger object]] 对象，日志消息被保存在一个数组里。
 为了这个数组的内存消耗，当数组积累了一定数量的日志消息，
 日志对象每次都将刷新被记录的消息到 [log targets](#log-targets) 中。
-你可以通过配置 `log` 组件的 [[yii\log\Dispatcher::flushInterval|flushInterval]] 属性来自定义数量：
+你可以通过配置 `log` 组件的 [[Yii\Log\Dispatcher::flushInterval|flushInterval]] 属性来自定义数量：
 
 
 ```php
@@ -264,22 +264,22 @@ return [
 
 > Note: 当应用结束的时候，消息刷新也会发生，这样才能确保日志目标能够接收完整的日志消息。
 
-当 [[yii\log\Logger|logger object]] 对象刷新日志消息到 [log targets](#log-targets) 的时候，它们并
+当 [[Yii\Log\Logger|logger object]] 对象刷新日志消息到 [log targets](#log-targets) 的时候，它们并
 不能立即获取导出的消息。相反，消息导出仅仅在一个日志目标累积了一定数量的过滤消息的时候才会发生。你可以通过配置
-个别的 [log targets](#log-targets) 的 [[yii\log\Target::exportInterval|exportInterval]] 属性来
+个别的 [log targets](#log-targets) 的 [[Yii\Log\Target::exportInterval|exportInterval]] 属性来
 自定义这个数量，就像下面这样：
 
 ```php
 [
-    'class' => 'yii\log\FileTarget',
+    'class' => 'Yii\Log\FileTarget',
     'exportInterval' => 100,  // default is 1000
 ]
 ```
 
 因为刷新和导出层级的设置，默认情况下，当你调用 `Yii::trace()` 或者任何其他的记录方法，你将不能在日志目标中立即看到日志消息。
 这对于一些长期运行的控制台应用来说可能是一个问题。为了让每个日志消息在日志目标中能够立即出现，
-你应该设置 [[yii\log\Dispatcher::flushInterval|flushInterval]]
-和 [[yii\log\Target::exportInterval|exportInterval]] 都为1，
+你应该设置 [[Yii\Log\Dispatcher::flushInterval|flushInterval]]
+和 [[Yii\Log\Target::exportInterval|exportInterval]] 都为1，
 就像下面这样：
 
 ```php
@@ -290,7 +290,7 @@ return [
             'flushInterval' => 1,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => 'Yii\Log\FileTarget',
                     'exportInterval' => 1,
                 ],
             ],
@@ -304,7 +304,7 @@ return [
 
 ### 切换日志目标 <span id="toggling-log-targets"></span>
 
-你可以通过配置 [[yii\log\Target::enabled|enabled]] 属性来开启或者禁用日志目标。
+你可以通过配置 [[Yii\Log\Target::enabled|enabled]] 属性来开启或者禁用日志目标。
 你可以通过日志目标配置去做，或者是在你的代码中放入下面的PHP申明：
 
 ```php
@@ -321,10 +321,10 @@ return [
         'log' => [
             'targets' => [
                 'file' => [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => 'Yii\Log\FileTarget',
                 ],
                 'db' => [
-                    'class' => 'yii\log\DbTarget',
+                    'class' => 'Yii\Log\DbTarget',
                 ],
             ],
         ],
@@ -335,9 +335,9 @@ return [
 
 ### 创建新的目标 <span id="new-targets"></span>
 
-创建一个新的日志目标类非常地简单。你主要需要实现 [[yii\log\Target::export()]] 
-方法来发送 [[yii\log\Target::messages]] 数组的
-内容到一个指定的媒体中。你可以调用 [[yii\log\Target::formatMessage()]] 方法去格式化每个消息。
+创建一个新的日志目标类非常地简单。你主要需要实现 [[Yii\Log\Target::export()]] 
+方法来发送 [[Yii\Log\Target::messages]] 数组的
+内容到一个指定的媒体中。你可以调用 [[Yii\Log\Target::formatMessage()]] 方法去格式化每个消息。
 更多细节，你可以参考任何一个包含在Yii发布版中的日志目标类。
 
 

@@ -50,15 +50,15 @@ The `__METHOD__` constant evaluates as the name of the method (prefixed with the
 the constant appears. For example, it is equal to the string `'app\controllers\RevenueController::calculate'` if 
 the above line of code is called within this method.
 
-> Info: The logging methods described above are actually shortcuts to the methods of [[yii\log\Logger|logger object]] which is a singleton accessible through the expression `Yii::getLogger()`. When
+> Info: The logging methods described above are actually shortcuts to the methods of [[Yii\Log\Logger|logger object]] which is a singleton accessible through the expression `Yii::getLogger()`. When
 enough messages are logged or when the application ends, the logger object will send recorded log messages to the registered [log targets](#log-targets).
 
 
 ## Log Targets <span id="log-targets"></span>
 
-A log target is an instance of the [[yii\log\Target]] class or its child class. It filters the log messages by their
-severity levels and categories and then exports them to some medium. For example, a [[yii\log\DbTarget|database target]]
-exports the filtered log messages to a database table, while an [[yii\log\EmailTarget|email target]] exports
+A log target is an instance of the [[Yii\Log\Target]] class or its child class. It filters the log messages by their
+severity levels and categories and then exports them to some medium. For example, a [[Yii\Log\DbTarget|database target]]
+exports the filtered log messages to a database table, while an [[Yii\Log\EmailTarget|email target]] exports
 the log messages to specified email addresses.
 
 You can register multiple log targets in an application by configuring them through the [[yii\base\Application::$logger|logger application property]]
@@ -69,11 +69,11 @@ return [
     'logger' => [
         'targets' => [
             [
-                '__class' => \yii\log\DbTarget::class,
+                '__class' => \Yii\Log\DbTarget::class,
                 'levels' => ['error', 'warning'],
             ],
             [
-                '__class' => \yii\log\EmailTarget::class,
+                '__class' => \Yii\Log\EmailTarget::class,
                 'levels' => ['error'],
                 'categories' => ['yii\db\*'],
                 'message' => [
@@ -96,41 +96,41 @@ In the above code, two log targets are registered:
 Yii comes with the following built-in log targets. Please refer to the API documentation about these classes to 
 learn how to configure and use them. 
 
-* [[yii\log\DbTarget]]: stores log messages in a database table.
-* [[yii\log\EmailTarget]]: sends log messages to pre-specified email addresses.
-* [[yii\log\FileTarget]]: saves log messages in files.
-* [[yii\log\SyslogTarget]]: saves log messages to syslog by calling the PHP function `syslog()`.
+* [[Yii\Log\DbTarget]]: stores log messages in a database table.
+* [[Yii\Log\EmailTarget]]: sends log messages to pre-specified email addresses.
+* [[Yii\Log\FileTarget]]: saves log messages in files.
+* [[Yii\Log\SyslogTarget]]: saves log messages to syslog by calling the PHP function `syslog()`.
 
 In the following, we will describe the features common to all log targets.
 
   
 ### Message Filtering <span id="message-filtering"></span>
 
-For each log target, you can configure its [[yii\log\Target::levels|levels]] and 
-[[yii\log\Target::categories|categories]] properties to specify which severity levels and categories of the messages the target should process.
+For each log target, you can configure its [[Yii\Log\Target::levels|levels]] and 
+[[Yii\Log\Target::categories|categories]] properties to specify which severity levels and categories of the messages the target should process.
 
-The [[yii\log\Target::levels|levels]] property takes an array consisting of one or several of the following values:
+The [[Yii\Log\Target::levels|levels]] property takes an array consisting of one or several of the following values:
 
 * `error`: corresponding to messages logged by [[Yii::error()]].
 * `warning`: corresponding to messages logged by [[Yii::warning()]].
 * `info`: corresponding to messages logged by [[Yii::info()]].
 * `debug`: corresponding to messages logged by [[Yii::debug()]].
 
-If you do not specify the [[yii\log\Target::levels|levels]] property, it means the target will process messages
+If you do not specify the [[Yii\Log\Target::levels|levels]] property, it means the target will process messages
 of *any* severity level.
 
-The [[yii\log\Target::categories|categories]] property takes an array consisting of message category names or patterns.
+The [[Yii\Log\Target::categories|categories]] property takes an array consisting of message category names or patterns.
 A target will only process messages whose category can be found or match one of the patterns in this array.
 A category pattern is a category name prefix with an asterisk `*` at its end. A category name matches a category pattern
 if it starts with the same prefix of the pattern. For example, `yii\db\Command::execute` and `yii\db\Command::query`
 are used as category names for the log messages recorded in the [[yii\db\Command]] class. They both match
 the pattern `yii\db\*`.
 
-If you do not specify the [[yii\log\Target::categories|categories]] property, it means the target will process
+If you do not specify the [[Yii\Log\Target::categories|categories]] property, it means the target will process
 messages of *any* category.
 
-Besides whitelisting the categories by the [[yii\log\Target::categories|categories]] property, you may also
-blacklist certain categories by the [[yii\log\Target::except|except]] property. If the category of a message
+Besides whitelisting the categories by the [[Yii\Log\Target::categories|categories]] property, you may also
+blacklist certain categories by the [[Yii\Log\Target::except|except]] property. If the category of a message
 is found or matches one of the patterns in this property, it will NOT be processed by the target.
  
 The following target configuration specifies that the target should only process error and warning messages
@@ -138,7 +138,7 @@ under the categories whose names match either `yii\db\*` or `yii\web\HttpExcepti
 
 ```php
 [
-    '__class' => \yii\log\FileTarget::class,
+    '__class' => \Yii\Log\FileTarget::class,
     'levels' => ['error', 'warning'],
     'categories' => [
         'yii\db\*',
@@ -158,26 +158,26 @@ under the categories whose names match either `yii\db\*` or `yii\web\HttpExcepti
 ### Message Formatting <span id="message-formatting"></span>
 
 Log targets export the filtered log messages in a certain format. For example, if you install
-a log target of the class [[yii\log\FileTarget]], you may find a log message similar to the following in the
+a log target of the class [[Yii\Log\FileTarget]], you may find a log message similar to the following in the
 `runtime/log/app.log` file:
 
 ```
 2014-10-04 18:10:15 [::1][][-][debug][yii\base\Module::getModule] Loading module: debug
 ```
 
-By default, log messages will be formatted as follows by the [[yii\log\Target::formatMessage()]]:
+By default, log messages will be formatted as follows by the [[Yii\Log\Target::formatMessage()]]:
 
 ```
 Timestamp [IP address][User ID][Session ID][Severity Level][Category] Message Text
 ```
 
-You may customize this format by configuring the [[yii\log\Target::prefix]] property which takes a PHP callable
+You may customize this format by configuring the [[Yii\Log\Target::prefix]] property which takes a PHP callable
 returning a customized message prefix. For example, the following code configures a log target to prefix each
 log message with the current user ID (IP address and Session ID are removed for privacy reasons).
 
 ```php
 [
-    '__class' => \yii\log\FileTarget::class,
+    '__class' => \Yii\Log\FileTarget::class,
     'prefix' => function ($message) {
         $user = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
         $userID = $user ? $user->getId(false) : '-';
@@ -188,26 +188,26 @@ log message with the current user ID (IP address and Session ID are removed for 
 
 Besides message prefixes, log targets also append some context information to each batch of log messages.
 By default, the values of these global PHP variables are included: `$_GET`, `$_POST`, `$_FILES`, `$_COOKIE`,
-`$_SESSION` and `$_SERVER`. You may adjust this behavior by configuring the [[yii\log\Target::logVars]] property
+`$_SESSION` and `$_SERVER`. You may adjust this behavior by configuring the [[Yii\Log\Target::logVars]] property
 with the names of the global variables that you want to include by the log target. For example, the following
 log target configuration specifies that only the value of the `$_SERVER` variable will be appended to the log messages.
 
 ```php
 [
-    '__class' => \yii\log\FileTarget::class,
+    '__class' => \Yii\Log\FileTarget::class,
     'logVars' => ['_SERVER'],
 ]
 ```
 
 You may configure `logVars` to be an empty array to totally disable the inclusion of context information.
 Or if you want to implement your own way of providing context information, you may override the
-[[yii\log\Target::getContextMessage()]] method.
+[[Yii\Log\Target::getContextMessage()]] method.
 
 
 ### Message Trace Level <span id="trace-level"></span>
 
 During development, it is often desirable to see where each log message is coming from. This can be achieved by
-configuring the [[yii\log\Logger::traceLevel|traceLevel]] property of the application `logger` like the following:
+configuring the [[Yii\Log\Logger::traceLevel|traceLevel]] property of the application `logger` like the following:
 
 ```php
 return [
@@ -218,7 +218,7 @@ return [
 ];
 ```
 
-The above application configuration sets [[yii\log\Logger::traceLevel|traceLevel]] to be 3 if `YII_DEBUG` is on
+The above application configuration sets [[Yii\Log\Logger::traceLevel|traceLevel]] to be 3 if `YII_DEBUG` is on
 and 0 if `YII_DEBUG` is off. This means, if `YII_DEBUG` is on, each log message will be appended with at most 3
 levels of the call stack at which the log message is recorded; and if `YII_DEBUG` is off, no call stack information
 will be included.
@@ -229,10 +229,10 @@ or when debugging an application.
 
 ### Message Flushing and Exporting <span id="flushing-exporting"></span>
 
-As aforementioned, log messages are maintained in an array by the [[yii\log\Logger|logger object]]. To limit the
+As aforementioned, log messages are maintained in an array by the [[Yii\Log\Logger|logger object]]. To limit the
 memory consumption by this array, the logger will flush the recorded messages to the [log targets](#log-targets)
 each time the array accumulates a certain number of log messages. You can customize this number by configuring
-the [[yii\log\Logger::flushInterval|flushInterval]] property of the application `logger`:
+the [[Yii\Log\Logger::flushInterval|flushInterval]] property of the application `logger`:
 
 
 ```php
@@ -246,14 +246,14 @@ return [
 
 > Info: Message flushing also occurs when the application ends, which ensures log targets can receive complete log messages.
 
-When the [[yii\log\Logger|logger object]] flushes log messages to [log targets](#log-targets), they do not get exported
+When the [[Yii\Log\Logger|logger object]] flushes log messages to [log targets](#log-targets), they do not get exported
 immediately. Instead, the message exporting only occurs when a log target accumulates certain number of the filtered
-messages. You can customize this number by configuring the [[yii\log\Target::exportInterval|exportInterval]]
+messages. You can customize this number by configuring the [[Yii\Log\Target::exportInterval|exportInterval]]
 property of individual [log targets](#log-targets), like the following,
 
 ```php
 [
-    '__class' => \yii\log\FileTarget::class,
+    '__class' => \Yii\Log\FileTarget::class,
     'exportInterval' => 100,  // default is 1000
 ]
 ```
@@ -261,7 +261,7 @@ property of individual [log targets](#log-targets), like the following,
 Because of the flushing and exporting level setting, by default when you call `Yii::debug()` or any other logging
 method, you will NOT see the log message immediately in the log targets. This could be a problem for some long-running
 console applications. To make each log message appear immediately in the log targets, you should set both
-[[yii\log\Logger::flushInterval|flushInterval]] and [[yii\log\Target::exportInterval|exportInterval]] to be 1,
+[[Yii\Log\Logger::flushInterval|flushInterval]] and [[Yii\Log\Target::exportInterval|exportInterval]] to be 1,
 as shown below:
 
 ```php
@@ -270,7 +270,7 @@ return [
         'flushInterval' => 1,
         'targets' => [
             [
-                '__class' => \yii\log\FileTarget::class,
+                '__class' => \Yii\Log\FileTarget::class,
                 'exportInterval' => 1,
             ],
         ],
@@ -283,7 +283,7 @@ return [
 
 ### Toggling Log Targets <span id="toggling-log-targets"></span>
 
-You can enable or disable a log target by configuring its [[yii\log\Target::enabled|enabled]] property.
+You can enable or disable a log target by configuring its [[Yii\Log\Target::enabled|enabled]] property.
 You may do so via the log target configuration or by the following PHP statement in your code:
 
 ```php
@@ -298,25 +298,25 @@ return [
     'logger' => [
         'targets' => [
             'file' => [
-                '__class' => \yii\log\FileTarget::class,
+                '__class' => \Yii\Log\FileTarget::class,
             ],
             'db' => [
-                '__class' => \yii\log\DbTarget::class,
+                '__class' => \Yii\Log\DbTarget::class,
             ],
         ],
     ],
 ];
 ```
 
-Since version 2.0.13, you may configure [[yii\log\Target::enabled|enabled]] with a callable to
+Since version 2.0.13, you may configure [[Yii\Log\Target::enabled|enabled]] with a callable to
 define a dynamic condition for whether the log target should be enabled or not.
-See the documentation of [[yii\log\Target::setEnabled()]] for an example.
+See the documentation of [[Yii\Log\Target::setEnabled()]] for an example.
 
 ### Creating New Targets <span id="new-targets"></span>
 
-Creating a new log target class is very simple. You mainly need to implement the [[yii\log\Target::export()]] method
-sending the content of the [[yii\log\Target::messages]] array to a designated medium. You may call the
-[[yii\log\Target::formatMessage()]] method to format each message. For more details, you may refer to any of the
+Creating a new log target class is very simple. You mainly need to implement the [[Yii\Log\Target::export()]] method
+sending the content of the [[Yii\Log\Target::messages]] array to a designated medium. You may call the
+[[Yii\Log\Target::formatMessage()]] method to format each message. For more details, you may refer to any of the
 log target classes included in the Yii release.
 
 > Tip: Instead of creating your own loggers you may try using PSR-3 compatible targets.

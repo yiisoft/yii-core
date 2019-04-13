@@ -99,7 +99,7 @@ jika anda tidak mendefinisikan _class_-nya, maka _class_ default yang akan digun
   Harap melihat bagian [Memformat Data](output-formatting.md) untuk informasi lebih lanjut.
 * [[yii\i18n\I18N|i18n]]: mendukung penerjemahan dan format pesan _(message)_.
   Harap melihat bagian [Internasionalisasi](tutorial-i18n.md) untuk informasi lebih lanjut.
-* [[yii\log\Dispatcher|log]]: mengelola target log.
+* [[Yii\Log\Dispatcher|log]]: mengelola target log.
   Harap melihat bagian [Log](runtime-logging.md) untuk informasi lebih lanjut.
 * [[yii\swiftmailer\Mailer|mailer]]: mendukung pembuatan dan pengiriman email.
   Harap melihat bagian [Mail](tutorial-mailing.md) untuk informasi lebih lanjut.

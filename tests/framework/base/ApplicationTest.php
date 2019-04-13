@@ -11,7 +11,7 @@ use Psr\Log\NullLogger;
 use yii\base\BootstrapInterface;
 use yii\base\Component;
 use yii\base\Module;
-use yii\log\Logger;
+use Yii\Log\Logger;
 use yii\tests\TestCase;
 
 /**

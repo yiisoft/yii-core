@@ -109,7 +109,7 @@ Yii のアプリケーションがユーザ・リクエストを処理出来る�
   詳細は [データの書式設定](output-formatting.md) のセクションを参照してください。
 * [[yii\i18n\I18N|i18n]]: メッセージの翻訳と書式設定をサポートします。
   詳細は [国際化](tutorial-i18n.md) のセクションを参照してください。
-* [[yii\log\Dispatcher|log]]: ログ・ターゲットを管理します。
+* [[Yii\Log\Dispatcher|log]]: ログ・ターゲットを管理します。
   詳細は [ロギング](runtime-logging.md) のセクションを参照してください。
 * [[yii\swiftmailer\Mailer|mailer]]: メールの作成と送信をサポートします。
   詳細は [メール](tutorial-mailing.md) のセクションを参照してください。

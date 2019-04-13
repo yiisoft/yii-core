@@ -79,7 +79,7 @@ Vous trouverez ci-après la liste des composants d'application prédéfinis du n
   Reportez-vous à la section [Formatage des données](output-formatting.md) pour plus de détails.
 * [[yii\i18n\I18N|i18n]]: prend en charge la traduction et le formatage des messages. 
   Reportez-vous à la section [Internationalisation](tutorial-i18n.md) pour plus de détails.
-* [[yii\log\Dispatcher|log]]: gère les journaux cibles. 
+* [[Yii\Log\Dispatcher|log]]: gère les journaux cibles. 
   Reportez-vous à la section  [Journaux](runtime-logging.md) pour plus de détails.
 * [[yii\swiftmailer\Mailer|mail]]: prend en charge la composition et l'envoi des courriels.
   Reportez-vous à la section [Mailing](tutorial-mailing.md) pour plus de détails.

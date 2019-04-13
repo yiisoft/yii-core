@@ -85,11 +85,11 @@ $config = [
             'class' => 'yii\swiftmailer\Mailer',
         ],
         'log' => [
-            'class' => 'yii\log\Dispatcher',
+            'class' => 'Yii\Log\Dispatcher',
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => 'Yii\Log\FileTarget',
                 ],
             ],
         ],
@@ -159,11 +159,11 @@ return [
         'class' => 'yii\swiftmailer\Mailer',
     ],
     'log' => [
-        'class' => 'yii\log\Dispatcher',
+        'class' => 'Yii\Log\Dispatcher',
         'traceLevel' => YII_DEBUG ? 3 : 0,
         'targets' => [
             [
-                'class' => 'yii\log\FileTarget',
+                'class' => 'Yii\Log\FileTarget',
             ],
         ],
     ],

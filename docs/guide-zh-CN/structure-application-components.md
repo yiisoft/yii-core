@@ -109,7 +109,7 @@ Yii 定义了一组固定ID和默认配置的 *核心* 组件，
   详情请参考 [格式化输出数据](output-formatting.md) 一节。
 * [[yii\i18n\I18N|i18n]]: 支持信息翻译和格式化。
   详情请参考 [国际化](tutorial-i18n.md) 一节。
-* [[yii\log\Dispatcher|log]]: 管理日志对象。
+* [[Yii\Log\Dispatcher|log]]: 管理日志对象。
   详情请参考 [日志](tutorial-logging.md) 一节。
 * [[yii\swiftmailer\Mailer|mail]]: 支持生成邮件结构并发送，
   详情请参考 [邮件](tutorial-mailing.md) 一节。

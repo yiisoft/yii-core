@@ -99,7 +99,7 @@ nếu bạn không xác định các class, thì giá trị mặc định sẽ �
   Tham khảo thêm tại mục [Định dạng dữ liệu](output-formatting.md) để biết thêm thông tin.
 * [[yii\i18n\I18N|i18n]]: hỗ trợ định dạng và dịch đa ngôn ngữ.
   Tham khảo thêm tại mục [Internationalization](tutorial-i18n.md) để biết thêm thông tin.
-* [[yii\log\Dispatcher|log]]: quản lý mục log.
+* [[Yii\Log\Dispatcher|log]]: quản lý mục log.
   Tham khảo thêm tại mục [Logging](runtime-logging.md) để biết thêm thông tin.
 * [[yii\swiftmailer\Mailer|mail]]: hỗ trợ soạn thảo và gửi email.
   Tham khảo thêm tại mục [Mailing](tutorial-mailing.md) để biết thêm thông tin..
