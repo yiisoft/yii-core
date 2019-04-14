@@ -106,7 +106,7 @@ return [
     ],
 
     'mutex' => [
-        '__class' => yii\mutex\FileMutex::class
+        '__class' => Yii\Mutex\FileMutex::class
     ],
 
 ];
