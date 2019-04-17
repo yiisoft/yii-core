@@ -329,9 +329,9 @@ abstract class ErrorHandler extends Component
     {
         if ($this->logger instanceof \Yii\Log\Logger) {
             $this->logger->flush(true);
+            // attempt to invoke logger destructor:
+            unset($this->logger);
         }
-        // attempt to invoke logger destructor:
-        unset($this->logger);
         // TODO how?
         // Yii::setLogger(null);
     }
