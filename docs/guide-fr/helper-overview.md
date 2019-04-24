@@ -21,7 +21,6 @@ Classes assistantes du noyau
 
 Les versions de Yii fournissent les classes assistantes du noyau suivantes :
 
-- [ArrayHelper](helper-array.md)
 - Console
 - FileHelper
 - FormatConverter

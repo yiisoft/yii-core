@@ -195,6 +195,5 @@ Alat Bantu
 ---------
 
 * [Tinjauan](helper-overview.md)
-* [ArrayHelper](helper-array.md)
 * [Html](helper-html.md)
 * [Url](helper-url.md)

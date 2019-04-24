@@ -25,7 +25,6 @@ Wbudowane klasy pomocnicze
 
 Poniższe wbudowane klasy pomocnicze dostępne są w każdym wydaniu Yii:
 
-- [ArrayHelper](helper-array.md)
 - Console
 - FileHelper
 - FormatConverter

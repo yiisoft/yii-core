@@ -184,7 +184,6 @@ All Rights Reserved.
 ------
 
 * [ヘルパの概要](helper-overview.md)
-* [配列ヘルパ](helper-array.md)
 * [Html ヘルパ](helper-html.md)
 * [Url ヘルパ](helper-url.md)
 

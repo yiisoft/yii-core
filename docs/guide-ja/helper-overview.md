@@ -25,7 +25,6 @@ echo Html::encode('Test > test');
 
 以下のコア・ヘルパ・クラスが Yii のリリースにおいて提供されています。
 
-- [配列ヘルパ](helper-array.md)
 - Console
 - FileHelper
 - FormatConverter

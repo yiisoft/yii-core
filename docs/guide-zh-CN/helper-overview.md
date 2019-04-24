@@ -25,7 +25,6 @@ echo Html::encode('Test > test');
 
 Yii 发布版中提供以下核心助手类：
 
-- [ArrayHelper](helper-array.md)
 - Console
 - FileHelper
 - [Html](helper-html.md)

@@ -183,6 +183,5 @@ All Rights Reserved.
 -------
 
 * [Обзор](helper-overview.md)
-* [ArrayHelper](helper-array.md)
 * [Html](helper-html.md)
 * [Url хелпер](helper-url.md)

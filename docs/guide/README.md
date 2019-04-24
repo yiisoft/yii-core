@@ -185,7 +185,6 @@ Helpers
 -------
 
 * [Helpers Overview](helper-overview.md)
-* [ArrayHelper](helper-array.md)
 * [Html](helper-html.md)
 * [Url](helper-url.md)
 

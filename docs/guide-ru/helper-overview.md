@@ -23,7 +23,6 @@ echo Html::encode('Test > test');
 
 В этой версии Yii предоставляются следующие основные helper-классы:
 
-- [ArrayHelper](helper-array.md)
 - Console
 - FileHelper
 - FormatConverter

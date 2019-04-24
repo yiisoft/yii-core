@@ -25,7 +25,6 @@ Clases Helper del núcleo
 
 Las siguientes clases helper del núcleo son proporcionadas en los releases de Yii:
 
-- [ArrayHelper](helper-array.md)
 - Console
 - FileHelper
 - [Html](helper-html.md)
