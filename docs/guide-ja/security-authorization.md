@@ -160,7 +160,7 @@ RBAC と他のもっと伝統的なアクセス制御スキーマとの比較に
 [Wiki 記事](http://ja.wikipedia.org/wiki/%E3%83%AD%E3%83%BC%E3%83%AB%E3%83%99%E3%83%BC%E3%82%B9%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E5%88%B6%E5%BE%A1) を参照してください。
 
 Yii は、[NIST RBAC モデル](http://csrc.nist.gov/rbac/sandhu-ferraiolo-kuhn-00.pdf) に従って、一般的階層型 RBAC を実装しています。
-RBAC の機能は、[[yii\rbac\ManagerInterface|authManager]] [アプリケーション・コンポーネント](structure-application-components.md) を通じて提供されます。
+RBAC の機能は、[[Yiisoft\Rbac\ManagerInterface|authManager]] [アプリケーション・コンポーネント](structure-application-components.md) を通じて提供されます。
 
 RBAC を使用することには、二つの作業が含まれます。
 最初の作業は、RBAC 権限付与データを作り上げることであり、第二の作業は、権限付与データを使って必要とされる場所でアクセス・チェックを実行することです。
@@ -188,21 +188,21 @@ RBAC を使用することには、二つの作業が含まれます。
 
 権限付与データを定義してアクセス・チェックを実行する前に、
 [[yii\base\Application::authManager|authManager]] アプリケーション・コンポーネントを構成する必要があります。
-Yii は二種類の権限付与マネージャを提供しています。すなわち、[[yii\rbac\PhpManager]] と [[yii\rbac\DbManager]] です。
+Yii は二種類の権限付与マネージャを提供しています。すなわち、[[Yiisoft\Rbac\PhpManager]] と [[Yiisoft\Rbac\DbManager]] です。
 前者は権限付与データを保存するのに PHP スクリプト・ファイルを使いますが、後者は権限付与データをデータベースに保存します。
 あなたのアプリケーションが非常に動的なロールと許可の管理を必要とするのでなければ、前者を使うことを考慮するのが良いでしょう。
 
 
 #### `PhpManager` を使用する <span id="using-php-manager"></span>
 
-次のコードは、アプリケーションの構成情報で [[yii\rbac\PhpManager]] クラスを使って `authManager` を構成する方法を示すものです。
+次のコードは、アプリケーションの構成情報で [[Yiisoft\Rbac\PhpManager]] クラスを使って `authManager` を構成する方法を示すものです。
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+            'class' => 'Yiisoft\Rbac\PhpManager',
         ],
         // ...
     ],
@@ -211,20 +211,20 @@ return [
 
 これで `authManager` は `\Yii::$app->authManager` によってアクセスすることが出来るようになります。
 
-デフォルトでは、[[yii\rbac\PhpManager]] は RBAC データを `@app/rbac/` ディレクトリの下のファイルに保存します。
+デフォルトでは、[[Yiisoft\Rbac\PhpManager]] は RBAC データを `@app/rbac/` ディレクトリの下のファイルに保存します。
 権限の階層をオンラインで変更する必要がある場合は、必ず、ウェブ・サーバのプロセスがこのディレクトリとその中の全てのファイルに対する書き込み権限を有するようにしてください。
 
 
 #### `DbManager` を使用する <span id="using-db-manager"></span>
 
-次のコードは、アプリケーションの構成情報で [[yii\rbac\DbManager]] クラスを使って `authManager` を構成する方法を示すものです。
+次のコードは、アプリケーションの構成情報で [[Yiisoft\Rbac\DbManager]] クラスを使って `authManager` を構成する方法を示すものです。
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\DbManager',
+            'class' => 'Yiisoft\Rbac\DbManager',
             // RBAC アイテムの階層をキャッシュしたい場合はコメントを外す
             // 'cache' => 'cache',
         ],
@@ -238,10 +238,10 @@ return [
 
 `DbManager` は四つのデータベース・テーブルを使ってデータを保存します。
 
-- [[yii\rbac\DbManager::$itemTable|itemTable]]: 権限アイテムを保存するためのテーブル。デフォルトは "auth_item"。
-- [[yii\rbac\DbManager::$itemChildTable|itemChildTable]]: 権限アイテムの階層を保存するためのテーブル。デフォルトは "auth_item_child"。
-- [[yii\rbac\DbManager::$assignmentTable|assignmentTable]]: 権限アイテムの割り当てを保存するためのテーブル。デフォルトは "auth_assignment"。
-- [[yii\rbac\DbManager::$ruleTable|ruleTable]]: 規則を保存するためのテーブル。デフォルトは "auth_rule"。
+- [[Yiisoft\Rbac\DbManager::$itemTable|itemTable]]: 権限アイテムを保存するためのテーブル。デフォルトは "auth_item"。
+- [[Yiisoft\Rbac\DbManager::$itemChildTable|itemChildTable]]: 権限アイテムの階層を保存するためのテーブル。デフォルトは "auth_item_child"。
+- [[Yiisoft\Rbac\DbManager::$assignmentTable|assignmentTable]]: 権限アイテムの割り当てを保存するためのテーブル。デフォルトは "auth_assignment"。
+- [[Yiisoft\Rbac\DbManager::$ruleTable|ruleTable]]: 規則を保存するためのテーブル。デフォルトは "auth_rule"。
 
 先に進む前にこれらのテーブルをデータベースに作成する必要があります。そのためには、`@yii/rbac/migrations` に保存されているマイグレーションを使うことが出来ます。
 
@@ -434,14 +434,14 @@ public function signup()
 
 ### 規則を使う <span id="using-rules"></span>
 
-既に述べたように、規則がロールと許可に制約を追加します。規則は [[yii\rbac\Rule]] を拡張したクラスであり、
-[[yii\rbac\Rule::execute()|execute()]] メソッドを実装しなければなりません。前に作った権限階層においては、投稿者は自分自身の記事を編集することが出来ませんでした。
+既に述べたように、規則がロールと許可に制約を追加します。規則は [[Yiisoft\Rbac\Rule]] を拡張したクラスであり、
+[[Yiisoft\Rbac\Rule::execute()|execute()]] メソッドを実装しなければなりません。前に作った権限階層においては、投稿者は自分自身の記事を編集することが出来ませんでした。
 これを修正しましょう。最初に、ユーザが記事の投稿者であることを確認する規則が必要です。
 
 ```php
 namespace app\rbac;
 
-use yii\rbac\Rule;
+use Yiisoft\Rbac\Rule;
 use app\models\Post;
 
 /**
@@ -494,7 +494,7 @@ $auth->addChild($author, $updateOwnPost);
 
 ### アクセス・チェック <span id="access-check"></span>
 
-権限付与データが準備できてしまえば、アクセス・チェックは [[yii\rbac\ManagerInterface::checkAccess()]] メソッドを呼ぶだけの簡単な仕事です。
+権限付与データが準備できてしまえば、アクセス・チェックは [[Yiisoft\Rbac\ManagerInterface::checkAccess()]] メソッドを呼ぶだけの簡単な仕事です。
 たいていのアクセス・チェックは現在のユーザに関するものですから、Yii は、便利なように、[[yii\web\User::can()]] というショートカット・メソッドを提供しています。
 これは、次のようにして使うことが出来ます。
 
@@ -606,7 +606,7 @@ public function behaviors()
 ### デフォルト・ロールを使う <span id="using-default-roles"></span>
 
 デフォルト・ロールというのは、*全て* のユーザに *黙示的* に割り当てられるロールです。
-[[yii\rbac\ManagerInterface::assign()]] を呼び出す必要はなく、権限付与データはその割り当て情報を含みません。
+[[Yiisoft\Rbac\ManagerInterface::assign()]] を呼び出す必要はなく、権限付与データはその割り当て情報を含みません。
 
 デフォルト・ロールは、通常、そのロールが当該ユーザに適用されるかどうかを決定する規則と関連付けられます。
 
@@ -624,7 +624,7 @@ public function behaviors()
 namespace app\rbac;
 
 use yii\helpers\Yii;
-use yii\rbac\Rule;
+use Yiisoft\Rbac\Rule;
 
 /**
  * ユーザのグループが合致するかどうかをチェックする
@@ -673,14 +673,14 @@ $auth->addChild($admin, $author);
 このために、ロール名が "author" である場合には、`execute()` メソッドは、ユーザのグループが 1 または 2 である
 (ユーザが "admin" グループまたは "author" グループに属している) ときに true を返しています。
 
-次に、`authManager` の構成情報で、この二つのロールを [[yii\rbac\BaseManager::$defaultRoles]] としてリストします。
+次に、`authManager` の構成情報で、この二つのロールを [[Yiisoft\Rbac\BaseManager::$defaultRoles]] としてリストします。
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+            'class' => 'Yiisoft\Rbac\PhpManager',
             'defaultRoles' => ['admin', 'author'],
         ],
         // ...

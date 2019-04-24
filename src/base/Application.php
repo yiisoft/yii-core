@@ -28,7 +28,7 @@ use yii\profile\ProfilerInterface;
  *
  * @property \yii\web\AssetManager $assetManager The asset manager application component. This property is
  * read-only.
- * @property \yii\rbac\ManagerInterface $authManager The auth manager application component. Null is returned
+ * @property \Yiisoft\Rbac\ManagerInterface $authManager The auth manager application component. Null is returned
  * if auth manager is not configured. This property is read-only.
  * @property string $basePath The root directory of the application.
  * @property \yii\cache\CacheInterface $cache The cache application component. Null if the component is not

@@ -568,7 +568,7 @@ Upgrade from Yii 2.0.10
 Upgrade from Yii 2.0.9
 ----------------------
 
-* RBAC: `getChildRoles()` method was added to `\yii\rbac\ManagerInterface`. If you've implemented your own RBAC manager
+* RBAC: `getChildRoles()` method was added to `\Yiisoft\Rbac\ManagerInterface`. If you've implemented your own RBAC manager
   you need to implement new method.
 
 * Microsoft SQL `NTEXT` data type [was marked as deprecated](https://msdn.microsoft.com/en-us/library/ms187993.aspx) in MSSQL so
@@ -602,7 +602,7 @@ Upgrade from Yii 2.0.7
   instead of `\InvalidArgumentException`. If you wrap calls of these methods in try/catch block, change expected
   exception class.
 
-* `yii\rbac\ManagerInterface::canAddChild()` method was added. If you have custom backend for RBAC you need to implement
+* `Yiisoft\Rbac\ManagerInterface::canAddChild()` method was added. If you have custom backend for RBAC you need to implement
   it.
 
 * The signature of `yii\web\User::loginRequired()` was changed. The method has got an extra optional parameter
@@ -648,7 +648,7 @@ Upgrade from Yii 2.0.6
 * Traversable objects are now formatted as arrays in XML response to support SPL objects and Generators. Previous
   behavior could be turned on by setting `XmlResponseFormatter::$useTraversableAsArray` to `false`.
 
-* If you've implemented `yii\rbac\ManagerInterface` you need to implement additional method `getUserIdsByRole($roleName)`.
+* If you've implemented `Yiisoft\Rbac\ManagerInterface` you need to implement additional method `getUserIdsByRole($roleName)`.
 
 * If you're using ApcCache with APCu, set `useApcu` to `true` in the component config.
 
@@ -722,7 +722,7 @@ Upgrade from Yii 2.0.0
 Upgrade from Yii 2.0 RC
 -----------------------
 
-* If you've implemented `yii\rbac\ManagerInterface` you need to add implementation for new method `removeChildren()`.
+* If you've implemented `Yiisoft\Rbac\ManagerInterface` you need to add implementation for new method `removeChildren()`.
 
 * The input dates for datetime formatting are now assumed to be in UTC unless a timezone is explicitly given.
   Before, the timezone assumed for input dates was the default timezone set by PHP which is the same as `Yii::$app->timeZone`.
@@ -774,7 +774,7 @@ Upgrade from Yii 2.0 Beta
   composer self-update
   ```
 
-* If you used `clearAll()` or `clearAllAssignments()` of `yii\rbac\DbManager`, you should replace
+* If you used `clearAll()` or `clearAllAssignments()` of `Yiisoft\Rbac\DbManager`, you should replace
   them with `removeAll()` and `removeAllAssignments()` respectively.
 
 * If you created RBAC rule classes, you should modify their `execute()` method by adding `$user`
@@ -860,7 +860,7 @@ Upgrade from Yii 2.0 Beta
   or `console/config` because the console application doesn't have to deal with CSRF and uses its own request that
   doesn't have `cookieValidationKey` property.
 
-* `yii\rbac\PhpManager` now stores data in three separate files instead of one. In order to convert old file to
+* `Yiisoft\Rbac\PhpManager` now stores data in three separate files instead of one. In order to convert old file to
 new ones save the following code as `convert.php` that should be placed in the same directory your `rbac.php` is in:
 
   ```php

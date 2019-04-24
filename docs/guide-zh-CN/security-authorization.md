@@ -160,7 +160,7 @@ class SiteController extends Controller
 [Wikipedia](http://en.wikipedia.org/wiki/Role-based_access_control)。
 
 Yii 实现了通用的分层的 RBAC，遵循的模型是 [NIST RBAC model](http://csrc.nist.gov/rbac/sandhu-ferraiolo-kuhn-00.pdf).
-它通过 [[yii\rbac\ManagerInterface|authManager]] [application component](structure-application-components.md) 提供 RBAC 功能。
+它通过 [[Yiisoft\Rbac\ManagerInterface|authManager]] [application component](structure-application-components.md) 提供 RBAC 功能。
 
 使用 RBAC 涉及到两部分工作。第一部分是建立授权数据，
 而第二部分是使用这些授权数据在需要的地方执行检查。
@@ -187,22 +187,22 @@ Yii 实现了通用的分层的 RBAC，遵循的模型是 [NIST RBAC model](http
 ### 配置 RBAC <span id="configuring-rbac"></span>
 
 在开始定义授权数据和执行存取检查之前，需要先配置应用组件 [[yii\base\Application::authManager|authManager]] 。 
-Yii 提供了两套授权管理器： [[yii\rbac\PhpManager]] 
-和 [[yii\rbac\DbManager]]。前者使用 PHP 脚本存放授权数据，
+Yii 提供了两套授权管理器： [[Yiisoft\Rbac\PhpManager]] 
+和 [[Yiisoft\Rbac\DbManager]]。前者使用 PHP 脚本存放授权数据，
 而后者使用数据库存放授权数据。 如果你的应用不要求大量的动态角色和权限管理，
 你可以考虑使用前者。
 
 
 #### 使用 `PhpManager` <span id="using-php-manager"></span>
 
-以下代码展示使用 [[yii\rbac\PhpManager]] 时如何在应用配置文件中配置 `authManager`：
+以下代码展示使用 [[Yiisoft\Rbac\PhpManager]] 时如何在应用配置文件中配置 `authManager`：
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+            'class' => 'Yiisoft\Rbac\PhpManager',
         ],
         // ...
     ],
@@ -211,20 +211,20 @@ return [
 
 现在可以通过 `\Yii::$app->authManager` 访问 `authManager` 。
 
-[[yii\rbac\PhpManager]] 默认将 RBAC 数据保存在 `@app/rbac` 目录下的文件中。
+[[Yiisoft\Rbac\PhpManager]] 默认将 RBAC 数据保存在 `@app/rbac` 目录下的文件中。
 如果权限层次数据在运行时会被修改，需确保WEB服务器进程对该目录和其中的文件有写权限。
 
 
 #### 使用 `DbManager` <span id="using-db-manager"></span>
 
-以下代码展示使用 [[yii\rbac\DbManager]] 时如何在应用配置文件中配置 `authManager`：
+以下代码展示使用 [[Yiisoft\Rbac\DbManager]] 时如何在应用配置文件中配置 `authManager`：
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\DbManager',
+            'class' => 'Yiisoft\Rbac\DbManager',
             // uncomment if you want to cache RBAC items hierarchy
             // 'cache' => 'cache',
         ],
@@ -238,10 +238,10 @@ return [
 
 `DbManager` 使用4个数据库表存放它的数据：
 
-- [[yii\rbac\DbManager::$itemTable|itemTable]]： 该表存放授权条目（译者注：即角色和权限）。默认表名为 "auth_item" 。
-- [[yii\rbac\DbManager::$itemChildTable|itemChildTable]]： 该表存放授权条目的层次关系。默认表名为 "auth_item_child"。
-- [[yii\rbac\DbManager::$assignmentTable|assignmentTable]]： 该表存放授权条目对用户的指派情况。默认表名为 "auth_assignment"。
-- [[yii\rbac\DbManager::$ruleTable|ruleTable]]： 该表存放规则。默认表名为 "auth_rule"。
+- [[Yiisoft\Rbac\DbManager::$itemTable|itemTable]]： 该表存放授权条目（译者注：即角色和权限）。默认表名为 "auth_item" 。
+- [[Yiisoft\Rbac\DbManager::$itemChildTable|itemChildTable]]： 该表存放授权条目的层次关系。默认表名为 "auth_item_child"。
+- [[Yiisoft\Rbac\DbManager::$assignmentTable|assignmentTable]]： 该表存放授权条目对用户的指派情况。默认表名为 "auth_assignment"。
+- [[Yiisoft\Rbac\DbManager::$ruleTable|ruleTable]]： 该表存放规则。默认表名为 "auth_rule"。
 
 继续之前，你需要在数据库中创建这些表。你可以使用存放在 `@yii/rbac/migrations` 目录中的数据库迁移文件来做这件事（译者注：根据本人经验，最好是将授权数据初始化命令也写到这个 RBAC 数据库迁移文件中）：
 
@@ -434,14 +434,14 @@ public function signup()
 
 ### 使用规则 (Rules) <span id="using-rules"></span>
 
-如前所述，规则给角色和权限增加额外的约束条件。规则是 [[yii\rbac\Rule]] 的派生类。
-它需要实现 [[yii\rbac\Rule::execute()|execute()]] 方法。在之前我们创建的层次结构中，作者不能编辑自己的帖子，我们来修正这个问题。
+如前所述，规则给角色和权限增加额外的约束条件。规则是 [[Yiisoft\Rbac\Rule]] 的派生类。
+它需要实现 [[Yiisoft\Rbac\Rule::execute()|execute()]] 方法。在之前我们创建的层次结构中，作者不能编辑自己的帖子，我们来修正这个问题。
 首先我们需要一个规则来认证当前用户是帖子的作者：
 
 ```php
 namespace app\rbac;
 
-use yii\rbac\Rule;
+use Yiisoft\Rbac\Rule;
 use app\models\Post;
 
 /**
@@ -494,7 +494,7 @@ $auth->addChild($author, $updateOwnPost);
 
 ### 存取检查 <span id="access-check"></span>
 
-授权数据准备好后，存取检查简单到只需要一个方法调用 [[yii\rbac\ManagerInterface::checkAccess()]]。
+授权数据准备好后，存取检查简单到只需要一个方法调用 [[Yiisoft\Rbac\ManagerInterface::checkAccess()]]。
 因为大多数存取检查都是针对当前用户而言，为方便起见， Yii 提供了一个快捷方法
 [[yii\web\User::can()]]，可以如下例所示来使用：
 
@@ -606,7 +606,7 @@ public function behaviors()
 ### 使用默认角色 <span id="using-default-roles"></span>
 
 所谓默认角色就是 *隐式* 地指派给 *所有* 用户的角色。不需要调用 
-[[yii\rbac\ManagerInterface::assign()]] 方法做显示指派，并且授权数据中不包含指派信息。
+[[Yiisoft\Rbac\ManagerInterface::assign()]] 方法做显示指派，并且授权数据中不包含指派信息。
 
 默认角色通常与一个规则关联，用以检查该角色是否符合被检查的用户。
 
@@ -624,7 +624,7 @@ public function behaviors()
 namespace app\rbac;
 
 use yii\helpers\Yii;
-use yii\rbac\Rule;
+use Yiisoft\Rbac\Rule;
 
 /**
  * 检查是否匹配用户的组
@@ -669,14 +669,14 @@ $auth->addChild($admin, $author);
 `execute()` 方法在组为 1 或者 2 时均要返回 true 
 （意思是用户属于 "admin" 或者 "author" 组 ）。
 
-接下来，在配置 `authManager` 时指定 [[yii\rbac\BaseManager::$defaultRoles]] 选项（译者注：在应用配置文件中的组件部分配置）：
+接下来，在配置 `authManager` 时指定 [[Yiisoft\Rbac\BaseManager::$defaultRoles]] 选项（译者注：在应用配置文件中的组件部分配置）：
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+            'class' => 'Yiisoft\Rbac\PhpManager',
             'defaultRoles' => ['admin', 'author'],
         ],
         // ...

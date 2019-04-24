@@ -160,7 +160,7 @@ the [Wikipedia](http://en.wikipedia.org/wiki/Role-based_access_control) for deta
 with other more traditional access control schemes.
 
 Yii implements a General Hierarchical RBAC, following the [NIST RBAC model](http://csrc.nist.gov/rbac/sandhu-ferraiolo-kuhn-00.pdf).
-It provides the RBAC functionality through the [[yii\rbac\ManagerInterface|authManager]] [application component](structure-application-components.md).
+It provides the RBAC functionality through the [[Yiisoft\Rbac\ManagerInterface|authManager]] [application component](structure-application-components.md).
 
 Using RBAC involves two parts of work. The first part is to build up the RBAC authorization data, and the second
 part is to use the authorization data to perform access check in places where it is needed.
@@ -188,21 +188,21 @@ more special *tree* hierarchy. While a role can contain a permission, it is not 
 
 Before we set off to define authorization data and perform access checking, we need to configure the
 [[yii\base\Application::authManager|authManager]] application component. Yii provides two types of authorization managers:
-[[yii\rbac\PhpManager]] and [[yii\rbac\DbManager]]. The former uses a PHP script file to store authorization
+[[Yiisoft\Rbac\PhpManager]] and [[Yiisoft\Rbac\DbManager]]. The former uses a PHP script file to store authorization
 data, while the latter stores authorization data in a database. You may consider using the former if your application
 does not require very dynamic role and permission management.
 
 
 #### Using `PhpManager` <span id="using-php-manager"></span>
 
-The following code shows how to configure the `authManager` in the application configuration using the [[yii\rbac\PhpManager]] class:
+The following code shows how to configure the `authManager` in the application configuration using the [[Yiisoft\Rbac\PhpManager]] class:
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            '__class' => yii\rbac\PhpManager::class,
+            '__class' => Yiisoft\Rbac\PhpManager::class,
         ],
         // ...
     ],
@@ -211,20 +211,20 @@ return [
 
 The `authManager` can now be accessed via `\Yii::$app->authManager`.
 
-By default, [[yii\rbac\PhpManager]] stores RBAC data in files under `@app/rbac` directory. Make sure the directory
+By default, [[Yiisoft\Rbac\PhpManager]] stores RBAC data in files under `@app/rbac` directory. Make sure the directory
 and all the files in it are writable by the Web server process if permissions hierarchy needs to be changed online.
 
 
 #### Using `DbManager` <span id="using-db-manager"></span>
 
-The following code shows how to configure the `authManager` in the application configuration using the [[yii\rbac\DbManager]] class:
+The following code shows how to configure the `authManager` in the application configuration using the [[Yiisoft\Rbac\DbManager]] class:
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            '__class' => yii\rbac\DbManager::class,
+            '__class' => Yiisoft\Rbac\DbManager::class,
             // uncomment if you want to cache RBAC items hierarchy
             // 'cache' => 'cache',
         ],
@@ -238,10 +238,10 @@ return [
 
 `DbManager` uses four database tables to store its data:
 
-- [[yii\rbac\DbManager::$itemTable|itemTable]]: the table for storing authorization items. Defaults to "auth_item".
-- [[yii\rbac\DbManager::$itemChildTable|itemChildTable]]: the table for storing authorization item hierarchy. Defaults to "auth_item_child".
-- [[yii\rbac\DbManager::$assignmentTable|assignmentTable]]: the table for storing authorization item assignments. Defaults to "auth_assignment".
-- [[yii\rbac\DbManager::$ruleTable|ruleTable]]: the table for storing rules. Defaults to "auth_rule".
+- [[Yiisoft\Rbac\DbManager::$itemTable|itemTable]]: the table for storing authorization items. Defaults to "auth_item".
+- [[Yiisoft\Rbac\DbManager::$itemChildTable|itemChildTable]]: the table for storing authorization item hierarchy. Defaults to "auth_item_child".
+- [[Yiisoft\Rbac\DbManager::$assignmentTable|assignmentTable]]: the table for storing authorization item assignments. Defaults to "auth_assignment".
+- [[Yiisoft\Rbac\DbManager::$ruleTable|ruleTable]]: the table for storing rules. Defaults to "auth_rule".
 
 Before you can go on you need to create those tables in the database. To do this, you can use the migration stored in `@yii/rbac/migrations`:
 
@@ -435,13 +435,13 @@ For applications that require complex access control with dynamically updated au
 ### Using Rules <span id="using-rules"></span>
 
 As aforementioned, rules add additional constraint to roles and permissions. A rule is a class extending
-from [[yii\rbac\Rule]]. It must implement the [[yii\rbac\Rule::execute()|execute()]] method. In the hierarchy we've
+from [[Yiisoft\Rbac\Rule]]. It must implement the [[Yiisoft\Rbac\Rule::execute()|execute()]] method. In the hierarchy we've
 created previously author cannot edit his own post. Let's fix it. First we need a rule to verify that the user is the post author:
 
 ```php
 namespace app\rbac;
 
-use yii\rbac\Rule;
+use Yiisoft\Rbac\Rule;
 use app\models\Post;
 
 /**
@@ -494,7 +494,7 @@ Now we have got the following hierarchy:
 
 ### Access Check <span id="access-check"></span>
 
-With the authorization data ready, access check is as simple as a call to the [[yii\rbac\ManagerInterface::checkAccess()]]
+With the authorization data ready, access check is as simple as a call to the [[Yiisoft\Rbac\ManagerInterface::checkAccess()]]
 method. Because most access check is about the current user, for convenience Yii provides a shortcut method
 [[yii\web\User::can()]], which can be used like the following:
 
@@ -605,7 +605,7 @@ If the creation of role parameters is a simple operation, you may just specify a
 
 ### Using Default Roles <span id="using-default-roles"></span>
 
-A default role is a role that is *implicitly* assigned to *all* users. The call to [[yii\rbac\ManagerInterface::assign()]]
+A default role is a role that is *implicitly* assigned to *all* users. The call to [[Yiisoft\Rbac\ManagerInterface::assign()]]
 is not needed, and the authorization data does not contain its assignment information.
 
 A default role is usually associated with a rule which determines if the role applies to the user being checked.
@@ -624,7 +624,7 @@ You can set up the RBAC data as follows, first create a class:
 namespace app\rbac;
 
 use yii\helpers\Yii;
-use yii\rbac\Rule;
+use Yiisoft\Rbac\Rule;
 
 /**
  * Checks if user group matches
@@ -673,14 +673,14 @@ of the rule class, you need to respect this hierarchy as well. That is why when 
 the `execute()` method will return `true` if the user group is either 1 or 2 (meaning the user is in either "admin"
 group or "author" group).
 
-Next, configure `authManager` by listing the two roles in [[yii\rbac\BaseManager::$defaultRoles]]:
+Next, configure `authManager` by listing the two roles in [[Yiisoft\Rbac\BaseManager::$defaultRoles]]:
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            '__class' => yii\rbac\PhpManager::class,
+            '__class' => Yiisoft\Rbac\PhpManager::class,
             'defaultRoles' => ['admin', 'author'],
         ],
         // ...

@@ -154,7 +154,7 @@ class SiteController extends Controller
 для получения информации о сравнении RBAC с другими, более традиционными, системами контроля доступа.
 
 Yii реализует общую иерархическую RBAC, следуя [NIST RBAC model](http://csrc.nist.gov/rbac/sandhu-ferraiolo-kuhn-00.pdf).
-Обеспечивается функциональность RBAC через [компонент приложения](structure-application-components.md) [[yii\rbac\ManagerInterface|authManager]].
+Обеспечивается функциональность RBAC через [компонент приложения](structure-application-components.md) [[Yiisoft\Rbac\ManagerInterface|authManager]].
 
 Использование RBAC состоит из двух частей. Первая часть — это создание RBAC данных авторизации, и вторая часть — это
 использование данных авторизации для проверки доступа в том месте, где это нужно.
@@ -183,20 +183,20 @@ Yii реализует общую иерархическую RBAC, следуя 
 
 Перед определением авторизационных данных и проверкой прав доступа, мы должны настроить компонент приложения
 [[yii\base\Application::authManager|authManager]]. Yii предоставляет два типа менеджеров авторизации:
-[[yii\rbac\PhpManager]] и [[yii\rbac\DbManager]]. Первый использует файл с PHP скриптом для хранения данных авторизации,
+[[Yiisoft\Rbac\PhpManager]] и [[Yiisoft\Rbac\DbManager]]. Первый использует файл с PHP скриптом для хранения данных авторизации,
 второй сохраняет данные в базе данных. Вы можете использовать первый, если ваше приложение не требует слишком динамичного
 управления ролями и разрешениями.
 
 #### Настройка authManager с помощью `PhpManager`
 
-Следующий код показывает как настроить в конфигурации приложения `authManager` с использованием класса [[yii\rbac\PhpManager]]:
+Следующий код показывает как настроить в конфигурации приложения `authManager` с использованием класса [[Yiisoft\Rbac\PhpManager]]:
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+            'class' => 'Yiisoft\Rbac\PhpManager',
         ],
         // ...
     ],
@@ -205,19 +205,19 @@ return [
 
 Теперь `authManager` может быть доступен через `\Yii::$app->authManager`.
 
-> Замечание: По умолчанию, [[yii\rbac\PhpManager]] сохраняет данные RBAC в файлах в директории `@app/rbac/`. Убедитесь
+> Замечание: По умолчанию, [[Yiisoft\Rbac\PhpManager]] сохраняет данные RBAC в файлах в директории `@app/rbac/`. Убедитесь
   что данная директория и файлы в них доступны для записи Web серверу, если иерархия разрешений должна меняться онлайн.
 
 #### Настройка authManager с помощью `DbManager`
 
-Следующий код показывает как настроить в конфигурации приложения `authManager` с использованием класса [[yii\rbac\DbManager]]:
+Следующий код показывает как настроить в конфигурации приложения `authManager` с использованием класса [[Yiisoft\Rbac\DbManager]]:
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\DbManager',
+            'class' => 'Yiisoft\Rbac\DbManager',
         ],
         // ...
     ],
@@ -226,10 +226,10 @@ return [
 
 `DbManager` использует четыре таблицы для хранения данных:
 
-- [[yii\rbac\DbManager::$itemTable|itemTable]]: таблица для хранения авторизационных элементов. По умолчанию "auth_item".
-- [[yii\rbac\DbManager::$itemChildTable|itemChildTable]]: таблица для хранения иерархии элементов. По умолчанию "auth_item_child".
-- [[yii\rbac\DbManager::$assignmentTable|assignmentTable]]: таблица для хранения назначений элементов авторизации. По умолчанию "auth_assignment".
-- [[yii\rbac\DbManager::$ruleTable|ruleTable]]: таблица для хранения правил. По умолчанию "auth_rule".
+- [[Yiisoft\Rbac\DbManager::$itemTable|itemTable]]: таблица для хранения авторизационных элементов. По умолчанию "auth_item".
+- [[Yiisoft\Rbac\DbManager::$itemChildTable|itemChildTable]]: таблица для хранения иерархии элементов. По умолчанию "auth_item_child".
+- [[Yiisoft\Rbac\DbManager::$assignmentTable|assignmentTable]]: таблица для хранения назначений элементов авторизации. По умолчанию "auth_assignment".
+- [[Yiisoft\Rbac\DbManager::$ruleTable|ruleTable]]: таблица для хранения правил. По умолчанию "auth_rule".
 
 Прежде чем вы начнёте использовать этот менеджер, вам нужно создать таблицы в базе данных. Чтобы сделать это,
 вы можете использовать миграцию хранящуюся в файле `@yii/rbac/migrations`:
@@ -341,14 +341,14 @@ public function signup()
 ### Использование правил
 
 Как упомянуто выше, правила добавляют дополнительные ограничения на роли и разрешения. Правила — это классы, расширяющие
-[[yii\rbac\Rule]]. Они должны реализовывать метод [[yii\rbac\Rule::execute()|execute()]]. В иерархии, созданной нами ранее,
+[[Yiisoft\Rbac\Rule]]. Они должны реализовывать метод [[Yiisoft\Rbac\Rule::execute()|execute()]]. В иерархии, созданной нами ранее,
 автор не может редактировать свой пост. Давайте исправим это. Сначала мы должны создать правило, проверяющее
 что пользователь является автором поста:
 
 ```php
 namespace app\rbac;
 
-use yii\rbac\Rule;
+use Yiisoft\Rbac\Rule;
 
 /**
  * Проверяем authorID на соответствие с пользователем, переданным через параметры
@@ -399,7 +399,7 @@ $auth->addChild($author, $updateOwnPost);
 
 ### Проверка доступа
 
-С готовыми авторизационными данными проверка доступа — это просто вызов метода [[yii\rbac\ManagerInterface::checkAccess()]].
+С готовыми авторизационными данными проверка доступа — это просто вызов метода [[Yiisoft\Rbac\ManagerInterface::checkAccess()]].
 Так как большинство проверок доступа относятся к текущему пользователю, для удобства Yii предоставляет сокращённый метод
 [[yii\web\User::can()]], который можно использовать как показано ниже:
 
@@ -482,7 +482,7 @@ public function behaviors()
 ### Использование роли по умолчанию
 
 Роль по умолчанию — это роль, которая *неявно* присваивается *всем* пользователям. Вызов метода
-[[yii\rbac\ManagerInterface::assign()]] не требуется, и авторизационные данные не содержат информации о назначении.
+[[Yiisoft\Rbac\ManagerInterface::assign()]] не требуется, и авторизационные данные не содержат информации о назначении.
 
 Роль по умолчанию обычно связывают с правилом, определяющим к какой роли принадлежит каждый пользователь.
 
@@ -499,7 +499,7 @@ public function behaviors()
 namespace app\rbac;
 
 use yii\helpers\Yii;
-use yii\rbac\Rule;
+use Yiisoft\Rbac\Rule;
 
 /**
  * Checks if user group matches
@@ -544,14 +544,14 @@ $auth->addChild($admin, $author);
 если пользователь принадлежит к группам 1 или 2 (это означает, что пользователь находится в группе
 администраторов или авторов)
 
-Далее настроим `authManager` с помощью перечисления ролей в свойстве [[yii\rbac\BaseManager::$defaultRoles]]:
+Далее настроим `authManager` с помощью перечисления ролей в свойстве [[Yiisoft\Rbac\BaseManager::$defaultRoles]]:
 
 ```php
 return [
     // ...
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+            'class' => 'Yiisoft\Rbac\PhpManager',
             'defaultRoles' => ['admin', 'author'],
         ],
         // ...
