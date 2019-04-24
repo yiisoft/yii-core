@@ -1,5 +1,10 @@
 <?php
 
+/** @var string $title */
+/** @var string $sourcePath */
+/** @var string $translationPath */
+/** @var array $results */
+
 use yii\helpers\Html;
 
 ?><!doctype html>
@@ -42,7 +47,7 @@ use yii\helpers\Html;
                 <p><?= Html::encode($error) ?></p>
             <?php endforeach ?>
             <?php if (!empty($result['diff'])): ?>
-                <code class="diff"><pre><?= $this->context->highlightDiff($result['diff']) ?></pre></code>
+                <pre><code class="diff"><?= $this->context->highlightDiff($result['diff']) ?></code></pre>
             <?php endif ?>
         <?php endforeach ?>
     </body>

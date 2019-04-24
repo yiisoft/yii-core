@@ -7,6 +7,7 @@
 
 namespace yii\build\controllers;
 
+use yii\base\Action;
 use yii\helpers\Yii;
 use yii\exceptions\Exception;
 use yii\console\Controller;
@@ -78,13 +79,13 @@ class ReleaseController extends Controller
     }
 
 
-    public function beforeAction($action)
+    public function beforeAction(Action $action): bool
     {
         if (!$this->interactive) {
             throw new Exception('Sorry, but releases should be run interactively to ensure you actually verify what you are doing ;)');
         }
         if ($this->basePath === null) {
-            $this->basePath = \dirname(\dirname(__DIR__));
+            $this->basePath = \dirname(__DIR__, 2);
         }
         $this->basePath = rtrim($this->basePath, '\\/');
         return parent::beforeAction($action);

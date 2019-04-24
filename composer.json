@@ -110,6 +110,11 @@
             "yii\\tests\\": "tests"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "yii\\build\\": "build"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "3.0.x-dev"
@@ -120,6 +125,7 @@
             "common": "config/common.php",
             "console": "$common",
             "web": "$common",
+            "build": ["$console", "config/build.php"],
             "tests": ["$console", "config/tests.php"]
         }
     }
