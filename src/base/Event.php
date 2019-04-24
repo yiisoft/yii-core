@@ -8,7 +8,7 @@
 namespace yii\base;
 
 use yii\base\BaseObject;
-use yii\helpers\StringHelper;
+use Yiisoft\Strings\StringHelper;
 
 /**
  * Event is the base class for all event classes.

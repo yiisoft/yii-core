@@ -43,13 +43,13 @@ The following core helper classes are provided in the Yii releases:
 Customizing Helper Classes <span id="customizing-helper-classes"></span>
 --------------------------
 
-To customize a core helper class (e.g. [[yii\helpers\ArrayHelper]]), you should create a new class extending
+To customize a core helper class (e.g. [[Yiisoft\Arrays\ArrayHelper]]), you should create a new class extending
 from the helpers corresponding base class (e.g. [[yii\helpers\BaseArrayHelper]]) and name your class the same
-as the corresponding concrete class (e.g. [[yii\helpers\ArrayHelper]]), including its namespace. This class
+as the corresponding concrete class (e.g. [[Yiisoft\Arrays\ArrayHelper]]), including its namespace. This class
 will then be set up to replace the original implementation of the framework.
 
-The following example shows how to customize the [[yii\helpers\ArrayHelper::merge()|merge()]] method of the
-[[yii\helpers\ArrayHelper]] class:
+The following example shows how to customize the [[Yiisoft\Arrays\ArrayHelper::merge()|merge()]] method of the
+[[Yiisoft\Arrays\ArrayHelper]] class:
 
 ```php
 <?php

@@ -9,7 +9,7 @@ namespace yii\base;
 
 use yii\exceptions\InvalidArgumentException;
 use yii\exceptions\InvalidConfigException;
-use yii\helpers\StringHelper;
+use Yiisoft\Strings\StringHelper;
 
 /**
  * Security provides a set of methods to handle common security-related tasks.

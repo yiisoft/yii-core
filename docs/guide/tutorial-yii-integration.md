@@ -76,7 +76,7 @@ Using Yii in Third-Party Systems <span id="using-yii-in-others"></span>
 
 Because Yii provides many excellent features, sometimes you may want to use some of its features to support
 developing or enhancing 3rd-party systems, such as WordPress, Joomla, or applications developed using other PHP
-frameworks. For example, you may want to use the [[yii\helpers\ArrayHelper]] class or use the
+frameworks. For example, you may want to use the [[Yiisoft\Arrays\ArrayHelper]] class or use the
 [Active Record](db-active-record.md) feature in a third-party system. To achieve this goal, you mainly need to
 take two steps: install Yii, and bootstrap Yii.
 

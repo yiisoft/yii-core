@@ -345,8 +345,8 @@ Helpers
 Yii 2.0 introduces many commonly used static helper classes, including.
 
 * [[yii\helpers\Html]]
-* [[yii\helpers\ArrayHelper]]
-* [[yii\helpers\StringHelper]]
+* [[Yiisoft\Arrays\ArrayHelper]]
+* [[Yiisoft\Strings\StringHelper]]
 * [[yii\helpers\FileHelper]]
 * [[yii\helpers\Json]]
 

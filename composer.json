@@ -68,9 +68,13 @@
         "ext-mbstring": "*",
         "ext-ctype": "*",
         "lib-pcre": "*",
+        "yiisoft/arrays": "^3.0@dev",
+        "yiisoft/inflector": "^3.0@dev",
+        "yiisoft/strings": "^3.0@dev",
         "psr/log-implementation": "^1.0",
         "psr/container-implementation": "^1.0",
-        "psr/simple-cache-implementation": "^1.0"
+        "psr/simple-cache-implementation": "^1.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "yiisoft/di": "^3.0@dev",

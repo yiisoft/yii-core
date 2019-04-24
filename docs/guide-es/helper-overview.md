@@ -43,12 +43,12 @@ Las siguientes clases helper del núcleo son proporcionadas en los releases de Y
 Personalizando Las Clases Helper <span id="customizing-helper-classes"></span>
 --------------------------------
 
-Para personalizar una clase helper del núcleo (ej. [[yii\helpers\ArrayHelper]]), deberías crear una nueva clase extendiendo
+Para personalizar una clase helper del núcleo (ej. [[Yiisoft\Arrays\ArrayHelper]]), deberías crear una nueva clase extendiendo
 de los helpers correspondientes a la clase base (ej. [[yii\helpers\BaseArrayHelper]]), incluyendo su namespace. Esta clase
 será creada para remplazar la implementación original del framework.
 
-El siguiente ejemplo muestra como personalizar el método [[yii\helpers\ArrayHelper::merge()|merge()]] de la clase
-[[yii\helpers\ArrayHelper]]:
+El siguiente ejemplo muestra como personalizar el método [[Yiisoft\Arrays\ArrayHelper::merge()|merge()]] de la clase
+[[Yiisoft\Arrays\ArrayHelper]]:
 
 ```php
 <?php
@@ -71,7 +71,7 @@ después de incluir el fichero `yii.php` para decirle a la [clase autoloader de 
 clase personalizada en vez de la clase helper original del framework:
 
 ```php
-Yii::$classMap['yii\helpers\ArrayHelper'] = '@app/components/ArrayHelper.php';
+Yii::$classMap['Yiisoft\Arrays\ArrayHelper'] = '@app/components/ArrayHelper.php';
 ```
 
 Nota que la personalización de clases helper sólo es útil si quieres cambiar el comportamiento de una función

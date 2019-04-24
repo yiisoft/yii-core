@@ -43,13 +43,13 @@ Yii 发布版中提供以下核心助手类：
 自定义助手类（Customizing Helper Classes） <span id="customizing-helper-classes"></span>
 --------------------------------------
 
-如果想要自定义一个核心助手类 (例如 [[yii\helpers\ArrayHelper]])，你应该创建一个新的类继承
+如果想要自定义一个核心助手类 (例如 [[Yiisoft\Arrays\ArrayHelper]])，你应该创建一个新的类继承
 helpers对应的基类 (例如 [[yii\helpers\BaseArrayHelper]]) 并同样的命
-名你的这个类 (例如 [[yii\helpers\ArrayHelper]])，包括它的命名空间。这个类
+名你的这个类 (例如 [[Yiisoft\Arrays\ArrayHelper]])，包括它的命名空间。这个类
 会用来替换框架最初的实现。
 
-下面示例显示了如何自定义 [[yii\helpers\ArrayHelper]] 类的
-[[yii\helpers\ArrayHelper::merge()|merge()]] 方法：
+下面示例显示了如何自定义 [[Yiisoft\Arrays\ArrayHelper]] 类的
+[[Yiisoft\Arrays\ArrayHelper::merge()|merge()]] 方法：
 
 ```php
 <?php
@@ -72,7 +72,7 @@ class ArrayHelper extends BaseArrayHelper
 代替框架的原始助手类：
 
 ```php
-Yii::$classMap['yii\helpers\ArrayHelper'] = '@app/components/ArrayHelper.php';
+Yii::$classMap['Yiisoft\Arrays\ArrayHelper'] = '@app/components/ArrayHelper.php';
 ```
 
 注意，自定义助手类仅仅用于如果你想要更改助手类中

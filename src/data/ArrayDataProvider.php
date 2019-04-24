@@ -7,7 +7,7 @@
 
 namespace yii\data;
 
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 /**
  * ArrayDataProvider implements a data provider based on a data array.

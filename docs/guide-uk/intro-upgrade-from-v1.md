@@ -348,8 +348,8 @@ Javascript і CSS файли, які зазначені у колекції.
 У Yii 2.0 включено багато широко використовуваних статичних класів.
 
 * [[yii\helpers\Html]]
-* [[yii\helpers\ArrayHelper]]
-* [[yii\helpers\StringHelper]]
+* [[Yiisoft\Arrays\ArrayHelper]]
+* [[Yiisoft\Strings\StringHelper]]
 * [[yii\helpers\FileHelper]]
 * [[yii\helpers\Json]]
 

@@ -354,7 +354,7 @@ Encoding will use application charset and could be changed via third argument.
 
 ## Merging Arrays <span id="merging-arrays"></span>
 
-You can use [[yii\helpers\ArrayHelper::merge()|ArrayHelper::merge()]] to merge two or more arrays into one recursively.
+You can use [[Yiisoft\Arrays\ArrayHelper::merge()|ArrayHelper::merge()]] to merge two or more arrays into one recursively.
 If each array has an element with the same string key value, the latter will overwrite the former
 (different from [array_merge_recursive()](http://php.net/manual/en/function.array-merge-recursive.php)).
 Recursive merging will be conducted if both arrays have an element of array type and are having the same key.
@@ -462,15 +462,15 @@ The result of conversion above for single model will be:
 ```
 
 It is possible to provide default way of converting object to array for a specific class by implementing
-[[yii\base\Arrayable|Arrayable]] interface in that class.
+[[Yiisoft\Arrays\Arrayable|Arrayable]] interface in that class.
 
 ## Testing against Arrays <span id="testing-arrays"></span>
 
 Often you need to check if an element is in an array or a set of elements is a subset of another.
 While PHP offers `in_array()`, this does not support subsets or `\Traversable` objects.
 
-To aid these kinds of tests, [[yii\helpers\ArrayHelper]] provides [[yii\helpers\ArrayHelper::isIn()|isIn()]]
-and [[yii\helpers\ArrayHelper::isSubset()|isSubset()]] with the same signature as
+To aid these kinds of tests, [[Yiisoft\Arrays\ArrayHelper]] provides [[Yiisoft\Arrays\ArrayHelper::isIn()|isIn()]]
+and [[Yiisoft\Arrays\ArrayHelper::isSubset()|isSubset()]] with the same signature as
 [in_array()](http://php.net/manual/en/function.in-array.php).
 
 ```php

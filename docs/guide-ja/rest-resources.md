@@ -8,7 +8,7 @@ MVC の枠組の中では、リソースは [モデル](structure-models.md) と
 Yii においては、通常は、次のような理由によって、リソースを [[yii\base\Model]] またはその子クラス (例えば [[yii\db\ActiveRecord]])
 のオブジェクトとして表現することになります。
 
-* [[yii\base\Model]] は [[yii\base\Arrayable]] インタフェイスを実装しています。
+* [[yii\base\Model]] は [[Yiisoft\Arrays\Arrayable]] インタフェイスを実装しています。
   これによって、リソースのデータを RESTful API を通じて公開する仕方をカスタマイズすることが出来ます。
 * [[yii\base\Model]] は [入力値の検証](input-validation.md) をサポートしています。
   これは、RESTful API がデータ入力をサポートする必要がある場合に役に立ちます。

@@ -345,8 +345,8 @@ Yii 2.0 引入了一个新的概念，称为**资源包**（Asset Bundle），�
 Yii 2.0 很多常用的静态助手类，包括：
 
 * [[yii\helpers\Html]]
-* [[yii\helpers\ArrayHelper]]
-* [[yii\helpers\StringHelper]]
+* [[Yiisoft\Arrays\ArrayHelper]]
+* [[Yiisoft\Strings\StringHelper]]
 * [[yii\helpers\FileHelper]]
 * [[yii\helpers\Json]]
 

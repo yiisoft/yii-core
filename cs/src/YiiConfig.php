@@ -8,7 +8,7 @@
 namespace yii\cs;
 
 use PhpCsFixer\Config;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 /**
  * Basic rules used by Yii 2 ecosystem.

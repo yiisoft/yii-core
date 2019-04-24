@@ -15,9 +15,11 @@ use ReflectionClass;
 use yii\exceptions\InvalidArgumentException;
 use yii\exceptions\InvalidConfigException;
 use yii\helpers\Yii;
-use yii\helpers\Inflector;
 use yii\validators\RequiredValidator;
 use yii\validators\Validator;
+use Yiisoft\Arrays\Arrayable;
+use Yiisoft\Arrays\ArrayableTrait;
+use Yiisoft\Helpers\InflectorHelper;
 
 /**
  * Model is the base class for data models.
@@ -678,7 +680,7 @@ class Model extends Component implements StaticInstanceInterface, IteratorAggreg
      */
     public function generateAttributeLabel($name)
     {
-        return Inflector::camel2words($name, true);
+        return InflectorHelper::camel2words($name, true);
     }
 
     /**

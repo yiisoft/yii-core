@@ -12,6 +12,7 @@ use yii\base\Model;
 use yii\activerecord\ActiveRecordInterface;
 use yii\validators\StringValidator;
 use yii\web\Request;
+use Yiisoft\Arrays\ArrayHelper;
 
 /**
  * BaseHtml provides concrete implementation for [[Html]].
@@ -786,7 +787,7 @@ class BaseHtml
      * are the corresponding option labels. The array can also be nested (i.e. some array values are arrays too).
      * For each sub-array, an option group will be generated whose label is the key associated with the sub-array.
      * If you have a list of data models, you may convert them into the format described above using
-     * [[\yii\helpers\ArrayHelper::map()]].
+     * [[\Yiisoft\Arrays\ArrayHelper::map()]].
      *
      * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in
      * the labels will also be HTML-encoded.
@@ -841,7 +842,7 @@ class BaseHtml
      * are the corresponding option labels. The array can also be nested (i.e. some array values are arrays too).
      * For each sub-array, an option group will be generated whose label is the key associated with the sub-array.
      * If you have a list of data models, you may convert them into the format described above using
-     * [[\yii\helpers\ArrayHelper::map()]].
+     * [[\Yiisoft\Arrays\ArrayHelper::map()]].
      *
      * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in
      * the labels will also be HTML-encoded.
@@ -1615,7 +1616,7 @@ class BaseHtml
      * are the corresponding option labels. The array can also be nested (i.e. some array values are arrays too).
      * For each sub-array, an option group will be generated whose label is the key associated with the sub-array.
      * If you have a list of data models, you may convert them into the format described above using
-     * [[\yii\helpers\ArrayHelper::map()]].
+     * [[\Yiisoft\Arrays\ArrayHelper::map()]].
      *
      * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in
      * the labels will also be HTML-encoded.
@@ -1670,7 +1671,7 @@ class BaseHtml
      * are the corresponding option labels. The array can also be nested (i.e. some array values are arrays too).
      * For each sub-array, an option group will be generated whose label is the key associated with the sub-array.
      * If you have a list of data models, you may convert them into the format described above using
-     * [[\yii\helpers\ArrayHelper::map()]].
+     * [[\Yiisoft\Arrays\ArrayHelper::map()]].
      *
      * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in
      * the labels will also be HTML-encoded.
@@ -1834,7 +1835,7 @@ class BaseHtml
      * are the corresponding option labels. The array can also be nested (i.e. some array values are arrays too).
      * For each sub-array, an option group will be generated whose label is the key associated with the sub-array.
      * If you have a list of data models, you may convert them into the format described above using
-     * [[\yii\helpers\ArrayHelper::map()]].
+     * [[\Yiisoft\Arrays\ArrayHelper::map()]].
      *
      * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in
      * the labels will also be HTML-encoded.

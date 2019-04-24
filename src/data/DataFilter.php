@@ -9,7 +9,7 @@ namespace yii\data;
 
 use yii\exceptions\InvalidConfigException;
 use yii\base\Model;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 use yii\helpers\Yii;
 use yii\validators\BooleanValidator;
 use yii\validators\EachValidator;

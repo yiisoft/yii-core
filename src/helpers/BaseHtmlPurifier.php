@@ -8,6 +8,7 @@
 namespace yii\helpers;
 
 use yii\exceptions\InvalidConfigException;
+use Yiisoft\Strings\StringHelper;
 
 /**
  * BaseHtmlPurifier provides concrete implementation for [[HtmlPurifier]].

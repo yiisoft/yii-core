@@ -354,7 +354,7 @@ $decoded = ArrayHelper::htmlDecode($data);
 
 ## 合并数组（Merging Arrays） <span id="merging-arrays"></span>
 
-您可以使用 [[yii\helpers\ArrayHelper::merge()|ArrayHelper::merge()]] 将两个或多个数组合并成一个递归的数组。
+您可以使用 [[Yiisoft\Arrays\ArrayHelper::merge()|ArrayHelper::merge()]] 将两个或多个数组合并成一个递归的数组。
 如果每个数组都有一个具有相同字符串键值的元素，则后者将覆盖前者
 （不同于 [array_merge_recursive()](http://php.net/manual/en/function.array-merge-recursive.php)）。
 如果两个数组都有一个数组类型的元素并且具有相同的键，则将执行递归合并。
@@ -461,7 +461,7 @@ $data = ArrayHelper::toArray($posts, [
 ]
 ```
 
-也可以在一个特定的类中实现 [[yii\base\Arrayable|Arrayable]] 接口，
+也可以在一个特定的类中实现 [[Yiisoft\Arrays\Arrayable|Arrayable]] 接口，
 从而为其对象提供默认的转换成数组的方法。
 
 ## 测试阵列（Testing against Arrays） <span id="testing-arrays"></span>

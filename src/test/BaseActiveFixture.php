@@ -7,8 +7,8 @@
 
 namespace yii\test;
 
-use yii\base\ArrayAccessTrait;
 use yii\exceptions\InvalidConfigException;
+use Yiisoft\Arrays\ArrayAccessTrait;
 
 /**
  * BaseActiveFixture is the base class for fixture classes that support accessing fixture data as ActiveRecord objects.

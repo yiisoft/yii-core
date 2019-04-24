@@ -39,9 +39,9 @@ Les versions de Yii fournissent les classes assistantes du noyau suivantes :
 Personnalisation des classes assistantes <span id="customizing-helper-classes"></span>
 ----------------------------------------
 
-Pour personnaliser une classe assistante du noyau (p. ex. [[yii\helpers\ArrayHelper]]), vous devez créer une nouvelle classe qui étend la classe de base correspondant à la classe assistante (p. ex. [[yii\helpers\ArrayHelper]]), y compris son espace de noms. Cette classe sera ensuite configurée pour remplacer l'implémentation originale de Yii.
+Pour personnaliser une classe assistante du noyau (p. ex. [[Yiisoft\Arrays\ArrayHelper]]), vous devez créer une nouvelle classe qui étend la classe de base correspondant à la classe assistante (p. ex. [[Yiisoft\Arrays\ArrayHelper]]), y compris son espace de noms. Cette classe sera ensuite configurée pour remplacer l'implémentation originale de Yii.
 
-L'exemple qui suit montre comment personnaliser la méthode [[yii\helpers\ArrayHelper::merge()|merge()]] de la classe [[yii\helpers\ArrayHelper]] :
+L'exemple qui suit montre comment personnaliser la méthode [[Yiisoft\Arrays\ArrayHelper::merge()|merge()]] de la classe [[Yiisoft\Arrays\ArrayHelper]] :
 
 ```php
 <?php
@@ -62,7 +62,7 @@ Sauvegardez votre classe dans un fichier nommé `ArrayHelper.php`. Le fichier pe
 Ensuite, dans le [script d'entrée](structure-entry-scripts.md) de votre application, ajoutez la ligne de code suivante, après l'inclusion du fichier `yii.php` pour dire à la [classe autoloader de Yii](concept-autoloading.md) de charger votre classe personnalisée au lieu de la classe assistance originale de Yii. 
 
 ```php
-Yii::$classMap['yii\helpers\ArrayHelper'] = '@app/components/ArrayHelper.php';
+Yii::$classMap['Yiisoft\Arrays\ArrayHelper'] = '@app/components/ArrayHelper.php';
 ```
 
 Notez que la personnalisation d'une classe assistante n'est utile que si vous désirez changer le comportement d'une fonction existante de la classe assistante. Si vous désirez ajouter une fonction additionnelle à utiliser dans votre application, le mieux est de créer une classe assistante séparée pour cela.

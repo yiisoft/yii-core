@@ -10,6 +10,7 @@ namespace yii\helpers;
 use yii\exceptions\ErrorException;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
+use Yiisoft\Strings\StringHelper;
 
 /**
  * BaseFileHelper provides concrete implementation for [[FileHelper]].

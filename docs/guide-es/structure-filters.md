@@ -333,7 +333,7 @@ enviadas.
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -360,7 +360,7 @@ El filtrado CORS puede ser ajustado utilizando la propiedad 'cors'.
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -381,7 +381,7 @@ Se pueden ajustar las cabeceras de CORS sobrescribiendo los parámetros por defe
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {

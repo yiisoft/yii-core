@@ -628,7 +628,7 @@ Upgrade from Yii 2.0.6
   > Tip: Use Yii 2 Requirements checker for easy and fast check. Look for `requirements.php` in root of Basic and Advanced
   templates (howto-comment is in head of the script).
 
-* The signature of `yii\helpers\BaseInflector::transliterate()` was changed. The method is now public and has an
+* The signature of `Yiisoft\Helpers\InflectorHelper::transliterate()` was changed. The method is now public and has an
   extra optional parameter `$transliterator`.
 
 * In `yii\web\UrlRule` the `pattern` matching group names are being replaced with the placeholders on class
@@ -965,7 +965,7 @@ new ones save the following code as `convert.php` that should be placed in the s
   - `sendStreamAsFile($handle, $attachmentName, $options = [])`
   - `xSendFile($filePath, $attachmentName = null, $options = [])`
 
-* The signature of callbacks used in `yii\base\ArrayableTrait::fields()` is changed from `function ($field, $model) {`
+* The signature of callbacks used in `Yiisoft\Arrays\ArrayableTrait::fields()` is changed from `function ($field, $model) {`
   to `function ($model, $field) {`.
 
 * `Html::radio()`, `Html::checkbox()`, `Html::radioList()`, `Html::checkboxList()` no longer generate the container

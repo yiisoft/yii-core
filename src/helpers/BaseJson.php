@@ -7,10 +7,11 @@
 
 namespace yii\helpers;
 
-use yii\base\Arrayable;
 use yii\exceptions\InvalidArgumentException;
 use yii\web\JsExpression;
 use yii\base\Model;
+use Yiisoft\Arrays\Arrayable;
+use Yiisoft\Arrays\ArrayHelper;
 
 /**
  * BaseJson provides concrete implementation for [[Json]].

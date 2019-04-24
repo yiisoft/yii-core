@@ -30,7 +30,7 @@ class JsonTest extends TestCase
     public function testEncode()
     {
         // Arrayable data encoding
-        $dataArrayable = $this->createMock(\yii\base\Arrayable::class);
+        $dataArrayable = $this->createMock(\Yiisoft\Arrays\Arrayable::class);
         $dataArrayable->method('toArray')->willReturn([]);
         $actual = Json::encode($dataArrayable);
         $this->assertSame('{}', $actual);

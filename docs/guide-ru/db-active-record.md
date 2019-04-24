@@ -51,7 +51,7 @@ Yii поддерживает работу с Active Record для следующ
 ### Настройка имени таблицы
 
 По умолчанию каждый класс Active Record ассоциирован с таблицей в базе данных. Метод
-[[yii\db\ActiveRecord::tableName()|tableName()]] получает имя таблицы из имени класса с помощью [[yii\helpers\Inflector::camel2id()]].
+[[yii\db\ActiveRecord::tableName()|tableName()]] получает имя таблицы из имени класса с помощью [[yii\helpers\InflectorHelper::camel2id()]].
 Если таблица не названа соответственно, вы можете переопределить данный метод.
 
 Также может быть применён [[yii\db\Connection::$tablePrefix|tablePrefix]] по умолчанию. Например, если 

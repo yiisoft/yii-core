@@ -325,7 +325,7 @@ $data = ArrayHelper::toArray($posts, [
 ```
 
 Вы можете определить способ конвертации из объекта в массив по-умолчанию реализовав интерфейс
-[[yii\base\Arrayable|Arrayable]] в этом классе
+[[Yiisoft\Arrays\Arrayable|Arrayable]] в этом классе
 
 
 ## Проверка на присутствие в массиве <span id="testing-arrays"></span>
@@ -333,8 +333,8 @@ $data = ArrayHelper::toArray($posts, [
 Часто необходимо проверить, содержится ли элемент в массиве, или является ли массив подмножеством другого массива.
 К сожалению, PHP-функция `in_array()` не поддерживает подмножества объектов, реализующих интерфейс `\Traversable`.
 
-Для таких случаев [[yii\helpers\ArrayHelper]] предоставляет [[yii\helpers\ArrayHelper::isIn()|isIn()]] и
-[[yii\helpers\ArrayHelper::isSubset()|isSubset()]]. Методы принимают такие же параметры, что и
+Для таких случаев [[Yiisoft\Arrays\ArrayHelper]] предоставляет [[Yiisoft\Arrays\ArrayHelper::isIn()|isIn()]] и
+[[Yiisoft\Arrays\ArrayHelper::isSubset()|isSubset()]]. Методы принимают такие же параметры, что и
 [in_array()](http://php.net/manual/ru/function.in-array.php).
 
 ```php

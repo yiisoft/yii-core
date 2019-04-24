@@ -41,10 +41,10 @@ echo Html::encode('Test > test');
 Настройка хелперов <span id="customizing-helper-classes"></span>
 --------------------------
 
-Для настройки основных helper-классов (например, [[yii\helpers\ArrayHelper]]), вы должны создать расширяющийся класс из помощников соответствующих базовых классов (например, [[yii\helpers\BaseArrayHelper]]) и дать похожее название вашему классу с соответствующим конкретному классу (например, [[yii\helpers\ArrayHelper]]), в том числе его пространство имен. Тогда созданный класс заменит оригинальную реализацию в фреймворке.
+Для настройки основных helper-классов (например, [[Yiisoft\Arrays\ArrayHelper]]), вы должны создать расширяющийся класс из помощников соответствующих базовых классов (например, [[yii\helpers\BaseArrayHelper]]) и дать похожее название вашему классу с соответствующим конкретному классу (например, [[Yiisoft\Arrays\ArrayHelper]]), в том числе его пространство имен. Тогда созданный класс заменит оригинальную реализацию в фреймворке.
 
-В следующих примерах показывается как настроить метод [[yii\helpers\ArrayHelper::merge()|merge()]]
-[[yii\helpers\ArrayHelper]] класса:
+В следующих примерах показывается как настроить метод [[Yiisoft\Arrays\ArrayHelper::merge()|merge()]]
+[[Yiisoft\Arrays\ArrayHelper]] класса:
 
 ```php
 <?php
@@ -67,7 +67,7 @@ class ArrayHelper extends BaseArrayHelper
 ваш класс вместо оригинального helper-класса фреимворка:
 
 ```php
-Yii::$classMap['yii\helpers\ArrayHelper'] = '@app/components/ArrayHelper.php';
+Yii::$classMap['Yiisoft\Arrays\ArrayHelper'] = '@app/components/ArrayHelper.php';
 ```
 
 Обратите внимание что пользовательская настройка helper-классов полезна только, если вы хотите изменить поведение существующей функции helper-классов. Если вы хотите добавить дополнительные функции, для использования в вашем приложении, будет лучше создать отдельный helper.

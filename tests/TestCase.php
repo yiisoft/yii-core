@@ -8,7 +8,6 @@
 namespace yii\tests;
 
 use yii\base\Application;
-use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\Yii;
 

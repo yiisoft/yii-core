@@ -43,11 +43,11 @@ Poniższe wbudowane klasy pomocnicze dostępne są w każdym wydaniu Yii:
 Dostosowywanie klas pomocniczych do własnych potrzeb <span id="customizing-helper-classes"></span>
 ----------------------------------------------------
 
-Aby zmodyfikować wbudowaną klasę pomocniczną (np. [[yii\helpers\ArrayHelper|ArrayHelper]]), należy stworzyć nową klasę rozszerzającą odpowiednią podstawę 
-(np. [[yii\helpers\BaseArrayHelper|BaseArrayHelper]]) i nazwać ją identycznie jak jej wersja właściwa (np. [[yii\helpers\ArrayHelper|ArrayHelper]]), łącznie z zachowaniem jej 
+Aby zmodyfikować wbudowaną klasę pomocniczną (np. [[Yiisoft\Arrays\ArrayHelper|ArrayHelper]]), należy stworzyć nową klasę rozszerzającą odpowiednią podstawę 
+(np. [[yii\helpers\BaseArrayHelper|BaseArrayHelper]]) i nazwać ją identycznie jak jej wersja właściwa (np. [[Yiisoft\Arrays\ArrayHelper|ArrayHelper]]), łącznie z zachowaniem jej 
 przestrzeni nazw. Ta klasa może następnie zostać użyta do zastąpienia oryginalnej implementacji we frameworku.
 
-Poniższy przykład ilustruje w jaki sposób zmodyfikować metodę [[yii\helpers\ArrayHelper::merge()|merge()]] klasy [[yii\helpers\ArrayHelper|ArrayHelper]]:
+Poniższy przykład ilustruje w jaki sposób zmodyfikować metodę [[Yiisoft\Arrays\ArrayHelper::merge()|merge()]] klasy [[Yiisoft\Arrays\ArrayHelper|ArrayHelper]]:
 
 ```php
 <?php
@@ -69,7 +69,7 @@ Następnie dopisujemy poniższą linijkę kodu w [skrypcie wejściowym](structur
 dzięki czemu [autoloader klas Yii](concept-autoloading.md) załaduje zmodyfikowaną wersję klasy pomocniczej zamiast oryginalnej:
 
 ```php
-Yii::$classMap['yii\helpers\ArrayHelper'] = '@app/components/ArrayHelper.php';
+Yii::$classMap['Yiisoft\Arrays\ArrayHelper'] = '@app/components/ArrayHelper.php';
 ```
 
 Należy pamiętać o tym, że modyfikowanie klasy pomocniczej jest użyteczne tylko w przypadku, gdy chcemy zmienić domyślny sposób działania jej metody. 

@@ -354,7 +354,7 @@ $decoded = ArrayHelper::htmlDecode($data);
 
 ## 配列をマージする <span id="merging-arrays"></span>
 
-[[yii\helpers\ArrayHelper::merge()|ArrayHelper::merge()]] を使って、二つまたはそれ以上の配列を再帰的に一つの配列にマージすることが出来ます。
+[[Yiisoft\Arrays\ArrayHelper::merge()|ArrayHelper::merge()]] を使って、二つまたはそれ以上の配列を再帰的に一つの配列にマージすることが出来ます。
 各配列に同じ文字列のキー値を持つ要素がある場合は、
 ([array_merge_recursive()](http://php.net/manual/ja/function.array-merge-recursive.php) とは違って)後のものが前のものを上書きします。
 両方の配列が、同じキーを持つ配列型の要素を持っている場合は、再帰的なマージが実行されます。
@@ -462,15 +462,15 @@ $data = ArrayHelper::toArray($posts, [
 ```
 
 特定のクラスについて、配列に変換するデフォルトの方法を提供するためには、
-そのクラスの [[yii\base\Arrayable|Arrayable]] インタフェイスを実装することが出来ます。
+そのクラスの [[Yiisoft\Arrays\Arrayable|Arrayable]] インタフェイスを実装することが出来ます。
 
 ## 配列の中にあるかどうか調べる <span id="testing-arrays"></span>
 
 ある要素が配列の中に存在するかどうか、また、一連の要素が配列のサブセットであるかどうか、ということを調べる必要がある場合がよくあります。
 PHP は `in_array()` を提供していますが、これはサブセットや `\Traversable` なオブジェクトをサポートしていません。
 
-この種のチェックを助けるために、[[yii\helpers\ArrayHelper]] は [[yii\helpers\ArrayHelper::isIn()|isIn()]]
-および [[yii\helpers\ArrayHelper::isSubset()|isSubset()]] を
+この種のチェックを助けるために、[[Yiisoft\Arrays\ArrayHelper]] は [[Yiisoft\Arrays\ArrayHelper::isIn()|isIn()]]
+および [[Yiisoft\Arrays\ArrayHelper::isSubset()|isSubset()]] を
 [in_array()](http://php.net/manual/en/function.in-array.php) と同じシグニチャで提供しています。
 
 ```php

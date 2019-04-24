@@ -345,8 +345,8 @@ Yii 1 とは異なり、バンドルを登録したページは、そのバン�
 Yii 2.0 はよく使われるスタティックなヘルパ・クラスを数多く導入しました。それには以下のものが含まれます。
 
 * [[yii\helpers\Html]]
-* [[yii\helpers\ArrayHelper]]
-* [[yii\helpers\StringHelper]]
+* [[Yiisoft\Arrays\ArrayHelper]]
+* [[Yiisoft\Strings\StringHelper]]
 * [[yii\helpers\FileHelper]]
 * [[yii\helpers\Json]]
 

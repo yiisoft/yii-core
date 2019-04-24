@@ -11,7 +11,7 @@ use yii\base\Behavior;
 use yii\exceptions\InvalidArgumentException;
 use yii\base\Model;
 use yii\db\BaseActiveRecord;
-use yii\helpers\StringHelper;
+use Yiisoft\Strings\StringHelper;
 use yii\validators\BooleanValidator;
 use yii\validators\NumberValidator;
 use yii\validators\StringValidator;

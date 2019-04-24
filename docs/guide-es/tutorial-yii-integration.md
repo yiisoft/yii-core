@@ -75,7 +75,7 @@ Utilizar Yii en Sistemas de Terceros <span id="using-yii-in-others"></span>
 
 Debido a que Yii provee muchas posibilidades excelentes, a veces puedes querer usar alguna de sus características para permitir
 el desarrollo o mejora de sistemas de terceros, como es WordPress, Joomla, o aplicaciones desarrolladas usando otros frameworks de PHP.
-Por ejemplo, puedes querer utilizar la clase [[yii\helpers\ArrayHelper]] o usar la característica [Active Record](db-active-record.md)
+Por ejemplo, puedes querer utilizar la clase [[Yiisoft\Arrays\ArrayHelper]] o usar la característica [Active Record](db-active-record.md)
 en un sistema de terceros. Para lograr este objetivo, principalmente necesitas realizar dos pasos:
 instalar Yii , e iniciar  Yii.
 

@@ -9,6 +9,7 @@ namespace yii\helpers;
 
 use yii\console\Markdown as ConsoleMarkdown;
 use yii\base\Model;
+use Yiisoft\Arrays\ArrayHelper;
 
 /**
  * BaseConsole provides concrete implementation for [[Console]].

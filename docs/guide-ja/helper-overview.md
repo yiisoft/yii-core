@@ -43,12 +43,12 @@ echo Html::encode('Test > test');
 ヘルパ・クラスをカスタマイズする <span id="customizing-helper-classes"></span>
 ------------------------------
 
-コア・ヘルパ・クラス (例えば [[yii\helpers\ArrayHelper]]) をカスタマイズするためには、
+コア・ヘルパ・クラス (例えば [[Yiisoft\Arrays\ArrayHelper]]) をカスタマイズするためには、
 そのヘルパに対応する基底クラス (例えば [[yii\helpers\BaseArrayHelper]]) を拡張するクラスを作成して、名前空間も含めて、
-対応する具象クラス (例えば [[yii\helpers\ArrayHelper]]) と同じ名前を付けます。
+対応する具象クラス (例えば [[Yiisoft\Arrays\ArrayHelper]]) と同じ名前を付けます。
 このクラスが、フレームワークのオリジナルの実装を置き換えるものとしてセットアップされます。
 
-次の例は、[[yii\helpers\ArrayHelper]] クラスの [[yii\helpers\ArrayHelper::merge()|merge()]]
+次の例は、[[Yiisoft\Arrays\ArrayHelper]] クラスの [[Yiisoft\Arrays\ArrayHelper::merge()|merge()]]
 メソッドをカスタマイズする方法を示すものです。
 
 ```php

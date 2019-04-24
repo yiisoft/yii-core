@@ -11,7 +11,7 @@ use yii\cache\CacheInterface;
 use yii\db\Connection;
 use yii\db\Expression;
 use yii\db\Query;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 use yii\helpers\Yii;
 
 /**

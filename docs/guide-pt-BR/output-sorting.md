@@ -42,7 +42,7 @@ O atributo `age` é um atributo *simples* que corresponde ao atributo `age` da c
     'asc' => ['age' => SORT_ASC],
     'desc' => ['age' => SORT_DESC],
     'default' => SORT_ASC,
-    'label' => Inflector::camel2words('age'),
+    'label' => InflectorHelper::camel2words('age'),
 ]
 ```
 
@@ -51,7 +51,7 @@ O atributo `name` é um atributo *composto* definido por `first_name` e `last_na
 - Os elementos `asc` e `desc` determina a direção da ordenação dos atributos em ascendente ou descendente respectivamente. Seus valores representam as colunas e as direções pelas quais os dados devem ser classificados. Você pode especificar uma ou várias colunas para indicar uma ordenação simples ou composta.
 - O elemento `default` especifica a direção pela qual o atributo deve ser ordenado quando requisitado. O padrão é a ordem crescente, ou seja, se a ordenação não for definida previamente e você pedir para ordenar por esse atributo, os dados serão ordenados por esse atributo em ordem crescente.
 - O elemento `label` especifica o rótulo deve ser usado quando executar [[yii\data\Sort::link()]] para criar um link de ordenação. 
-Se não for definida, [[yii\helpers\Inflector::camel2words()]] será chamado para gerar um rótulo do nome do atributo.
+Se não for definida, [[yii\helpers\InflectorHelper::camel2words()]] será chamado para gerar um rótulo do nome do atributo.
 Perceba que não será HTML-encoded.
 
 > Observação: Você pode alimentar diretamente o valor de [[yii\data\Sort::$orders|orders]] para a consulta do banco de dados para implementar a sua cláusula `ORDER BY`. Não utilize [[yii\data\Sort::$attributeOrders|attributeOrders]] porque alguns dos atributos podem ser compostos e não podem ser reconhecidos pela consulta do banco de dados.

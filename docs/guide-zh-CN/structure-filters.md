@@ -334,7 +334,7 @@ CORS定义浏览器和服务器交互时哪些跨域请求允许和禁止。
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -361,7 +361,7 @@ CROS过滤器可以通过 [[yii\filters\Cors::$cors|$cors]] 属性进行调整�
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -382,7 +382,7 @@ public function behaviors()
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {

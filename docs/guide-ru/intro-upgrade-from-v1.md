@@ -340,8 +340,8 @@ public function behaviors()
 В Yii 2.0 включено много широко используемых статичных классов.
 
 * [[yii\helpers\Html]]
-* [[yii\helpers\ArrayHelper]]
-* [[yii\helpers\StringHelper]]
+* [[Yiisoft\Arrays\ArrayHelper]]
+* [[Yiisoft\Strings\StringHelper]]
 * [[yii\helpers\FileHelper]]
 * [[yii\helpers\Json]]
 

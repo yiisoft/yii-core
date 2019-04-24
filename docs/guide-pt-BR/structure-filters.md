@@ -374,7 +374,7 @@ enviados.
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -408,7 +408,7 @@ métodos `GET`, `HEAD` e `OPTIONS`:
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -430,7 +430,7 @@ somente na ação `login`, você poderia fazer conforme a seguir:
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {

@@ -8,7 +8,7 @@ RESTful 的 API 都是关于访问和操作 *资源*，可将资源看成MVC模�
 [[yii\base\Model]] 或它的子类（如 [[yii\db\ActiveRecord]]）
 代表资源，是为以下原因：
 
-* [[yii\base\Model]] 实现了 [[yii\base\Arrayable]] 接口，
+* [[yii\base\Model]] 实现了 [[Yiisoft\Arrays\Arrayable]] 接口，
   它允许你通过RESTful API自定义你想要公开的资源数据。
 * [[yii\base\Model]] 支持 [输入验证](input-validation.md),
   在你的RESTful API需要支持数据输入时非常有用。

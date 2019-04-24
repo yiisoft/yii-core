@@ -283,7 +283,7 @@ Le [[yii\filters\Cors|filtre Cors]] doit être défini avant les filtres d'authe
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -310,7 +310,7 @@ Par exemple, autoriser  CORS pour l'origine  `http://www.myserver.net` avec les 
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -330,7 +330,7 @@ Vous pouvez peaufiner les entêtes CORS en redéfinissant les paramètres par d�
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {

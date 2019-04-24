@@ -55,7 +55,7 @@ Yii 为以下关系数据库提供 Active Record 支持：
 ### 设置表的名称（Setting a table name）
 
 默认的，每个 Active Record 类关联各自的数据库表。
-经过 [[yii\helpers\Inflector::camel2id()]] 处理，[[yii\db\ActiveRecord::tableName()|tableName()]] 方法默认返回的表名称是通过类名转换来得。 
+经过 [[yii\helpers\InflectorHelper::camel2id()]] 处理，[[yii\db\ActiveRecord::tableName()|tableName()]] 方法默认返回的表名称是通过类名转换来得。 
 如果这个默认名称不正确，你得重写这个方法。
 
 此外，[[yii\db\Connection::$tablePrefix|tablePrefix]] 表前缀也会起作用。例如，如果

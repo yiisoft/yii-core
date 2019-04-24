@@ -62,7 +62,7 @@ Yii::$classMap['Class2'] = 'path/to/Class2.php';
 Usando o Yii em Sistemas de Terceiros <span id="using-yii-in-others"></span>
 --------------------------------
 
-Como o Yii fornece muitas características excelentes, algumas vezes você pode querer utilizar algumas destas características como suporte ao desenvolvimento ou melhorias em sistemas de terceiros, tais como WordPress, Joomla ou aplicações desenvolvidas utilizando outros frameworks PHP. Por exemplo, você pode querer utilizar a classe [[yii\helpers\ArrayHelper]] ou usar o recurso de [Active Record](db-active-record.md) em um sistema de terceiros. Para alcançar este objetivo, você primeiramente precisa realizar dois passos: instale o Yii, e o bootstrap Yii.
+Como o Yii fornece muitas características excelentes, algumas vezes você pode querer utilizar algumas destas características como suporte ao desenvolvimento ou melhorias em sistemas de terceiros, tais como WordPress, Joomla ou aplicações desenvolvidas utilizando outros frameworks PHP. Por exemplo, você pode querer utilizar a classe [[Yiisoft\Arrays\ArrayHelper]] ou usar o recurso de [Active Record](db-active-record.md) em um sistema de terceiros. Para alcançar este objetivo, você primeiramente precisa realizar dois passos: instale o Yii, e o bootstrap Yii.
 
 Se o sistema em questão utilizar o Composer para gerenciar suas dependências, você pode simplesmente executar o seguinte comando para instalar o Yii:
 

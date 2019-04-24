@@ -7,8 +7,8 @@
 
 namespace yii\helpers;
 
-use yii\base\Arrayable;
 use yii\exceptions\InvalidValueException;
+use Yiisoft\Arrays\Arrayable;
 
 /**
  * BaseVarDumper provides concrete implementation for [[VarDumper]].

@@ -364,15 +364,15 @@ El resultado de la conversión anterior será:
 ```
 
 Es posible proporcionar una manera predeterminada de convertir un objeto a un array para una clase especifica
-mediante la implementación de la interfaz [[yii\base\Arrayable|Arrayable]] en esa clase.
+mediante la implementación de la interfaz [[Yiisoft\Arrays\Arrayable|Arrayable]] en esa clase.
 
 ## Haciendo pruebas con Arrays <span id="testing-arrays"></span>
 
 A menudo necesitarás comprobar está en un array o un grupo de elementos es un sub-grupo de otro.
 A pesar de que PHP ofrece `in_array()`, este no soporta sub-grupos u objetos de tipo `\Traversable`.
 
-Para ayudar en este tipo de pruebas, [[yii\helpers\ArrayHelper]] provee [[yii\helpers\ArrayHelper::isIn()|isIn()]]
-y [[yii\helpers\ArrayHelper::isSubset()|isSubset()]] con la misma firma del método
+Para ayudar en este tipo de pruebas, [[Yiisoft\Arrays\ArrayHelper]] provee [[Yiisoft\Arrays\ArrayHelper::isIn()|isIn()]]
+y [[Yiisoft\Arrays\ArrayHelper::isSubset()|isSubset()]] con la misma firma del método
 [in_array()](http://php.net/manual/en/function.in-array.php).
 
 ```php

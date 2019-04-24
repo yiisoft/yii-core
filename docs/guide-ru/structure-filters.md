@@ -328,7 +328,7 @@ public function behaviors()
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -359,7 +359,7 @@ public function behaviors()
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -381,7 +381,7 @@ public function behaviors()
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {

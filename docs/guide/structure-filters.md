@@ -333,7 +333,7 @@ will always be sent.
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -360,7 +360,7 @@ For example, allowing CORS for origin : `http://www.myserver.net` with method `G
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -381,7 +381,7 @@ For example adding the `Access-Control-Allow-Credentials` for the `login` action
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {

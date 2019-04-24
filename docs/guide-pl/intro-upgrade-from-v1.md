@@ -325,8 +325,8 @@ Klasy pomocnicze
 Yii 2.0 zawiera wiele powszechnie używanych statycznych klas pomocniczych (helperów), takich jak:
 
 * [[yii\helpers\Html|Html]]
-* [[yii\helpers\ArrayHelper|ArrayHelper]]
-* [[yii\helpers\StringHelper|StringHelper]]
+* [[Yiisoft\Arrays\ArrayHelper|ArrayHelper]]
+* [[Yiisoft\Strings\StringHelper|StringHelper]]
 * [[yii\helpers\FileHelper|FileHelper]]
 * [[yii\helpers\Json|Json]]
 

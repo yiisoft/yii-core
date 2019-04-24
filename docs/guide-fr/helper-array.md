@@ -284,7 +284,7 @@ Seules les valeurs sont encodées par défaut. En passant un deuxième argument 
 
 ## Fusion de tableaux <span id="merging-arrays"></span>
 
-La fonction [[yii\helpers\ArrayHelper::merge()|ArrayHelper::merge()]] vous permet de fusionner deux, ou plus, tableaux en un seul de manière récursive. Si chacun des tableaux possède un élément avec la même chaîne clé valeur, le dernier écrase le premier (ce qui est un fonctionnement différent de [array_merge_recursive()](http://php.net/manual/en/function.array-merge-recursive.php)).
+La fonction [[Yiisoft\Arrays\ArrayHelper::merge()|ArrayHelper::merge()]] vous permet de fusionner deux, ou plus, tableaux en un seul de manière récursive. Si chacun des tableaux possède un élément avec la même chaîne clé valeur, le dernier écrase le premier (ce qui est un fonctionnement différent de [array_merge_recursive()](http://php.net/manual/en/function.array-merge-recursive.php)).
 La fusion récursive est entreprise si les deux tableaux possèdent un élément de type tableau avec la même clé. Pour des éléments dont la clé est un entier, les éléments du deuxième tableau sont ajoutés aux éléments du premier tableau. Vous pouvez utiliser l'objet [[yii\helpers\UnsetArrayValue]] pour supprimer la valeur du premier tableau ou [[yii\helpers\ReplaceArrayValue]] pour forcer le remplacement de la première valeur au lieu de la fusion récursive. 
 
 Par exemple :
@@ -384,14 +384,14 @@ Le résultat de la conversion ci-dessus pour un modèle unique est :
 ]
 ```
 
-Il est possible de fournir une manière par défaut de convertir un objet en tableau pour une classe spécifique en implémentant l'interface [[yii\base\Arrayable|Arrayable]] dans cette classe.
+Il est possible de fournir une manière par défaut de convertir un objet en tableau pour une classe spécifique en implémentant l'interface [[Yiisoft\Arrays\Arrayable|Arrayable]] dans cette classe.
 
 ## Test de l'appartenance à un tableau <span id="testing-arrays"></span>
 
 Souvent, vous devez savoir si un élément se trouve dans un tableau ou si un jeu d'éléments est un sous-ensemble d'un autre. Bien que PHP offre la fonction `in_array()`, cette dernière ne prend pas en charge les sous-ensembles ou les objets `\Traversable`.
 
-Pour faciliter ce genre de tests, [[yii\helpers\ArrayHelper]] fournit les méthodes [[yii\helpers\ArrayHelper::isIn()|isIn()]]
-et [[yii\helpers\ArrayHelper::isSubset()|isSubset()]] avec la même signature que [in_array()](http://php.net/manual/en/function.in-array.php).
+Pour faciliter ce genre de tests, [[Yiisoft\Arrays\ArrayHelper]] fournit les méthodes [[Yiisoft\Arrays\ArrayHelper::isIn()|isIn()]]
+et [[Yiisoft\Arrays\ArrayHelper::isSubset()|isSubset()]] avec la même signature que [in_array()](http://php.net/manual/en/function.in-array.php).
 
 ```php
 // true

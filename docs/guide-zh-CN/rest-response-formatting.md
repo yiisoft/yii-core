@@ -85,7 +85,7 @@ public function behaviors()
 ## 数据序列化 <span id="data-serializing"></span>
 
 正如我们上面所描述的，[[yii\rest\Serializer]] 负责转换资源的中间件
-对象或集合到数组。它将对象 [[yii\base\ArrayableInterface]] 作为
+对象或集合到数组。它将对象 [[Yiisoft\Arrays\ArrayableInterface]] 作为
 [[yii\data\DataProviderInterface]]。 前者主要由资源对象实现， 而
 后者是资源集合。
 

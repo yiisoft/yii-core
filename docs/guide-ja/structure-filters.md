@@ -333,7 +333,7 @@ Authentication / Authorization のフィルタよりも前に定義されなけ�
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -360,7 +360,7 @@ Cors のフィルタリングは [[yii\filters\Cors::$cors|$cors]] プロパテ�
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {
@@ -381,7 +381,7 @@ public function behaviors()
 
 ```php
 use yii\filters\Cors;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 public function behaviors()
 {

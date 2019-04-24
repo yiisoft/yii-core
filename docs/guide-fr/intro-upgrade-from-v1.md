@@ -344,8 +344,8 @@ Assistants
 Yii 2.0 introduit de nombreux assistants couramment utilisés, sous la forme de classes statiques, y compris :
 
 * [[yii\helpers\Html]]
-* [[yii\helpers\ArrayHelper]]
-* [[yii\helpers\StringHelper]]
+* [[Yiisoft\Arrays\ArrayHelper]]
+* [[Yiisoft\Strings\StringHelper]]
 * [[yii\helpers\FileHelper]]
 * [[yii\helpers\Json]]
 

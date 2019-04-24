@@ -8,7 +8,7 @@
 namespace yii\validators;
 
 use yii\helpers\Yii;
-use yii\helpers\StringHelper;
+use Yiisoft\Strings\StringHelper;
 
 /**
  * NumberValidator validates that the attribute value is a number.

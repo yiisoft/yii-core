@@ -75,7 +75,7 @@ Yii::$classMap['Class2'] = 'path/to/Class2.php';
 
 因为 Yii 提供了很多牛逼的功能，有时，你可能会想要使用它们中的一些功能用来支持开发或完善某些第三方的系统，
 比如：WordPress，Joomla，或是用其他 PHP 框架开发的应用程序。
-举两个例子吧，你可能会想念方便的 [[yii\helpers\ArrayHelper]] 类，或在第三方系统中使用
+举两个例子吧，你可能会想念方便的 [[Yiisoft\Arrays\ArrayHelper]] 类，或在第三方系统中使用
 [Active Record](db-active-record.md) 活动记录功能。
 要实现这些目标，你只需两个步骤：安装 Yii，启动 Yii。
 

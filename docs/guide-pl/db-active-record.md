@@ -49,7 +49,7 @@ Na początek zadeklaruj klasę typu Active Record rozszerzając [[yii\db\ActiveR
 ### Deklarowanie nazwy tabeli
 
 Domyślnie każda klasa Active Record jest powiązana ze swoją tabelą w bazie danych.
-Metoda [[yii\db\ActiveRecord::tableName()|tableName()]] zwraca nazwę tabeli konwertując nazwę klasy za pomocą [[yii\helpers\Inflector::camel2id()]].
+Metoda [[yii\db\ActiveRecord::tableName()|tableName()]] zwraca nazwę tabeli konwertując nazwę klasy za pomocą [[yii\helpers\InflectorHelper::camel2id()]].
 Możesz przeciążyć tę metodę, jeśli tabela nie jest nazwana zgodnie z tą konwencją.
 
 Identycznie zastosowany może być domyślny prefiks tabeli [[yii\db\Connection::$tablePrefix|tablePrefix]]. Przykładowo, jeśli 
