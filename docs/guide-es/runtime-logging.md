@@ -55,17 +55,17 @@ se encuentra la constante. Por ejemplo, es igual a la cadena `'app\controllers\R
 linea anterior de código se llamara dentro de este método.
 
 > Info: Los métodos de registro de anotaciones descritos anteriormente en realidad son accesos directos al
-  método [[Yii\Log\Logger::log()|log()]] del [[Yii\Log\Logger|logger object]] que es un singleton accesible a través
+  método [[Yiisoft\Log\Logger::log()|log()]] del [[Yiisoft\Log\Logger|logger object]] que es un singleton accesible a través
   de la expresión `Yii::getLogger()`. Cuando se hayan registrado suficientes mensajes o cuando la aplicación haya
-  finalizado, el objeto de registro llamará [[Yii\Log\Dispatcher|message dispatcher]] para enviar los mensajes de
+  finalizado, el objeto de registro llamará [[Yiisoft\Log\Dispatcher|message dispatcher]] para enviar los mensajes de
   registro registrados a los [destiinos de registros](#log-targets).
 
 ## Destino de Registros <span id="log-targets"></span>
 
-Un destino de registro es una instancia de la clase [[Yii\Log\Target]] o de una clase hija. Este filtra los
+Un destino de registro es una instancia de la clase [[Yiisoft\Log\Target]] o de una clase hija. Este filtra los
 mensajes de registro por sus niveles de severidad y sus categorías y después los exporta a algún medio. Por ejemplo,
-un [[Yii\Log\DbTarget|database target]] exporta los mensajes de registro filtrados a una tabla de base de datos,
-mientras que un [[Yii\Log\EmailTarget|email target]] exporta los mensajes de registro a una dirección de correo
+un [[Yiisoft\Log\DbTarget|database target]] exporta los mensajes de registro filtrados a una tabla de base de datos,
+mientras que un [[Yiisoft\Log\EmailTarget|email target]] exporta los mensajes de registro a una dirección de correo
 electrónico específica.
 
 Se pueden registrar múltiples destinos de registros en una aplicación configurándolos en la
@@ -81,11 +81,11 @@ return [
         'log' => [
             'targets' => [
                 [
-                    'class' => 'Yii\Log\DbTarget',
+                    'class' => 'Yiisoft\Log\DbTarget',
                     'levels' => ['error', 'warning'],
                 ],
                 [
-                    'class' => 'Yii\Log\EmailTarget',
+                    'class' => 'Yiisoft\Log\EmailTarget',
                     'levels' => ['error'],
                     'categories' => ['yii\db\*'],
                     'message' => [
@@ -104,7 +104,7 @@ return [
 pueda enviar los mensajes de registro a los destinos inmediatamente. Este es el motivo por el que se lista en el
 array `bootstrap` como se muestra más arriba.
 
-En el anterior código, se registran dos destinos de registros en la propiedad [[Yii\Log\Dispatcher::targets]]
+En el anterior código, se registran dos destinos de registros en la propiedad [[Yiisoft\Log\Dispatcher::targets]]
 
 * el primer destino gestiona los errores y las advertencias y las guarda en una tabla de la base de datos;
 * el segundo destino gestiona mensajes los mensajes de error de las categorías cuyos nombres empiecen por
@@ -113,20 +113,20 @@ En el anterior código, se registran dos destinos de registros en la propiedad [
 Yii incluye los siguientes destinos. En la API de documentación se pueden referencias a estas clases e
 información de configuración y uso.
 
-* [[Yii\Log\DbTarget]]: almacena los mensajes de registro en una tabla de la base de datos.
-* [[Yii\Log\EmailTarget]]: envía los mensajes de registro a direcciones de correo preestablecidas.
-* [[Yii\Log\FileTarget]]: guarda los menajes de registro en archivos.
-* [[Yii\Log\SyslogTarget]]: guarda los mensajes de registro en el syslog llamando a la función PHP `syslog()`.
+* [[Yiisoft\Log\DbTarget]]: almacena los mensajes de registro en una tabla de la base de datos.
+* [[Yiisoft\Log\EmailTarget]]: envía los mensajes de registro a direcciones de correo preestablecidas.
+* [[Yiisoft\Log\FileTarget]]: guarda los menajes de registro en archivos.
+* [[Yiisoft\Log\SyslogTarget]]: guarda los mensajes de registro en el syslog llamando a la función PHP `syslog()`.
 
 A continuación, se describirá las características más comunes de todos los destinos de registros.
 
 ### Filtrado de Mensajes <span id="message-filtering"></span>
 
-Se pueden configurar las propiedades [[Yii\Log\Target::levels|levels]] y [[Yii\Log\Target::categories|categories]]
+Se pueden configurar las propiedades [[Yiisoft\Log\Target::levels|levels]] y [[Yiisoft\Log\Target::categories|categories]]
 para cada destino de registros, con estas se especifican los niveles de severidad y las categorías de mensajes que
 deberán procesar sus destinos.
 
-La propiedad [[Yii\Log\Target::levels|levels]] es un array que consta de uno o varios de los siguientes valores:
+La propiedad [[Yiisoft\Log\Target::levels|levels]] es un array que consta de uno o varios de los siguientes valores:
 
 * `error`: correspondiente a los mensajes registrados por [[Yii::error()]].
 * `warning`: correspondiente a los mensajes registrados por [[Yii::warning()]].
@@ -135,22 +135,22 @@ La propiedad [[Yii\Log\Target::levels|levels]] es un array que consta de uno o v
 * `profile`: correspondiente a los mensajes registrados por [[Yii::beginProfile()]] y [[Yii::endProfile()]], que se
   explicará más detalladamente en la subsección [Perfiles](#performance-profiling).
 
-Si no se especifica la propiedad [[Yii\Log\Target::levels|levels]], significa que el destino procesará los
+Si no se especifica la propiedad [[Yiisoft\Log\Target::levels|levels]], significa que el destino procesará los
 mensajes de *cualquier* nivel de severidad.
 
-La propiedad [[Yii\Log\Target::categories|categories]] es un array que consta de categorías de mensaje o patrones. El
+La propiedad [[Yiisoft\Log\Target::categories|categories]] es un array que consta de categorías de mensaje o patrones. El
 destino sólo procesará mensajes de las categorías que se puedan encontrar o si coinciden con algún patrón listado
 en el array. Un patrón de categoría es un nombre de categoría al que se le añade un asterisco `*` al final. Un nombre
 de categoría coincide con un patrón si empieza por el mismo prefijo que el patrón. Por ejemplo,
 `yii\db\Command::execute` y `yii\db\Command::query` que se usan como nombres de categoría para los mensajes
 registrados en la clase [[yii\db\Command]], coinciden con el patrón `yii\db\*`.
 
-Si no se especifica la propiedad [[Yii\Log\Target::categories|categories]], significa que el destino procesará
+Si no se especifica la propiedad [[Yiisoft\Log\Target::categories|categories]], significa que el destino procesará
 los mensajes de *todas* las categorías.
 
 Además añadiendo las categorías en listas blancas (whitelisting) mediante la propiedad
-[[Yii\Log\Target::categories|categories]], también se pueden añadir ciertas categorías en listas negras (blacklist)
-configurando la propiedad [[Yii\Log\Target::except|except]]. Si se encuentra la categoría de un mensaje o coincide
+[[Yiisoft\Log\Target::categories|categories]], también se pueden añadir ciertas categorías en listas negras (blacklist)
+configurando la propiedad [[Yiisoft\Log\Target::except|except]]. Si se encuentra la categoría de un mensaje o coincide
 algún patrón con esta propiedad, NO será procesada por el destino.
 
 La siguiente configuración de destinos especifica que el destino solo debe procesar los mensajes de error y
@@ -159,7 +159,7 @@ de advertencia de las categorías que coincidan con alguno de los siguientes pat
 
 ```php
 [
-    'class' => 'Yii\Log\FileTarget',
+    'class' => 'Yiisoft\Log\FileTarget',
     'levels' => ['error', 'warning'],
     'categories' => [
         'yii\db\*',
@@ -179,28 +179,28 @@ de advertencia de las categorías que coincidan con alguno de los siguientes pat
 ### Formato de los Mensajes <span id="message-formatting"></span>
 
 Los destinos exportan los mensajes de registro filtrados en cierto formato. Por ejemplo, is se instala un
-destino de registros de la calse [[Yii\Log\FileTarget]], encontraremos un registro similar en el archivo de
+destino de registros de la calse [[Yiisoft\Log\FileTarget]], encontraremos un registro similar en el archivo de
 registro `runtime/log/app.log`:
 
 ```
 2014-10-04 18:10:15 [::1][][-][trace][yii\base\Module::getModule] Loading module: debug
 ```
 
-De forma predeterminada los mensajes de registro se formatearan por [[Yii\Log\Target::formatMessage()]] como en el
+De forma predeterminada los mensajes de registro se formatearan por [[Yiisoft\Log\Target::formatMessage()]] como en el
 siguiente ejemplo:
 
 ```
 Timestamp [IP address][User ID][Session ID][Severity Level][Category] Message Text
 ```
 
-Se puede personalizar el formato configurando la propiedad [[Yii\Log\Target::prefix]] que es un PHP ejecutable y
+Se puede personalizar el formato configurando la propiedad [[Yiisoft\Log\Target::prefix]] que es un PHP ejecutable y
 devuelve un prefijo de mensaje personalizado. Por ejemplo, el siguiente código configura un destino de registro
 anteponiendo a cada mensaje de registro el ID de usuario (se eliminan la dirección IP y el ID por razones de
 privacidad).
 
 ```php
 [
-    'class' => 'Yii\Log\FileTarget',
+    'class' => 'Yiisoft\Log\FileTarget',
     'prefix' => function ($message) {
         $user = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
         $userID = $user ? $user->getId(false) : '-';
@@ -212,25 +212,25 @@ privacidad).
 Además de prefijos de mensaje, destinos de registros también añaden alguna información de contexto en cada lote
 de mensajes de registro. De forma predeterminada, se incluyen los valores de las siguientes variables globales de
 PHP: `$_GET`, `$_POST`, `$_FILES`, `$_COOKIE`, `$_SESSION` y `$_SERVER`. Se puede ajustar el comportamiento
-configurando la propiedad [[Yii\Log\Target::logVars]] con los nombres de las variables globales que se quieran incluir
+configurando la propiedad [[Yiisoft\Log\Target::logVars]] con los nombres de las variables globales que se quieran incluir
 con el destino del registro. Por ejemplo, la siguiente configuración de destino de registros especifica que
 sólo se añadirá al mensaje de registro el valor de la variable `$_SERVER`.
 
 ```php
 [
-    'class' => 'Yii\Log\FileTarget',
+    'class' => 'Yiisoft\Log\FileTarget',
     'logVars' => ['_SERVER'],
 ]
 ```
 
 Se puede configurar `logVars` para que sea un array vacío para deshabilitar totalmente la inclusión de información de
 contexto. O si se desea implementar un método propio de proporcionar información de contexto se puede sobrescribir el
-método [[Yii\Log\Target::getContextMessage()]].
+método [[Yiisoft\Log\Target::getContextMessage()]].
 
 ### Nivel de Seguimiento de Mensajes <span id="trace-level"></span>
 
 Durante el desarrollo, a veces se quiere visualizar de donde proviene cada mensaje de registro. Se puede lograr
-configurando la propiedad [[Yii\Log\Dispatcher::traceLevel|traceLevel]] del componente `log` como en el siguiente
+configurando la propiedad [[Yiisoft\Log\Dispatcher::traceLevel|traceLevel]] del componente `log` como en el siguiente
 ejemplo:
 
 ```php
@@ -245,7 +245,7 @@ return [
 ];
 ```
 
-La configuración de aplicación anterior establece el [[Yii\Log\Dispatcher::traceLevel|traceLevel]] para que sea 3 si
+La configuración de aplicación anterior establece el [[Yiisoft\Log\Dispatcher::traceLevel|traceLevel]] para que sea 3 si
 `YII_DEBUG` esta habilitado y 0 si esta deshabilitado. Esto significa que si `YII_DEBUG` esta habilitado, a cada
 mensaje de registro se le añadirán como mucho 3 niveles de la pila de llamadas del mensaje que se este registrando; y
 si `YII_DEBUG` está deshabilitado, no se incluirá información de la pila de llamadas.
@@ -256,10 +256,10 @@ si `YII_DEBUG` está deshabilitado, no se incluirá información de la pila de l
 ### Liberación (Flushing) y Exportación de Mensajes <span id="flushing-exporting"></span>
 
 Como se ha comentado anteriormente, los mensajes de registro se mantienen en un array por el
-[[Yii\Log\Logger|logger object]]. Para limitar el consumo de memoria de este array, el componente encargado del
+[[Yiisoft\Log\Logger|logger object]]. Para limitar el consumo de memoria de este array, el componente encargado del
 registro de mensajes enviará los mensajes registrados a los [destinos de registros](#log-targets) cada vez que el
 array acumule un cierto número de mensajes de registro. Se puede personalizar el número configurando la propiedad
-[[Yii\Log\Dispatcher::flushInterval|flushInterval]] del componente `log`:
+[[Yiisoft\Log\Dispatcher::flushInterval|flushInterval]] del componente `log`:
 
 ```php
 return [
@@ -276,15 +276,15 @@ return [
 > Info: También se produce la liberación de mensajes cuando la aplicación finaliza, esto asegura que los
   destinos de los registros reciban los mensajes de registro.
 
-Cuando el [[Yii\Log\Logger|logger object]] libera los mensajes de registro enviándolos a los
+Cuando el [[Yiisoft\Log\Logger|logger object]] libera los mensajes de registro enviándolos a los
 [destinos de registros](#log-targets), estos no se exportan inmediatamente. La exportación de mensajes solo se
 produce cuando un destino de registros acumula un cierto número de mensajes filtrados. Se puede personalizar este
-número configurando la propiedad [[Yii\Log\Target::exportInterval|exportInterval]] de un
+número configurando la propiedad [[Yiisoft\Log\Target::exportInterval|exportInterval]] de un
 [destinos de registros](#log-targets) individual, como se muestra a continuación,
 
 ```php
 [
-    'class' => 'Yii\Log\FileTarget',
+    'class' => 'Yiisoft\Log\FileTarget',
     'exportInterval' => 100,  // el valor predeterminado es 1000
 ]
 ```
@@ -293,8 +293,8 @@ Debido al nivel de configuración de la liberación y exportación de mensajes, 
 `Yii::debug()` o cualquier otro método de registro de mensajes, NO veremos el registro de mensaje inmediatamente en
 los destinos de registros. Esto podría ser un problema para algunas aplicaciones de consola de ejecución
 prolongada (long-running). Para hacer que los mensajes de registro aparezcan inmediatamente en los destinos de
-registro se deben establecer [[Yii\Log\Dispatcher::flushInterval|flushInterval]] y
-[[Yii\Log\Target::exportInterval|exportInterval]] para que tengan valor 1 como se muestra a continuación:
+registro se deben establecer [[Yiisoft\Log\Dispatcher::flushInterval|flushInterval]] y
+[[Yiisoft\Log\Target::exportInterval|exportInterval]] para que tengan valor 1 como se muestra a continuación:
 
 ```php
 return [
@@ -304,7 +304,7 @@ return [
             'flushInterval' => 1,
             'targets' => [
                 [
-                    'class' => 'Yii\Log\FileTarget',
+                    'class' => 'Yiisoft\Log\FileTarget',
                     'exportInterval' => 1,
                 ],
             ],
@@ -318,7 +318,7 @@ return [
 ### Conmutación de Destinos de Registros <span id="toggling-log-targets"></span>
 
 Se puede habilitar o deshabilitar un destino de registro configuración su propiedad
-[[Yii\Log\Target::enabled|enabled]]. Esto se puede llevar a cabo a mediante la configuración del destino de
+[[Yiisoft\Log\Target::enabled|enabled]]. Esto se puede llevar a cabo a mediante la configuración del destino de
 registros o con la siguiente declaración PHP de código:
 
 ```php
@@ -335,10 +335,10 @@ return [
         'log' => [
             'targets' => [
                 'file' => [
-                    'class' => 'Yii\Log\FileTarget',
+                    'class' => 'Yiisoft\Log\FileTarget',
                 ],
                 'db' => [
-                    'class' => 'Yii\Log\DbTarget',
+                    'class' => 'Yiisoft\Log\DbTarget',
                 ],
             ],
         ],
@@ -349,8 +349,8 @@ return [
 ### Creación de Nuevos Destinos <span id="new-targets"></span>
 
 La creación de nuevas clases de destinos de registro es muy simple. Se necesita implementar el método
-[[Yii\Log\Target::export()]] enviando el contenido del array [[Yii\Log\Target::messages]] al medio designado. Se puede
-llamar al método [[Yii\Log\Target::formatMessage()]] para formatear los mensajes. Se pueden encontrar más detalles de
+[[Yiisoft\Log\Target::export()]] enviando el contenido del array [[Yiisoft\Log\Target::messages]] al medio designado. Se puede
+llamar al método [[Yiisoft\Log\Target::formatMessage()]] para formatear los mensajes. Se pueden encontrar más detalles de
 destinos de registros en las clases incluidas en la distribución de Yii.
 
 ## Perfilado de Rendimiento <span id="performance-profiling"></span>

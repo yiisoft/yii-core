@@ -327,7 +327,7 @@ abstract class ErrorHandler extends Component
      */
     protected function flushLogger()
     {
-        if ($this->logger instanceof \Yii\Log\Logger) {
+        if ($this->logger instanceof \Yiisoft\Log\Logger) {
             $this->logger->flush(true);
             // attempt to invoke logger destructor:
             unset($this->logger);

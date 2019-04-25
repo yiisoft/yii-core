@@ -73,7 +73,7 @@ si no especificas su nombre de clase, la clase por defecto será utilizada.
   Por favor consulta la sección [Formato de Datos](output-formatting.md) para más detalles.
 * [[yii\i18n\I18N|i18n]]: soporta traducción y formato de mensajes.
   Por favor consulta la sección [Internacionalización](tutorial-i18n.md) para más detalles.
-* [[Yii\Log\Dispatcher|log]]: maneja a dónde dirigir los logs.
+* [[Yiisoft\Log\Dispatcher|log]]: maneja a dónde dirigir los logs.
   Por favor consulta la sección [Logging](tutorial-logging.md) para más detalles.
 * [[yii\swiftmailer\Mailer|mail]]: soporta construcción y envío de emails.
   Por favor consulta la sección [Enviando Emails](tutorial-mailing.md) para más detalles.

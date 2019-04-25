@@ -9,7 +9,7 @@ namespace yii\tests\framework\helpers;
 
 use Psr\Log\LogLevel;
 use yii\helpers\BaseYii;
-use Yii\Log\Logger;
+use Yiisoft\Log\Logger;
 use yii\tests\data\base\Singer;
 use yii\tests\TestCase;
 

@@ -97,7 +97,7 @@ zostanie użyta klasa domyślna.
   Po więcej informacji zajrzyj do sekcji [Formatowanie danych](output-formatting.md).
 * [[yii\i18n\I18N|i18n]]: wspiera tłumaczenie i formatowanie wiadomości.
   Po więcej informacji zajrzyj do sekcji [Internacjonalizacja](tutorial-i18n.md).
-* [[Yii\Log\Dispatcher|log]]: zarządza logowaniem informacji oraz błędów
+* [[Yiisoft\Log\Dispatcher|log]]: zarządza logowaniem informacji oraz błędów
   Po więcej informacji zajrzyj do sekcji [Logowanie](runtime-logging.md).
 * [[yii\swiftmailer\Mailer|mail]]: wspiera tworzenie oraz wysyłanie emaili.
   Po więcej informacji zajrzyj do sekcji [Wysyłanie poczty](tutorial-mailing.md).
