@@ -42,7 +42,7 @@ public function rules()
   [[yii\validators\BooleanValidator::strict|strict]] プロパティは `false` のままにすべきです。
 
 
-## [[yii\captcha\CaptchaValidator|captcha]] <span id="captcha"></span>
+## [[Yiisoft\Yii\Captcha\CaptchaValidator|captcha]] <span id="captcha"></span>
 
 ```php
 [
@@ -50,11 +50,11 @@ public function rules()
 ]
 ```
 
-このバリデータは、通常、[[yii\captcha\CaptchaAction]] および [[yii\captcha\Captcha]] と一緒に使われ、
-入力値が [[yii\captcha\Captcha|CAPTCHA]] ウィジェットによって表示された検証コードと同じであることを確認します。
+このバリデータは、通常、[[Yiisoft\Yii\Captcha\CaptchaAction]] および [[Yiisoft\Yii\Captcha\Captcha]] と一緒に使われ、
+入力値が [[Yiisoft\Yii\Captcha\Captcha|CAPTCHA]] ウィジェットによって表示された検証コードと同じであることを確認します。
 
 - `caseSensitive`: 検証コードの比較で大文字と小文字を区別するかどうか。デフォルト値は `false`。
-- `captchaAction`: CAPTCHA 画像を表示する [[yii\captcha\CaptchaAction|CAPTCHA アクション]] に対応する
+- `captchaAction`: CAPTCHA 画像を表示する [[Yiisoft\Yii\Captcha\CaptchaAction|CAPTCHA アクション]] に対応する
   [ルート](structure-controllers.md#routes)。デフォルト値は `'site/captcha'`。
 - `skipOnEmpty`: 入力値が空のときに検証をスキップできるかどうか。デフォルト値は `false` で、
   入力が必須であることを意味します。

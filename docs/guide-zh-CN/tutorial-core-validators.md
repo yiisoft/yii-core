@@ -42,7 +42,7 @@ public function rules()
   [[yii\validators\BooleanValidator::strict|strict]] 属性为假。
 
 
-## [[yii\captcha\CaptchaValidator|captcha（验证码）]] <span id="captcha"></span>
+## [[Yiisoft\Yii\Captcha\CaptchaValidator|captcha（验证码）]] <span id="captcha"></span>
 
 ```php
 [
@@ -50,11 +50,11 @@ public function rules()
 ]
 ```
 
-该验证器通常配合 [[yii\captcha\CaptchaAction]] 以及 [[yii\captcha\Captcha]]
-使用，以确保某一输入与 [[yii\captcha\Captcha|CAPTCHA]] 小部件所显示的验证代码（verification code）相同。
+该验证器通常配合 [[Yiisoft\Yii\Captcha\CaptchaAction]] 以及 [[Yiisoft\Yii\Captcha\Captcha]]
+使用，以确保某一输入与 [[Yiisoft\Yii\Captcha\Captcha|CAPTCHA]] 小部件所显示的验证代码（verification code）相同。
 
 - `caseSensitive`：对验证码的比对是否要求大小写敏感。默认为 false。
-- `captchaAction`：指向用于渲染 CAPTCHA 图片的 [[yii\captcha\CaptchaAction|CAPTCHA action]] 
+- `captchaAction`：指向用于渲染 CAPTCHA 图片的 [[Yiisoft\Yii\Captcha\CaptchaAction|CAPTCHA action]] 
   的 [路由](structure-controllers.md#routes)。默认为 `'site/captcha'`。
 - `skipOnEmpty`：当输入为空时，是否跳过验证。
   默认为 false，也就是输入值为必需项。

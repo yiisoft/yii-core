@@ -41,20 +41,20 @@ public function rules()
 оставить свойство [[yii\validators\BooleanValidator::strict|strict]] равным `false`.
 
 
-## [[yii\captcha\CaptchaValidator|captcha]] <span id="captcha"></span>
+## [[Yiisoft\Yii\Captcha\CaptchaValidator|captcha]] <span id="captcha"></span>
 
 ```php
 [
     ['verificationCode', 'captcha'],
 ]
 ```
-Этот валидатор обычно используется вместе с [[yii\captcha\CaptchaAction]] и [[yii\captcha\Captcha]], чтобы
+Этот валидатор обычно используется вместе с [[Yiisoft\Yii\Captcha\CaptchaAction]] и [[Yiisoft\Yii\Captcha\Captcha]], чтобы
 убедиться, что данные в инпуте соответствуют верификационному коду, отображенному с помощью виджета
-[[yii\captcha\Captcha|CAPTCHA]].
+[[Yiisoft\Yii\Captcha\Captcha|CAPTCHA]].
 
 - `caseSensitive`: необходимо ли учитывать чувствительность к регистру при сравнении. По умолчанию - `false`.
 - `captchaAction`: [маршрут](structure-controllers.md#routes), соответствующий
-  [[yii\captcha\CaptchaAction|CAPTCHA action]], который рендерит изображение с *CAPTCHA*. По умолчанию - `'site/captcha'`.
+  [[Yiisoft\Yii\Captcha\CaptchaAction|CAPTCHA action]], который рендерит изображение с *CAPTCHA*. По умолчанию - `'site/captcha'`.
 - `skipOnEmpty`: может ли валидация быть пропущена, если *input* пустой. По умолчанию - `false`,
   что означает, что *input* обязателен.
 

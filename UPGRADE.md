@@ -247,10 +247,10 @@ Upgrade from Yii 2.0.x
   namespace `yii\http\*`. Make sure to refer to those classes using correct fully qualified name.
 * Public interface of `UploadedFile` class has been changed according to `Psr\Http\Message\UploadedFileInterface`.
   Make sure you refer to its properties and methods with correct names.
-* `yii\captcha\CaptchaAction` has been refactored. Rendering logic was extracted into `yii\captcha\DriverInterface`, which
-  instance is available via `yii\captcha\CaptchaAction::$driver` field. All image settings now should be passed to
+* `Yiisoft\Yii\Captcha\CaptchaAction` has been refactored. Rendering logic was extracted into `Yiisoft\Yii\Captcha\DriverInterface`, which
+  instance is available via `Yiisoft\Yii\Captcha\CaptchaAction::$driver` field. All image settings now should be passed to
   the driver fields instead of action. Automatic detection of the rendering driver is no longer supported.
-* `yii\captcha\Captcha::checkRequirements()` method has been removed.
+* `Yiisoft\Yii\Captcha\Captcha::checkRequirements()` method has been removed.
 * All cache related classes interface has been changed according to [PSR-16] "Simple Cache" specification. Make sure you
   change your invocations for the cache methods accordingly. The most notable changes affects methods `get()` and `getMultiple()`
   as they now accept `$default` argument, which value will be returned in case there is no value in the cache. This makes

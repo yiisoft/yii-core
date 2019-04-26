@@ -42,7 +42,7 @@ This validator checks if the input value is a boolean.
   [[yii\validators\BooleanValidator::strict|strict]] property as `false`.
 
 
-## [[yii\captcha\CaptchaValidator|captcha]] <span id="captcha"></span>
+## [[Yiisoft\Yii\Captcha\CaptchaValidator|captcha]] <span id="captcha"></span>
 
 ```php
 [
@@ -50,12 +50,12 @@ This validator checks if the input value is a boolean.
 ]
 ```
 
-This validator is usually used together with [[yii\captcha\CaptchaAction]] and [[yii\captcha\Captcha]]
-to make sure an input is the same as the verification code displayed by [[yii\captcha\Captcha|CAPTCHA]] widget.
+This validator is usually used together with [[Yiisoft\Yii\Captcha\CaptchaAction]] and [[Yiisoft\Yii\Captcha\Captcha]]
+to make sure an input is the same as the verification code displayed by [[Yiisoft\Yii\Captcha\Captcha|CAPTCHA]] widget.
 
 - `caseSensitive`: whether the comparison of the verification code is case sensitive. Defaults to `false`.
 - `captchaAction`: the [route](structure-controllers.md#routes) corresponding to the
-  [[yii\captcha\CaptchaAction|CAPTCHA action]] that renders the CAPTCHA image. Defaults to `'site/captcha'`.
+  [[Yiisoft\Yii\Captcha\CaptchaAction|CAPTCHA action]] that renders the CAPTCHA image. Defaults to `'site/captcha'`.
 - `skipOnEmpty`: whether the validation can be skipped if the input is empty. Defaults to `false`,
   which means the input is required.
 

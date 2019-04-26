@@ -39,7 +39,7 @@ Este validador verifica se o valor de entrada é um booleano.
 > Observação: Como a entrada de dados enviados através de formulários HTML são todos strings, normalmente deverá deixar a propriedade [[yii\validators\BooleanValidator::strict|strict]] como `false`.
 
 
-## [[yii\captcha\CaptchaValidator|captcha]] <span id="captcha"></span>
+## [[Yiisoft\Yii\Captcha\CaptchaValidator|captcha]] <span id="captcha"></span>
 
 ```php
 [
@@ -47,10 +47,10 @@ Este validador verifica se o valor de entrada é um booleano.
 ]
 ```
 
-Este validador é geralmente usado junto com [[yii\captcha\CaptchaAction]] e [[yii\captcha\Captcha]] para garantir que a entrada de dados seja igual ao código de verificação exibido pelo widget [[yii\captcha\Captcha|CAPTCHA]].
+Este validador é geralmente usado junto com [[Yiisoft\Yii\Captcha\CaptchaAction]] e [[Yiisoft\Yii\Captcha\Captcha]] para garantir que a entrada de dados seja igual ao código de verificação exibido pelo widget [[Yiisoft\Yii\Captcha\Captcha|CAPTCHA]].
 
 - `caseSensitive`: se a comparação da verificação de código for case sensitivo. O padrão é `false`.
-- `captchaAction`: a [rota](structure-controllers.md#routes) correspondente à [[yii\captcha\CaptchaAction|ação CAPTCHA]] que renderiza as imagens. O padrão é `'site/captcha'`.
+- `captchaAction`: a [rota](structure-controllers.md#routes) correspondente à [[Yiisoft\Yii\Captcha\CaptchaAction|ação CAPTCHA]] que renderiza as imagens. O padrão é `'site/captcha'`.
 - `skipOnEmpty`: se a validação pode ser ignorada se a entrada estiver vazia. O padrão é `false`,
 o que significa que a entrada é obrigatória.
 
