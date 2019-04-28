@@ -161,7 +161,7 @@ Upgrade from Yii 2.0.x
     * yii-web:
         * moved web formatters to their own directory
     * cache:
-        * renamed namespace `yii\caching` -> `yii\cache`
+        * renamed namespace `yii\caching` -> `Yiisoft\Cache`
         * moved cache dependencies to own directory
     * yii-project-template:
         * moved web server root dir to `public` (was web)
