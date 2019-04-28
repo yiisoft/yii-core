@@ -8,7 +8,7 @@
 namespace yii\tests\framework\i18n;
 
 use m150207_210500_i18n_init;
-use yii\cache\ArrayCache;
+use Yiisoft\Cache\ArrayCache;
 use yii\db\Connection;
 use yii\db\Migration;
 use yii\i18n\DbMessageSource;

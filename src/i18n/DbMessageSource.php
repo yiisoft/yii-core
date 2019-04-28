@@ -7,7 +7,7 @@
 
 namespace yii\i18n;
 
-use yii\cache\CacheInterface;
+use Yiisoft\Cache\CacheInterface;
 use yii\db\Connection;
 use yii\db\Expression;
 use yii\db\Query;
