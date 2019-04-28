@@ -73,7 +73,7 @@ require __DIR__ . '/vendor/yiisoft/yii2/Yii.php';
 // завантаження конфігурації додатка
 $config = require __DIR__ . '/config/console.php';
 
-$application = new yii\console\Application($config);
+$application = new Yiisoft\Yii\Console\Application($config);
 $exitCode = $application->run();
 exit($exitCode);
 ```

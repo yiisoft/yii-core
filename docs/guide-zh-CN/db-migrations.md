@@ -722,7 +722,7 @@ yii migrate
 该记录将帮助迁移工具判断哪些迁移已经提交，哪些还没有提交。
 
 > Tip: 迁移工具将会自动在数据库当中创建 `migration` 表，
-  该数据库是在该命令的 [[yii\console\controllers\MigrateController::db|db]] 选项当中指定的。
+  该数据库是在该命令的 [[Yiisoft\Yii\Console\Controllers\MigrateController::db|db]] 选项当中指定的。
   默认情况下，是由 `db` [application component](structure-application-components.md) 指定的。
   
 有时，你可能只需要提交一个或者少数的几个迁移，
@@ -871,7 +871,7 @@ yii migrate --migrationPath=@app/modules/forum/migrations --interactive=0
 return [
     'controllerMap' => [
         'migrate' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            'class' => 'Yiisoft\Yii\Console\Controllers\MigrateController',
             'migrationTable' => 'backend_migration',
         ],
     ],

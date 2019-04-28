@@ -346,7 +346,7 @@ class m170124_084304_init_rbac extends Migration
 namespace app\commands;
 
 use yii\helpers\Yii;
-use yii\console\Controller;
+use Yiisoft\Yii\Console\Controller;
 
 class RbacController extends Controller
 {

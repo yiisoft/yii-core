@@ -5,7 +5,7 @@
 которые обычно используются для создания фоновых и служебных задач, поддерживающих сайт.
 
 Структура консольных приложений очень похожа на структуру веб приложения. Она состоит из одного и более классов
-[[yii\console\Controller]], которые часто называют командами в консольной среде. Каждый контроллер может иметь одно
+[[Yiisoft\Yii\Console\Controller]], которые часто называют командами в консольной среде. Каждый контроллер может иметь одно
 или более действий, как и веб контроллеры.
 
 В обоих шаблонах проектов уже есть консольное приложение.
@@ -16,18 +16,18 @@
 
 Как вы можете видеть на скриншоте, в Yii уже определён набор доступных по умолчанию команд:
 
-- [[yii\console\controllers\AssetController|AssetController]] - Позволяет вам объединять и сжимать ваши JavaScript и CSS файлы.
+- [[Yiisoft\Yii\Console\Controllers\AssetController|AssetController]] - Позволяет вам объединять и сжимать ваши JavaScript и CSS файлы.
   Больше об этой команде вы можете узнать в [Assets Section](structure-assets.md#using-asset-bundles).
-- [[yii\console\controllers\CacheController|CacheController]] - Позволяет вам сбрасывать кеш приложения.
-- [[yii\console\controllers\FixtureController|FixtureController]] - Управляет загрузкой и выгрузкой данных фикстур для тестирования.
+- [[Yiisoft\Yii\Console\Controllers\CacheController|CacheController]] - Позволяет вам сбрасывать кеш приложения.
+- [[Yiisoft\Yii\Console\Controllers\FixtureController|FixtureController]] - Управляет загрузкой и выгрузкой данных фикстур для тестирования.
   Данная команда более подробно описана в [Testing Section about Fixtures](test-fixtures.md#managing-fixtures).
-- [[yii\console\controllers\HelpController|HelpController]] - Обеспечивает справочную информацию о консольных командах,
+- [[Yiisoft\Yii\Console\Controllers\HelpController|HelpController]] - Обеспечивает справочную информацию о консольных командах,
   это команда по умолчанию и она печатает текст, который вы видели выше.
-- [[yii\console\controllers\MessageController|MessageController]] - Извлекает сообщения для перевода из файлов с исходными тестами.
+- [[Yiisoft\Yii\Console\Controllers\MessageController|MessageController]] - Извлекает сообщения для перевода из файлов с исходными тестами.
   Больше об этой команде вы можете узнать в [I18N Section](tutorial-i18n.md#message-command).
-- [[yii\console\controllers\MigrateController|MigrateController]] - Управление миграциями приложения.
+- [[Yiisoft\Yii\Console\Controllers\MigrateController|MigrateController]] - Управление миграциями приложения.
   Миграции базы данных более детально описаны в [Database Migration Section](db-migrations.md).
-- [[yii\console\controllers\ServeController|ServeController]] - Позволяет запускать встроенный вебсервер PHP.
+- [[Yiisoft\Yii\Console\Controllers\ServeController|ServeController]] - Позволяет запускать встроенный вебсервер PHP.
 
 
 Использование <span id="usage"></span>
@@ -42,8 +42,8 @@ yii <route> [--option1=value1 --option2=value2 ... argument1 argument2 ...]
 В приведённом выше примере, `<route>` относится к действию контроллера. Параметры будут подставляться в свойства
 класса и в аргументы метода действия.
 
-Для примера, [[yii\console\controllers\MigrateController::actionUp()|MigrateController::actionUp()]]
-с [[yii\console\controllers\MigrateController::$migrationTable|MigrateController::$migrationTable]] установкой `migrations`
+Для примера, [[Yiisoft\Yii\Console\Controllers\MigrateController::actionUp()|MigrateController::actionUp()]]
+с [[Yiisoft\Yii\Console\Controllers\MigrateController::$migrationTable|MigrateController::$migrationTable]] установкой `migrations`
 и лимитом в 5 миграций может быть вызвано следующим образом:
 
 ```
@@ -76,7 +76,7 @@ require __DIR__ . '/vendor/yiisoft/yii2/Yii.php';
 
 $config = require __DIR__ . '/config/console.php';
 
-$application = new yii\console\Application($config);
+$application = new Yiisoft\Yii\Console\Application($config);
 $exitCode = $application->run();
 exit($exitCode);
 ```
@@ -162,18 +162,18 @@ exec $SHELL -l
 
 ### Консольный контроллер и действие
 
-Консольная команда определяется как класс контроллера расширяющий [[yii\console\Controller]]. В классе контроллера,
+Консольная команда определяется как класс контроллера расширяющий [[Yiisoft\Yii\Console\Controller]]. В классе контроллера,
 вы определяете одно или несколько действий, которые соответствуют суб-командам контроллера. В каждом действии
 вы пишете код, который реализует соответствующие данной суб-команде задачи.
 
 При запуске команды, вам необходимо указать маршрут к действию. Например, маршрут `migrate/create` вызывает суб-команду,
-которая соответствует методу [[yii\console\controllers\MigrateController::actionCreate()|MigrateController::actionCreate()]].
+которая соответствует методу [[Yiisoft\Yii\Console\Controllers\MigrateController::actionCreate()|MigrateController::actionCreate()]].
 Если маршрут, предложенный при вызове команды, не содержит указания идентификатора действия, будет вызвано действие
 по умолчанию (так же как и в веб приложении).
 
 ### Опции
 
-Для переопределения [[yii\console\Controller::options()]] метода, вы можете указать опции, которые доступны в консольной
+Для переопределения [[Yiisoft\Yii\Console\Controller::options()]] метода, вы можете указать опции, которые доступны в консольной
 команде (controller/actionID). Метод должен возвращать список публичных атрибутов класса. При запуске команды вы
 можете указать значение опций, используя синтаксис `--OptionName=OptionValue`. Это свяжет `OptionValue` с атрибутом
 `OptionName` класса контроллера.
@@ -194,15 +194,15 @@ exec $SHELL -l
 
 ### Псевдонимы опций
 
-Начиная с версии 2.0.8 в классе консольной команды  доступен метод [[yii\console\Controller::optionAliases()]],
+Начиная с версии 2.0.8 в классе консольной команды  доступен метод [[Yiisoft\Yii\Console\Controller::optionAliases()]],
 позволяющий добавлять псевдонимы для опций.
 
-Для того, чтобы задать псевдоним, перекройте метод [[yii\console\Controller::optionAliases()]] в вашем контроллере:
+Для того, чтобы задать псевдоним, перекройте метод [[Yiisoft\Yii\Console\Controller::optionAliases()]] в вашем контроллере:
 
 ```php
 namespace app\commands;
 
-use yii\console\Controller;
+use Yiisoft\Yii\Console\Controller;
 
 class HelloController extends Controller
 {
@@ -235,7 +235,7 @@ yii hello -m=hello
 Следующий пример показывает как описывать аргументы:
 
 ```php
-class ExampleController extends \yii\console\Controller
+class ExampleController extends \Yiisoft\Yii\Console\Controller
 {
     // Команда "yii example/create test" вызовет "actionCreate('test')"
     public function actionCreate($name) { ... }
@@ -275,8 +275,8 @@ public function actionIndex()
 
 Есть несколько предопределённых констант, которые вы можете использовать:
 
-- [[yii\console\ExitCode::OK]] со значением `0`;
-- [[yii\console\ExitCode::UNSPECIFIED_ERROR]] со значением `1`.
+- [[Yiisoft\Yii\Console\ExitCode::OK]] со значением `0`;
+- [[Yiisoft\Yii\Console\ExitCode::UNSPECIFIED_ERROR]] со значением `1`.
 
 Хорошая практика, определять значимые для вашего контроллера константы в случае, если вы используете больше типов ошибок.
 

@@ -8,7 +8,7 @@ Chacun des systèmes mettant en œuvre Yii contient un objet *Application* uniqu
 > Info: selon le contexte, lorsque nous utilisons le terme « application », cela peut signifier soit un objet *Application*, soit un système mettant en œuvre Yii. 
 
 Il existe deux types d'application :  [[yii\web\Application|les applications Web]] et
-[[yii\console\Application|les applications de console]]. Comme leur nom l'indique, les premières prennent en charge des requêtes Web tandis que les deuxièmes prennent en charge des requêtes de la console. 
+[[Yiisoft\Yii\Console\Application|les applications de console]]. Comme leur nom l'indique, les premières prennent en charge des requêtes Web tandis que les deuxièmes prennent en charge des requêtes de la console. 
 
 
 ## Configurations d'application <span id="application-configurations"></span>
@@ -337,8 +337,8 @@ Cette propriété spécifie la [route](runtime-routing.md) qu'une application de
 Pour les [[yii\web\Application|applications Web]], la valeur par défaut de cette propriété est `'site'`, ce qui donne le contrôleur 
 `SiteController` et son action par défaut est utilisée. En conséquence, si vous accédez à l'application sans spécifier de route, vous aboutissez à ce que retourne l'action `app\controllers\SiteController::actionIndex()`.
 
-Pour les [[yii\console\Application|applications de console]], la valeur par défaut est `'help'` (aide), ce qui conduit à
-[[yii\console\controllers\HelpController::actionIndex()]]. Par conséquent, si vous exécutez la commande `yii` sans lui fournir d'argument, l'application affiche l'information d'aide.
+Pour les [[Yiisoft\Yii\Console\Application|applications de console]], la valeur par défaut est `'help'` (aide), ce qui conduit à
+[[Yiisoft\Yii\Console\Controllers\HelpController::actionIndex()]]. Par conséquent, si vous exécutez la commande `yii` sans lui fournir d'argument, l'application affiche l'information d'aide.
 
 
 
@@ -411,9 +411,9 @@ Vous pouvez configurer cette propriété comme un dossier ou un [alias](concept-
 Pour simplifier l'accès à ce chemin, Yii a prédéfini un alias de chemin nommé  `@vendor`.
 
 
-#### [[yii\console\Application::enableCoreCommands|enableCoreCommands (activer les commandes du noyau)]] <span id="enableCoreCommands"></span>
+#### [[Yiisoft\Yii\Console\Application::enableCoreCommands|enableCoreCommands (activer les commandes du noyau)]] <span id="enableCoreCommands"></span>
 
-Cette propriété est prise en charge par les [[yii\console\Application|applications de console]] uniquement. Elle spécifie si les commandes du noyau de la version de Yii sont activées ou pas. La valeur par défaut est  `true` (vrai).
+Cette propriété est prise en charge par les [[Yiisoft\Yii\Console\Application|applications de console]] uniquement. Elle spécifie si les commandes du noyau de la version de Yii sont activées ou pas. La valeur par défaut est  `true` (vrai).
 
 
 ## Événements d'application <span id="application-events"></span>

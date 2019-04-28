@@ -317,13 +317,13 @@ Aplicações de Console
 ---------------------
 
 As aplicações de console agora são organizadas como controllers (controladores),
-assim como as aplicações web. Os controllers de console devem estender de [[yii\console\Controller]],
+assim como as aplicações web. Os controllers de console devem estender de [[Yiisoft\Yii\Console\Controller]],
 de maneira semelhante à `CConsoleCommand` no 1.1.
 
 Para rodar um comando do console, use `yii <rota>`, onde `<rota>` representa a rota de
 um controller (por exemplo, `sitemap/index`). Argumentos anônimos adicionais são
 passados como os parâmetros correspondentes ao método da ação do controller, enquanto
-argumentos com nome são parseados de acordo com as declarações em [[yii\console\Controller::options()]].
+argumentos com nome são parseados de acordo com as declarações em [[Yiisoft\Yii\Console\Controller::options()]].
 
 O Yii 2.0 suporta a geração automática de informação de ajuda do comando a partir
 de blocos de comentários.

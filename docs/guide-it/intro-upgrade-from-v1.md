@@ -271,11 +271,11 @@ Applicazioni da console
 -----------------------
 
 Le applicazioni da console (linea di comando) sono ora organizzate come controller, come le applicazioni web. I controller devono quindi
-estendere [[yii\console\Controller]], simile alla classe `CConsoleCommand` della versione 1.1.
+estendere [[Yiisoft\Yii\Console\Controller]], simile alla classe `CConsoleCommand` della versione 1.1.
 
 Per eseguire un comando da terminale usare `yii <route>`, dove `<route>` rappresenta la rotta di un controller
 (es. `sitemap/index`). I parametri anonimi aggiuntivi vengono passati come parametri al relativo metodo dell'azione nel controller, mentre
-i parametri specifici (con nome) vengono processati secondo le specifiche di [[yii\console\Controller::options()]].
+i parametri specifici (con nome) vengono processati secondo le specifiche di [[Yiisoft\Yii\Console\Controller::options()]].
 
 Yii 2.0 supporta la generazione automatica dell'help dei comandi prelevando le informazioni dai blocchi di commento.
 

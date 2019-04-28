@@ -91,8 +91,8 @@ la sección [Routing](runtime-routing.md).
 ## Creando Controladores <span id="creating-controllers"></span>
 
 En [[yii\web\Application|aplicaciones Web]], los controladores deben extender de [[yii\web\Controller]] o cualquier
-clase hija. De forma similar los controladores de [[yii\console\Application|aplicaciones de consola]], deben extender
-de [[yii\console\Controller]] o cualquier clase hija de esta. El siguiente código define un controlador `site`:
+clase hija. De forma similar los controladores de [[Yiisoft\Yii\Console\Application|aplicaciones de consola]], deben extender
+de [[Yiisoft\Yii\Console\Controller]] o cualquier clase hija de esta. El siguiente código define un controlador `site`:
 
 ```php
 namespace app\controllers;
@@ -177,7 +177,7 @@ Puedes configurar [[yii\base\Application::controllerMap|controller map]] en la
 
 Cada aplicación tiene un controlador por defecto especificado a través de la propiedad [[yii\base\Application::defaultRoute]].
 Cuando un `request` no especifica una [ruta](#ids-routes), se utilizará la ruta especificada en esta propiedad.
-Para [[yii\web\Application|aplicaciones Web]], el valor es `'site'`, mientras que para [[yii\console\Application|aplicaciones de consola]]
+Para [[yii\web\Application|aplicaciones Web]], el valor es `'site'`, mientras que para [[Yiisoft\Yii\Console\Application|aplicaciones de consola]]
 es `help`. Por lo tanto, si la URL es `http://hostname/index.php`, significa que el `request` será manejado por el controlador `site`.
 
 Puedes cambiar el controlador por defecto con la siguiente [configuración de la aplicación](structure-applications.md#application-configurations):
@@ -312,8 +312,8 @@ los usuarios.
 
 * Para [[yii\web\Application|aplicaciones Web]], el valor de retorno pueden ser también datos arbitrarios que serán
   asignados a [[yii\web\Response::data]] y más adelante convertidos a una cadena representando el cuerpo de la respuesta.
-* Para [[yii\console\Application|aplicaciones de consola]], el valor de retorno puede ser también un entero representando
-  el [[yii\console\Response::exitStatus|status de salida]] de la ejecución del comando.
+* Para [[Yiisoft\Yii\Console\Application|aplicaciones de consola]], el valor de retorno puede ser también un entero representando
+  el [[Yiisoft\Yii\Console\Response::exitStatus|status de salida]] de la ejecución del comando.
 
 En los ejemplos mostrados arriba, los resultados de las acciones son todas cadenas que serán tratadas como el cuerpo de la respuesta
 a ser enviado a los usuarios. El siguiente ejemplo demuestra cómo una acción puede redirigir el navegador del usuario a una nueva URL
@@ -334,7 +334,7 @@ public function actionForward()
 Los métodos de acción para acciones en línea y el método `run()` de acciones independientes pueden tomar parámetros,
 llamados *parámetros de acción*. Sus valores son obtenidos del `request`. Para [[yii\web\Application|aplicaciones Web]],
 el valor de cada parámetro de acción es tomado desde `$_GET` usando el nombre del parámetro como su clave;
-para [[yii\console\Application|aplicaciones de consola]], estos corresponden a los argumentos de la línea de comandos.
+para [[Yiisoft\Yii\Console\Application|aplicaciones de consola]], estos corresponden a los argumentos de la línea de comandos.
 
 En el siguiente ejemplo, la acción `view` (una acción en línea) declara dos parámetros: `$id` y `$version`.
 

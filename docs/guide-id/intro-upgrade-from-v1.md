@@ -277,12 +277,12 @@ Aplikasi konsol
 --------------------
 
 Aplikasi konsol sekarang diatur sebagai controller seperti pada aplikasi Web. kontroler konsol
-harus diperluas dari [[yii\console\Controller]], mirip dengan `CConsoleCommand` di 1.1.
+harus diperluas dari [[Yiisoft\Yii\Console\Controller]], mirip dengan `CConsoleCommand` di 1.1.
 
 Untuk menjalankan perintah konsol, menggunakan `yii <route>`, di mana `<route>` adalah rute kontroler
 (Misalnya `sitemap/index`). Argumen anonim tambahan dilewatkan sebagai parameter ke
 action controller yang sesuai, sedangkan argumen bernama diurai menurut
-deklarasi pada [[yii\console\Controller::options()]].
+deklarasi pada [[Yiisoft\Yii\Console\Controller::options()]].
 
 Yii 2.0 mendukung pembuatan informasi bantuan command secara otomatis berdasarkan blok komentar.
 

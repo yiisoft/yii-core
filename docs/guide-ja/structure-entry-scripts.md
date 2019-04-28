@@ -68,7 +68,7 @@ require __DIR__ . '/vendor/autoload.php';
 // アプリケーションの構成情報を読み出す
 $config = require __DIR__ . '/config/console.php';
 
-$application = new yii\console\Application($config);
+$application = new Yiisoft\Yii\Console\Application($config);
 $exitCode = $application->run();
 exit($exitCode);
 ```

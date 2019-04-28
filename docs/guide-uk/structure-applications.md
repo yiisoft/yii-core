@@ -8,7 +8,7 @@
 > Info: Термін "додаток", в залежності від контексту, в якому він використовується, може означати як об’єкт додатка,
   так і прикладну систему додатка в цілому.
 
-Існує два типи додатків: [[yii\web\Application|веб-додатки]] та [[yii\console\Application|консольні додатки]].
+Існує два типи додатків: [[yii\web\Application|веб-додатки]] та [[Yiisoft\Yii\Console\Application|консольні додатки]].
 Як можна здогадатися із назв, перший тип, в основному, займається обробкою веб-запитів, а другий обробляє
 запити консольних команд.
 
@@ -396,8 +396,8 @@ $width = \Yii::$app->params['thumbnail.size'][0];
 контролер `SiteController` і буде використовуватись його дія за замовчуванням. Таким чином, якщо ви спробуєте отримати доступ 
 до додатка, не вказавши маршрут - буде відображено результат дії `app\controllers\SiteController::actionIndex()`.
 
-Для [[yii\console\Application|консольних додатків]] значення за замовчуванням рівне `'help'`, яке означає,
-що повинна використовуватись вбудована команда [[yii\console\controllers\HelpController::actionIndex()]].
+Для [[Yiisoft\Yii\Console\Application|консольних додатків]] значення за замовчуванням рівне `'help'`, яке означає,
+що повинна використовуватись вбудована команда [[Yiisoft\Yii\Console\Controllers\HelpController::actionIndex()]].
 Таким чином, якщо ви виконаєте команду `yii` без аргументів, вам буде відображена довідкова інформація.
 
 
@@ -485,9 +485,9 @@ $width = \Yii::$app->params['thumbnail.size'][0];
 Для спрощення роботи з даною директорією, Yii надає попередньо визначений псевдонім шляху `@vendor`.
 
 
-#### [[yii\console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
+#### [[Yiisoft\Yii\Console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
 
-Дана властивість підтримується тільки [[yii\console\Application|консольними додатками]]. Вона вказує чи потрібно
+Дана властивість підтримується тільки [[Yiisoft\Yii\Console\Application|консольними додатками]]. Вона вказує чи потрібно
 використовувати вбудовані в Yii консольні команди. Значення за замовчуванням рівне `true`.
 
 

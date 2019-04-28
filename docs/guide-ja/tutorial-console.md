@@ -5,7 +5,7 @@
 コンソール・アプリケーションは、主として、ウェブ・サイトのために実行する必要のあるバックグラウンドのタスクやメンテナンスのタスクを作成するために使われるものです。
 
 コンソール・アプリケーションの構造は Yii のウェブ・アプリケーションのそれと非常に良く似ています。
-コンソール・アプリケーションは一つまたは複数の [[yii\console\Controller]] クラスから構成されます。コントローラはコンソール環境ではしばしば「コマンド」と呼ばれます。
+コンソール・アプリケーションは一つまたは複数の [[Yiisoft\Yii\Console\Controller]] クラスから構成されます。コントローラはコンソール環境ではしばしば「コマンド」と呼ばれます。
 また、各コントローラは、ウェブのコントローラと全く同じように、一つまたは複数のアクションを持つことが出来ます。
 
 プロジェクト・テンプレートは、両方とも、既にコンソール・アプリケーションを持っています。
@@ -16,18 +16,18 @@
 
 スクリーン・ショットに表示されているように、デフォルトで利用できる一連のコマンドが Yii によって既に定義されています。
 
-- [[yii\console\controllers\AssetController|AssetController]] - JavaScript と CSS ファイルを結合して圧縮することが出来ます。
+- [[Yiisoft\Yii\Console\Controllers\AssetController|AssetController]] - JavaScript と CSS ファイルを結合して圧縮することが出来ます。
   このコマンドについては、[アセットのセクション](structure-assets.md#using-the-asset-command) でさらに学習することが出来ます。
-- [[yii\console\controllers\CacheController|CacheController]] - アプリケーションのキャッシュをフラッシュすることが出来ます。
-- [[yii\console\controllers\FixtureController|FixtureController]] - テストのために、フィクスチャ・データのロードとアンロードを管理します。
+- [[Yiisoft\Yii\Console\Controllers\CacheController|CacheController]] - アプリケーションのキャッシュをフラッシュすることが出来ます。
+- [[Yiisoft\Yii\Console\Controllers\FixtureController|FixtureController]] - テストのために、フィクスチャ・データのロードとアンロードを管理します。
   このコマンドについては [テストのフィクスチャのセクション](test-fixtures.md#managing-fixtures) で詳細に説明されています。
-- [[yii\console\controllers\HelpController|HelpController]] - コンソール・コマンドについてのヘルプ情報を提供します。
+- [[Yiisoft\Yii\Console\Controllers\HelpController|HelpController]] - コンソール・コマンドについてのヘルプ情報を提供します。
   これがデフォルトのコマンドであり、上のスクリーン・ショットで見た出力を表示するものです。
-- [[yii\console\controllers\MessageController|MessageController]] - ソース・ファイルから翻訳すべきメッセージを抽出します。
+- [[Yiisoft\Yii\Console\Controllers\MessageController|MessageController]] - ソース・ファイルから翻訳すべきメッセージを抽出します。
   このコマンドについてさらに学習するためには、[国際化のセクション](tutorial-i18n.md#message-command) を参照してください。
-- [[yii\console\controllers\MigrateController|MigrateController]] - アプリケーションのマイグレーションを管理します。
+- [[Yiisoft\Yii\Console\Controllers\MigrateController|MigrateController]] - アプリケーションのマイグレーションを管理します。
   データベースのマイグレーションについては、[データベースのマイグレーションのセクション](db-migrations.md) で詳しく説明されています。
-- [[yii\console\controllers\ServeController|ServeController]] - PHP の内蔵ウェブ・サーバを走らせることが出来ます。
+- [[Yiisoft\Yii\Console\Controllers\ServeController|ServeController]] - PHP の内蔵ウェブ・サーバを走らせることが出来ます。
 
 
 使用方法 <span id="usage"></span>
@@ -42,8 +42,8 @@ yii <route> [--option1=value1 --option2=value2 ... argument1 argument2 ...]
 上記において、`<route>` はコントローラ・アクションへのルートを示すものです。
 オプション (options) はクラスのプロパティに代入され、引数 (arguments) はアクション・メソッドのパラメータとなります。
 
-例えば、[[yii\console\controllers\MigrateController::$migrationTable|MigrateController::$migrationTable]] として `migrations` を指定し、
-マイグレーションの上限を 5 と指定して [[yii\console\controllers\MigrateController::actionUp()|MigrateController::actionUp()]]
+例えば、[[Yiisoft\Yii\Console\Controllers\MigrateController::$migrationTable|MigrateController::$migrationTable]] として `migrations` を指定し、
+マイグレーションの上限を 5 と指定して [[Yiisoft\Yii\Console\Controllers\MigrateController::actionUp()|MigrateController::actionUp()]]
 を呼び出すためには、次のようにします。
 
 ```
@@ -75,7 +75,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 $config = require __DIR__ . '/config/console.php';
 
-$application = new yii\console\Application($config);
+$application = new Yiisoft\Yii\Console\Application($config);
 $exitCode = $application->run();
 exit($exitCode);
 ```
@@ -158,17 +158,17 @@ exec $SHELL -l
 
 ### コンソールのコントローラとアクション
 
-コンソール・コマンドは、[[yii\console\Controller]] を拡張するコントローラ・クラスとして定義することが出来ます。
+コンソール・コマンドは、[[Yiisoft\Yii\Console\Controller]] を拡張するコントローラ・クラスとして定義することが出来ます。
 コントローラ・クラスの中で、コントローラのサブ・コマンドに対応する一つまたは複数のアクションを定義します。各アクションの中で、その特定のサブ・コマンドのための適切なタスクを実装するコードを書きます。
 
 コマンドを実行するときは、コントローラのアクションに対するルートを指定する必要があります。
-例えば、ルート `migrate/create` は、[[yii\console\controllers\MigrateController::actionCreate()|MigrateController::actionCreate()]]
+例えば、ルート `migrate/create` は、[[Yiisoft\Yii\Console\Controllers\MigrateController::actionCreate()|MigrateController::actionCreate()]]
 アクション・メソッドに対応するサブコマンドを呼び出します。
 実行時に提供されたルートにアクション ID が含まれない場合は、(ウェブのコントローラの場合と同じように) デフォルトのアクションが実行されます。
 
 ### オプション
 
-[[yii\console\Controller::options()]] メソッドをオーバーライドすることによって、コンソール・コマンド (controller/actionID) で利用できるオプションを指定することが出来ます。
+[[Yiisoft\Yii\Console\Controller::options()]] メソッドをオーバーライドすることによって、コンソール・コマンド (controller/actionID) で利用できるオプションを指定することが出来ます。
 このメソッドはコントローラ・クラスのパブリックなプロパティのリストを返さなければなりません。
 コマンドを実行するときは、`--OptionName=OptionValue` という構文を使ってオプションの値を指定することが出来ます。
 これはコントローラ・クラスの `OptionName` プロパティに `OptionValue` を割り当てるものです。
@@ -179,14 +179,14 @@ exec $SHELL -l
 ### オプションのエイリアス
 
 バージョン 2.0.8 以降、コンソールコマンドは、オプションにエイリアスを追加するための
-[[yii\console\Controller::optionAliases()]] メソッドを提供しています。
+[[Yiisoft\Yii\Console\Controller::optionAliases()]] メソッドを提供しています。
 
-エイリアスを定義するためには、コントローラで [[yii\console\Controller::optionAliases()]] をオーバーライドします。例えば、
+エイリアスを定義するためには、コントローラで [[Yiisoft\Yii\Console\Controller::optionAliases()]] をオーバーライドします。例えば、
 
 ```php
 namespace app\commands;
 
-use yii\console\Controller;
+use Yiisoft\Yii\Console\Controller;
 
 class HelloController extends Controller
 {
@@ -228,7 +228,7 @@ class HelloController extends Controller
 次に引数を宣言する方法を示す例を挙げます。
 
 ```php
-class ExampleController extends \yii\console\Controller
+class ExampleController extends \Yiisoft\Yii\Console\Controller
 {
     // コマンド "yii example/create test" は "actionCreate('test')" を呼び出す
     public function actionCreate($name) { ... }
@@ -266,7 +266,7 @@ public function actionIndex()
 }
 ```
 
-いくつか使用できる事前定義された定数があります。それらは [[yii\console\ExitCode]] クラスで定義されています。
+いくつか使用できる事前定義された定数があります。それらは [[Yiisoft\Yii\Console\ExitCode]] クラスで定義されています。
 
 ```php
 public function actionIndex()
@@ -314,4 +314,4 @@ echo Table::widget([
 ]);
 ```
 
-詳細については [[yii\console\widgets\Table|API リファレンス]] を参照して下さい。
+詳細については [[Yiisoft\Yii\Console\widgets\Table|API リファレンス]] を参照して下さい。

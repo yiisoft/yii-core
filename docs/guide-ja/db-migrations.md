@@ -743,7 +743,7 @@ yii migrate
 マイグレーションの成功が記録されます。この記録によって、マイグレーション・ツールは、どのマイグレーションが適用され、
 どのマイグレーションが適用されていないかを特定することが出来ます。
 
-> Info: マイグレーション・ツールは、コマンドの [[yii\console\controllers\MigrateController::db|db]] オプションで指定されたデータベースに
+> Info: マイグレーション・ツールは、コマンドの [[Yiisoft\Yii\Console\Controllers\MigrateController::db|db]] オプションで指定されたデータベースに
   `migration` テーブルを自動的に作成します。デフォルトでは、このデータベースは
   `db` [アプリケーション・コンポーネント](structure-application-components.md) によって指定されます。
 
@@ -901,7 +901,7 @@ yii migrate --migrationPath=@app/modules/forum/migrations --interactive=0
 return [
     'controllerMap' => [
         'migrate' => [
-            '__class' => yii\console\controllers\MigrateController::class,
+            '__class' => Yiisoft\Yii\Console\Controllers\MigrateController::class,
             'migrationTable' => 'backend_migration',
         ],
     ],
@@ -916,14 +916,14 @@ return [
 ### 名前空間を持つマイグレーション <span id="namespaced-migrations"></span>
 
 2.0.10 以降では、マイグレーションのクラスに名前空間を適用することが出来ます。
-マイグレーションの名前空間のリストをを [[yii\console\controllers\MigrateController::migrationNamespaces|migrationNamespaces]] によって指定することが出来ます。
+マイグレーションの名前空間のリストをを [[Yiisoft\Yii\Console\Controllers\MigrateController::migrationNamespaces|migrationNamespaces]] によって指定することが出来ます。
 マイグレーションのクラスに名前空間を使うと、マイグレーションのソースについて、複数の配置場所を使用することが出来ます。例えば、
 
 ```php
 return [
     'controllerMap' => [
         'migrate' => [
-            '__class' => yii\console\controllers\MigrateController::class,
+            '__class' => Yiisoft\Yii\Console\Controllers\MigrateController::class,
             'migrationPath' => null, // app\migrations が下記にあげられている場合に、名前空間に属さないマイグレーションを無効化する
             'migrationNamespaces' => [
                 'app\migrations', // アプリケーション全体のための共通のマイグレーション
@@ -946,11 +946,11 @@ return [
 yii migrate/create 'app\\migrations\\createUserTable'
 ```
 
-> Note: [[yii\console\controllers\MigrateController::migrationPath|migrationPath]] によって指定されたマイグレーションは、
-  名前空間を持つことが出来ません。  名前空間を持つマイグレーションは [[yii\console\controllers\MigrateController::migrationNamespaces]]
+> Note: [[Yiisoft\Yii\Console\Controllers\MigrateController::migrationPath|migrationPath]] によって指定されたマイグレーションは、
+  名前空間を持つことが出来ません。  名前空間を持つマイグレーションは [[Yiisoft\Yii\Console\Controllers\MigrateController::migrationNamespaces]]
   プロパティを通じてのみ適用可能です。
 
-バージョン 2.0.12 以降は [[yii\console\controllers\MigrateController::migrationPath|migrationPath]] プロパティは
+バージョン 2.0.12 以降は [[Yiisoft\Yii\Console\Controllers\MigrateController::migrationPath|migrationPath]] プロパティは
 名前空間を持たないマイグレーションを含む複数のディレクトリを指定した配列を受け入れるようになりました。
 この機能追加は、主として、いろんな場所にあるマイグレーションを使っている既存のプロジェクトによって使われることを意図しています。
 これらのマイグレーションは、主として、他の開発者による Yii エクステンションなど、外部ソースに由来するものであり、
@@ -970,21 +970,21 @@ return [
     'controllerMap' => [
         // アプリケーション全体のための共通のマイグレーション
         'migrate-app' => [
-            '__class' => yii\console\controllers\MigrateController::class,
+            '__class' => Yiisoft\Yii\Console\Controllers\MigrateController::class,
             'migrationNamespaces' => ['app\migrations'],
             'migrationTable' => 'migration_app',
             'migrationPath' => null,
         ],
         // 特定のモジュールのためのマイグレーション
         'migrate-module' => [
-            '__class' => yii\console\controllers\MigrateController::class,
+            '__class' => Yiisoft\Yii\Console\Controllers\MigrateController::class,
             'migrationNamespaces' => ['module\migrations'],
             'migrationTable' => 'migration_module',
             'migrationPath' => null,
         ],
         // 特定のエクステンションのためのマイグレーション
         'migrate-rbac' => [
-            '__class' => yii\console\controllers\MigrateController::class,
+            '__class' => Yiisoft\Yii\Console\Controllers\MigrateController::class,
             'migrationPath' => '@yii/rbac/migrations',
             'migrationTable' => 'migration_rbac',
         ],

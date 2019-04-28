@@ -744,7 +744,7 @@ For each migration that has been successfully applied, the command will insert a
 which migrations have been applied and which have not.
 
 > Info: The migration tool will automatically create the `migration` table in the database specified by
-  the [[yii\console\controllers\MigrateController::db|db]] option of the command. By default, the database
+  the [[Yiisoft\Yii\Console\Controllers\MigrateController::db|db]] option of the command. By default, the database
   is specified by the `db` [application component](structure-application-components.md).
 
 Sometimes, you may only want to apply one or a few new migrations, instead of all available migrations.
@@ -901,7 +901,7 @@ once for all in the application configuration like shown below:
 return [
     'controllerMap' => [
         'migrate' => [
-            '__class' => yii\console\controllers\MigrateController::class,
+            '__class' => Yiisoft\Yii\Console\Controllers\MigrateController::class,
             'migrationTable' => 'backend_migration',
         ],
     ],
@@ -916,14 +916,14 @@ command-line option.
 ### Namespaced Migrations <span id="namespaced-migrations"></span>
 
 Since 2.0.10 you can use namespaces for the migration classes. You can specify the list of the migration namespaces via
-[[yii\console\controllers\MigrateController::migrationNamespaces|migrationNamespaces]]. Using of the namespaces for
+[[Yiisoft\Yii\Console\Controllers\MigrateController::migrationNamespaces|migrationNamespaces]]. Using of the namespaces for
 migration classes allows you usage of the several source locations for the migrations. For example:
 
 ```php
 return [
     'controllerMap' => [
         'migrate' => [
-            '__class' => yii\console\controllers\MigrateController::class,
+            '__class' => Yiisoft\Yii\Console\Controllers\MigrateController::class,
             'migrationPath' => null, // disable non-namespaced migrations if app\migrations is listed below
             'migrationNamespaces' => [
                 'app\migrations', // Common migrations for the whole application
@@ -946,11 +946,11 @@ to escape it properly to avoid shell errors or incorrect behavior. For example:
 yii migrate/create 'app\\migrations\\createUserTable'
 ```
 
-> Note: migrations specified via [[yii\console\controllers\MigrateController::migrationPath|migrationPath]] can not
-  contain a namespace, namespaced migration can be applied only via [[yii\console\controllers\MigrateController::migrationNamespaces]]
+> Note: migrations specified via [[Yiisoft\Yii\Console\Controllers\MigrateController::migrationPath|migrationPath]] can not
+  contain a namespace, namespaced migration can be applied only via [[Yiisoft\Yii\Console\Controllers\MigrateController::migrationNamespaces]]
   property.
 
-Since version 2.0.12 the [[yii\console\controllers\MigrateController::migrationPath|migrationPath]] property
+Since version 2.0.12 the [[Yiisoft\Yii\Console\Controllers\MigrateController::migrationPath|migrationPath]] property
 also accepts an array for specifying multiple directories that contain migrations without a namespace.
 This is mainly added to be used in existing projects which use migrations from different locations. These migrations mainly come
 from external sources, like Yii extensions developed by other developers,
@@ -970,21 +970,21 @@ return [
     'controllerMap' => [
         // Common migrations for the whole application
         'migrate-app' => [
-            '__class' => yii\console\controllers\MigrateController::class,
+            '__class' => Yiisoft\Yii\Console\Controllers\MigrateController::class,
             'migrationNamespaces' => ['app\migrations'],
             'migrationTable' => 'migration_app',
             'migrationPath' => null,
         ],
         // Migrations for the specific project's module
         'migrate-module' => [
-            '__class' => yii\console\controllers\MigrateController::class,
+            '__class' => Yiisoft\Yii\Console\Controllers\MigrateController::class,
             'migrationNamespaces' => ['module\migrations'],
             'migrationTable' => 'migration_module',
             'migrationPath' => null,
         ],
         // Migrations for the specific extension
         'migrate-rbac' => [
-            '__class' => yii\console\controllers\MigrateController::class,
+            '__class' => Yiisoft\Yii\Console\Controllers\MigrateController::class,
             'migrationPath' => '@yii/rbac/migrations',
             'migrationTable' => 'migration_rbac',
         ],

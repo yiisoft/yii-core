@@ -91,8 +91,8 @@ the [Routing and URL Creation](runtime-routing.md) section.
 ## Creating Controllers <span id="creating-controllers"></span>
 
 In [[yii\web\Application|Web applications]], controllers should extend from [[yii\web\Controller]] or its
-child classes. Similarly in [[yii\console\Application|console applications]], controllers should extend from
-[[yii\console\Controller]] or its child classes. The following code defines a `site` controller:
+child classes. Similarly in [[Yiisoft\Yii\Console\Application|console applications]], controllers should extend from
+[[Yiisoft\Yii\Console\Controller]] or its child classes. The following code defines a `site` controller:
 
 ```php
 namespace app\controllers;
@@ -178,7 +178,7 @@ You may configure the [[yii\base\Application::controllerMap|controller map]] in 
 
 Each application has a default controller specified via the [[yii\base\Application::defaultRoute]] property.
 When a request does not specify a [route](#routes), the route specified by this property will be used.
-For [[yii\web\Application|Web applications]], its value is `'site'`, while for [[yii\console\Application|console applications]],
+For [[yii\web\Application|Web applications]], its value is `'site'`, while for [[Yiisoft\Yii\Console\Application|console applications]],
 it is `help`. Therefore, if a URL is `http://hostname/index.php`, then the `site` controller will handle the request.
 
 You may change the default controller with the following [application configuration](structure-applications.md#application-configurations):
@@ -312,8 +312,8 @@ The return value can be a [response](runtime-responses.md) object which will be 
 
 * For [[yii\web\Application|Web applications]], the return value can also be some arbitrary data which will
   be assigned to [[yii\web\Response::data]] and be further converted into a string representing the response body.
-* For [[yii\console\Application|console applications]], the return value can also be an integer representing
-  the [[yii\console\Response::exitStatus|exit status]] of the command execution.
+* For [[Yiisoft\Yii\Console\Application|console applications]], the return value can also be an integer representing
+  the [[Yiisoft\Yii\Console\Response::exitStatus|exit status]] of the command execution.
 
 In the examples shown above, the action results are all strings which will be treated as the response body
 to be sent to end users. The following example shows how an action can redirect the user browser to a new URL
@@ -334,7 +334,7 @@ public function actionForward()
 The action methods for inline actions and the `run()` methods for standalone actions can take parameters,
 called *action parameters*. Their values are obtained from requests. For [[yii\web\Application|Web applications]],
 the value of each action parameter is retrieved from `$_GET` using the parameter name as the key;
-for [[yii\console\Application|console applications]], they correspond to the command line arguments.
+for [[Yiisoft\Yii\Console\Application|console applications]], they correspond to the command line arguments.
 
 In the following example, the `view` action (an inline action) has declared two parameters: `$id` and `$version`.
 

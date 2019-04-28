@@ -261,11 +261,11 @@ Aplikacje konsolowe
 -------------------
 
 Aplikacje konsolowe używają teraz kontrolerów tak jak aplikacje webowe. Kontrolery konsolowe powinny rozszerzać klasę 
-[[yii\console\Controller]], podobnie jak `CConsoleCommand` w 1.1.
+[[Yiisoft\Yii\Console\Controller]], podobnie jak `CConsoleCommand` w 1.1.
 
 Aby uruchomić polecenie konsoli, użyj `yii <route>`, gdzie `<route>` oznacza ścieżkę kontrolera (np. `sitemap/index`). 
 Dodatkowe anonimowe argumenty są przekazywane jako parametry do odpowiedniej metody akcji kontrolera, natomiast nazwane 
-argumenty są przetwarzane według deklaracji zawartych w [[yii\console\Controller::options()|options()]].
+argumenty są przetwarzane według deklaracji zawartych w [[Yiisoft\Yii\Console\Controller::options()|options()]].
 
 Yii 2.0 wspiera automatyczne generowanie informacji pomocy poprzez bloki komentarzy.
 

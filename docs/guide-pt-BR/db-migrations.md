@@ -225,7 +225,7 @@ Para cada migração aplicada com sucesso, o comando inserirá um registro numa 
 `migration` para registrar uma aplicação de migração. Isto permitirá que a ferramenta de migração identifique
 quais migrações foram aplicadas e quais não foram.
 
-> Observação: Esta ferramenta de migração automaticamente criará a tabela `migration` no banco de dados especificado pela opção do comando [[yii\console\controllers\MigrateController::db|db]]. Por padrão, o banco de dados é especificado por `db` em [Componentes de Aplicação](structure-application-components.md).
+> Observação: Esta ferramenta de migração automaticamente criará a tabela `migration` no banco de dados especificado pela opção do comando [[Yiisoft\Yii\Console\Controllers\MigrateController::db|db]]. Por padrão, o banco de dados é especificado por `db` em [Componentes de Aplicação](structure-application-components.md).
 
 Eventualmente, você desejará aplicar apenas uma ou algumas migrações, em vez de todas as disponíveis.
 Você pode fazê-lo especificando o número de migrações que deseja aplicar ao executar o comando.
@@ -348,7 +348,7 @@ você pode configurá-lo de uma vez por todas na configuração da aplicação c
 return [
     'controllerMap' => [
         'migrate' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            'class' => 'Yiisoft\Yii\Console\Controllers\MigrateController',
             'migrationTable' => 'backend_migration',
         ],
     ],

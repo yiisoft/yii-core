@@ -277,12 +277,12 @@ Console Applications
 --------------------
 
 Console applications are now organized as controllers, like Web applications. Console controllers
-should extend from [[yii\console\Controller]], similar to `CConsoleCommand` in 1.1.
+should extend from [[Yiisoft\Yii\Console\Controller]], similar to `CConsoleCommand` in 1.1.
 
 To run a console command, use `yii <route>`, where `<route>` stands for a controller route
 (e.g. `sitemap/index`). Additional anonymous arguments are passed as the parameters to the
 corresponding controller action method, while named arguments are parsed according to
-the declarations in [[yii\console\Controller::options()]].
+the declarations in [[Yiisoft\Yii\Console\Controller::options()]].
 
 Yii 2.0 supports automatic generation of command help information from comment blocks.
 

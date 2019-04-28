@@ -315,7 +315,7 @@ different fixture path as follows:
 ```php
 'controllerMap' => [
     'fixture' => [
-        '__class' => yii\console\controllers\FixtureController::class,
+        '__class' => Yiisoft\Yii\Console\Controllers\FixtureController::class,
         'namespace' => 'myalias\some\custom\namespace',
         'globalFixtures' => [
             'some\name\space\Foo',

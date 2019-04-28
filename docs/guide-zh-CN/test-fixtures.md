@@ -361,7 +361,7 @@ yii fixture/unload "*" -DoNotUnloadThisOne
 ```
 'controllerMap' => [
     'fixture' => [
-        'class' => 'yii\console\controllers\FixtureController',
+        'class' => 'Yiisoft\Yii\Console\Controllers\FixtureController',
         'namespace' => 'myalias\some\custom\namespace',
         'globalFixtures' => [
             'some\name\space\Foo',

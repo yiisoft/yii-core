@@ -9,7 +9,7 @@ Mỗi ứng dụng Yii đều chứa một đối tượng ứng dụng, đối 
   hoặc một hệ thống ứng dụng.
 
 Có 2 kiểu ứng dụng: [[yii\web\Application|Ứng dụng Web]] và
-[[yii\console\Application|ứng dụng giao diện dòng lệnh]]. Tương tự như vậy, ứng dụng Web xử lý với các yêu cầu về Web,
+[[Yiisoft\Yii\Console\Application|ứng dụng giao diện dòng lệnh]]. Tương tự như vậy, ứng dụng Web xử lý với các yêu cầu về Web,
 , ứng dụng còn lại sẽ xử lý với các yêu cầu ở giao diện dòng lệnh.
 
 
@@ -392,8 +392,8 @@ Ví dụ, `help`, `post/create`, hoặc `admin/post/create`. Nếu action ID kh�
 trình điều khiển `SiteController` được gọi và một hành động mặc định được sử dụng. Như vậy, nếu bạn 
 truy cập vào ứng dụng mà không cung cấp thông tin route, thì ứng dụng mặc định sẽ trả về hành động `app\controllers\SiteController::actionIndex()`.
 
-Đối với [[yii\console\Application| Ứng dụng console]], thì giá trị mặc định là `'help'`, đồng nghĩa hành động
-[[yii\console\controllers\HelpController::actionIndex()]] sẽ được gọi. Như vậy, nếu bạn chạy dòng lệnh `yii`
+Đối với [[Yiisoft\Yii\Console\Application| Ứng dụng console]], thì giá trị mặc định là `'help'`, đồng nghĩa hành động
+[[Yiisoft\Yii\Console\Controllers\HelpController::actionIndex()]] sẽ được gọi. Như vậy, nếu bạn chạy dòng lệnh `yii`
 mà không cung cấp các tham số nào khác, thì nó sẽ hiển thị lên màn hình trợ giúp tương ứng kết quả của action index của trình điều khiển HelpController.
 
 
@@ -480,9 +480,9 @@ Thuộc tính có thể được cấu hình là thư mục hoặc là đường
 Yii cung cấp cách thức đơn giản để truy cập vào đường dẫn này qua bí danh là `@vendor`.
 
 
-#### [[yii\console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
+#### [[Yiisoft\Yii\Console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
 
-Thuộc tính này chỉ được hỗ trợ bởi [[yii\console\Application|ứng dụng console]]. Nó được xác định 
+Thuộc tính này chỉ được hỗ trợ bởi [[Yiisoft\Yii\Console\Application|ứng dụng console]]. Nó được xác định 
 vị trí các dòng lệnh được kích hoạt lên trong phiên bản Yii. Giá trị mặc định là `true`.
 
 

@@ -265,7 +265,7 @@ Si la jerarquía de permisos no cambia en absoluto y tienes un número fijo de u
 namespace app\commands;
 
 use yii\helpers\Yii;
-use yii\console\Controller;
+use Yiisoft\Yii\Console\Controller;
 
 class RbacController extends Controller
 {

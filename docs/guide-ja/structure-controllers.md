@@ -91,7 +91,7 @@ ModuleID/ControllerID/ActionID
 ## コントローラを作成する <span id="creating-controllers"></span>
 
 [[yii\web\Application|ウェブ・アプリケーション]] では、コントローラは [[yii\web\Controller]] またはその子クラスから派生させなければなりません。
-同様に、[[yii\console\Application|コンソール・アプリケーション]] では、コントローラは [[yii\console\Controller]] またはその子クラスから派生させなければなりません。
+同様に、[[Yiisoft\Yii\Console\Application|コンソール・アプリケーション]] では、コントローラは [[Yiisoft\Yii\Console\Controller]] またはその子クラスから派生させなければなりません。
 次のコードは `site` コントローラを定義するものです。
 
 ```php
@@ -178,7 +178,7 @@ class SiteController extends Controller
 
 全てのアプリケーションは、それぞれ、[[yii\base\Application::defaultRoute]] プロパティによって指定されるデフォルト・コントローラを持ちます。
 リクエストが [ルート](#routes) を指定していない場合、このプロパティによって指定されたルートが使われます。
-[[yii\web\Application|ウェブ・アプリケーション]] では、この値は `'site'` であり、一方、[[yii\console\Application|コンソール・アプリケーション]] では、`help` です。
+[[yii\web\Application|ウェブ・アプリケーション]] では、この値は `'site'` であり、一方、[[Yiisoft\Yii\Console\Application|コンソール・アプリケーション]] では、`help` です。
 従って、URL が `http://hostname/index.php` である場合は、`site` コントローラがリクエストを処理することになります。
 
 次のように [アプリケーションの構成情報](structure-applications.md#application-configurations) を構成して、デフォルト・コントローラを変更することが出来ます。
@@ -312,8 +312,8 @@ class HelloWorldAction extends Action
 
 * [[yii\web\Application|ウェブ・アプリケーション]] では、返り値を [[yii\web\Response::data]] に割り当てられる任意のデータとすることも出来ます。
   このデータは、後に、レスポンス・ボディを表す文字列へと変換されます。
-* [[yii\console\Application|コンソール・アプリケーション]] では、返り値をコマンド実行の
-  [[yii\console\Response::exitStatus|終了ステータス]] を示す整数とすることも出来ます。
+* [[Yiisoft\Yii\Console\Application|コンソール・アプリケーション]] では、返り値をコマンド実行の
+  [[Yiisoft\Yii\Console\Response::exitStatus|終了ステータス]] を示す整数とすることも出来ます。
 
 これまでに示した例においては、アクションの結果はすべて文字列であり、エンド・ユーザに送信されるレスポンス・ボディとして扱われるものでした。
 次の例では、アクションがレスポンス・オブジェクトを返すことによって、ユーザのブラウザを
@@ -334,7 +334,7 @@ public function actionForward()
 インライン・アクションのアクション・メソッドと、スタンドアロン・アクションの `run()` メソッドは、*アクション・パラメータ* と呼ばれるパラメータを取ることが出来ます。
 パラメータの値はリクエストから取得されます。
 [[yii\web\Application|ウェブ・アプリケーション]] では、各アクション・パラメータの値は `$_GET` からパラメータ名をキーとして読み出されます。
-[[yii\console\Application|コンソール・アプリケーション]] では、アクション・パラメータはコマンドライン引数に対応します。
+[[Yiisoft\Yii\Console\Application|コンソール・アプリケーション]] では、アクション・パラメータはコマンドライン引数に対応します。
 
 次の例では、`view` アクション (インライン・アクションです) は、二つのパラメータ、すなわち、`$id` と `$version` を宣言しています。
 

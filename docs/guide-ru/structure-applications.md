@@ -8,7 +8,7 @@
 > Info: В зависимости от контекста, когда мы говорим "приложение", это может означать как объект приложения так и
   приложение как прикладную систему в целом.
 
-Существует два вида приложений: [[yii\web\Application|веб приложения]] и [[yii\console\Application|консольные приложения]].
+Существует два вида приложений: [[yii\web\Application|веб приложения]] и [[Yiisoft\Yii\Console\Application|консольные приложения]].
 Как можно догадаться по названию, первый тип в основном занимается обработкой веб запросов, в то время как последний - консольных команд.
 
 
@@ -389,8 +389,8 @@ $width = \Yii::$app->params['thumbnail.size'][0];
 контроллер `SiteController` и его действие по умолчанию должно быть использовано. Таким образом, если вы попытаетесь
 получить доступ к приложению не указав маршрут, оно покажет вам результат действия `app\controllers\SiteController::actionIndex()`.
 
-Для [[yii\console\Application|консольных приложений]], значение по умолчанию равно `'help'`, означающее, что встроенная
-команда [[yii\console\controllers\HelpController::actionIndex()]] должна быть использована. Таким образом, если вы
+Для [[Yiisoft\Yii\Console\Application|консольных приложений]], значение по умолчанию равно `'help'`, означающее, что встроенная
+команда [[Yiisoft\Yii\Console\Controllers\HelpController::actionIndex()]] должна быть использована. Таким образом, если вы
 выполните команду `yii` без аргументов, вам будет отображена справочная информация.
 
 
@@ -477,9 +477,9 @@ $width = \Yii::$app->params['thumbnail.size'][0];
 Для упрощения работы с данной папкой, Yii предоставляет предопределенный псевдоним пути `@vendor`.
 
 
-#### [[yii\console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
+#### [[Yiisoft\Yii\Console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
 
-Данное свойство поддерживается только [[yii\console\Application|консольными приложениями]]. Оно указывает
+Данное свойство поддерживается только [[Yiisoft\Yii\Console\Application|консольными приложениями]]. Оно указывает
 нужно ли использовать встроенные в Yii консольные команды. Значение по умолчанию равно `true`.
 
 

@@ -105,7 +105,7 @@ Une manière de réaliser cela est de tester le type d'instance de l'application
 public function init()
 {
     parent::init();
-    if (Yii::$app instanceof \yii\console\Application) {
+    if (Yii::$app instanceof \Yiisoft\Yii\Console\Application) {
         $this->controllerNamespace = 'app\modules\forum\commands';
     }
 }

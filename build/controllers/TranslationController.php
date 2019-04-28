@@ -8,7 +8,7 @@
 namespace yii\build\controllers;
 
 use DirectoryIterator;
-use yii\console\Controller;
+use Yiisoft\Yii\Console\Controller;
 use yii\helpers\Html;
 
 /**

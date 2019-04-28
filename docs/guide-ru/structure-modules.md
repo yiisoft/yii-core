@@ -125,7 +125,7 @@ class PostController extends Controller
 public function init()
 {
     parent::init();
-    if (Yii::$app instanceof \yii\console\Application) {
+    if (Yii::$app instanceof \Yiisoft\Yii\Console\Application) {
         $this->controllerNamespace = 'app\modules\forum\commands';
     }
 }

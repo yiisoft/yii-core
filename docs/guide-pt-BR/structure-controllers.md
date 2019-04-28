@@ -96,8 +96,8 @@ as ações são resolvidas pelas rotas, por favor consulte a seção [Roteamento
 ## Criando Controllers <span id="creating-controllers"></span>
 
 Em [[yii\web\Application|aplicações Web]], os controllers devem estender de [[yii\web\Controller]] 
-ou de suas classes filhas. De forma semelhante, em [[yii\console\Application|aplicaçoes console]], 
-os controllers devem estender de [[yii\console\Controller]] ou de suas classes filhos. O código a seguir define um controller `site`:
+ou de suas classes filhas. De forma semelhante, em [[Yiisoft\Yii\Console\Application|aplicaçoes console]], 
+os controllers devem estender de [[Yiisoft\Yii\Console\Controller]] ou de suas classes filhos. O código a seguir define um controller `site`:
 
 ```php
 namespace app\controllers;
@@ -193,7 +193,7 @@ Cada aplicação tem um controller padrão que é especificado pela propriedade 
 Quando uma requisição não especificar uma [rota](#id-da-rota), será utilizada a 
 rota especificada pela propriedade. 
 Para as [[yii\web\Application|aplicações Web]], este valor é `'site'`, enquanto 
-para as [[yii\console\Application|aplicações console]] é `help`. Portanto, se uma 
+para as [[Yiisoft\Yii\Console\Application|aplicações console]] é `help`. Portanto, se uma 
 URL for `http://hostname/index.php`, o controller `site` será utilizado nesta requisição.
 
 Você pode alterar o controller padrão como a seguinte [configuração da aplicação](structure-applications.md#application-configurations):
@@ -336,8 +336,8 @@ será enviado como resposta aos usuários finais.
 * Para [[yii\web\Application|aplicações Web]], o valor de retorno também poder
   ser algum dado arbitrário que será atribuído à propriedade [[yii\web\Response::data]] 
   e ainda ser convertido em uma string para representar o corpo da resposta.
-* Para [[yii\console\Application|aplicações console]], o valor de retorno também 
-  poder ser um inteiro representando o [[yii\console\Response::exitStatus|exit status]] 
+* Para [[Yiisoft\Yii\Console\Application|aplicações console]], o valor de retorno também 
+  poder ser um inteiro representando o [[Yiisoft\Yii\Console\Response::exitStatus|exit status]] 
   (status de saída) da execução do comando.
 
 Nos exemplos acima, todos os resultados são strings que serão tratados como o 
@@ -362,7 +362,7 @@ standalone podem receber parâmetros, chamados *parâmetros da ação*.
 Seus valores são obtidos a partir das requisições. Para 
 [[yii\web\Application|aplicações Web]], o valor de cada parâmetro da ação são 
 obtidos pelo `$_GET` usando o nome do parâmetro como chave; para 
-[[yii\console\Application|aplicações console]], eles correspondem aos argumentos
+[[Yiisoft\Yii\Console\Application|aplicações console]], eles correspondem aos argumentos
 da linha de comando.
 
 No exemplo a seguir, a ação `view` (uma ação inline) possui dois parâmetros declarados:

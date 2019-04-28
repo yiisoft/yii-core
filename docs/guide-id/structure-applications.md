@@ -9,7 +9,7 @@ Setiap aplikasi sistem Yii mengandung satu objek aplikasi yang dibuat dalam
   atau sebuah sistem aplikasi, tergantung bagaimana konteksnya.
 
 Terdapat dua tipe aplikasi: [[yii\web\Application|Aplikasi Web]] dan
-[[yii\console\Application|Aplikasi Konsol]]. Sesuai dengan namanya, yang pertama bertujuan untuk menangani
+[[Yiisoft\Yii\Console\Application|Aplikasi Konsol]]. Sesuai dengan namanya, yang pertama bertujuan untuk menangani
 _web request_, sedangkan yang kedua menangani _request_ perintah pada konsol.
 
 
@@ -394,8 +394,8 @@ Untuk [[yii\web\Application|aplikasi Web]], nilai default dari _property_ ini ad
 _controller_ `SiteController` dan default _action_-nya yang akan digunakan. Hasilnya, jika anda mengakses
 aplikasi tanpa menentukan _route_ yang spesifik, maka akan menampilkan output dari `app\controllers\SiteController::actionIndex()`.
 
-Untuk [[yii\console\Application|aplikasi konsol]], nilai default-nya adalah `'help'`, yang berarti akan menggunakan
-[[yii\console\controllers\HelpController::actionIndex()]] sebagai perintah utamanya. Hasilnya, jika anda menjalankan perintah `yii`
+Untuk [[Yiisoft\Yii\Console\Application|aplikasi konsol]], nilai default-nya adalah `'help'`, yang berarti akan menggunakan
+[[Yiisoft\Yii\Console\Controllers\HelpController::actionIndex()]] sebagai perintah utamanya. Hasilnya, jika anda menjalankan perintah `yii`
 tanpa memasukkan argumen, maka akan menampilkan informasi bantuan penggunaan.
 
 
@@ -482,9 +482,9 @@ nilai _property_ ini, pastikan anda juga menyesuaikan konfigurasi Composer.
 Untuk memudahkan akses ke path ini, Yii sudah menentukan path alias dengan nama `@vendor`.
 
 
-#### [[yii\console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
+#### [[Yiisoft\Yii\Console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
 
-_Property_ ini hanya dikenali oleh [[yii\console\Application|console applications]]. _Property_ ini menentukan
+_Property_ ini hanya dikenali oleh [[Yiisoft\Yii\Console\Application|console applications]]. _Property_ ini menentukan
 apakah perintah inti yang dibawa oleh rilisan Yii harus diaktifkan. Nilai default-nya adalah `true`.
 
 

@@ -278,12 +278,12 @@ Applications en ligne de commande
 ---------------------------------
 
 Les applications en ligne de commande (console) sont désormais organisées en contrôleurs, comme les applications Web. ces contrôleurs
-doivent étendre la classe [[yii\console\Controller]], similaire à la classe `CConsoleCommand` de la version 1.1.
+doivent étendre la classe [[Yiisoft\Yii\Console\Controller]], similaire à la classe `CConsoleCommand` de la version 1.1.
 
 Pour exécuter une commande console, utilisez `yii <route>`, où `<route>` correspond à une route vers un contrôleur
 (par exemple `sitemap/index`). Les arguments anonymes supplémentaires sont passés comme paramètres à
 l'action du contrôleur correspondant, alors que les arguments nommés sont analysés selon
-les options déclarées dans la méthode [[yii\console\Controller::options()]].
+les options déclarées dans la méthode [[Yiisoft\Yii\Console\Controller::options()]].
 
 Yii 2.0 prend en charge la génération automatique d'aide à partir des blocs de commentaire.
 

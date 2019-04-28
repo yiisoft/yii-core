@@ -43,7 +43,7 @@ class Action extends Component
      */
     public $id;
     /**
-     * @var Controller|\yii\web\Controller|\yii\console\Controller the controller that owns this action
+     * @var Controller|\yii\web\Controller|\Yiisoft\Yii\Console\Controller the controller that owns this action
      */
     public $controller;
 
@@ -81,7 +81,7 @@ class Action extends Component
      * @param array $params the parameters to be bound to the action's run() method.
      * @return mixed the result of the action
      * @throws InvalidConfigException if the action class does not have a run() method
-     * @throws \yii\console\exceptions\Exception
+     * @throws \Yiisoft\Yii\Console\exceptions\Exception
      * @throws \yii\web\BadRequestHttpException
      */
     public function runWithParams($params)

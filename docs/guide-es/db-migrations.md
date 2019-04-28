@@ -723,7 +723,7 @@ Por cada migración aplicada correctamente, el comando insertará un registro en
 cuáles migraciones han sido aplicadas y cuáles no.
 
 > Info: La herramienta de migración creará automáticamente la tabla  `migration` en la base de datos especificada
-  en la opción [[yii\console\controllers\MigrateController::db|db]] del comando. Por defecto, la base de datos
+  en la opción [[Yiisoft\Yii\Console\Controllers\MigrateController::db|db]] del comando. Por defecto, la base de datos
   es especificada en el [componente de aplicación](structure-application-components.md) `db`.
 
 A veces, podrías sólo querer aplicar una o algunas pocas migraciones, en vez de todas las migraciones disponibles.
@@ -872,7 +872,7 @@ de una vez por todas en la configuración de la aplicación como se muestra a co
 return [
     'controllerMap' => [
         'migrate' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            'class' => 'Yiisoft\Yii\Console\Controllers\MigrateController',
             'migrationTable' => 'backend_migration',
         ],
     ],

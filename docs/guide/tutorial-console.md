@@ -5,7 +5,7 @@ Besides the rich features for building web applications, Yii also has full-featu
 which are mainly used to create background and maintenance tasks that need to be performed for a website.
 
 The structure of console applications is very similar to a Yii web application. It consists of one
-or more [[yii\console\Controller]] classes, which are often referred to as *commands* in the console environment.
+or more [[Yiisoft\Yii\Console\Controller]] classes, which are often referred to as *commands* in the console environment.
 Each controller can also have one or more actions, just like web controllers.
 
 Both project templates already have a console application with them.
@@ -16,18 +16,18 @@ This will give you a list of available commands when you run it without any furt
 
 As you can see in the screenshot, Yii has already defined a set of commands that are available by default:
 
-- [[yii\console\controllers\AssetController|AssetController]] - Allows you to combine and compress your JavaScript and CSS files.
+- [[Yiisoft\Yii\Console\Controllers\AssetController|AssetController]] - Allows you to combine and compress your JavaScript and CSS files.
   You can learn more about this command in the [Assets Section](structure-assets.md#using-asset-bundles).
-- [[yii\console\controllers\CacheController|CacheController]] - Allows you to flush application caches.
-- [[yii\console\controllers\FixtureController|FixtureController]] - Manages fixture data loading and unloading for testing purposes.
+- [[Yiisoft\Yii\Console\Controllers\CacheController|CacheController]] - Allows you to flush application caches.
+- [[Yiisoft\Yii\Console\Controllers\FixtureController|FixtureController]] - Manages fixture data loading and unloading for testing purposes.
   This command is described in more detail in the [Testing Section about Fixtures](test-fixtures.md#managing-fixtures).
-- [[yii\console\controllers\HelpController|HelpController]] - Provides help information about console commands, this is the default command
+- [[Yiisoft\Yii\Console\Controllers\HelpController|HelpController]] - Provides help information about console commands, this is the default command
   and prints what you have seen in the above output.
-- [[yii\console\controllers\MessageController|MessageController]] - Extracts messages to be translated from source files.
+- [[Yiisoft\Yii\Console\Controllers\MessageController|MessageController]] - Extracts messages to be translated from source files.
   To learn more about this command, please refer to the [I18N Section](tutorial-i18n.md#message-command).
-- [[yii\console\controllers\MigrateController|MigrateController]] - Manages application migrations.
+- [[Yiisoft\Yii\Console\Controllers\MigrateController|MigrateController]] - Manages application migrations.
   Database migrations are described in more detail in the [Database Migration Section](db-migrations.md).
-- [[yii\console\controllers\ServeController|ServeController]] - Allows you run PHP built-in web server.
+- [[Yiisoft\Yii\Console\Controllers\ServeController|ServeController]] - Allows you run PHP built-in web server.
 
 
 Usage <span id="usage"></span>
@@ -42,8 +42,8 @@ yii <route> [--option1=value1 --option2=value2 ... argument1 argument2 ...]
 In the above, `<route>` refers to the route to the controller action. The options will populate the class
 properties and arguments are the parameters of the action method.
 
-For example, the [[yii\console\controllers\MigrateController::actionUp()|MigrateController::actionUp()]]
-with [[yii\console\controllers\MigrateController::$migrationTable|MigrateController::$migrationTable]] set to `migrations`
+For example, the [[Yiisoft\Yii\Console\Controllers\MigrateController::actionUp()|MigrateController::actionUp()]]
+with [[Yiisoft\Yii\Console\Controllers\MigrateController::$migrationTable|MigrateController::$migrationTable]] set to `migrations`
 and a limit of 5 migrations can be called like so:
 
 ```
@@ -75,7 +75,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 $config = require __DIR__ . '/config/console.php';
 
-$application = new yii\console\Application($config);
+$application = new Yiisoft\Yii\Console\Application($config);
 $exitCode = $application->run();
 exit($exitCode);
 ```
@@ -158,17 +158,17 @@ Creating your own console commands <span id="create-command"></span>
 
 ### Console Controller and Action
 
-A console command is defined as a controller class extending from [[yii\console\Controller]]. In the controller class,
+A console command is defined as a controller class extending from [[Yiisoft\Yii\Console\Controller]]. In the controller class,
 you define one or more actions that correspond to sub-commands of the controller. Within each action, you write code that implements the appropriate tasks for that particular sub-command.
 
 When running a command, you need to specify the route to the  controller action. For example,
 the route `migrate/create` invokes the sub-command that corresponds to the
-[[yii\console\controllers\MigrateController::actionCreate()|MigrateController::actionCreate()]] action method.
+[[Yiisoft\Yii\Console\Controllers\MigrateController::actionCreate()|MigrateController::actionCreate()]] action method.
 If a route offered during execution does not contain an action ID, the default action will be executed (as with a web controller).
 
 ### Options
 
-By overriding the [[yii\console\Controller::options()]] method, you can specify options that are available
+By overriding the [[Yiisoft\Yii\Console\Controller::options()]] method, you can specify options that are available
 to a console command (controller/actionID). The method should return a list of the controller class's public properties.
 When running a command, you may specify the value of an option using the syntax `--optionName=optionValue`.
 This will assign `optionValue` to the `optionName` property of the controller class.
@@ -178,15 +178,15 @@ the option value will be converted into an array by splitting the input string o
 
 ### Options Aliases
 
-Since version 2.0.8 console command provides [[yii\console\Controller::optionAliases()]] method to add
+Since version 2.0.8 console command provides [[Yiisoft\Yii\Console\Controller::optionAliases()]] method to add
 aliases for options.
 
-To define an alias, override [[yii\console\Controller::optionAliases()]] in your controller, for example:
+To define an alias, override [[Yiisoft\Yii\Console\Controller::optionAliases()]] in your controller, for example:
 
 ```php
 namespace app\commands;
 
-use yii\console\Controller;
+use Yiisoft\Yii\Console\Controller;
 
 class HelloController extends Controller
 {
@@ -228,7 +228,7 @@ by splitting the input string on commas.
 The following example shows how to declare arguments:
 
 ```php
-class ExampleController extends \yii\console\Controller
+class ExampleController extends \Yiisoft\Yii\Console\Controller
 {
     // The command "yii example/create test" will call "actionCreate('test')"
     public function actionCreate($name) { ... }
@@ -266,7 +266,7 @@ public function actionIndex()
 }
 ```
 
-There are some predefined constants you can use. These are defined in the [[yii\console\ExitCode]] class:
+There are some predefined constants you can use. These are defined in the [[Yiisoft\Yii\Console\ExitCode]] class:
 
 ```php
 public function actionIndex()
@@ -314,4 +314,4 @@ echo Table::widget([
 ]);
 ```
 
-For details please refer to [[yii\console\widgets\Table|API documentation]].
+For details please refer to [[Yiisoft\Yii\Console\widgets\Table|API documentation]].

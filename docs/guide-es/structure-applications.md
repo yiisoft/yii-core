@@ -10,7 +10,7 @@ y es globalmente accesible a través de la expresión `\Yii::$app`.
   o un sistema desarrollado en Yii.
 
 Hay dos tipos de aplicaciones: [[yii\web\Application|aplicaciones Web]] y
-[[yii\console\Application|aplicaciones de consola]]. Como el nombre lo indica, la primera maneja principalmente
+[[Yiisoft\Yii\Console\Application|aplicaciones de consola]]. Como el nombre lo indica, la primera maneja principalmente
 Web requests mientras que la última maneja requests (peticiones) de la línea de comandos.
 
 
@@ -374,8 +374,8 @@ Para [[yii\web\Application|aplicaciones Web]], el valor por defecto de esta prop
 controlador `SiteController` y su acción por defecto serán usados. Como resultado, si accedes a la aplicación sin
 especificar una ruta, mostrará el resultado de `app\controllers\SiteController::actionIndex()`.
 
-Para [[yii\console\Application|aplicaciones de consola]], el valor por defecto es `'help'`, lo que significa que el comando
-[[yii\console\controllers\HelpController::actionIndex()]] debería ser utilizado. Como resultado, si corres el comando `yii`
+Para [[Yiisoft\Yii\Console\Application|aplicaciones de consola]], el valor por defecto es `'help'`, lo que significa que el comando
+[[Yiisoft\Yii\Console\Controllers\HelpController::actionIndex()]] debería ser utilizado. Como resultado, si corres el comando `yii`
 sin proveer ningún argumento, mostrará la información de ayuda.
 
 
@@ -464,9 +464,9 @@ asegúrate de ajustar la configuración de Composer en concordancia.
 Para simplificar el acceso a esta ruta, Yii trae predefinido el alias `@vendor`.
 
 
-#### [[yii\console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
+#### [[Yiisoft\Yii\Console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
 
-Esta propiedad está sólo soportada por [[yii\console\Application|aplicaciones de consola]].
+Esta propiedad está sólo soportada por [[Yiisoft\Yii\Console\Application|aplicaciones de consola]].
 Especifica si los comandos de consola incluidos en Yii deberían estar habilitados o no.
 Por defecto está definido como `true`.
 

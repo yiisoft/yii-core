@@ -9,7 +9,7 @@
   是根据上下文来决定[译：中文为避免歧义，Application翻译为应用主体]。
 
 Yii有两种应用主体: [[yii\web\Application|网页应用主体]] and
-[[yii\console\Application|控制台应用主体]]， 
+[[Yiisoft\Yii\Console\Application|控制台应用主体]]， 
 如名称所示，前者主要处理网页请求，后者处理控制台请求。
 
 
@@ -395,8 +395,8 @@ $width = \Yii::$app->params['thumbnail.size'][0];
 默认值为 `'site'` 对应 `SiteController` 控制器，并使用默认的动作。
 因此你不带路由的访问应用，默认会显示 `app\controllers\SiteController::actionIndex()` 的结果。
 
-对于 [[yii\console\Application|console applications]] 控制台应用，
-默认值为 `'help'` 对应 [[yii\console\controllers\HelpController::actionIndex()]]。
+对于 [[Yiisoft\Yii\Console\Application|console applications]] 控制台应用，
+默认值为 `'help'` 对应 [[Yiisoft\Yii\Console\Controllers\HelpController::actionIndex()]]。
 因此，如果执行的命令不带参数，默认会显示帮助信息。
 
 
@@ -483,9 +483,9 @@ $width = \Yii::$app->params['thumbnail.size'][0];
 为了简化访问该路径，Yii 预定义别名 `@vendor` 代表该路径。
 
 
-#### [[yii\console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
+#### [[Yiisoft\Yii\Console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
 
-该属性仅 [[yii\console\Application|console applications]] 控制台应用支持， 
+该属性仅 [[Yiisoft\Yii\Console\Application|console applications]] 控制台应用支持， 
 用来指定是否启用 Yii 中的核心命令，默认值为 `true`。
 
 

@@ -9,7 +9,7 @@ the [entry script](structure-entry-scripts.md) and is globally accessible throug
   object or an application system.
 
 There are two types of applications: [[yii\web\Application|Web applications]] and
-[[yii\console\Application|console applications]]. As the names indicate, the former mainly handles
+[[Yiisoft\Yii\Console\Application|console applications]]. As the names indicate, the former mainly handles
 Web requests, while the latter handles console command requests.
 
 
@@ -394,8 +394,8 @@ For [[yii\web\Application|Web applications]], the default value of this property
 the `SiteController` controller and its default action should be used. As a result, if you access
 the application without specifying a route, it will show the result of `app\controllers\SiteController::actionIndex()`.
 
-For [[yii\console\Application|console applications]], the default value is `'help'`, which means the core command
-[[yii\console\controllers\HelpController::actionIndex()]] should be used. As a result, if you run the command `yii`
+For [[Yiisoft\Yii\Console\Application|console applications]], the default value is `'help'`, which means the core command
+[[Yiisoft\Yii\Console\Controllers\HelpController::actionIndex()]] should be used. As a result, if you run the command `yii`
 without providing any arguments, it will display the help information.
 
 
@@ -482,9 +482,9 @@ this property, make sure you also adjust the Composer configuration accordingly.
 To simplify access to this path, Yii has predefined a path alias named `@vendor` for it.
 
 
-#### [[yii\console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
+#### [[Yiisoft\Yii\Console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
 
-This property is supported by [[yii\console\Application|console applications]] only. It specifies
+This property is supported by [[Yiisoft\Yii\Console\Application|console applications]] only. It specifies
 whether the core commands included in the Yii release should be enabled. The default value is `true`.
 
 

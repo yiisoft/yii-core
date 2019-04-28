@@ -91,7 +91,7 @@ ModuleID/ControllerID/ActionID
 ## 创建控制器 <span id="creating-controllers"></span>
 
 在[[yii\web\Application|Web applications]]网页应用中，控制器应继承[[yii\web\Controller]] 或它的子类。
-同理在[[yii\console\Application|console applications]]控制台应用中，控制器继承[[yii\console\Controller]] 或它的子类。
+同理在[[Yiisoft\Yii\Console\Application|console applications]]控制台应用中，控制器继承[[Yiisoft\Yii\Console\Controller]] 或它的子类。
 如下代码定义一个 `site` 控制器:
 
 ```php
@@ -178,7 +178,7 @@ class SiteController extends Controller
 
 每个应用有一个由[[yii\base\Application::defaultRoute]]属性指定的默认控制器；
 当请求没有指定 [路由](#ids-routes)，该属性值作为路由使用。
-对于[[yii\web\Application|Web applications]]网页应用，它的值为 `'site'`，对于 [[yii\console\Application|console applications]]
+对于[[yii\web\Application|Web applications]]网页应用，它的值为 `'site'`，对于 [[Yiisoft\Yii\Console\Application|console applications]]
 控制台应用，它的值为 `help`，所以URL为 `http://hostname/index.php` 表示由 `site` 控制器来处理。
 
 可以在 [应用配置](structure-applications.md#application-configurations) 中修改默认控制器，如下所示：
@@ -312,8 +312,8 @@ class HelloWorldAction extends Action
 
 * 对于[[yii\web\Application|Web applications]]网页应用，返回值可为任意数据, 它赋值给[[yii\web\Response::data]]，
   最终转换为字符串来展示响应内容。
-* 对于[[yii\console\Application|console applications]]控制台应用，返回值可为整数，
-  表示命令行下执行的 [[yii\console\Response::exitStatus|exit status]] 退出状态。
+* 对于[[Yiisoft\Yii\Console\Application|console applications]]控制台应用，返回值可为整数，
+  表示命令行下执行的 [[Yiisoft\Yii\Console\Response::exitStatus|exit status]] 退出状态。
 
 在上面的例子中，操作结果都为字符串，作为响应数据发送给终端用户，
 下例显示一个操作通过
@@ -334,7 +334,7 @@ public function actionForward()
 内联动作的操作方法和独立动作的 `run()` 方法可以带参数，称为*动作参数*。
 参数值从请求中获取，对于[[yii\web\Application|Web applications]]网页应用，
 每个动作参数的值从`$_GET`中获得，参数名作为键；
-对于[[yii\console\Application|console applications]]控制台应用, 动作参数对应命令行参数。
+对于[[Yiisoft\Yii\Console\Application|console applications]]控制台应用, 动作参数对应命令行参数。
 
 如下例，动作`view` (内联动作) 申明了两个参数 `$id` 和 `$version`。
 

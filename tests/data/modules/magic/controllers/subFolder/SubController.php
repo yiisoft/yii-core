@@ -7,7 +7,7 @@
 
 namespace yii\tests\data\modules\magic\controllers\subFolder;
 
-class SubController extends \yii\console\Controller
+class SubController extends \Yiisoft\Yii\Console\Controller
 {
     public function actionTest()
     {

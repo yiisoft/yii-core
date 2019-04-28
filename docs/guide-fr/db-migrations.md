@@ -650,7 +650,7 @@ Cette commande liste toutes les migrations qui n'ont pas encore été appliquée
 
 Pour chaque migration qui n'a pas été appliqué avec succès, la commande insère une ligne dans une table de base de données nommée `migration` pour enregistrer les applications réussies de la migration. Cela permet à l'outil de migration d'identifier les migrations qui ont été appliquées et celles qui ne l'ont pas été. 
 
-> Info: l'outil de migration crée automatiquement la table de `migration` dans la base de données spécifiée par l'option [[yii\console\controllers\MigrateController::db|db]] de la commande. Par défaut, la base de données est spécifiée dans le [composant d'application](structure-application-components.md) `db`.
+> Info: l'outil de migration crée automatiquement la table de `migration` dans la base de données spécifiée par l'option [[Yiisoft\Yii\Console\Controllers\MigrateController::db|db]] de la commande. Par défaut, la base de données est spécifiée dans le [composant d'application](structure-application-components.md) `db`.
 
 Parfois, vous désirez peut-être appliquer une ou quelques migrations plutôt que toutes les migrations disponibles. Vous pouvez le faire en spécifiant le nombre de migrations que vous voulez appliquer en exécutant la commande. Par exemple, la commande suivante essaye d'appliquer les trois prochaines migrations disponibles :
 
@@ -769,7 +769,7 @@ Au lieu de répéter les mêmes valeurs d'option à chaque fois que vous exécut
 return [
     'controllerMap' => [
         'migrate' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            'class' => 'Yiisoft\Yii\Console\Controllers\MigrateController',
             'migrationTable' => 'backend_migration',
         ],
     ],

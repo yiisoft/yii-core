@@ -644,7 +644,7 @@ yii migrate
 Для каждой миграции которая была успешно проведена, эта команда будет вставлять строку в таблицу базы данных с именем
 `migration` записав успешное проведение миграции. Это позволяет инструменту миграции выявлять какие миграции были применены, а какие - нет.
 
-> Note: Инструмент миграции автоматически создаст таблицу `migration` в базе данных указанной в параметре [[yii\console\controllers\MigrateController::db|db]]. По умолчанию база данных определяется как [компонент приложения](structure-application-components.md) `db`.
+> Note: Инструмент миграции автоматически создаст таблицу `migration` в базе данных указанной в параметре [[Yiisoft\Yii\Console\Controllers\MigrateController::db|db]]. По умолчанию база данных определяется как [компонент приложения](structure-application-components.md) `db`.
 
 Иногда, необходимо применить одну или несколько новых миграций, вместо всех доступных миграций. Это возможно сделать, указав, при выполнении команды, количество миграций, которые необходимо применить. Например, следующая команда будет пытаться применить следующие три доступные миграции:
 
@@ -774,7 +774,7 @@ yii migrate --migrationPath=@app/modules/forum/migrations --interactive=0
 return [
     'controllerMap' => [
         'migrate' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            'class' => 'Yiisoft\Yii\Console\Controllers\MigrateController',
             'migrationTable' => 'backend_migration',
         ],
     ],
@@ -787,14 +787,14 @@ return [
 ### Миграции с пространсвом имен <span id="namespaced-migrations"></span>
 
 Начиная с версии 2.0.10 вы можете использовать пространства имен при объявлении класса миграции. Вы можете указать список пространств
-имен миграций через [[yii\console\controllers\MigrateController::migrationNamespaces|migrationNamespaces]]. Использование пространств
+имен миграций через [[Yiisoft\Yii\Console\Controllers\MigrateController::migrationNamespaces|migrationNamespaces]]. Использование пространств
 имен для классов миграции позволяет сочетать несколько источников миграций. Например:
 
 ```php
 return [
     'controllerMap' => [
         'migrate' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            'class' => 'Yiisoft\Yii\Console\Controllers\MigrateController',
             'migrationNamespaces' => [
                 'app\migrations', // Общие миграции приложения
                 'module\migrations', // Миграции одного из модулей проекта
@@ -816,8 +816,8 @@ return [
 yii migrate/create 'app\\migrations\\createUserTable'
 ```
 
-> Замечание: миграции заданные через [[yii\console\controllers\MigrateController::migrationPath|migrationPath]] не могут содержать
-  пространство имен, миграции, объявленные с пространством имен, могут быть применены только используя свойство [[yii\console\controllers\MigrateController::migrationNamespaces]].
+> Замечание: миграции заданные через [[Yiisoft\Yii\Console\Controllers\MigrateController::migrationPath|migrationPath]] не могут содержать
+  пространство имен, миграции, объявленные с пространством имен, могут быть применены только используя свойство [[Yiisoft\Yii\Console\Controllers\MigrateController::migrationNamespaces]].
 
 
 ### Отдельностоящие Миграции <span id="separated-migrations"></span>
@@ -835,19 +835,19 @@ return [
     'controllerMap' => [
         // Общие миграции приложения
         'migrate-app' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            'class' => 'Yiisoft\Yii\Console\Controllers\MigrateController',
             'migrationNamespaces' => ['app\migrations'],
             'migrationTable' => 'migration_app',
         ],
         // Миграции одного из модулей проекта
         'migrate-module' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            'class' => 'Yiisoft\Yii\Console\Controllers\MigrateController',
             'migrationNamespaces' => ['module\migrations'],
             'migrationTable' => 'migration_module',
         ],
         // Миграции одного из расширений
         'migrate-rbac' => [
-            'class' => 'yii\console\controllers\MigrateController',
+            'class' => 'Yiisoft\Yii\Console\Controllers\MigrateController',
             'migrationPath' => '@yii/rbac/migrations',
             'migrationTable' => 'migration_rbac',
         ],

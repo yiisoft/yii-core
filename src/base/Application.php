@@ -35,15 +35,15 @@ use yii\profile\ProfilerInterface;
  * enabled. This property is read-only.
  * @property array $container Values given in terms of name-value pairs. This property is write-only.
  * @property Connection $db The database connection. This property is read-only.
- * @property \yii\web\ErrorHandler|\yii\console\ErrorHandler $errorHandler The error handler application
+ * @property \yii\web\ErrorHandler|\Yiisoft\Yii\Console\ErrorHandler $errorHandler The error handler application
  * component. This property is read-only.
  * @property \yii\i18n\Formatter $formatter The formatter application component. This property is read-only.
  * @property \yii\i18n\I18N $i18n The internationalization application component. This property is read-only.
  * @property \PSR\Log\LoggerInterface $logger The logger. This property is read-only.
  * @property \yii\profile\ProfilerInterface $profiler The profiler. This property is read-only.
  * @property \yii\mail\MailerInterface $mailer The mailer application component. This property is read-only.
- * @property \yii\web\Request|\yii\console\Request $request The request component. This property is read-only.
- * @property \yii\web\Response|\yii\console\Response $response The response component. This property is
+ * @property \yii\web\Request|\Yiisoft\Yii\Console\Request $request The request component. This property is read-only.
+ * @property \yii\web\Response|\Yiisoft\Yii\Console\Response $response The response component. This property is
  * read-only.
  * @property string $runtimePath The directory that stores runtime files. Defaults to the "runtime"
  * subdirectory under [[basePath]].

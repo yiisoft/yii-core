@@ -277,12 +277,12 @@ ActiveForm::end();
 ------------------------------
 
 控制台应用现在如普通的 Web 应用程序一样，由控制器组成，
-控制台的控制器继承自 [[yii\console\Controller]]，类似于 1.1 的 `CConsoleCommand`。
+控制台的控制器继承自 [[Yiisoft\Yii\Console\Controller]]，类似于 1.1 的 `CConsoleCommand`。
 
 运行控制台命令使用 `yii <route>`，
 其中 `<route>` 代表控制器的路由（如 `sitemap/index`）。
 额外的匿名参数传递到对应的控制器操作方法，
-而有名的参数根据 [[yii\console\Controller::options()]] 的声明来解析。
+而有名的参数根据 [[Yiisoft\Yii\Console\Controller::options()]] 的声明来解析。
 
 Yii 2.0 支持基于代码注释自动生成相的关命令行帮助（help）信息。
 

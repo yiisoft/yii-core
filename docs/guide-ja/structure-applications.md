@@ -9,7 +9,7 @@
   アプリケーション・システムを意味したりします。
 
 二種類のアプリケーション、すなわち、[[yii\web\Application|ウェブ・アプリケーション]] と
-[[yii\console\Application|コンソール・アプリケーション]] があります。
+[[Yiisoft\Yii\Console\Application|コンソール・アプリケーション]] があります。
 名前が示すように、前者は主にウェブのリクエストを処理し、後者はコンソール・コマンドのリクエストを処理します。
 
 
@@ -395,8 +395,8 @@ $width = \Yii::$app->params['thumbnail.size'][0];
 その意味するところは、`SiteController` コントローラとそのデフォルト・アクションが使用されるべきである、ということです。
 結果として、ルートを指定せずにアプリケーションにアクセスすると、`app\controllers\SiteController::actionIndex()` の結果が表示されます。
 
-[[yii\console\Application|コンソール・アプリケーション]] では、デフォルト値は `'help'` であり、
-コア・コマンドの [[yii\console\controllers\HelpController::actionIndex()]] が使用されるべきであるという意味です。
+[[Yiisoft\Yii\Console\Application|コンソール・アプリケーション]] では、デフォルト値は `'help'` であり、
+コア・コマンドの [[Yiisoft\Yii\Console\Controllers\HelpController::actionIndex()]] が使用されるべきであるという意味です。
 結果として、何も引数を与えずに `yii` というコマンドを実行すると、ヘルプ情報が表示されることになります。
 
 
@@ -483,9 +483,9 @@ Yii フレームワークを含めて、あなたのアプリケーションに�
 このパスに簡単にアクセスできるように、Yii は `@vendor` というパス・エイリアスを事前に定義しています。
 
 
-#### [[yii\console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
+#### [[Yiisoft\Yii\Console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
 
-このプロパティは [[yii\console\Application|コンソール・アプリケーション]] においてのみサポートされています。
+このプロパティは [[Yiisoft\Yii\Console\Application|コンソール・アプリケーション]] においてのみサポートされています。
 Yii リリースに含まれているコア・コマンドを有効にすべきか否かを指定するものです。デフォルト値は `true` です。
 
 

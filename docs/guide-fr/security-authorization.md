@@ -220,7 +220,7 @@ Si la hiérarchie de vos permissions ne change pas du tout et que vous avez un n
 namespace app\commands;
 
 use yii\helpers\Yii;
-use yii\console\Controller;
+use Yiisoft\Yii\Console\Controller;
 
 class RbacController extends Controller
 {

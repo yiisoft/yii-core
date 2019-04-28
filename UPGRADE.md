@@ -663,14 +663,14 @@ Upgrade from Yii 2.0.6
   - `validateSlug()`
   - `generateUniqueSlug()`
 
-* The `yii\console\controllers\MessageController` class has been refactored to be better configurable and now also allows
+* The `Yiisoft\Yii\Console\Controllers\MessageController` class has been refactored to be better configurable and now also allows
   setting a lot of configuration options via command line. If you extend from this class, make sure it works as expected after
   these changes.
 
 Upgrade from Yii 2.0.5
 ----------------------
 
-* The signature of the following methods in `yii\console\controllers\MessageController` has changed. They have an extra parameter `$markUnused`.
+* The signature of the following methods in `Yiisoft\Yii\Console\Controllers\MessageController` has changed. They have an extra parameter `$markUnused`.
   - `saveMessagesToDb($messages, $db, $sourceMessageTable, $messageTable, $removeUnused, $languages, $markUnused)`
   - `saveMessagesToPHP($messages, $dirName, $overwrite, $removeUnused, $sort, $markUnused)`
   - `saveMessagesCategoryToPHP($messages, $fileName, $overwrite, $removeUnused, $sort, $category, $markUnused)`
@@ -805,7 +805,7 @@ Upgrade from Yii 2.0 Beta
   of the callable to be `function ($model, $key, $index, $widget)`. The `$key` parameter was newly added
   in this release.
 
-* `yii\console\controllers\AssetController` is now using hashes instead of timestamps. Replace all `{ts}` with `{hash}`.
+* `Yiisoft\Yii\Console\Controllers\AssetController` is now using hashes instead of timestamps. Replace all `{ts}` with `{hash}`.
 
 * The database table of the `Yiisoft\Log\DbTarget` now needs a `prefix` column to store context information.
   You can add it with `ALTER TABLE log ADD COLUMN prefix TEXT AFTER log_time;`.

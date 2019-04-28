@@ -277,11 +277,11 @@ Aplicaciones de Consola
 -----------------------
 
 Las aplicaciones de consola ahora están organizadas en controladores, tal como aplicaciones Web. Estos controladores
-deben extender de [[yii\console\Controller]], similar a `CConsoleCommand` en 1.1.
+deben extender de [[Yiisoft\Yii\Console\Controller]], similar a `CConsoleCommand` en 1.1.
 
 Para correr un comando de consola, utiliza `yii <ruta>`, donde `<ruta>` se refiere a la ruta del controlador
 (ej. `sitemap/index`). Los argumentos anónimos adicionales son pasados como parámetros al método de la acción correspondiente
-del controlador, mientras que los argumentos especificados son pasados de acuerdo a las declaraciones en [[yii\console\Controller::options()]].
+del controlador, mientras que los argumentos especificados son pasados de acuerdo a las declaraciones en [[Yiisoft\Yii\Console\Controller::options()]].
 
 Yii 2.0 soporta la generación automática de información de ayuda de los comandos a través de los bloques de comentarios del archivo.
 

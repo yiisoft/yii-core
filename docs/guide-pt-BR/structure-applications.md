@@ -10,7 +10,7 @@ globalmente pela expressão `\Yii::$app`.
   tanto um objeto Application quanto um sistema.
 
 Existem dois tipos de aplicações: [[yii\web\Application|aplicações Web]] e
-[[yii\console\Application|aplicações console]]. Como o próprio nome indica,
+[[Yiisoft\Yii\Console\Application|aplicações console]]. Como o próprio nome indica,
 o primeiro manipula requisições Web enquanto o segundo trata requisições de
 comandos do console.
 
@@ -443,9 +443,9 @@ Para [[yii\web\Application|aplicações Web]], o valor padrão dessa propriedade
 action padrão. Como resultado disso, se você acessar a aplicação sem especificar
 uma rota, ele exibirá o resultado de `app\controllers\SiteController::actionIndex()`.
 
-Para [[yii\console\Application|aplicações do console]], o valor padrão é `'help'`,
+Para [[Yiisoft\Yii\Console\Application|aplicações do console]], o valor padrão é `'help'`,
 o que significado que deve usar o comando do core
-[[yii\console\controllers\HelpController::actionIndex()]]. Como resultado, se
+[[Yiisoft\Yii\Console\Controllers\HelpController::actionIndex()]]. Como resultado, se
 você executar o comando `yii` sem fornecer quaisquer argumentos, ele exibirá a
 informação de ajuda.
 
@@ -553,9 +553,9 @@ Para simplificar o acesso a esse caminho, o Yii tem um alias de caminho pré-def
 para ele chamado de `@vendor`.
 
 
-#### [[yii\console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
+#### [[Yiisoft\Yii\Console\Application::enableCoreCommands|enableCoreCommands]] <span id="enableCoreCommands"></span>
 
-Essa propriedade só é suportada por [[yii\console\Application|aplicações do console]].
+Essa propriedade só é suportada por [[Yiisoft\Yii\Console\Application|aplicações do console]].
 Ela especifica se os comandos do core inclusos no pacote do Yii devem estar
 ativos. O valor padrão é `true`.
 

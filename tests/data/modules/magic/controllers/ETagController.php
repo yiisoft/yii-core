@@ -7,7 +7,7 @@
 
 namespace yii\tests\data\modules\magic\controllers;
 
-class ETagController extends \yii\console\Controller
+class ETagController extends \Yiisoft\Yii\Console\Controller
 {
     public function actionListETags()
     {

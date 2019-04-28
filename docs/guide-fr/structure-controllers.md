@@ -77,7 +77,7 @@ Ainsi si un utilisateur requiert l'URL `http://hostname/index.php?r=site/index`,
 
 ## Création des contrôleurs <span id="creating-controllers"></span>
 
-Dans les [[yii\web\Application|applications Web]], les contrôleur doivent étendre la classe [[yii\web\Controller]] ou ses classes filles. De façon similaire, dans les [[yii\console\Application|applications de console]], les contrôleurs doivent étendre la classe [[yii\console\Controller]] ou ses classes filles. Le code qui suit définit un contrôleur nommé `site` :
+Dans les [[yii\web\Application|applications Web]], les contrôleur doivent étendre la classe [[yii\web\Controller]] ou ses classes filles. De façon similaire, dans les [[Yiisoft\Yii\Console\Application|applications de console]], les contrôleurs doivent étendre la classe [[Yiisoft\Yii\Console\Controller]] ou ses classes filles. Le code qui suit définit un contrôleur nommé `site` :
 
 ```php
 namespace app\controllers;
@@ -143,7 +143,7 @@ Vous pouvez configurer [[yii\base\Application::controllerMap|controller map]] da
 
 ### Contrôleur par défaut <span id="default-controller"></span>
 
-Chaque application possède un contrôleur par défaut spécifié via la propriété [[yii\base\Application::defaultRoute]]. Lorsqu'une requête ne précise aucune [route](#routes), c'est la route spécifiée par cette propriété qui est utilisée. Pour les [[yii\web\Application|applications Web]], sa valeur est `'site'`, tandis que pour les [[yii\console\Application|applications de console]], c'est `help`. Par conséquent, si une URL est de la forme `http://hostname/index.php`, c'est le contrôleur `site` qui prend la requête en charge.
+Chaque application possède un contrôleur par défaut spécifié via la propriété [[yii\base\Application::defaultRoute]]. Lorsqu'une requête ne précise aucune [route](#routes), c'est la route spécifiée par cette propriété qui est utilisée. Pour les [[yii\web\Application|applications Web]], sa valeur est `'site'`, tandis que pour les [[Yiisoft\Yii\Console\Application|applications de console]], c'est `help`. Par conséquent, si une URL est de la forme `http://hostname/index.php`, c'est le contrôleur `site` qui prend la requête en charge.
 
 Vous pouvez changer de contrôleur par défaut en utilisant la  [configuration d'application](structure-applications.md#application-configurations) suivante :
 
@@ -256,7 +256,7 @@ Le valeur de retour d'une méthode d'action, ou celle de la méthode `run()` d'u
 La valeur de retour peut être un objet [response](runtime-responses.md) qui sera transmis à l'utilisateur final en tant que réponse.
 
 * Pour les [[yii\web\Application|applications Web]], la valeur de retour peut également être des données arbitraires qui seront assignées à l'objet [[yii\web\Response::data]] et converties ensuite en une chaîne de caractères représentant le corps de la réponse. 
-* Pour les [[yii\console\Application|applications de console]], la valeur de retour peut aussi être un entier représentant l'[[yii\console\Response::exitStatus|état de sortie]] de l'exécution de la commande.
+* Pour les [[Yiisoft\Yii\Console\Application|applications de console]], la valeur de retour peut aussi être un entier représentant l'[[Yiisoft\Yii\Console\Response::exitStatus|état de sortie]] de l'exécution de la commande.
 
 Dans les exemples ci-dessus, les valeurs de retour des actions sont toutes des chaînes de caractères qui seront traitées comme le corps de la réponse envoyée à l'utilisateur final. Les exemples qui suivent montrent comment une action peut rediriger le navigateur vers une nouvelle URL en retournant un objet *response* (parce que la méthode [[yii\web\Controller::redirect()|redirect()]] retourne un objet *response*) :
 
@@ -270,7 +270,7 @@ public function actionForward()
 
 ### Paramètres d'action <span id="action-parameters"></span>
 
-Les méthodes d'action pour les actions en ligne et la méthode `run()` d'une action autonome acceptent des paramètres appelés *paramètres d'action*. Leurs valeurs sont tirées des requêtes. Pour les [[yii\web\Application|applications Web]], la valeur de chacun des paramètres d'action est obtenue de la méthode `$_GET` en utilisant le nom du paramètre en tant que clé. Pour les [[yii\console\Application|applications de console]], les valeurs des  paramètres correspondent aux argument de la commande. 
+Les méthodes d'action pour les actions en ligne et la méthode `run()` d'une action autonome acceptent des paramètres appelés *paramètres d'action*. Leurs valeurs sont tirées des requêtes. Pour les [[yii\web\Application|applications Web]], la valeur de chacun des paramètres d'action est obtenue de la méthode `$_GET` en utilisant le nom du paramètre en tant que clé. Pour les [[Yiisoft\Yii\Console\Application|applications de console]], les valeurs des  paramètres correspondent aux argument de la commande. 
 Dans d'exemple qui suit, l'action `view` (une action en ligne) déclare deux paramètres : `$id` et `$version`.
 
 ```php

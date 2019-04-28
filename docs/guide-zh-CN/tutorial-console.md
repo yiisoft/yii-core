@@ -5,7 +5,7 @@
 它们主要用于创建网站后台处理的任务。
 
 控制台应用程序的结构非常类似于 Yii 的一个 Web 应用程序。
-它由一个或多个 [[yii\console\Controller]] 类组成，它们在控制台环境下通常被称为“命令”。
+它由一个或多个 [[Yiisoft\Yii\Console\Controller]] 类组成，它们在控制台环境下通常被称为“命令”。
 每个控制器还可以有一个或多个动作，就像 web 控制器。
 
 两个项目模板（基础模版和高级模版）都有自己的控制台应用程序。
@@ -16,18 +16,18 @@
 
 正如你在截图中看到，Yii 中已经定义了一组默认情况下可用的命令：
 
-- [[yii\console\controllers\AssetController|AssetController]] - 允许合并和压缩你的 JavaScript 和 CSS 文件。
+- [[Yiisoft\Yii\Console\Controllers\AssetController|AssetController]] - 允许合并和压缩你的 JavaScript 和 CSS 文件。
   在 [资源 - 使用 asset 命令](structure-assets.md#using-the-asset-command) 一节可获取更多信息。
-- [[yii\console\controllers\CacheController|CacheController]] - 清除应用程序缓存。
-- [[yii\console\controllers\FixtureController|FixtureController]] - 管理用于单元测试 fixture 的加载和卸载。
+- [[Yiisoft\Yii\Console\Controllers\CacheController|CacheController]] - 清除应用程序缓存。
+- [[Yiisoft\Yii\Console\Controllers\FixtureController|FixtureController]] - 管理用于单元测试 fixture 的加载和卸载。
   这个命令的更多细节在 [Testing Section about Fixtures](test-fixtures.md#managing-fixtures).
-- [[yii\console\controllers\HelpController|HelpController]] - 提供有关控制台命令的帮助信息，
+- [[Yiisoft\Yii\Console\Controllers\HelpController|HelpController]] - 提供有关控制台命令的帮助信息，
   这是默认的命令并会打印上面截图所示的输出。
-- [[yii\console\controllers\MessageController|MessageController]] - 从源文件提取翻译信息。
+- [[Yiisoft\Yii\Console\Controllers\MessageController|MessageController]] - 从源文件提取翻译信息。
   要了解更多关于这个命令的用法，请参阅 [I18N 章节](tutorial-i18n.md#message-command).
-- [[yii\console\controllers\MigrateController|MigrateController]] - 管理应用程序数据库迁移。
+- [[Yiisoft\Yii\Console\Controllers\MigrateController|MigrateController]] - 管理应用程序数据库迁移。
   在 [数据库迁移章节](db-migrations.md) 可获取更多信息。
-- [[yii\console\controllers\ServeController|ServeController]] - Allows you run PHP built-in web server.
+- [[Yiisoft\Yii\Console\Controllers\ServeController|ServeController]] - Allows you run PHP built-in web server.
 
 
 用法 <span id="usage"></span>
@@ -42,8 +42,8 @@ yii <route> [--option1=value1 --option2=value2 ... argument1 argument2 ...]
 以上，`<route>` 指的是控制器动作的路由。选项将填充类属性，
 参数是动作方法的参数。
 
-例如，将 [[yii\console\controllers\MigrateController::actionUp()|MigrateController::actionUp()]]
-限制 5 个数据库迁移并将 [[yii\console\controllers\MigrateController::$migrationTable|MigrateController::$migrationTable]] 
+例如，将 [[Yiisoft\Yii\Console\Controllers\MigrateController::actionUp()|MigrateController::actionUp()]]
+限制 5 个数据库迁移并将 [[Yiisoft\Yii\Console\Controllers\MigrateController::$migrationTable|MigrateController::$migrationTable]] 
 设置为 `migrations` 应该这样调用：
 
 ```
@@ -76,7 +76,7 @@ require(__DIR__ . '/vendor/yiisoft/yii2/Yii.php');
 
 $config = require(__DIR__ . '/config/console.php');
 
-$application = new yii\console\Application($config);
+$application = new Yiisoft\Yii\Console\Application($config);
 $exitCode = $application->run();
 exit($exitCode);
 ```
@@ -159,17 +159,17 @@ exec $SHELL -l
 
 ### 控制台的控制器和行为
 
-一个控制台命令继承自 [[yii\console\Controller]] 控制器类。
+一个控制台命令继承自 [[Yiisoft\Yii\Console\Controller]] 控制器类。
 在控制器类中，定义一个或多个与控制器的子命令相对应的动作。在每一个动作中，编写你的代码实现特定的子命令的适当的任务。
 
 当你运行一个命令时，你需要指定一个控制器的路由。
-例如，路由 `migrate/create` 调用子命令对应的[[yii\console\controllers\MigrateController::actionCreate()|MigrateController::actionCreate()]] 动作方法。
+例如，路由 `migrate/create` 调用子命令对应的[[Yiisoft\Yii\Console\Controllers\MigrateController::actionCreate()|MigrateController::actionCreate()]] 动作方法。
 如果在执行过程中提供的路由不包含路由 ID ，
 将执行默认动作（如 web 控制器）。
 
 ### 选项
 
-通过覆盖在 [[yii\console\Controller::options()]] 中的方法，
+通过覆盖在 [[Yiisoft\Yii\Console\Controller::options()]] 中的方法，
 你可以指定可用于控制台命令（controller/actionID）选项。这个方法应该返回控制器类的公共属性的列表。
 当运行一个命令，你可以指定使用语法 `--OptionName=OptionValue` 选项的值。
 这将分配 `OptionValue` 到控制器类的 `OptionName` 属性。
@@ -179,15 +179,15 @@ exec $SHELL -l
 
 ### 选项别名
 
-从版本 2.0.8 起控制台命令提供 [[yii\console\Controller::optionAliases()]]
+从版本 2.0.8 起控制台命令提供 [[Yiisoft\Yii\Console\Controller::optionAliases()]]
 方法来为选项添加别名。
 
-要定义别名，请在控制器中覆盖 [[yii\console\Controller::optionAliases()]]，例如：
+要定义别名，请在控制器中覆盖 [[Yiisoft\Yii\Console\Controller::optionAliases()]]，例如：
 
 ```php
 namespace app\commands;
 
-use yii\console\Controller;
+use Yiisoft\Yii\Console\Controller;
 
 class HelloController extends Controller
 {
@@ -229,7 +229,7 @@ class HelloController extends Controller
 下面的示例演示如何声明参数：
 
 ```php
-class ExampleController extends \yii\console\Controller
+class ExampleController extends \Yiisoft\Yii\Console\Controller
 {
     // 命令 "yii example/create test" 会调用 "actionCreate('test')"
     public function actionCreate($name) { ... }
@@ -267,7 +267,7 @@ public function actionIndex()
 }
 ```
 
-有一些预定义的常量可以使用。在类 [[yii\console\ExitCode]] 中被定义：
+有一些预定义的常量可以使用。在类 [[Yiisoft\Yii\Console\ExitCode]] 中被定义：
 
 ```php
 public function actionIndex()
@@ -315,4 +315,4 @@ echo Table::widget([
 ]);
 ```
 
-有关详细信息，请参阅 [[yii\console\widgets\Table|API documentation]].
+有关详细信息，请参阅 [[Yiisoft\Yii\Console\widgets\Table|API documentation]].

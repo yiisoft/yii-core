@@ -91,8 +91,8 @@ sẽ được thực hiện. Để biết thêm thông tin về cách bộ đị
 ## Tạo Controller <span id="creating-controllers"></span>
 
 Trong mỗi [[yii\web\Application|Ứng dụng Web]], Controllers cần được kế thừa từ class [[yii\web\Controller]] hoặc các lớp con của nó
-. Tương tự trong [[yii\console\Application|Ứng dụng console]], Controllers cần được kế thừa từ class
-[[yii\console\Controller]] hoặc các lớp con của nó. Đoạn code sau được định nghĩa trong Controller `site` :
+. Tương tự trong [[Yiisoft\Yii\Console\Application|Ứng dụng console]], Controllers cần được kế thừa từ class
+[[Yiisoft\Yii\Console\Controller]] hoặc các lớp con của nó. Đoạn code sau được định nghĩa trong Controller `site` :
 
 ```php
 namespace app\controllers;
@@ -178,7 +178,7 @@ Bạn có thể cấu hình [[yii\base\Application::controllerMap|controller map
 
 Mỗi ứng dụng đều có một Controller mặc định được mô tả qua thuộc tính [[yii\base\Application::defaultRoute]].
 Khi một yêu cầu không được mô tả cụ thể ở mục [route](#routes), thì route mặc định sẽ được gọi.
-Chẳng hạn [[yii\web\Application|Web applications]], có giá trị là `'site'`, trong khi đó [[yii\console\Application|ứng dụng console]],
+Chẳng hạn [[yii\web\Application|Web applications]], có giá trị là `'site'`, trong khi đó [[Yiisoft\Yii\Console\Application|ứng dụng console]],
 có route mặc định là `help`. Vì vậy, nếu truy cập vào URL sau `http://hostname/index.php`, thì Controller `site` sẽ được gọi và xử lý yêu cầu.
 
 Bạn có thể thay đổi thông tin Controller mặc định tại mục [cấu hình ứng dung](structure-applications.md#application-configurations) như sau:
@@ -311,8 +311,8 @@ Giá trị trả về là đối tượng [phản hồi](runtime-responses.md) �
 
 * Chẳng hạn với [[yii\web\Application|Ứng dụng Web]], kết quả trả về bao gồm dữ liệu được gán vào thuộc tính
   [[yii\web\Response::data]] và chuyển sang dữ liệu là string chuyển tới nội dung phản hồi kết quả.
-* Với [[yii\console\Application|ứng dụng console]], kết quả trả về là số nguyên tương ứng với thuộc tính
-  [[yii\console\Response::exitStatus|exit status]] của mỗi lần thực thi lệnh.
+* Với [[Yiisoft\Yii\Console\Application|ứng dụng console]], kết quả trả về là số nguyên tương ứng với thuộc tính
+  [[Yiisoft\Yii\Console\Response::exitStatus|exit status]] của mỗi lần thực thi lệnh.
 
 Ở ví dụ dưới, action sẽ trả về là chuỗi dữ liệu và được xử lý như nội dung phản hồi tới user
 . Ví dụ dưới chỉ cách các action điều hướng tới trình duyệt một URL 
@@ -333,7 +333,7 @@ public function actionForward()
 Các phương thức dành cho inline action và phương thức `run()` cho standalone actions có thể nhận các tham số,
 được gọi là *các tham số action*. Giá trị nhận được từ các yêu cầu. Với [[yii\web\Application|Ứng dụng Web]],
 giá trị của các tham số được nhận từ biến `$_GET` sử dụng các tham số như các khoá;
-với [[yii\console\Application|ứng dụng console]], các tham số sẽ tương ứng với các đối số dòng lệnh.
+với [[Yiisoft\Yii\Console\Application|ứng dụng console]], các tham số sẽ tương ứng với các đối số dòng lệnh.
 
 Trong ví dụ sau, action `view`  (là một inline action) được khai báo hai tham số là: `$id` và `$version`.
 
