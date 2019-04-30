@@ -12,7 +12,7 @@ use yii\base\BaseObject;
 use yii\di\Initiable;
 use yii\exceptions\InvalidConfigException;
 use yii\helpers\Html;
-use Yiisoft\Helpers\InflectorHelper;
+use Yiisoft\Inflector\InflectorHelper;
 use yii\web\Request;
 
 /**
@@ -365,7 +365,7 @@ class Sort extends BaseObject implements Initiable
      * @param array $options additional HTML attributes for the hyperlink tag.
      * There is one special attribute `label` which will be used as the label of the hyperlink.
      * If this is not set, the label defined in [[attributes]] will be used.
-     * If no label is defined, [[\yii\helpers\InflectorHelper::camel2words()]] will be called to get a label.
+     * If no label is defined, [[\Yiisoft\Inflector\InflectorHelper::camel2words()]] will be called to get a label.
      * Note that it will not be HTML-encoded.
      * @return string the generated hyperlink
      * @throws InvalidConfigException if the attribute is unknown

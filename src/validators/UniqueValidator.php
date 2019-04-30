@@ -13,7 +13,7 @@ use yii\activerecord\ActiveQuery;
 use yii\activerecord\ActiveQueryInterface;
 use yii\activerecord\ActiveRecord;
 use yii\activerecord\ActiveRecordInterface;
-use Yiisoft\Helpers\InflectorHelper;
+use Yiisoft\Inflector\InflectorHelper;
 
 /**
  * UniqueValidator validates that the attribute value is unique in the specified database table.

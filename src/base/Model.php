@@ -19,7 +19,7 @@ use yii\validators\RequiredValidator;
 use yii\validators\Validator;
 use Yiisoft\Arrays\Arrayable;
 use Yiisoft\Arrays\ArrayableTrait;
-use Yiisoft\Helpers\InflectorHelper;
+use Yiisoft\Inflector\InflectorHelper;
 
 /**
  * Model is the base class for data models.

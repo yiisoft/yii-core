@@ -57,7 +57,7 @@ $articles = Article::find()
 - `default` 元素指定了当一次请求时，属性应该按照什么方向来进行排序。它默认为升序方向，意味着如果之前没有进行排序，并且
   你请求按照该属性进行排序，那么数据将按照该属性来进行升序排序。
 - `label` 元素指定了调用 [[yii\data\Sort::link()]] 来创建一个排序链接时应该使用什么标签，如果不设置，将调用 
-  [[yii\helpers\InflectorHelper::camel2words()]] 来通过属性名生成一个标签。注意，它并不是 HTML编码的。
+  [[Yiisoft\Inflector\InflectorHelper::camel2words()]] 来通过属性名生成一个标签。注意，它并不是 HTML编码的。
   
 > Info: 你可以将 [[yii\data\Sort::$orders|orders]] 的值直接提供给数据库查询来构建其 `ORDER BY` 子句。不要使用 [[yii\data\Sort::$attributeOrders|attributeOrders]] ，因为一些属性可能是复合的，是不能被数据库查询识别的。
 

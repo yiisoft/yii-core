@@ -11,14 +11,14 @@ use yii\helpers\Yii;
 use yii\exceptions\InvalidConfigException;
 use yii\db\BaseActiveRecord;
 use Yiisoft\Arrays\ArrayHelper;
-use Yiisoft\Helpers\InflectorHelper;
+use Yiisoft\Inflector\InflectorHelper;
 use yii\validators\UniqueValidator;
 
 /**
  * SluggableBehavior automatically fills the specified attribute with a value that can be used a slug in a URL.
  *
  * Note: This behavior relies on php-intl extension for transliteration. If it is not installed it
- * falls back to replacements defined in [[\yii\helpers\InflectorHelper::$transliteration]].
+ * falls back to replacements defined in [[\Yiisoft\Inflector\InflectorHelper::$transliteration]].
  *
  * To use SluggableBehavior, insert the following code to your ActiveRecord class:
  *
@@ -201,7 +201,7 @@ class SluggableBehavior extends AttributeBehavior
     /**
      * This method is called by [[getValue]] to generate the slug.
      * You may override it to customize slug generation.
-     * The default implementation calls [[\yii\helpers\InflectorHelper::slug()]] on the input strings
+     * The default implementation calls [[\Yiisoft\Inflector\InflectorHelper::slug()]] on the input strings
      * concatenated by dashes (`-`).
      * @param array $slugParts an array of strings that should be concatenated and converted to generate the slug value.
      * @return string the conversion result.

@@ -628,7 +628,7 @@ Upgrade from Yii 2.0.6
   > Tip: Use Yii 2 Requirements checker for easy and fast check. Look for `requirements.php` in root of Basic and Advanced
   templates (howto-comment is in head of the script).
 
-* The signature of `Yiisoft\Helpers\InflectorHelper::transliterate()` was changed. The method is now public and has an
+* The signature of `Yiisoft\Inflector\InflectorHelper::transliterate()` was changed. The method is now public and has an
   extra optional parameter `$transliterator`.
 
 * In `yii\web\UrlRule` the `pattern` matching group names are being replaced with the placeholders on class
