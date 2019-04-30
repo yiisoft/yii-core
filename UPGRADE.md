@@ -166,10 +166,10 @@ Upgrade from Yii 2.0.x
     * yii-project-template:
         * moved web server root dir to `public` (was web)
 * Moved data displaying widgets to own package [yiisoft/yii-dataview]:
-    * `yii\grid` -> `yii\dataview`
-    * `yii\grid\*Column` -> `yii\dataview\columns\*`
-    * `yii\widgets\ListView` -> `yii\dataview\ListView`
-    * `yii\widgets\DetailView` -> `yii\dataview\DetailView`
+    * `yii\grid` -> `Yiisoft\Yii\DataView`
+    * `yii\grid\*Column` -> `Yiisoft\Yii\DataView\Columns\*`
+    * `yii\widgets\ListView` -> `Yiisoft\Yii\DataView\ListView`
+    * `yii\widgets\DetailView` -> `Yiisoft\Yii\DataView\DetailView`
 * DI:
     * Config changed to be DI container config instead of application.
     * Removed `yii\di\Instance` class:
