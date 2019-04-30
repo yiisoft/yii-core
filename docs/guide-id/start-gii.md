@@ -24,13 +24,13 @@ $config = [ ... ];
 if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
+        'class' => 'Yiisoft\Yii\Gii\Module',
     ];
 }
 ```
 
 Konfigurasi di atas menyatakan bahwa, ketika mode [development environment](concept-configurations.md#environment-constants) aktif,
-maka aplikasi harus mengikutkan module yang bernama `gii`, dimana objek tersebut merupakan class [[yii\gii\Module]].
+maka aplikasi harus mengikutkan module yang bernama `gii`, dimana objek tersebut merupakan class [[Yiisoft\Yii\Gii\Module]].
 
 Jika anda melihat [_entry script_](structure-entry-scripts.md) `web/index.php` pada aplikasi anda, anda akan
 menemukan baris dibawah ini, yang menyatakan secara explisit bahwa `YII_ENV_DEV` sama dengan `true`.
@@ -50,7 +50,7 @@ http://hostname/index.php?r=gii
 >
 ```php
 'gii' => [
-    'class' => 'yii\gii\Module',
+    'class' => 'Yiisoft\Yii\Gii\Module',
     'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*', '192.168.178.20'] // adjust this to your needs
 ],
 ```

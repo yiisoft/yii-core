@@ -24,13 +24,13 @@ $config = [ ... ];
 if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
+        'class' => 'Yiisoft\Yii\Gii\Module',
     ];
 }
 ```
 
 这段配置表明，如果当前是[开发环境](concept-configurations.md#environment-constants)，
-应用会包含 `gii` 模块，模块类是 [[yii\gii\Module]]。
+应用会包含 `gii` 模块，模块类是 [[Yiisoft\Yii\Gii\Module]]。
 
 如果你检查应用的[入口脚本](structure-entry-scripts.md) `web/index.php`，
 将看到这行代码将 `YII_ENV_DEV` 设为 true：
@@ -50,7 +50,7 @@ http://hostname/index.php?r=gii
 >
 ```php
 'gii' => [
-    'class' => 'yii\gii\Module',
+    'class' => 'Yiisoft\Yii\Gii\Module',
     'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*', '192.168.178.20'] // 按需调整这里
 ],
 ```

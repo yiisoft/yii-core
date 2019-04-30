@@ -22,12 +22,12 @@ $config = [ ... ];
 if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
+        'class' => 'Yiisoft\Yii\Gii\Module',
     ];
 }
 ```
 
-A configuração acima declara que quando se está em [ambiente de desenvolvimento](concept-configurations.md#environment-constants), a aplicação deve incluir um módulo chamado `gii`, da classe [[yii\gii\Module]].
+A configuração acima declara que quando se está em [ambiente de desenvolvimento](concept-configurations.md#environment-constants), a aplicação deve incluir um módulo chamado `gii`, da classe [[Yiisoft\Yii\Gii\Module]].
 
 Se você checar o [script inicial](structure-entry-scripts.md) `web/index.php` da sua aplicação, você encontrará a seguinte linha, que essencialmente faz com que o `YII_ENV_DEV` seja verdadeiro.
 
@@ -46,7 +46,7 @@ http://hostname/index.php?r=gii
 >
 ```php
 'gii' => [
-    'class' => 'yii\gii\Module',
+    'class' => 'Yiisoft\Yii\Gii\Module',
     'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*', '192.168.178.20'] // ajuste de acordo com suas necessidades
 ],
 ```

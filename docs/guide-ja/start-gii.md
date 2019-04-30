@@ -24,13 +24,13 @@ $config = [ ... ];
 if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        '__class' => \yii\gii\Module::class,
+        '__class' => \Yiisoft\Yii\Gii\Module::class,
     ];
 }
 ```
 
 上記の構成情報は、[開発環境](concept-configurations.md#environment-constants) において、アプリケーションは `gii` という名前のモジュールをインクルードすべきこと、
-そして `gii` は [[yii\gii\Module]] というクラスであることを記述しています。
+そして `gii` は [[Yiisoft\Yii\Gii\Module]] というクラスであることを記述しています。
 
 アプリケーションの [エントリ・スクリプト](structure-entry-scripts.md) である `web/index.php` をチェックすると、次の行があることに気付くでしょう。
 これは本質的には `YII_ENV_DEV` を `true` に設定するものです。
@@ -50,7 +50,7 @@ http://hostname/index.php?r=gii
 >
 ```php
 'gii' => [
-    '__class' => \yii\gii\Module:class,
+    '__class' => \Yiisoft\Yii\Gii\Module:class,
     'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*', '192.168.178.20'] // 必要に応じて調整
 ],
 ```

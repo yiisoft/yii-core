@@ -27,12 +27,12 @@ $config = [ ... ];
 if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
+        'class' => 'Yiisoft\Yii\Gii\Module',
     ];
 }
 ```
 
-Наведена вище конфігурація підключає модуль `gii`, представлений класом [[yii\gii\Module]], у тому випадку,
+Наведена вище конфігурація підключає модуль `gii`, представлений класом [[Yiisoft\Yii\Gii\Module]], у тому випадку,
 коли ваш додаток знаходиться в [середовищі розробки](concept-configurations.md#environment-constants).
 
 Якщо ви перевірите [вхідний скрипт](structure-entry-scripts.md) `web/index.php` вашого додатку, то
@@ -53,7 +53,7 @@ http://hostname/index.php?r=gii
 безпеки. Ви можете налаштувати Gii, додавши дозволені IP-адреси, як показано нижче
 ```php
 'gii' => [
-    'class' => 'yii\gii\Module',
+    'class' => 'Yiisoft\Yii\Gii\Module',
     'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*', '192.168.178.20'] // налаштувати для ваших потреб
 ],
 ```

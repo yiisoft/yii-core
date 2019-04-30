@@ -25,13 +25,13 @@ $config = [ ... ];
 if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
+        'class' => 'Yiisoft\Yii\Gii\Module',
     ];
 }
 ```
 
 La configuración dice que al estar en el [entorno de desarrollo](concept-configurations.md#environment-constants),
-la aplicación debe incluir el módulo llamado `gii`, cuya clase es [[yii\gii\Module]].
+la aplicación debe incluir el módulo llamado `gii`, cuya clase es [[Yiisoft\Yii\Gii\Module]].
 
 Si chequeas el [script de entrada](structure-entry-scripts.md) `web/index.php` de tu aplicación, encontrarás la línea
 que esencialmente define la constante `YII_ENV_DEV` como verdadera -`true`.
