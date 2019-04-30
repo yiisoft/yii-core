@@ -84,7 +84,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => 'Yiisoft\Yii\SwiftMailer\Mailer',
         ],
         'log' => [
             'class' => 'Yiisoft\Log\Dispatcher',
@@ -157,7 +157,7 @@ return [
         'class' => 'yii\caching\FileCache',
     ],
     'mailer' => [
-        'class' => 'yii\swiftmailer\Mailer',
+        'class' => 'Yiisoft\Yii\SwiftMailer\Mailer',
     ],
     'log' => [
         'class' => 'Yiisoft\Log\Dispatcher',

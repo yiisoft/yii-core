@@ -289,7 +289,7 @@ $container->set('yii\db\Connection');
 // регистрация интерфейса
 // Когда класс зависит от интерфейса, соответствующий класс
 // будет использован в качестве зависимости объекта
-$container->set('yii\mail\MailInterface', 'yii\swiftmailer\Mailer');
+$container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // регистрация алиаса. Вы можете использовать $container->get('foo')
 // для создания экземпляра Connection

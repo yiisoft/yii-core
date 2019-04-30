@@ -163,7 +163,7 @@ $container->set('yii\db\Connection');
 // 注册一个接口
 // 当一个类依赖这个接口时，
 //相应的类会被初始化作为依赖对象。
-$container->set('yii\mail\MailInterface', 'yii\swiftmailer\Mailer');
+$container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // 注册一个别名。
 // 你可以使用 $container->get('foo') 创建一个 Connection 实例

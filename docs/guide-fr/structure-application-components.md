@@ -81,7 +81,7 @@ Vous trouverez ci-après la liste des composants d'application prédéfinis du n
   Reportez-vous à la section [Internationalisation](tutorial-i18n.md) pour plus de détails.
 * [[Yiisoft\Log\Dispatcher|log]]: gère les journaux cibles. 
   Reportez-vous à la section  [Journaux](runtime-logging.md) pour plus de détails.
-* [[yii\swiftmailer\Mailer|mail]]: prend en charge la composition et l'envoi des courriels.
+* [[Yiisoft\Yii\SwiftMailer\Mailer|mail]]: prend en charge la composition et l'envoi des courriels.
   Reportez-vous à la section [Mailing](tutorial-mailing.md) pour plus de détails.
 * [[yii\base\Application::response|response]]: représente la réponse qui est adressée à l'utilisateur final. 
   Reportez-vous à la section  [Réponses](runtime-responses.md) pour plus de détails.

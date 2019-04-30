@@ -99,7 +99,7 @@ zostanie użyta klasa domyślna.
   Po więcej informacji zajrzyj do sekcji [Internacjonalizacja](tutorial-i18n.md).
 * [[Yiisoft\Log\Dispatcher|log]]: zarządza logowaniem informacji oraz błędów
   Po więcej informacji zajrzyj do sekcji [Logowanie](runtime-logging.md).
-* [[yii\swiftmailer\Mailer|mail]]: wspiera tworzenie oraz wysyłanie emaili.
+* [[Yiisoft\Yii\SwiftMailer\Mailer|mail]]: wspiera tworzenie oraz wysyłanie emaili.
   Po więcej informacji zajrzyj do sekcji [Wysyłanie poczty](tutorial-mailing.md).
 * [[yii\base\Application::response|response]]: reprezentuje odpowiedź wysyłaną do użytkowników.
   Po więcej informacji zajrzyj do sekcji [Odpowiedzi](runtime-responses.md).

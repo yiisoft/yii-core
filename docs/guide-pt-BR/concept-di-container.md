@@ -121,7 +121,7 @@ $container->set('yii\db\Connection');
 // registrar uma interface
 // Quando uma classe depende da interface, a classe correspondente
 // será instanciada como o objeto dependente
-$container->set('yii\mail\MailInterface', 'yii\swiftmailer\Mailer');
+$container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // registrar um alias. Você pode utilizar $container->get('foo')
 // para criar uma instância de Connection

@@ -75,7 +75,7 @@ si no especificas su nombre de clase, la clase por defecto será utilizada.
   Por favor consulta la sección [Internacionalización](tutorial-i18n.md) para más detalles.
 * [[Yiisoft\Log\Dispatcher|log]]: maneja a dónde dirigir los logs.
   Por favor consulta la sección [Logging](tutorial-logging.md) para más detalles.
-* [[yii\swiftmailer\Mailer|mail]]: soporta construcción y envío de emails.
+* [[Yiisoft\Yii\SwiftMailer\Mailer|mail]]: soporta construcción y envío de emails.
   Por favor consulta la sección [Enviando Emails](tutorial-mailing.md) para más detalles.
 * [[yii\base\Application::response|response]]: representa la respuesta enviada a los usuarios.
   Por favor consulta la sección [Responses](runtime-responses.md) para más detalles.

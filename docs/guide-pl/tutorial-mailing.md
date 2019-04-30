@@ -21,7 +21,7 @@ return [
     //....
     'components' => [
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => 'Yiisoft\Yii\SwiftMailer\Mailer',
         ],
     ],
 ];

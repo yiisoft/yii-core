@@ -111,7 +111,7 @@ Yii 定义了一组固定ID和默认配置的 *核心* 组件，
   详情请参考 [国际化](tutorial-i18n.md) 一节。
 * [[Yiisoft\Log\Dispatcher|log]]: 管理日志对象。
   详情请参考 [日志](tutorial-logging.md) 一节。
-* [[yii\swiftmailer\Mailer|mail]]: 支持生成邮件结构并发送，
+* [[Yiisoft\Yii\SwiftMailer\Mailer|mail]]: 支持生成邮件结构并发送，
   详情请参考 [邮件](tutorial-mailing.md) 一节。
 * [[yii\base\Application::response|response]]: 代表发送给用户的响应，
   详情请参考 [响应](runtime-responses.md) 一节。

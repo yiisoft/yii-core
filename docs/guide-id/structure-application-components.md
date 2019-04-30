@@ -101,7 +101,7 @@ jika anda tidak mendefinisikan _class_-nya, maka _class_ default yang akan digun
   Harap melihat bagian [Internasionalisasi](tutorial-i18n.md) untuk informasi lebih lanjut.
 * [[Yiisoft\Log\Dispatcher|log]]: mengelola target log.
   Harap melihat bagian [Log](runtime-logging.md) untuk informasi lebih lanjut.
-* [[yii\swiftmailer\Mailer|mailer]]: mendukung pembuatan dan pengiriman email.
+* [[Yiisoft\Yii\SwiftMailer\Mailer|mailer]]: mendukung pembuatan dan pengiriman email.
   Harap melihat bagian [Mail](tutorial-mailing.md) untuk informasi lebih lanjut.
 * [[yii\base\Application::response|response]]: merepresentasikan _response_ yang dikirimkan ke pengguna.
   Harap melihat bagian [Response](runtime-responses.md) untuk informasi lebih lanjut.

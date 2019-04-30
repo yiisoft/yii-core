@@ -111,7 +111,7 @@ if you do not specify its class, the default one will be used.
   Please refer to the [Internationalization](tutorial-i18n.md) section for more details.
 * [[Yiisoft\Log\Dispatcher|log]]: manages log targets.
   Please refer to the [Logging](runtime-logging.md) section for more details.
-* [[yii\swiftmailer\Mailer|mailer]]: supports mail composing and sending.
+* [[Yiisoft\Yii\SwiftMailer\Mailer|mailer]]: supports mail composing and sending.
   Please refer to the [Mailing](tutorial-mailing.md) section for more details.
 * [[yii\base\Application::response|response]]: represents the response being sent to end users.
   Please refer to the [Responses](runtime-responses.md) section for more details.

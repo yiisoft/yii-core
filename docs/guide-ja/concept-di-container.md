@@ -163,7 +163,7 @@ $container->set('yii\db\Connection');
 // インタフェイスの登録
 // クラスがインタフェイスに依存する場合、対応するクラスが
 // 依存オブジェクトとしてインスタンス化されます
-$container->set('yii\mail\MailInterface', 'yii\swiftmailer\Mailer');
+$container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // エイリアス名の登録。$container->get('foo') を使って
 // Connection のインスタンスを作成できます

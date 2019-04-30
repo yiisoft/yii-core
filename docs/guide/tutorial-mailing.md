@@ -22,7 +22,7 @@ return [
     //....
     'components' => [
         'mailer' => [
-            '__class' => yii\swiftmailer\Mailer::class,
+            '__class' => Yiisoft\Yii\SwiftMailer\Mailer::class,
         ],
     ],
 ];

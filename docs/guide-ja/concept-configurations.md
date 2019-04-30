@@ -105,7 +105,7 @@ $config = [
             '__class' => \yii\caching\FileCache::class,
         ],
         'mailer' => [
-            '__class' => \yii\swiftmailer\Mailer::class,
+            '__class' => \Yiisoft\Yii\SwiftMailer\Mailer::class,
         ],
         'db' => [
             '__class' => \yii\db\Connection::class,
@@ -200,7 +200,7 @@ return [
         '__class' => \yii\caching\FileCache::class,
     ],
     'mailer' => [
-        '__class' => yii\swiftmailer\Mailer::class,
+        '__class' => Yiisoft\Yii\SwiftMailer\Mailer::class,
     ],
     'db' => [
         '__class' => \yii\db\Connection::class,
