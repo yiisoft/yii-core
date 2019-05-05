@@ -61,9 +61,9 @@ class UniqueValidator extends Validator
     public $targetAttribute;
     /**
      * @var string|array|\Closure additional filter to be applied to the DB query used to check the uniqueness of the attribute value.
-     * This can be a string or an array representing the additional query condition (refer to [[\yii\db\Query::where()]]
+     * This can be a string or an array representing the additional query condition (refer to [[\Yiisoft\Db\Query::where()]]
      * on the format of query condition), or an anonymous function with the signature `function ($query)`, where `$query`
-     * is the [[\yii\db\Query|Query]] object that you can modify in the function.
+     * is the [[\Yiisoft\Db\Query|Query]] object that you can modify in the function.
      */
     public $filter;
     /**
@@ -163,7 +163,7 @@ class UniqueValidator extends Validator
      *
      * @param string $targetClass the name of the ActiveRecord class that should be used to validate the uniqueness
      * of the current attribute value.
-     * @param array $conditions conditions, compatible with [[\yii\db\Query::where()|Query::where()]] key-value format.
+     * @param array $conditions conditions, compatible with [[\Yiisoft\Db\Query::where()|Query::where()]] key-value format.
      * @param Model $model the data model to be validated
      *
      * @return bool whether the model already exists
@@ -216,7 +216,7 @@ class UniqueValidator extends Validator
      *
      * @param ActiveRecordInterface $targetClass the name of the ActiveRecord class that should be used to validate
      * the uniqueness of the current attribute value.
-     * @param array $conditions conditions, compatible with [[\yii\db\Query::where()|Query::where()]] key-value format
+     * @param array $conditions conditions, compatible with [[\Yiisoft\Db\Query::where()|Query::where()]] key-value format
      *
      * @return ActiveQueryInterface|ActiveQuery
      */
@@ -235,7 +235,7 @@ class UniqueValidator extends Validator
 
     /**
      * Processes attributes' relations described in $targetAttribute parameter into conditions, compatible with
-     * [[\yii\db\Query::where()|Query::where()]] key-value format.
+     * [[\Yiisoft\Db\Query::where()|Query::where()]] key-value format.
      *
      * @param string|array $targetAttribute the name of the [[\Yiisoft\ActiveRecord\ActiveRecord|ActiveRecord]] attribute that
      * should be used to validate the uniqueness of the current attribute value. You may use an array to validate
@@ -245,7 +245,7 @@ class UniqueValidator extends Validator
      * @param Model $model the data model to be validated
      * @param string $attribute the name of the attribute to be validated in the $model
      *
-     * @return array conditions, compatible with [[\yii\db\Query::where()|Query::where()]] key-value format.
+     * @return array conditions, compatible with [[\Yiisoft\Db\Query::where()|Query::where()]] key-value format.
      */
     private function prepareConditions($targetAttribute, $model, $attribute)
     {

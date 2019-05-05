@@ -62,7 +62,7 @@ class MyBehavior extends Behavior
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior
@@ -84,7 +84,7 @@ class MyBehavior extends Behavior
 ```
 
 [[yii\base\Behavior::events()|events()]] 方法返回事件列表和相应的处理器。
-上例声明了 [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] 事件和它的处理器 `beforeValidate()` 。
+上例声明了 [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] 事件和它的处理器 `beforeValidate()` 。
 当指定一个事件处理器时，要使用以下格式之一：
 
 * 指向行为类的方法名的字符串，如上例所示；
@@ -111,7 +111,7 @@ function ($event) {
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use app\components\MyBehavior;
 
 class User extends ActiveRecord
@@ -253,15 +253,15 @@ $component->detachBehaviors();
 -----------------------
 
 最后以 [[yii\behaviors\TimestampBehavior]] 的讲解来结尾，
-这个行为支持在 [[yii\db\ActiveRecord|Active Record]] 
+这个行为支持在 [[Yiisoft\Db\ActiveRecord|Active Record]] 
 存储时自动更新它的时间戳属性。
 
-首先，附加这个行为到计划使用该行为的 [[yii\db\ActiveRecord|Active Record]] 类：
+首先，附加这个行为到计划使用该行为的 [[Yiisoft\Db\ActiveRecord|Active Record]] 类：
 
 ```php
 namespace app\models\User;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord

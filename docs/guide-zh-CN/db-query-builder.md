@@ -7,13 +7,13 @@
 
 使用查询构建器通常包含以下两个步骤：
 
-1. 创建一个 [[yii\db\Query]] 对象来代表一条 SELECT SQL 语句的不同子句（例如 `SELECT`, `FROM`）。
-2. 执行 [[yii\db\Query]] 的一个查询方法（例如：`all()`）从数据库当中检索数据。
+1. 创建一个 [[Yiisoft\Db\Query]] 对象来代表一条 SELECT SQL 语句的不同子句（例如 `SELECT`, `FROM`）。
+2. 执行 [[Yiisoft\Db\Query]] 的一个查询方法（例如：`all()`）从数据库当中检索数据。
 
 如下所示代码是查询构造器的一个典型用法：
 
 ```php
-$rows = (new \yii\db\Query())
+$rows = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->where(['last_name' => 'Smith'])
@@ -31,15 +31,15 @@ WHERE `last_name` = :last_name
 LIMIT 10
 ```
 
-> Tip: 你平时更多的时候会使用 [[yii\db\Query]] 而不是 [yii\db\QueryBuilder]]。
-  当你调用其中一个查询方法时，后者将会被前者隐式的调用。[[yii\db\QueryBuilder]]主要负责将
-  DBMS 不相关的 [[yii\db\Query]] 对象转换成 DBMS 相关的 SQL 语句（例如，
+> Tip: 你平时更多的时候会使用 [[Yiisoft\Db\Query]] 而不是 [Yiisoft\Db\QueryBuilder]]。
+  当你调用其中一个查询方法时，后者将会被前者隐式的调用。[[Yiisoft\Db\QueryBuilder]]主要负责将
+  DBMS 不相关的 [[Yiisoft\Db\Query]] 对象转换成 DBMS 相关的 SQL 语句（例如，
   以不同的方式引用表或字段名称）。
 
 
 ## 创建查询 <span id="building-queries"></span>
 
-为了创建一个 [[yii\db\Query]] 对象，你需要调用不同的查询构建方法来代表SQL语句的不同子句。
+为了创建一个 [[Yiisoft\Db\Query]] 对象，你需要调用不同的查询构建方法来代表SQL语句的不同子句。
 这些方法的名称集成了在SQL语句相应子句中使用的关键字。例如，为了指定 SQL 语句当中的
 `FROM` 子句，你应该调用 `from()` 方法。所有的查询构建器方法返回的是查询对象本身，
 也就是说，你可以把多个方法的调用串联起来。
@@ -47,9 +47,9 @@ LIMIT 10
 接下来，我们会对这些查询构建器方法进行一一讲解：
 
 
-### [[yii\db\Query::select()|select()]] <span id="select"></span>
+### [[Yiisoft\Db\Query::select()|select()]] <span id="select"></span>
 
-[[yii\db\Query::select()|select()]] 方法用来指定 SQL 语句当中的 `SELECT` 子句。
+[[Yiisoft\Db\Query::select()|select()]] 方法用来指定 SQL 语句当中的 `SELECT` 子句。
 你可以像下面的例子一样使用一个数组或者字符串来定义需要查询的字段。当 SQL 语句
 是由查询对象生成的时候，被查询的字段名称将会自动的被引号括起来。
  
@@ -79,7 +79,7 @@ $query->select('user.id AS user_id, email');
 $query->select(['user_id' => 'user.id', 'email']);
 ```
 
-如果你在组建查询时没有调用 [[yii\db\Query::select()|select()]] 方法，那么选择的将是 `'*'` ，
+如果你在组建查询时没有调用 [[Yiisoft\Db\Query::select()|select()]] 方法，那么选择的将是 `'*'` ，
 也即选取的是所有的字段。
 
 除了字段名称以外，你还可以选择数据库的表达式。当你使用到包含逗号的数据库表达式的时候，
@@ -93,7 +93,7 @@ As with all places where raw SQL is involved, you may use the [DBMS agnostic quo
 for table and column names when writing DB expressions in select.
 
 从 2.0.1 的版本开始你就可以使用子查询了。在定义每一个子查询的时候，
-你应该使用 [[yii\db\Query]] 对象。例如：
+你应该使用 [[Yiisoft\Db\Query]] 对象。例如：
  
 ```php
 $subQuery = (new Query())->select('COUNT(*)')->from('user');
@@ -102,14 +102,14 @@ $subQuery = (new Query())->select('COUNT(*)')->from('user');
 $query = (new Query())->select(['id', 'count' => $subQuery])->from('post');
 ```
 
-你应该调用 [[yii\db\Query::distinct()|distinct()]] 方法来去除重复行，如下所示：
+你应该调用 [[Yiisoft\Db\Query::distinct()|distinct()]] 方法来去除重复行，如下所示：
 
 ```php
 // SELECT DISTINCT `user_id` ...
 $query->select('user_id')->distinct();
 ```
 
-你可以调用 [[yii\db\Query::addSelect()|addSelect()]] 方法来选取附加字段，例如：
+你可以调用 [[Yiisoft\Db\Query::addSelect()|addSelect()]] 方法来选取附加字段，例如：
 
 ```php
 $query->select(['id', 'username'])
@@ -117,9 +117,9 @@ $query->select(['id', 'username'])
 ```
 
 
-### [[yii\db\Query::from()|from()]] <span id="from"></span>
+### [[Yiisoft\Db\Query::from()|from()]] <span id="from"></span>
 
-[[yii\db\Query::from()|from()]] 方法指定了 SQL 语句当中的 `FROM` 子句。例如：
+[[Yiisoft\Db\Query::from()|from()]] 方法指定了 SQL 语句当中的 `FROM` 子句。例如：
 
 ```php
 // SELECT * FROM `user`
@@ -143,7 +143,7 @@ $query->from('public.user u, public.post p');
 $query->from(['u' => 'public.user', 'p' => 'public.post']);
 ```
 
-除了表名以外，你还可以从子查询中再次查询，这里的子查询是由 [[yii\db\Query]] 创建的对象。
+除了表名以外，你还可以从子查询中再次查询，这里的子查询是由 [[Yiisoft\Db\Query]] 创建的对象。
 例如：
 
 ```php
@@ -154,9 +154,9 @@ $query->from(['u' => $subQuery]);
 ```
 
 
-### [[yii\db\Query::where()|where()]] <span id="where"></span>
+### [[Yiisoft\Db\Query::where()|where()]] <span id="where"></span>
 
-[[yii\db\Query::where()|where()]] 方法定义了 SQL 语句当中的 `WHERE` 子句。
+[[Yiisoft\Db\Query::where()|where()]] 方法定义了 SQL 语句当中的 `WHERE` 子句。
 你可以使用如下三种格式来定义 `WHERE` 条件：
 
 - 字符串格式，例如：`'status=1'`
@@ -187,7 +187,7 @@ $query->where('YEAR(somedate) = 2015');
 $query->where("status=$status");
 ```
 
-当使用参数绑定的时候，你可以调用 [[yii\db\Query::params()|params()]] 或者 [[yii\db\Query::addParams()|addParams()]] 方法
+当使用参数绑定的时候，你可以调用 [[Yiisoft\Db\Query::params()|params()]] 或者 [[Yiisoft\Db\Query::addParams()|addParams()]] 方法
 来分别绑定不同的参数。
 
 ```php
@@ -290,7 +290,7 @@ you do not have to add parameters manually.
 - `or not like`: 用法和 `not like` 操作符类似，区别在于会使用 `OR` 
   来串联多个 `NOT LIKE` 条件语句。
 
-- `exists`: 需要一个操作数，该操作数必须是代表子查询 [[yii\db\Query]] 的一个实例，
+- `exists`: 需要一个操作数，该操作数必须是代表子查询 [[Yiisoft\Db\Query]] 的一个实例，
   它将会构建一个 `EXISTS (sub-query)` 表达式。
 
 - `not exists`: 用法和 `exists` 操作符类似，它将创建一个  `NOT EXISTS (sub-query)` 表达式。
@@ -304,7 +304,7 @@ you do not have to add parameters manually.
 
 #### 附加条件 <span id="appending-conditions"></span>
 
-你可以使用 [[yii\db\Query::andWhere()|andWhere()]] 或者 [[yii\db\Query::orWhere()|orWhere()]] 在原有条件的基础上
+你可以使用 [[Yiisoft\Db\Query::andWhere()|andWhere()]] 或者 [[Yiisoft\Db\Query::orWhere()|orWhere()]] 在原有条件的基础上
 附加额外的条件。你可以多次调用这些方法来分别追加不同的条件。
 例如，
 
@@ -331,7 +331,7 @@ if (!empty($search)) {
 当 `WHERE` 条件来自于用户的输入时，你通常需要忽略用户输入的空值。
 例如，在一个可以通过用户名或者邮箱搜索的表单当中，用户名或者邮箱
 输入框没有输入任何东西，这种情况下你想要忽略掉对应的搜索条件，
-那么你就可以使用 [[yii\db\Query::filterWhere()|filterWhere()]] 方法来实现这个目的：
+那么你就可以使用 [[Yiisoft\Db\Query::filterWhere()|filterWhere()]] 方法来实现这个目的：
 
 ```php
 // $username 和 $email 来自于用户的输入
@@ -341,17 +341,17 @@ $query->filterWhere([
 ]);
 ```
 
-[[yii\db\Query::filterWhere()|filterWhere()]] 和 [[yii\db\Query::where()|where()]] 唯一的不同就在于，前者
+[[Yiisoft\Db\Query::filterWhere()|filterWhere()]] 和 [[Yiisoft\Db\Query::where()|where()]] 唯一的不同就在于，前者
 将忽略在条件当中的[hash format](#hash-format)的空值。所以如果 `$email` 为空而 `$username` 
 不为空，那么上面的代码最终将生产如下 SQL `...WHERE username=:username`。 
 
 > Tip: 当一个值为 null、空数组、空字符串或者一个只包含空白字符时，那么它将被判定为空值。
 
-类似于 [yii\db\Query::andWhere()|andWhere()]] 和 [[yii\db\Query::orWhere()|orWhere()]],
-你可以使用 [[yii\db\Query::andFilterWhere()|andFilterWhere()]] 和 [[yii\db\Query::orFilterWhere()|orFilterWhere()]] 方法
+类似于 [Yiisoft\Db\Query::andWhere()|andWhere()]] 和 [[Yiisoft\Db\Query::orWhere()|orWhere()]],
+你可以使用 [[Yiisoft\Db\Query::andFilterWhere()|andFilterWhere()]] 和 [[Yiisoft\Db\Query::orFilterWhere()|orFilterWhere()]] 方法
 来追加额外的过滤条件。
 
-Additionally, there is [[yii\db\Query::andFilterCompare()]] that can intelligently determine operator based on what's
+Additionally, there is [[Yiisoft\Db\Query::andFilterCompare()]] that can intelligently determine operator based on what's
 in the value:
 
 ```php
@@ -366,9 +366,9 @@ You can also specify operator explicitly:
 $query->andFilterCompare('name', 'Doe', 'like');
 ```
 
-### [[yii\db\Query::orderBy()|orderBy()]] <span id="order-by"></span>
+### [[Yiisoft\Db\Query::orderBy()|orderBy()]] <span id="order-by"></span>
 
-[[yii\db\Query::orderBy()|orderBy()]] 方法是用来指定 SQL 语句当中的 `ORDER BY` 子句的。例如，
+[[Yiisoft\Db\Query::orderBy()|orderBy()]] 方法是用来指定 SQL 语句当中的 `ORDER BY` 子句的。例如，
 
 ```php
 // ... ORDER BY `id` ASC, `name` DESC
@@ -390,7 +390,7 @@ $query->orderBy('id ASC, name DESC');
 
 > Note: 当 `ORDER BY` 语句包含一些 DB 表达式的时候，你应该使用数组的格式。
 
-你可以调用 [yii\db\Query::addOrderBy()|addOrderBy()]] 来为 `ORDER BY` 片断添加额外的子句。
+你可以调用 [Yiisoft\Db\Query::addOrderBy()|addOrderBy()]] 来为 `ORDER BY` 片断添加额外的子句。
 例如，
 
 ```php
@@ -399,9 +399,9 @@ $query->orderBy('id ASC')
 ```
 
 
-### [[yii\db\Query::groupBy()|groupBy()]] <span id="group-by"></span>
+### [[Yiisoft\Db\Query::groupBy()|groupBy()]] <span id="group-by"></span>
 
-[[yii\db\Query::groupBy()|groupBy()]] 方法是用来指定 SQL 语句当中的 `GROUP BY` 片断的。例如，
+[[Yiisoft\Db\Query::groupBy()|groupBy()]] 方法是用来指定 SQL 语句当中的 `GROUP BY` 片断的。例如，
 
 ```php
 // ... GROUP BY `id`, `status`
@@ -417,7 +417,7 @@ $query->groupBy('id, status');
 
 > Note: 当 `GROUP BY` 语句包含一些 DB 表达式的时候，你应该使用数组的格式。
 
-你可以调用 [yii\db\Query::addOrderBy()|addOrderBy()]] 来为 `GROUP BY` 
+你可以调用 [Yiisoft\Db\Query::addOrderBy()|addOrderBy()]] 来为 `GROUP BY` 
 子句添加额外的字段。例如，
 
 ```php
@@ -426,9 +426,9 @@ $query->groupBy(['id', 'status'])
 ```
 
 
-### [[yii\db\Query::having()|having()]] <span id="having"></span>
+### [[Yiisoft\Db\Query::having()|having()]] <span id="having"></span>
 
-[[yii\db\Query::having()|having()]] 方法是用来指定 SQL 语句当中的 `HAVING` 子句。它带有一个条件，
+[[Yiisoft\Db\Query::having()|having()]] 方法是用来指定 SQL 语句当中的 `HAVING` 子句。它带有一个条件，
 和 [where()](#where) 中指定条件的方法一样。例如，
 
 ```php
@@ -438,7 +438,7 @@ $query->having(['status' => 1]);
 
 请查阅 [where()](#where) 的文档来获取更多有关于如何指定一个条件的细节。
 
-你可以调用 [[yii\db\Query::andHaving()|andHaving()]] 或者 [[yii\db\Query::orHaving()|orHaving()]] 
+你可以调用 [[Yiisoft\Db\Query::andHaving()|andHaving()]] 或者 [[Yiisoft\Db\Query::orHaving()|orHaving()]] 
 方法来为 `HAVING` 子句追加额外的条件，例如，
 
 ```php
@@ -448,9 +448,9 @@ $query->having(['status' => 1])
 ```
 
 
-### [[yii\db\Query::limit()|limit()]] 和 [[yii\db\Query::offset()|offset()]] <span id="limit-offset"></span>
+### [[Yiisoft\Db\Query::limit()|limit()]] 和 [[Yiisoft\Db\Query::offset()|offset()]] <span id="limit-offset"></span>
 
-[[yii\db\Query::limit()|limit()]] 和 [[yii\db\Query::offset()|offset()]] 是用来指定 SQL 语句当中
+[[Yiisoft\Db\Query::limit()|limit()]] 和 [[Yiisoft\Db\Query::offset()|offset()]] 是用来指定 SQL 语句当中
 的 `LIMIT` 和 `OFFSET` 子句的。例如，
  
 ```php
@@ -464,16 +464,16 @@ $query->limit(10)->offset(20);
   查询构建器将生成一条模拟 `LIMIT`/`OFFSET` 行为的 SQL 语句。
 
 
-### [[yii\db\Query::join()|join()]] <span id="join"></span>
+### [[Yiisoft\Db\Query::join()|join()]] <span id="join"></span>
 
-[yii\db\Query::join()|join()]] 是用来指定 SQL 语句当中的 `JOIN` 子句的。例如，
+[Yiisoft\Db\Query::join()|join()]] 是用来指定 SQL 语句当中的 `JOIN` 子句的。例如，
  
 ```php
 // ... LEFT JOIN `post` ON `post`.`user_id` = `user`.`id`
 $query->join('LEFT JOIN', 'post', 'post.user_id = user.id');
 ```
 
-[[yii\db\Query::join()|join()]] 带有四个参数：
+[[Yiisoft\Db\Query::join()|join()]] 带有四个参数：
  
 - `$type`: 连接类型，例如：`'INNER JOIN'`, `'LEFT JOIN'`。
 - `$table`: 将要连接的表名称。
@@ -486,9 +486,9 @@ $query->join('LEFT JOIN', 'post', 'post.user_id = user.id');
 
 你可以分别调用如下的快捷方法来指定 `INNER JOIN`, `LEFT JOIN` 和 `RIGHT JOIN`。
 
-- [[yii\db\Query::innerJoin()|innerJoin()]]
-- [[yii\db\Query::leftJoin()|leftJoin()]]
-- [[yii\db\Query::rightJoin()|rightJoin()]]
+- [[Yiisoft\Db\Query::innerJoin()|innerJoin()]]
+- [[Yiisoft\Db\Query::leftJoin()|leftJoin()]]
+- [[Yiisoft\Db\Query::rightJoin()|rightJoin()]]
 
 例如，
 
@@ -499,27 +499,27 @@ $query->leftJoin('post', 'post.user_id = user.id');
 可以通过多次调用如上所述的连接方法来连接多张表，每连接一张表调用一次。
 
 除了连接表以外，你还可以连接子查询。方法如下，将需要被连接的子查询指定
-为一个 [[yii\db\Query]] 对象，例如，
+为一个 [[Yiisoft\Db\Query]] 对象，例如，
 
 ```php
-$subQuery = (new \yii\db\Query())->from('post');
+$subQuery = (new \Yiisoft\Db\Query())->from('post');
 $query->leftJoin(['u' => $subQuery], 'u.id = author_id');
 ```
 
 在这个例子当中，你应该将子查询放到一个数组当中，而数组当中的键，则为这个子查询的别名。
 
 
-### [[yii\db\Query::union()|union()]] <span id="union"></span>
+### [[Yiisoft\Db\Query::union()|union()]] <span id="union"></span>
 
-[[yii\db\Query::union()|union()]] 方法是用来指定 SQL 语句当中的 `UNION` 子句的。例如，
+[[Yiisoft\Db\Query::union()|union()]] 方法是用来指定 SQL 语句当中的 `UNION` 子句的。例如，
 
 ```php
-$query1 = (new \yii\db\Query())
+$query1 = (new \Yiisoft\Db\Query())
     ->select("id, category_id AS type, name")
     ->from('post')
     ->limit(10);
 
-$query2 = (new \yii\db\Query())
+$query2 = (new \Yiisoft\Db\Query())
     ->select('id, type, name')
     ->from('user')
     ->limit(10);
@@ -527,68 +527,68 @@ $query2 = (new \yii\db\Query())
 $query1->union($query2);
 ```
 
-你可以通过多次调用 [[yii\db\Query::union()|union()]] 方法来追加更多的 `UNION` 子句。
+你可以通过多次调用 [[Yiisoft\Db\Query::union()|union()]] 方法来追加更多的 `UNION` 子句。
 
 
 ## 查询方法 <span id="query-methods"></span>
 
-[[yii\db\Query]] 提供了一整套的用于不同查询目的的方法。
+[[Yiisoft\Db\Query]] 提供了一整套的用于不同查询目的的方法。
 
-- [[yii\db\Query::all()|all()]]：将返回一个由行组成的数组，每一行是一个由名称和值构成的关联数组（译者注：省略键的数组称为索引数组）。
-- [[yii\db\Query::one()|one()]]：返回结果集的第一行。
-- [[yii\db\Query::column()|column()]]：返回结果集的第一列。
-- [[yii\db\Query::scalar()|scalar()]]：返回结果集的第一行第一列的标量值。
-- [[yii\db\Query::exists()|exists()]]：返回一个表示该查询是否包结果集的值。
-- [[yii\db\Query::count()|count()]]：返回 `COUNT` 查询的结果。
-- 其它集合查询方法：包括 [[yii\db\Query::sum()|sum($q)]], [[yii\db\Query::average()|average($q)]],
-  [[yii\db\Query::max()|max($q)]], [[yii\db\Query::min()|min($q)]] 等。`$q` 是一个必选参数，
+- [[Yiisoft\Db\Query::all()|all()]]：将返回一个由行组成的数组，每一行是一个由名称和值构成的关联数组（译者注：省略键的数组称为索引数组）。
+- [[Yiisoft\Db\Query::one()|one()]]：返回结果集的第一行。
+- [[Yiisoft\Db\Query::column()|column()]]：返回结果集的第一列。
+- [[Yiisoft\Db\Query::scalar()|scalar()]]：返回结果集的第一行第一列的标量值。
+- [[Yiisoft\Db\Query::exists()|exists()]]：返回一个表示该查询是否包结果集的值。
+- [[Yiisoft\Db\Query::count()|count()]]：返回 `COUNT` 查询的结果。
+- 其它集合查询方法：包括 [[Yiisoft\Db\Query::sum()|sum($q)]], [[Yiisoft\Db\Query::average()|average($q)]],
+  [[Yiisoft\Db\Query::max()|max($q)]], [[Yiisoft\Db\Query::min()|min($q)]] 等。`$q` 是一个必选参数，
   既可以是一个字段名称，又可以是一个 DB 表达式。
 
 例如，
 
 ```php
 // SELECT `id`, `email` FROM `user`
-$rows = (new \yii\db\Query())
+$rows = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->all();
     
 // SELECT * FROM `user` WHERE `username` LIKE `%test%`
-$row = (new \yii\db\Query())
+$row = (new \Yiisoft\Db\Query())
     ->from('user')
     ->where(['like', 'username', 'test'])
     ->one();
 ```
 
-> Note: [[yii\db\Query::one()|one()]] 方法只返回查询结果当中的第一条数据，
+> Note: [[Yiisoft\Db\Query::one()|one()]] 方法只返回查询结果当中的第一条数据，
   条件语句中不会加上 `LIMIT 1` 条件。如果你清楚的知道查询将会只返回一行或几行数据
   （例如， 如果你是通过某些主键来查询的），这很好也提倡这样做。但是，如果查询结果
   有机会返回大量的数据时，那么你应该显示调用 `limit(1)` 方法，以改善性能。
-  例如， `(new \yii\db\Query())->from('user')->limit(1)->one()`。
+  例如， `(new \Yiisoft\Db\Query())->from('user')->limit(1)->one()`。
 
-所有的这些查询方法都有一个可选的参数 `$db`, 该参数指代的是 [[yii\db\Connection|DB connection]]，
+所有的这些查询方法都有一个可选的参数 `$db`, 该参数指代的是 [[Yiisoft\Db\Connection|DB connection]]，
 执行一个 DB 查询时会用到。如果你省略了这个参数，那么 `db` [application component](structure-application-components.md) 将会被用作
 默认的 DB 连接。 如下是另外一个使用 `count()` 查询的例子：
 
 ```php
 // 执行 SQL: SELECT COUNT(*) FROM `user` WHERE `last_name`=:last_name
-$count = (new \yii\db\Query())
+$count = (new \Yiisoft\Db\Query())
     ->from('user')
     ->where(['last_name' => 'Smith'])
     ->count();
 ```
 
-当你调用 [[yii\db\Query]] 当中的一个查询方法的时候，实际上内在的运作机制如下： 
+当你调用 [[Yiisoft\Db\Query]] 当中的一个查询方法的时候，实际上内在的运作机制如下： 
 
-* 在当前 [[yii\db\Query]] 的构造基础之上，调用 [[yii\db\QueryBuilder]] 来生成一条 SQL 语句；
-* 利用生成的 SQL 语句创建一个 [[yii\db\Command]] 对象； 
-* 调用 [[yii\db\Command]] 的查询方法（例如，`queryAll()`）来执行这条 SQL 语句，并检索数据。
+* 在当前 [[Yiisoft\Db\Query]] 的构造基础之上，调用 [[Yiisoft\Db\QueryBuilder]] 来生成一条 SQL 语句；
+* 利用生成的 SQL 语句创建一个 [[Yiisoft\Db\Command]] 对象； 
+* 调用 [[Yiisoft\Db\Command]] 的查询方法（例如，`queryAll()`）来执行这条 SQL 语句，并检索数据。
 
-有时候，你也许想要测试或者使用一个由 [[yii\db\Query]] 对象创建的 SQL 语句。
+有时候，你也许想要测试或者使用一个由 [[Yiisoft\Db\Query]] 对象创建的 SQL 语句。
 你可以使用以下的代码来达到目的：
 
 ```php
-$command = (new \yii\db\Query())
+$command = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->where(['last_name' => 'Smith'])
@@ -607,24 +607,24 @@ $rows = $command->queryAll();
 
 ### 索引查询结果 <span id="indexing-query-results"></span>
 
-当你在调用 [[yii\db\Query::all()|all()]] 方法时，它将返回一个以连续的整型数值为索引的数组。
-而有时候你可能希望使用一个特定的字段或者表达式的值来作为索引结果集数组。那么你可以在调用 [[yii\db\Query::all()|all()]] 
-之前使用 [[yii\db\Query::indexBy()|indexBy()]] 方法来达到这个目的。
+当你在调用 [[Yiisoft\Db\Query::all()|all()]] 方法时，它将返回一个以连续的整型数值为索引的数组。
+而有时候你可能希望使用一个特定的字段或者表达式的值来作为索引结果集数组。那么你可以在调用 [[Yiisoft\Db\Query::all()|all()]] 
+之前使用 [[Yiisoft\Db\Query::indexBy()|indexBy()]] 方法来达到这个目的。
 例如，
 
 ```php
 // 返回 [100 => ['id' => 100, 'username' => '...', ...], 101 => [...], 103 => [...], ...]
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->limit(10)
     ->indexBy('id')
     ->all();
 ```
 
-如需使用表达式的值做为索引，那么只需要传递一个匿名函数给 [[yii\db\Query::indexBy()|indexBy()]] 方法即可：
+如需使用表达式的值做为索引，那么只需要传递一个匿名函数给 [[Yiisoft\Db\Query::indexBy()|indexBy()]] 方法即可：
 
 ```php
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->indexBy(function ($row) {
         return $row['id'] . $row['username'];
@@ -634,7 +634,7 @@ $query = (new \yii\db\Query())
 该匿名函数将带有一个包含了当前行的数据的 `$row` 参数，并且返回用作当前行索引的
 标量值（译者注：就是简单的数值或者字符串，而不是其他复杂结构，例如数组）。
 
-> Note: In contrast to query methods like [[yii\db\Query::groupBy()|groupBy()]] or [[yii\db\Query::orderBy()|orderBy()]]
+> Note: In contrast to query methods like [[Yiisoft\Db\Query::groupBy()|groupBy()]] or [[Yiisoft\Db\Query::orderBy()|orderBy()]]
 > which are converted to SQL and are part of the query, this method works after the data has been fetched from the database.
 > That means that only those column names can be used that have been part of SELECT in your query.
 > Also if you selected a column with table prefix, e.g. `customer.id`, the result set will only contain `id` so you have to call
@@ -643,7 +643,7 @@ $query = (new \yii\db\Query())
 
 ### 批处理查询 <span id="batch-query"></span>
 
-当需要处理大数据的时候，像 [[yii\db\Query::all()]] 这样的方法就不太合适了，
+当需要处理大数据的时候，像 [[Yiisoft\Db\Query::all()]] 这样的方法就不太合适了，
 因为它们会把所有数据都读取到内存上。为了保持较低的内存需求， Yii 提供了一个
 所谓的批处理查询的支持。批处理查询会利用数据游标
 将数据以批为单位取出来。
@@ -651,7 +651,7 @@ $query = (new \yii\db\Query())
 批处理查询的用法如下：
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())
     ->from('user')
@@ -667,21 +667,21 @@ foreach ($query->each() as $user) {
 }
 ```
 
-[[yii\db\Query::batch()]] 和 [[yii\db\Query::each()]] 方法将会返回一个实现了`Iterator` 
-接口 [[yii\db\BatchQueryResult]]  的对象，可以用在 `foreach` 结构当中使用。在第一次迭代取数据的时候，
+[[Yiisoft\Db\Query::batch()]] 和 [[Yiisoft\Db\Query::each()]] 方法将会返回一个实现了`Iterator` 
+接口 [[Yiisoft\Db\BatchQueryResult]]  的对象，可以用在 `foreach` 结构当中使用。在第一次迭代取数据的时候，
 数据库会执行一次 SQL 查询，然后在剩下的迭代中，将直接从结果集中批量获取数据。默认情况下，
 一批的大小为 100，也就意味着一批获取的数据是 100 行。你可以通过给 `batch()` 
 或者 `each()` 方法的第一个参数传值来改变每批行数的大小。
 
-相对于 [[yii\db\Query::all()]] 方法，批处理查询每次只读取 100 行的数据到内存。
+相对于 [[Yiisoft\Db\Query::all()]] 方法，批处理查询每次只读取 100 行的数据到内存。
 如果你在处理完这些数据后及时丢弃这些数据，那么批处理查询可以很好的帮助降低内存的占用率。
 
-如果你通过 [[yii\db\Query::indexBy()]] 方法为查询结果指定了索引字段，
+如果你通过 [[Yiisoft\Db\Query::indexBy()]] 方法为查询结果指定了索引字段，
 那么批处理查询将仍然保持相对应的索引方案，例如，
 
 
 ```php
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->indexBy('username');
 

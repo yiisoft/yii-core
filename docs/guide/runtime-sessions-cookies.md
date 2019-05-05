@@ -183,7 +183,7 @@ Alternatively, this can be accomplished with the following migration:
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m170529_050554_create_table_session extends Migration
 {

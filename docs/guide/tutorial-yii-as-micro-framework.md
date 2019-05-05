@@ -128,7 +128,7 @@ to the application configuration:
 ```php
 'components' => [
     'db' => [
-        '__class' => yii\db\Connection::class,
+        '__class' => Yiisoft\Db\Connection::class,
         'dsn' => 'sqlite:@micro/database.sqlite',
     ],
 ],
@@ -151,7 +151,7 @@ Create directory `models` and a `Post.php` file in that directory. This is the c
 
 namespace micro\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Post extends ActiveRecord
 { 

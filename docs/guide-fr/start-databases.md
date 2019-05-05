@@ -64,7 +64,7 @@ Une fois ces éléments installés, ouvrez le fichier `config/db.php` et modifie
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',
@@ -74,7 +74,7 @@ return [
 
 Le fichier `config/db.php` est un exemple type d'outil de [configuration](concept-configurations.md) basé sur un 
 fichier. Ce fichier de configuration en particulier spécifie les paramètres nécessaires à la création et 
-l'initialisation d'une instance de [[yii\db\Connection]] grâce à laquelle vous pouvez effectuer des requêtes SQL 
+l'initialisation d'une instance de [[Yiisoft\Db\Connection]] grâce à laquelle vous pouvez effectuer des requêtes SQL 
 dans la base de données sous-jacente.
 
 On peut accéder à connexion à la BDD configurée ci-dessus depuis le code de l'application vial'expression 
@@ -95,17 +95,17 @@ Pour représenter et aller chercher des données dans la table `country`, créez
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
 }
 ```
 
-La classe `Country` étend [[yii\db\ActiveRecord]]. Vous n'avez pas besoin d'y écrire le moindre code ! Simplement, avec
+La classe `Country` étend [[Yiisoft\Db\ActiveRecord]]. Vous n'avez pas besoin d'y écrire le moindre code ! Simplement, avec
 le code ci-dessus, Yii devine le nom de la table associée au nom de la classe. 
 
-> Info: si aucune correspondance directe ne peut être faite à partir du nom de la classe, vous pouvez outrepasser la méthode [[yii\db\ActiveRecord::tableName()]] pour spécifier explicitement un nom de table.
+> Info: si aucune correspondance directe ne peut être faite à partir du nom de la classe, vous pouvez outrepasser la méthode [[Yiisoft\Db\ActiveRecord::tableName()]] pour spécifier explicitement un nom de table.
 
 A l'aide de la classe `Country`, vous pouvez facilement manipuler les données de la table `country`, comme dans les bribes suivantes :
 

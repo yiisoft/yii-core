@@ -62,7 +62,7 @@ class MyBehavior extends Behavior
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior
@@ -84,7 +84,7 @@ class MyBehavior extends Behavior
 ```
 
 [[yii\base\Behavior::events()]] メソッドは、イベントとそれに対応するハンドラのリストを返します。
-上の例では [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] イベントがあること、
+上の例では [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] イベントがあること、
 そのハンドラ定義である `beforeValidate()` を宣言しています。イベント・ハンドラを指定するときは、以下の表記方法が使えます:
 
 * ビヘイビア・クラスのメソッド名を参照する文字列 (上の例など)
@@ -111,7 +111,7 @@ function ($event) {
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use app\components\MyBehavior;
 
 class User extends ActiveRecord
@@ -253,15 +253,15 @@ $component->detachBehaviors();
 ------------------------------
 
 しめくくりに、[[yii\behaviors\TimestampBehavior]] を見てみましょう。このビヘイビアは、
-`insert()`、`update()` または `save()` のメソッドを通じて [[yii\db\ActiveRecord|アクティブ・レコード]] モデルが保存されるときに、
+`insert()`、`update()` または `save()` のメソッドを通じて [[Yiisoft\Db\ActiveRecord|アクティブ・レコード]] モデルが保存されるときに、
 タイムスタンプ属性の自動的な更新をサポートします。
 
-まず、使用しようと考えている [[yii\db\ActiveRecord|アクティブ・レコード]] クラスに、このビヘイビアをアタッチします:
+まず、使用しようと考えている [[Yiisoft\Db\ActiveRecord|アクティブ・レコード]] クラスに、このビヘイビアをアタッチします:
 
 ```php
 namespace app\models\User;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord

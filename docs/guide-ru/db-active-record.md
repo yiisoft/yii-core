@@ -27,11 +27,11 @@ $db->createCommand('INSERT INTO `customer` (`name`) VALUES (:name)', [
 
 Yii поддерживает работу с Active Record для следующих реляционных баз данных:
 
-* MySQL 4.1 и выше: посредством [[yii\db\ActiveRecord]]
-* PostgreSQL 7.3 и выше: посредством [[yii\db\ActiveRecord]]
-* SQLite 2 и 3: посредством [[yii\db\ActiveRecord]]
-* Microsoft SQL Server 2008 и выше: посредством [[yii\db\ActiveRecord]]
-* Oracle: посредством [[yii\db\ActiveRecord]]
+* MySQL 4.1 и выше: посредством [[Yiisoft\Db\ActiveRecord]]
+* PostgreSQL 7.3 и выше: посредством [[Yiisoft\Db\ActiveRecord]]
+* SQLite 2 и 3: посредством [[Yiisoft\Db\ActiveRecord]]
+* Microsoft SQL Server 2008 и выше: посредством [[Yiisoft\Db\ActiveRecord]]
+* Oracle: посредством [[Yiisoft\Db\ActiveRecord]]
 * Sphinx: посредством [[yii\sphinx\ActiveRecord]], потребуется расширение `yii2-sphinx`
 * ElasticSearch: посредством [[yii\elasticsearch\ActiveRecord]], потребуется расширение `yii2-elasticsearch`
 
@@ -46,16 +46,16 @@ Yii поддерживает работу с Active Record для следующ
 
 ## Объявление классов Active Record <span id="declaring-ar-classes"></span>
 
-Для начала объявите свой собственный класс, унаследовав класс [[yii\db\ActiveRecord]].
+Для начала объявите свой собственный класс, унаследовав класс [[Yiisoft\Db\ActiveRecord]].
 
 ### Настройка имени таблицы
 
 По умолчанию каждый класс Active Record ассоциирован с таблицей в базе данных. Метод
-[[yii\db\ActiveRecord::tableName()|tableName()]] получает имя таблицы из имени класса с помощью [[Yiisoft\Inflector\InflectorHelper::camel2id()]].
+[[Yiisoft\Db\ActiveRecord::tableName()|tableName()]] получает имя таблицы из имени класса с помощью [[Yiisoft\Inflector\InflectorHelper::camel2id()]].
 Если таблица не названа соответственно, вы можете переопределить данный метод.
 
-Также может быть применён [[yii\db\Connection::$tablePrefix|tablePrefix]] по умолчанию. Например, если 
-[[yii\db\Connection::$tablePrefix|tablePrefix]] задан как `tbl_`, `Customer` преобразуется в `tbl_customer`, а
+Также может быть применён [[Yiisoft\Db\Connection::$tablePrefix|tablePrefix]] по умолчанию. Например, если 
+[[Yiisoft\Db\Connection::$tablePrefix|tablePrefix]] задан как `tbl_`, `Customer` преобразуется в `tbl_customer`, а
 `OrderItem` в `tbl_order_item`. 
 
 Если имя таблицы указано в формате `{{%TableName}}`, символ `%` заменяется префиксом. Например, , `{{%post}}` становится
@@ -66,7 +66,7 @@ Yii поддерживает работу с Active Record для следующ
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Customer extends ActiveRecord
 {
@@ -88,7 +88,7 @@ class Customer extends ActiveRecord
 Объекты Active Record являются [моделями](structure-models.md). Именно поэтому мы обычно задаём классам Active Record
 пространство имён `app\models` (или другое пространство имён, предназначенное для моделей). 
 
-Т.к. класс [[yii\db\ActiveRecord]] наследует класс [[yii\base\Model]], он обладает *всеми* возможностями
+Т.к. класс [[Yiisoft\Db\ActiveRecord]] наследует класс [[yii\base\Model]], он обладает *всеми* возможностями
 [моделей](structure-models.md), такими как атрибуты, правила валидации, способы сериализации данных и т.д.
 
 
@@ -96,14 +96,14 @@ class Customer extends ActiveRecord
 
 По умолчанию Active Record для доступа и манипулирования данными БД использует
 [компонент приложения](structure-application-components.md) `db` в качестве компонента
-[[yii\db\Connection|DB connection]]. Как сказано в разделе [Объекты доступа к данным (DAO)](db-dao.md), вы можете
+[[Yiisoft\Db\Connection|DB connection]]. Как сказано в разделе [Объекты доступа к данным (DAO)](db-dao.md), вы можете
 настраивать компонент `db` на уровне конфигурации приложения как показано ниже:
 
 ```php
 return [
     'components' => [
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=testdb',
             'username' => 'demo',
             'password' => 'demo',
@@ -112,7 +112,7 @@ return [
 ];
 ```
 Если вы хотите использовать для подключения к базе данных другой компонент подключения, отличный от `db`, вам нужно
-переопределить метод [[yii\db\ActiveRecord::getDb()|getDb()]]:
+переопределить метод [[Yiisoft\Db\ActiveRecord::getDb()|getDb()]]:
 
 ```php
 class Customer extends ActiveRecord
@@ -133,14 +133,14 @@ class Customer extends ActiveRecord
 После объявления класса Active Record вы можете использовать его для получения данных из соответствующей таблицы базы
 данных. Этот процесс, как правило, состоит из следующих трёх шагов:
 
-1. Создать новый объект запроса вызовом метода [[yii\db\ActiveRecord::find()]];
+1. Создать новый объект запроса вызовом метода [[Yiisoft\Db\ActiveRecord::find()]];
 2. Настроить объект запроса вызовом [методов построения запросов](db-query-builder.md#building-queries);
 3. Вызвать один из [методов получения данных](db-query-builder.md#query-methods) для извлечения данных в виде объектов
 Active Record.
 
 Как вы могли заметить, эти шаги очень похожи на работу с [построителем запросов](db-query-builder.md). Различие лишь в
-том, что для создания объекта запроса вместо оператора `new` используется метод [[yii\db\ActiveRecord::find()]],
-возвращающий новый объект запроса, являющийся представителем класса [[yii\db\ActiveQuery]].
+том, что для создания объекта запроса вместо оператора `new` используется метод [[Yiisoft\Db\ActiveRecord::find()]],
+возвращающий новый объект запроса, являющийся представителем класса [[Yiisoft\Db\ActiveQuery]].
 
 Ниже приведено несколько примеров использования Active Query для получения данных:
 
@@ -174,14 +174,14 @@ $customers = Customer::find()
 В примерах выше `$customer` - это объект класса `Customer`, в то время как `$customers` - это массив таких объектов. Все
 эти объекты заполнены данными таблицы `customer`.
 
-> Info: Т.к. класс [[yii\db\ActiveQuery]] наследует [[yii\db\Query]], вы можете использовать в нём *все* методы
+> Info: Т.к. класс [[Yiisoft\Db\ActiveQuery]] наследует [[Yiisoft\Db\Query]], вы можете использовать в нём *все* методы
   построения запросов и все методы класса Query как описано в разделе [Построитель запросов](db-query-builder.md).
 
 Т.к. извлечение данных по первичному ключу или значениям отдельных столбцов достаточно распространённая задача, Yii
 предоставляет два коротких метода для её решения:
 
-- [[yii\db\ActiveRecord::findOne()]]: возвращает один объект Active Record, заполненный первой строкой результата запроса.
-- [[yii\db\ActiveRecord::findAll()]]: возвращает массив объектов Active Record, заполненных *всеми* полученными результатами запроса.
+- [[Yiisoft\Db\ActiveRecord::findOne()]]: возвращает один объект Active Record, заполненный первой строкой результата запроса.
+- [[Yiisoft\Db\ActiveRecord::findAll()]]: возвращает массив объектов Active Record, заполненных *всеми* полученными результатами запроса.
 
 Оба метода могут принимать параметры в одном из следующих форматов:
 
@@ -236,12 +236,12 @@ $customers = Customer::findAll([
 > $model = Post::findOne(Yii::$app->request->get('id'));
 > ```
 
-> Note: Ни метод [[yii\db\ActiveRecord::findOne()]], ни [[yii\db\ActiveQuery::one()]] не добавляет условие `LIMIT 1` к
+> Note: Ни метод [[Yiisoft\Db\ActiveRecord::findOne()]], ни [[Yiisoft\Db\ActiveQuery::one()]] не добавляет условие `LIMIT 1` к
   генерируемым SQL-запросам. Если ваш запрос может вернуть много строк данных, вы должны вызвать метод `limit(1)` явно
   в целях улучшения производительности, например: `Customer::find()->limit(1)->one()`.
 
 Помимо использования методов построения запросов вы можете также писать запросы на "чистом" SQL для получения данных и
-заполнения ими объектов Active Record. Вы можете делать это посредством метода [[yii\db\ActiveRecord::findBySql()]]:
+заполнения ими объектов Active Record. Вы можете делать это посредством метода [[Yiisoft\Db\ActiveRecord::findBySql()]]:
 
 ```php
 // возвращает всех неактивных покупателей
@@ -250,7 +250,7 @@ $customers = Customer::findBySql($sql, [':status' => Customer::STATUS_INACTIVE])
 ```
 
 Не используйте дополнительные методы построения запросов после вызова метода
-[[yii\db\ActiveRecord::findBySql()|findBySql()]], т.к. они будут проигнорированы.
+[[Yiisoft\Db\ActiveRecord::findBySql()|findBySql()]], т.к. они будут проигнорированы.
 
 
 ## Доступ к данным <span id="accessing-data"></span>
@@ -315,7 +315,7 @@ class Customer extends ActiveRecord
 Несмотря на то, что получение данных в виде Active Record объектов является удобным и гибким, этот способ не всегда
 подходит при получении большого количества данных из-за больших накладных расходов памяти. В этом случае вы можете
 получить данные в виде PHP-массива, используя перед выполнением запроса метод
-[[yii\db\ActiveQuery::asArray()|asArray()]]:
+[[Yiisoft\Db\ActiveQuery::asArray()|asArray()]]:
 
 ```php
 // возвращает всех покупателей
@@ -363,7 +363,7 @@ foreach (Customer::find()->with('orders')->each() as $customer) {
 
 1. Подготовьте объект Active Record;
 2. Присвойте новые значения атрибутам Active Record;
-3. Вызовите метод [[yii\db\ActiveRecord::save()]] для сохранения данных в базу данных.
+3. Вызовите метод [[Yiisoft\Db\ActiveRecord::save()]] для сохранения данных в базу данных.
 
 Например:
 
@@ -380,14 +380,14 @@ $customer->email = 'james@newexample.com';
 $customer->save();
 ```
 
-Метод [[yii\db\ActiveRecord::save()|save()]] может вставить или обновить строку данных в зависимости от состояния
-Active Record объекта. Если объект создан с помощью оператора `new`, вызов метода [[yii\db\ActiveRecord::save()|save()]]
+Метод [[Yiisoft\Db\ActiveRecord::save()|save()]] может вставить или обновить строку данных в зависимости от состояния
+Active Record объекта. Если объект создан с помощью оператора `new`, вызов метода [[Yiisoft\Db\ActiveRecord::save()|save()]]
 приведёт к вставке новой строки данных; если же объект был получен с помощью запроса на получение данных, вызов 
-[[yii\db\ActiveRecord::save()|save()]] обновит строку таблицы, соответствующую объекту Active Record.
+[[Yiisoft\Db\ActiveRecord::save()|save()]] обновит строку таблицы, соответствующую объекту Active Record.
 
 Вы можете различать два состояния Active Record объекта с помощью проверки значения его свойства
-[[yii\db\ActiveRecord::isNewRecord|isNewRecord]]. Это свойство также используется внутри метода
-[[yii\db\ActiveRecord::save()|save()]] как показано ниже:
+[[Yiisoft\Db\ActiveRecord::isNewRecord|isNewRecord]]. Это свойство также используется внутри метода
+[[Yiisoft\Db\ActiveRecord::save()|save()]] как показано ниже:
 
 ```php
 public function save($runValidation = true, $attributeNames = null)
@@ -400,21 +400,21 @@ public function save($runValidation = true, $attributeNames = null)
 }
 ```
 
-> Tip: Вы можете вызвать [[yii\db\ActiveRecord::insert()|insert()]] или [[yii\db\ActiveRecord::update()|update()]]
+> Tip: Вы можете вызвать [[Yiisoft\Db\ActiveRecord::insert()|insert()]] или [[Yiisoft\Db\ActiveRecord::update()|update()]]
   непосредственно, чтобы вставить или обновить строку данных в таблице.
   
 
 ### Валидация данных <span id="data-validation"></span>
 
-Т.к. класс [[yii\db\ActiveRecord]] наследует класс [[yii\base\Model]], он обладает такими же возможностями
+Т.к. класс [[Yiisoft\Db\ActiveRecord]] наследует класс [[yii\base\Model]], он обладает такими же возможностями
 [валидации данных](input-validation.md). Вы можете объявить правила валидации переопределив метод
-[[yii\db\ActiveRecord::rules()|rules()]] и осуществлять валидацию данных посредством вызовов метода
-[[yii\db\ActiveRecord::validate()|validate()]].
+[[Yiisoft\Db\ActiveRecord::rules()|rules()]] и осуществлять валидацию данных посредством вызовов метода
+[[Yiisoft\Db\ActiveRecord::validate()|validate()]].
 
-Когда вы вызываете метод [[yii\db\ActiveRecord::save()|save()]], по умолчанию он автоматически вызывает метод
-[[yii\db\ActiveRecord::validate()|validate()]]. Только после успешного прохождения валидации происходит сохранение
-данных; в ином случае метод [[yii\db\ActiveRecord::save()|save()]] просто возвращает `false`, и вы можете проверить
-свойство [[yii\db\ActiveRecord::errors|errors]] для получения сообщений об ошибках валидации.
+Когда вы вызываете метод [[Yiisoft\Db\ActiveRecord::save()|save()]], по умолчанию он автоматически вызывает метод
+[[Yiisoft\Db\ActiveRecord::validate()|validate()]]. Только после успешного прохождения валидации происходит сохранение
+данных; в ином случае метод [[Yiisoft\Db\ActiveRecord::save()|save()]] просто возвращает `false`, и вы можете проверить
+свойство [[Yiisoft\Db\ActiveRecord::errors|errors]] для получения сообщений об ошибках валидации.
 
 > Tip: Если вы уверены, что ваши данные не требуют валидации (например, данные пришли из доверенного источника),
   вы можете вызвать `save(false)`, чтобы пропустить валидацию.
@@ -443,7 +443,7 @@ $customer->save();
 ### Обновление счётчиков <span id="updating-counters"></span>
 
 Распространённой задачей является инкремент или декремент столбца в таблице базы данных. Назовём такие столбцы
-столбцами-счётчиками. Вы можете использовать метод [[yii\db\ActiveRecord::updateCounters()|updateCounters()]] для
+столбцами-счётчиками. Вы можете использовать метод [[Yiisoft\Db\ActiveRecord::updateCounters()|updateCounters()]] для
 обновления одного или нескольких столбцов-счётчиков. Например:
 
 ```php
@@ -453,26 +453,26 @@ $post = Post::findOne(100);
 $post->updateCounters(['view_count' => 1]);
 ```
 
-> Note: Если вы используете метод [[yii\db\ActiveRecord::save()]] для обновления столбца-счётчика, вы можете
+> Note: Если вы используете метод [[Yiisoft\Db\ActiveRecord::save()]] для обновления столбца-счётчика, вы можете
   прийти к некорректному результату, т.к. вполне вероятно, что этот же счётчик был сохранён сразу несколькими запросами,
   которые читают и записывают этот же столбец-счётчик.
 
 
 ### Dirty-атрибуты <span id="dirty-attributes"></span>
 
-Когда вы вызываете [[yii\db\ActiveRecord::save()|save()]] для сохранения Active Record объекта, сохраняются только 
+Когда вы вызываете [[Yiisoft\Db\ActiveRecord::save()|save()]] для сохранения Active Record объекта, сохраняются только 
 *dirty-атрибуты*. Атрибут считается *dirty-атрибутом*, если его значение было изменено после чтения из базы данных или
 же он был сохранён в базу данных совсем недавно. Заметьте, что валидация данных осуществляется независимо от того,
 имеются ли dirty-атрибуты в объекте Active Record или нет.
 
 Active Record автоматически поддерживает список dirty-атрибутов. Это достигается за счёт хранения старых значений
-атрибутов и сравнения их с новыми. Вы можете вызвать метод [[yii\db\ActiveRecord::getDirtyAttributes()]] для получения
-текущего списка dirty-атрибутов. Вы также можете вызвать [[yii\db\ActiveRecord::markAttributeDirty()]], чтобы явно
+атрибутов и сравнения их с новыми. Вы можете вызвать метод [[Yiisoft\Db\ActiveRecord::getDirtyAttributes()]] для получения
+текущего списка dirty-атрибутов. Вы также можете вызвать [[Yiisoft\Db\ActiveRecord::markAttributeDirty()]], чтобы явно
 пометить атрибут в качестве dirty-атрибута.
 
 Если вам нужны значения атрибутов, какими они были до их изменения, вы можете вызвать
-[[yii\db\ActiveRecord::getOldAttributes()|getOldAttributes()]] или
-[[yii\db\ActiveRecord::getOldAttribute()|getOldAttribute()]].
+[[Yiisoft\Db\ActiveRecord::getOldAttributes()|getOldAttributes()]] или
+[[Yiisoft\Db\ActiveRecord::getOldAttribute()|getOldAttribute()]].
 
 > Note: Сравнение старых и новых значений будет осуществлено с помощью оператора `===`, так что значение будет
   считаться dirty-значением даже в том случае, если оно осталось таким же, но изменило свой тип. Это часто происходит,
@@ -486,7 +486,7 @@ Active Record автоматически поддерживает список d
 Некоторые столбцы ваших таблиц могут иметь значения по умолчанию, объявленные в базе данных. Иногда вы можете захотеть
 предварительно заполнить этими значениями вашу веб-форму, которая соответствует Active Record объекту. Чтобы избежать
 повторного указания этих значений, вы можете вызвать метод
-[[yii\db\ActiveRecord::loadDefaultValues()|loadDefaultValues()]] для заполнения соответствующих Active Record атрибутов
+[[Yiisoft\Db\ActiveRecord::loadDefaultValues()|loadDefaultValues()]] для заполнения соответствующих Active Record атрибутов
 значениями по умолчанию, объявленными в базе данных:
 
 ```php
@@ -498,7 +498,7 @@ $customer->loadDefaultValues();
 
 ### Приведение типов атрибутов <span id="attributes-typecasting"></span>
 
-При заполнении результатами запроса [[yii\db\ActiveRecord]] производит автоматическое приведение типов для значений
+При заполнении результатами запроса [[Yiisoft\Db\ActiveRecord]] производит автоматическое приведение типов для значений
 атрибутов на основе информации из [схемы базы данны](db-dao.md#database-schema). Это позволяет данным, полученным из
 колонки таблицы объявленной как целое, заноситься в экземпляр ActiveRecord как значение целого типа PHP, булево как
 булево и т.д.
@@ -524,14 +524,14 @@ $customer->loadDefaultValues();
 
 Методы, представленные выше, работают с отдельными Active Record объектами, инициируя вставку или обновление данных для
 отдельной строки таблицы. Вместо них для обновления нескольких строк одновременно можно использовать метод
-[[yii\db\ActiveRecord::updateAll()|updateAll()]], который является статическим.
+[[Yiisoft\Db\ActiveRecord::updateAll()|updateAll()]], который является статическим.
 
 ```php
 // UPDATE `customer` SET `status` = 1 WHERE `email` LIKE `%@example.com%`
 Customer::updateAll(['status' => Customer::STATUS_ACTIVE], ['like', 'email', '@example.com']);
 ```
 
-Подобным образом можно использовать метод [[yii\db\ActiveRecord::updateAllCounters()|updateAllCounters()]] для
+Подобным образом можно использовать метод [[Yiisoft\Db\ActiveRecord::updateAllCounters()|updateAllCounters()]] для
 обновления значений столбцов-счётчиков в нескольких строках одновременно.
 
 ```php
@@ -543,21 +543,21 @@ Customer::updateAllCounters(['age' => 1]);
 ## Удаление данных <span id="deleting-data"></span>
 
 Для удаления одной отдельной строки данных сначала получите Active Record объект, соответствующий этой строке, а затем
-вызовите метод [[yii\db\ActiveRecord::delete()]].
+вызовите метод [[Yiisoft\Db\ActiveRecord::delete()]].
 
 ```php
 $customer = Customer::findOne(123);
 $customer->delete();
 ```
 
-Вы можете вызвать [[yii\db\ActiveRecord::deleteAll()]] для удаления всех или нескольких строк данных одновременно.
+Вы можете вызвать [[Yiisoft\Db\ActiveRecord::deleteAll()]] для удаления всех или нескольких строк данных одновременно.
 Например:
 
 ```php
 Customer::deleteAll(['status' => Customer::STATUS_INACTIVE]);
 ```
 
-> Note: будьте очень осторожны, используя метод [[yii\db\ActiveRecord::deleteAll()|deleteAll()]], потому что он
+> Note: будьте очень осторожны, используя метод [[Yiisoft\Db\ActiveRecord::deleteAll()|deleteAll()]], потому что он
   может полностью удалить все данные из вашей таблицы, если вы сделаете ошибку при указании условий удаления.
 
 
@@ -577,8 +577,8 @@ Customer::deleteAll(['status' => Customer::STATUS_INACTIVE]);
 Когда создаётся новый объект Active Record с помощью оператора `new`, следующий жизненный цикл имеет место:
 
 1. Вызывается конструктор класса;
-2. Вызывается [[yii\db\ActiveRecord::init()|init()]]:
-   инициируется событие [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]].
+2. Вызывается [[Yiisoft\Db\ActiveRecord::init()|init()]]:
+   инициируется событие [[Yiisoft\Db\ActiveRecord::EVENT_INIT|EVENT_INIT]].
 
 
 ### Жизненный цикл получения данных <span id="querying-data-life-cycle"></span>
@@ -587,51 +587,51 @@ Customer::deleteAll(['status' => Customer::STATUS_INACTIVE]);
 создаваемый объект Active Record при заполнении данными проходит следующий жизненный цикл:
 
 1. Вызывается конструктор класса.
-2. Вызывается [[yii\db\ActiveRecord::init()|init()]]: инициируется событие
-   [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]].
-3. Вызывается [[yii\db\ActiveRecord::afterFind()|afterFind()]]: инициируется событие
-   [[yii\db\ActiveRecord::EVENT_AFTER_FIND|EVENT_AFTER_FIND]].
+2. Вызывается [[Yiisoft\Db\ActiveRecord::init()|init()]]: инициируется событие
+   [[Yiisoft\Db\ActiveRecord::EVENT_INIT|EVENT_INIT]].
+3. Вызывается [[Yiisoft\Db\ActiveRecord::afterFind()|afterFind()]]: инициируется событие
+   [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_FIND|EVENT_AFTER_FIND]].
 
 
 ### Жизненный цикл сохранения данных <span id="saving-data-life-cycle"></span>
 
-Когда вызывается метод [[yii\db\ActiveRecord::save()|save()]] для вставки или обновления объекта Active Record,
+Когда вызывается метод [[Yiisoft\Db\ActiveRecord::save()|save()]] для вставки или обновления объекта Active Record,
 следующий жизненный цикл имеет место:
 
-1. Вызывается [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]: инициируется событие 
-   [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]]. Если метод возвращает `false` или свойство
+1. Вызывается [[Yiisoft\Db\ActiveRecord::beforeValidate()|beforeValidate()]]: инициируется событие 
+   [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]]. Если метод возвращает `false` или свойство
    события [[yii\base\ValidationEvent::isValid]] равно `false`, оставшиеся шаги не выполняются.
 2. Осуществляется валидация данных. Если валидация закончилась неудачей, после 3-го шага остальные шаги не выполняются.
-3. Вызывается [[yii\db\ActiveRecord::afterValidate()|afterValidate()]]: инициируется событие 
-   [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]].
-4. Вызывается [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]: инициируется событие 
-   [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] или событие
-   [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]]. Если метод возвращает `false` или свойство события
+3. Вызывается [[Yiisoft\Db\ActiveRecord::afterValidate()|afterValidate()]]: инициируется событие 
+   [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]].
+4. Вызывается [[Yiisoft\Db\ActiveRecord::beforeSave()|beforeSave()]]: инициируется событие 
+   [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] или событие
+   [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]]. Если метод возвращает `false` или свойство события
    [[yii\base\ValidationEvent::isValid]] равно `false`, оставшиеся шаги не выполняются.
 5. Осуществляется фактическая вставка или обновление данных в базу данных;
-6. Вызывается [[yii\db\ActiveRecord::afterSave()|afterSave()]]: инициируется событие
-   [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] или событие
-   [[yii\db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]].
+6. Вызывается [[Yiisoft\Db\ActiveRecord::afterSave()|afterSave()]]: инициируется событие
+   [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] или событие
+   [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]].
    
 
 ### Жизненный цикл удаления данных <span id="deleting-data-life-cycle"></span>
 
-Когда вызывается метод [[yii\db\ActiveRecord::delete()|delete()]] для удаления объекта Active Record, следующий
+Когда вызывается метод [[Yiisoft\Db\ActiveRecord::delete()|delete()]] для удаления объекта Active Record, следующий
 жизненный цикл имеет место:
 
-1. Вызывается [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]: инициируется событие
-   [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]]. Если метод возвращает `false` или свойство события
+1. Вызывается [[Yiisoft\Db\ActiveRecord::beforeDelete()|beforeDelete()]]: инициируется событие
+   [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]]. Если метод возвращает `false` или свойство события
    [[yii\base\ValidationEvent::isValid]] равно `false`, остальные шаги не выполняются.
 2. Осуществляется фактическое удаление данных из базы данных.
-3. Вызывается [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: инициируется событие
-   [[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]].
+3. Вызывается [[Yiisoft\Db\ActiveRecord::afterDelete()|afterDelete()]]: инициируется событие
+   [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]].
 
 
 > Note: Вызов следующих методов НЕ инициирует ни один из вышеприведённых жизненных циклов:
-> - [[yii\db\ActiveRecord::updateAll()]]
-> - [[yii\db\ActiveRecord::deleteAll()]]
-> - [[yii\db\ActiveRecord::updateCounters()]] 
-> - [[yii\db\ActiveRecord::updateAllCounters()]] 
+> - [[Yiisoft\Db\ActiveRecord::updateAll()]]
+> - [[Yiisoft\Db\ActiveRecord::deleteAll()]]
+> - [[Yiisoft\Db\ActiveRecord::updateCounters()]] 
+> - [[Yiisoft\Db\ActiveRecord::updateAllCounters()]] 
 
 
 ## Работа с транзакциями <span id="transactional-operations"></span>
@@ -672,7 +672,7 @@ try {
 > начиная с PHP 7.0. Если вы используете только PHP 7 и новее, можете пропустить блок с `\Exception`.
 
 Второй способ заключается в том, чтобы перечислить операции с базой данных, которые требуют тразнакционного выполнения,
-в методе [[yii\db\ActiveRecord::transactions()]]. Например:
+в методе [[Yiisoft\Db\ActiveRecord::transactions()]]. Например:
 
 ```php
 class Customer extends ActiveRecord
@@ -689,19 +689,19 @@ class Customer extends ActiveRecord
 }
 ```
 
-Метод [[yii\db\ActiveRecord::transactions()]] должен возвращать массив, ключи которого являются именами 
+Метод [[Yiisoft\Db\ActiveRecord::transactions()]] должен возвращать массив, ключи которого являются именами 
 [сценариев](structure-models.md#scenarios), а значения соответствуют операциям, которые должны быть выполнены с помощью
 транзакций. Вы должны использовать следующие константы для обозначения различных операций базы данных:
 
-* [[yii\db\ActiveRecord::OP_INSERT|OP_INSERT]]: операция вставки, осуществляемая с помощью метода
-  [[yii\db\ActiveRecord::insert()|insert()]];
-* [[yii\db\ActiveRecord::OP_UPDATE|OP_UPDATE]]: операция обновления, осуществляемая с помощью метода
-  [[yii\db\ActiveRecord::update()|update()]];
-* [[yii\db\ActiveRecord::OP_DELETE|OP_DELETE]]: операция удаления, осуществляемая с помощью метода
-  [[yii\db\ActiveRecord::delete()|delete()]].
+* [[Yiisoft\Db\ActiveRecord::OP_INSERT|OP_INSERT]]: операция вставки, осуществляемая с помощью метода
+  [[Yiisoft\Db\ActiveRecord::insert()|insert()]];
+* [[Yiisoft\Db\ActiveRecord::OP_UPDATE|OP_UPDATE]]: операция обновления, осуществляемая с помощью метода
+  [[Yiisoft\Db\ActiveRecord::update()|update()]];
+* [[Yiisoft\Db\ActiveRecord::OP_DELETE|OP_DELETE]]: операция удаления, осуществляемая с помощью метода
+  [[Yiisoft\Db\ActiveRecord::delete()|delete()]].
 
 Используйте операторы `|` для объединения вышеприведённых констант при обозначении множества операций. Вы можете также
-использовать вспомогательную константу [[yii\db\ActiveRecord::OP_ALL|OP_ALL]], чтобы обозначить одной константой все три
+использовать вспомогательную константу [[Yiisoft\Db\ActiveRecord::OP_ALL|OP_ALL]], чтобы обозначить одной константой все три
 вышеприведённые операции.
 
 
@@ -716,20 +716,20 @@ class Customer extends ActiveRecord
 
 Оптимистическая блокировка решает вышеприведённую проблему за счёт использования отдельного столбца для сохранения
 номера версии каждой строки данных. Когда строка данных сохраняется с использованием устаревшего номера версии,
-выбрасывается исключение [[yii\db\StaleObjectException]], которое предохраняет строку от сохранения. Оптимистическая
+выбрасывается исключение [[Yiisoft\Db\StaleObjectException]], которое предохраняет строку от сохранения. Оптимистическая
 блокировка поддерживается только тогда, когда вы обновляете или удаляете существующую строку данных, используя методы
-[[yii\db\ActiveRecord::update()]] или [[yii\db\ActiveRecord::delete()]] соответственно.
+[[Yiisoft\Db\ActiveRecord::update()]] или [[Yiisoft\Db\ActiveRecord::delete()]] соответственно.
 
 Для использования оптимистической блокировки:
 
 1. Создайте столбец в таблице базы данных, ассоциированной с классом Active Record, для сохранения номера версии каждой
    строки данных. Столбец должен быть типа big integer (в Mysql это будет `BIGINT DEFAULT 0`).
-2. Переопределите метод [[yii\db\ActiveRecord::optimisticLock()]] таким образом, чтобы он возвращал название этого
+2. Переопределите метод [[Yiisoft\Db\ActiveRecord::optimisticLock()]] таким образом, чтобы он возвращал название этого
    столбца.
 3. В веб-форме, которая принимает пользовательский ввод, добавьте скрытое поле для сохранения текущей версии обновляемой
    строки. Убедитесь, что для вашего атрибута с версией объявлены правила валидации, и валидация проходит успешно.
 4. В действии контроллера, которое занимается обновлением строки данных с использованием Active Record, оберните в блок
-   try...catch код и перехватывайте исключение [[yii\db\StaleObjectException]]. Реализуйте необходимую бизнес-логику
+   try...catch код и перехватывайте исключение [[Yiisoft\Db\StaleObjectException]]. Реализуйте необходимую бизнес-логику
    (например, возможность слияния изменений, подсказку о том, что данные устарели) для разрешения возникшего конфликта.
    
 Например, предположим, что столбец с версией называется `version`. Вы можете реализовать оптимистическую блокировку с 
@@ -746,7 +746,7 @@ echo Html::activeHiddenInput($model, 'version');
 
 // ------ код контроллера -------
 
-use yii\db\StaleObjectException;
+use Yiisoft\Db\StaleObjectException;
 
 public function actionUpdate($id)
 {
@@ -808,11 +808,11 @@ class Order extends ActiveRecord
 
 При объявлении связи, вы должны указать следующую информацию:
 
-- кратность связи: указывается с помощью вызова метода [[yii\db\ActiveRecord::hasMany()|hasMany()]] или метода
-  [[yii\db\ActiveRecord::hasOne()|hasOne()]]. В вышеприведённом примере вы можете легко увидеть в объявлениях связей,
+- кратность связи: указывается с помощью вызова метода [[Yiisoft\Db\ActiveRecord::hasMany()|hasMany()]] или метода
+  [[Yiisoft\Db\ActiveRecord::hasOne()|hasOne()]]. В вышеприведённом примере вы можете легко увидеть в объявлениях связей,
   что покупатель может иметь много заказов в то время, как заказ может быть сделан лишь одним покупателем.
 - название связного Active Record класса: указывается в качестве первого параметра для метода 
-  [[yii\db\ActiveRecord::hasMany()|hasMany()]] или для метода [[yii\db\ActiveRecord::hasOne()|hasOne()]]. Рекомендуется
+  [[Yiisoft\Db\ActiveRecord::hasMany()|hasMany()]] или для метода [[Yiisoft\Db\ActiveRecord::hasOne()|hasOne()]]. Рекомендуется
   использовать код `Xyz::class`, чтобы получить строку с именем класса, при этом вы сможете воспользоваться
   возможностями авто-дополнения кода, встроенного в IDE, а также получите обработку ошибок на этапе компиляции.
 - связь между двумя типами данных: указываются столбцы с помощью которых два типа данных связаны. Значения массива - это
@@ -843,8 +843,8 @@ $orders = $customer->orders;
   доступа к свойству `xyz` подобно [свойству объекта](concept-properties.md). Помните, что название связи чувствительно
   к регистру.
   
-Если связь объявлена с помощью метода [[yii\db\ActiveRecord::hasMany()|hasMany()]], доступ к свойству связи вернёт
-массив связных объектов Active Record; если связь объявлена с помощью метода [[yii\db\ActiveRecord::hasOne()|hasOne()]],
+Если связь объявлена с помощью метода [[Yiisoft\Db\ActiveRecord::hasMany()|hasMany()]], доступ к свойству связи вернёт
+массив связных объектов Active Record; если связь объявлена с помощью метода [[Yiisoft\Db\ActiveRecord::hasOne()|hasOne()]],
 доступ к свойству связи вернёт связный Active Record объект или `null`, если связные данные не найдены.
 
 Когда вы запрашиваете свойство связи в первый раз, выполняется SQL-выражение как показано в примере выше. Если то же
@@ -854,8 +854,8 @@ SQL-выражения. Для принудительного повторног
 
 > Note: Несмотря на то, что эта концепция выглядит похожей на концепцию [свойств объектов](concept-properties.md),
   между ними есть важное различие. Для обычных свойств объектов значения свойств имеют тот же тип, который возвращает
-  геттер. Однако метод получения связных данных возвращает объект [[yii\db\ActiveQuery]], в то время как доступ к
-  свойству связи возвращает объект [[yii\db\ActiveRecord]] или массив таких объектов.
+  геттер. Однако метод получения связных данных возвращает объект [[Yiisoft\Db\ActiveQuery]], в то время как доступ к
+  свойству связи возвращает объект [[Yiisoft\Db\ActiveRecord]] или массив таких объектов.
   ```php
   $customer->orders; // массив объектов `Order`
   $customer->getOrders(); // объект ActiveQuery
@@ -865,7 +865,7 @@ SQL-выражения. Для принудительного повторног
 
 ### Динамические запросы связных данных <span id="dynamic-relational-query"></span>
 
-Т.к. метод получения связных данных возвращает объект запроса [[yii\db\ActiveQuery]], вы можете в дальнейшем перед его
+Т.к. метод получения связных данных возвращает объект запроса [[Yiisoft\Db\ActiveQuery]], вы можете в дальнейшем перед его
 отправкой в базу данных настроить этот запрос, используя методы построения запросов. Например:
 
 ```php
@@ -914,9 +914,9 @@ $orders = $customer->bigOrders;
 связаны посредством промежуточной таблицы с названием `order_item`. Один заказ будет соотносится с несколькими товарами,
 в то время как один товар будет также соотноситься с несколькими заказами.
 
-При объявлении подобных связей вы можете пользоваться методом [[yii\db\ActiveQuery::via()|via()]] или методом
-[[yii\db\ActiveQuery::viaTable()|viaTable()]] для указания промежуточной таблицы. Разница между методами
-[[yii\db\ActiveQuery::via()|via()]] и [[yii\db\ActiveQuery::viaTable()|viaTable()]] заключается в том, что первый
+При объявлении подобных связей вы можете пользоваться методом [[Yiisoft\Db\ActiveQuery::via()|via()]] или методом
+[[Yiisoft\Db\ActiveQuery::viaTable()|viaTable()]] для указания промежуточной таблицы. Разница между методами
+[[Yiisoft\Db\ActiveQuery::via()|via()]] и [[Yiisoft\Db\ActiveQuery::viaTable()|viaTable()]] заключается в том, что первый
 метод указывает промежуточную таблицу с помощью названия связи, в то время как второй метод непосредственно указывает
 промежуточную таблицу. Например:
 
@@ -1015,7 +1015,7 @@ foreach ($customers as $customer) {
 }
 ```
 
-Посредством вызова метода [[yii\db\ActiveQuery::with()]], вы указываете объекту Active Record вернуть заказы первых 100
+Посредством вызова метода [[Yiisoft\Db\ActiveQuery::with()]], вы указываете объекту Active Record вернуть заказы первых 100
 покупателей с помощью одного SQL-запроса. В результате снижаете количество выполняемых SQL-запросов от 101 до 2!
 
 Вы можете жадно загружать одну или несколько связей. Вы можете даже жадно загружать *вложенные связи*. Вложенная связь -
@@ -1023,7 +1023,7 @@ foreach ($customers as $customer) {
 связи `orders`, а `Order` связан с `Item` посредством связи `items`. При формировании запроса для `Customer`, вы можете
 жадно загрузить `items`, используя нотацию вложенной связи `orders.items`. 
 
-Ниже представлен код, который показывает различные способы использования метода [[yii\db\ActiveQuery::with()|with()]].
+Ниже представлен код, который показывает различные способы использования метода [[Yiisoft\Db\ActiveQuery::with()|with()]].
 Мы полагаем, что класс `Customer` имеет две связи: `orders` и `country` - в то время как класс `Order` имеет лишь одну
 связь `items`.
 
@@ -1045,7 +1045,7 @@ $items = $customers[0]->orders[0]->items;
 ```
 
 Вы можете жадно загрузить более глубокие вложенные связи, такие как `a.b.c.d`. Все родительские связи будут жадно
-загружены. Таким образом, когда вы вызываете метод [[yii\db\ActiveQuery::with()|with()]] с параметром `a.b.c.d`, вы
+загружены. Таким образом, когда вы вызываете метод [[Yiisoft\Db\ActiveQuery::with()|with()]] с параметром `a.b.c.d`, вы
 жадно загрузите связи `a`, `a.b`, `a.b.c` и `a.b.c.d`.
 
 > Info: В целом, когда жадно загружается `N` связей, среди которых `M` связей объявлено с помощью
@@ -1070,11 +1070,11 @@ $customers = Customer::find()->with([
 
 Когда настраивается запрос на получение связных данных для какой-либо связи, вы можете указать название связи в виде
 ключа массива и использовать анонимную функцию в качестве соответствующего значения этого массива. Анонимная функция
-получит параметр `$query`, который представляет собой объект [[yii\db\ActiveQuery]], используемый для выполнения запроса
+получит параметр `$query`, который представляет собой объект [[Yiisoft\Db\ActiveQuery]], используемый для выполнения запроса
 на получение связных данных для данной связи. В вышеприведённом примере кода мы изменили запрос на получение связных
 данных, наложив на него дополнительное условие выборки статуса заказов.
 
-> Note: Если вы вызываете метод [[yii\db\Query::select()|select()]] в процессе жадной загрузки связей, вы должны
+> Note: Если вы вызываете метод [[Yiisoft\Db\Query::select()|select()]] в процессе жадной загрузки связей, вы должны
 > убедиться, что будут выбраны столбцы, участвующие в объявлении связей. Иначе связные модели будут загружены
 > неправильно. Например:
 >
@@ -1113,7 +1113,7 @@ $customers = Customer::find()
   соответствующих им таблиц.
 
 Однако лучшим подходом является использование имеющихся объявлений связей с помощью вызова метода
-[[yii\db\ActiveQuery::joinWith()]]:
+[[Yiisoft\Db\ActiveQuery::joinWith()]]:
 
 ```php
 $customers = Customer::find()
@@ -1124,19 +1124,19 @@ $customers = Customer::find()
 
 Оба подхода выполняют одинаковый набор SQL-запросов. Однако второй подход более прозрачен и прост.
 
-По умолчанию, метод [[yii\db\ActiveQuery::joinWith()|joinWith()]] будет использовать конструкцию `LEFT JOIN` для
+По умолчанию, метод [[Yiisoft\Db\ActiveQuery::joinWith()|joinWith()]] будет использовать конструкцию `LEFT JOIN` для
 объединения основной таблицы со связной. Вы можете указать другой тип операции JOIN (например, `RIGHT JOIN`) с помощью
 третьего параметра этого метода - `$joinType`. Если же вам нужен `INNER JOIN`, вы можете вместо этого просто вызвать
-метод [[yii\db\ActiveQuery::innerJoinWith()|innerJoinWith()]].
+метод [[Yiisoft\Db\ActiveQuery::innerJoinWith()|innerJoinWith()]].
 
-Вызов метода [[yii\db\ActiveQuery::joinWith()|joinWith()]] будет [жадно загружать](#lazy-eager-loading) связные данные
+Вызов метода [[Yiisoft\Db\ActiveQuery::joinWith()|joinWith()]] будет [жадно загружать](#lazy-eager-loading) связные данные
 по умолчанию. Если вы не хотите получать связные данные, вы можете передать во втором параметре `$eagerLoading` значение
 `false`. 
 
-Подобно методу [[yii\db\ActiveQuery::with()|with()]] вы можете объединять данные с одной или несколькими связями; вы 
+Подобно методу [[Yiisoft\Db\ActiveQuery::with()|with()]] вы можете объединять данные с одной или несколькими связями; вы 
 можете настроить запрос на получение связных данных "на лету"; вы можете объединять данные с вложенными связями; вы
-можете смешивать использование метода [[yii\db\ActiveQuery::with()|with()]] и метода 
-[[yii\db\ActiveQuery::joinWith()|joinWith()]]. Например:
+можете смешивать использование метода [[Yiisoft\Db\ActiveQuery::with()|with()]] и метода 
+[[Yiisoft\Db\ActiveQuery::joinWith()|joinWith()]]. Например:
 
 ```php
 $customers = Customer::find()->joinWith([
@@ -1149,7 +1149,7 @@ $customers = Customer::find()->joinWith([
 
 Иногда во время объединения двух таблиц вам может потребоваться указать некоторые дополнительные условия рядом с
 оператором `ON` во время выполнения JOIN-запроса. Это можно сделать с помощью вызова метода 
-[[yii\db\ActiveQuery::onCondition()]] как показано ниже:
+[[Yiisoft\Db\ActiveQuery::onCondition()]] как показано ниже:
 
 ```php
 // SELECT `customer`.* FROM `customer`
@@ -1167,8 +1167,8 @@ $customers = Customer::find()->joinWith([
 поведение отличается от нашего предыдущего примера, в котором возвращались только покупатели, у которых был как минимум
 один активный заказ.
 
-> Info: Когда в объекте [[yii\db\ActiveQuery]] указано условие выборки с помощью метода
-  [[yii\db\ActiveQuery::onCondition()|onCondition()]], это условие будет размещено в конструкции `ON`, если запрос
+> Info: Когда в объекте [[Yiisoft\Db\ActiveQuery]] указано условие выборки с помощью метода
+  [[Yiisoft\Db\ActiveQuery::onCondition()|onCondition()]], это условие будет размещено в конструкции `ON`, если запрос
   содержит оператор JOIN. Если же запрос не содержит оператор JOIN, такое условие будет автоматически размещено в
   конструкции `WHERE`.
   
@@ -1249,7 +1249,7 @@ echo $customer2 === $customer ? 'same' : 'not the same';
 
 Чтобы избежать избыточного выполнения последнего SQL-запроса в вышеприведённом примере, мы должны подсказать Yii, что
 `customer` - *обратная связь* относительно `orders`, и сделаем это с помощью вызова метода
-[[yii\db\ActiveQuery::inverseOf()|inverseOf()]] как показано ниже:
+[[Yiisoft\Db\ActiveQuery::inverseOf()|inverseOf()]] как показано ниже:
 
 ```php
 class Customer extends ActiveRecord
@@ -1278,9 +1278,9 @@ echo $customer2 === $customer ? 'same' : 'not the same';
 ```
 
 > Note: обратные связи не могут быть объявлены для связей, использующих [промежуточную таблицу](#junction-table).
-  То есть, если связь объявлена с помощью методов [[yii\db\ActiveQuery::via()|via()]] или
-  [[yii\db\ActiveQuery::viaTable()|viaTable()]], вы не должны вызывать после этого метод
-  [[yii\db\ActiveQuery::inverseOf()|inverseOf()]].
+  То есть, если связь объявлена с помощью методов [[Yiisoft\Db\ActiveQuery::via()|via()]] или
+  [[Yiisoft\Db\ActiveQuery::viaTable()|viaTable()]], вы не должны вызывать после этого метод
+  [[Yiisoft\Db\ActiveQuery::inverseOf()|inverseOf()]].
 
 
 ## Сохранение связных данных <span id="saving-relations"></span>
@@ -1300,7 +1300,7 @@ $order->customer_id = $customer->id;
 $order->save();
 ```
 
-Active Record предоставляет метод [[yii\db\ActiveRecord::link()|link()]], который позволяет выполнить эту задачу
+Active Record предоставляет метод [[Yiisoft\Db\ActiveRecord::link()|link()]], который позволяет выполнить эту задачу
 более красивым способом:
 
 ```php
@@ -1312,14 +1312,14 @@ $order->subtotal = 100;
 $order->link('customer', $customer);
 ```
 
-Метод [[yii\db\ActiveRecord::link()|link()]] требует указать название связи и целевой объект Active Record, с которым
+Метод [[Yiisoft\Db\ActiveRecord::link()|link()]] требует указать название связи и целевой объект Active Record, с которым
 должна быть установлена связь. Метод изменит значения атрибутов, которые связывают два объекта Active Record, и сохранит
 их в базу данных. В вышеприведённом примере, метод присвоит атрибуту `customer_id` объекта `Order` значение атрибута
 `id` объекта `Customer` и затем сохранит его в базу данных.
 
 > Note: Невозможно связать два свежесозданных объекта Active Record.
 
-Преимущество метода [[yii\db\ActiveRecord::link()|link()]] становится ещё более очевидным, когда связь объявлена
+Преимущество метода [[Yiisoft\Db\ActiveRecord::link()|link()]] становится ещё более очевидным, когда связь объявлена
 посредством [промежуточной таблицы](#junction-table). Например, вы можете использовать следующий код, чтобы связать
 объект `Order` с объектом `Item`:
 
@@ -1330,23 +1330,23 @@ $order->link('items', $item);
 Вышеприведённый код автоматически вставит строку данных в промежуточную таблицу `order_item`, чтобы связать объект 
 `order` с объектом `item`.
 
-> Info: Метод [[yii\db\ActiveRecord::link()|link()]] не осуществляет какую-либо валидацию данных во время
+> Info: Метод [[Yiisoft\Db\ActiveRecord::link()|link()]] не осуществляет какую-либо валидацию данных во время
   сохранения целевого объекта Active Record. На вас лежит ответственность за валидацию любых введённых данных перед
   вызовом этого метода.
 
-Существует противоположная операция для [[yii\db\ActiveRecord::link()|link()]] - это операция
-[[yii\db\ActiveRecord::unlink()|unlink()]], она снимает существующую связь с двух объектов Active Record. Например:
+Существует противоположная операция для [[Yiisoft\Db\ActiveRecord::link()|link()]] - это операция
+[[Yiisoft\Db\ActiveRecord::unlink()|unlink()]], она снимает существующую связь с двух объектов Active Record. Например:
 
 ```php
 $customer = Customer::find()->with('orders')->where(['id' => 123])->one();
 $customer->unlink('orders', $customer->orders[0]);
 ```
 
-По умолчанию метод [[yii\db\ActiveRecord::unlink()|unlink()]] задаст вторичному ключу (или ключам), который определяет
+По умолчанию метод [[Yiisoft\Db\ActiveRecord::unlink()|unlink()]] задаст вторичному ключу (или ключам), который определяет
 существующую связь, значение `null`. Однако вы можете запросить удаление строки таблицы, которая содержит значение
 вторичного ключа, передав значение `true` в параметре `$delete` для этого метода.
  
-Если связь построена на основе промежуточной таблицы, вызов метода [[yii\db\ActiveRecord::unlink()|unlink()]] инициирует
+Если связь построена на основе промежуточной таблицы, вызов метода [[Yiisoft\Db\ActiveRecord::unlink()|unlink()]] инициирует
 очистку вторичных ключей в промежуточной таблице, или же удаление соответствующей строки данных в промежуточной таблице,
 если параметр `$delete` равен `true`.
 
@@ -1359,7 +1359,7 @@ Active Record позволяет вам объявить связи между �
 
 ```php
 // Объект Customer соответствует таблице "customer" в реляционной базе данных (например MySQL)
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public static function tableName()
     {
@@ -1393,22 +1393,22 @@ $customers = Customer::find()->with('comments')->all();
 
 Вы можете использовать большую часть возможностей запросов получения связных данных, которые были описаны в этой главе.
 
-> Note: Применимость метода [[yii\db\ActiveQuery::joinWith()|joinWith()]] ограничена базами данных, которые
+> Note: Применимость метода [[Yiisoft\Db\ActiveQuery::joinWith()|joinWith()]] ограничена базами данных, которые
   позволяют выполнять запросы между разными базами с использованием оператора JOIN. По этой причине вы не можете
   использовать этот метод в вышеприведённом примере, т.к. MongoDB не поддерживает операцию JOIN.
 
 
 ## Тонкая настройка классов Query <span id="customizing-query-classes"></span>
 
-По умолчанию все запросы данных для Active Record поддерживаются с помощью класса [[yii\db\ActiveQuery]]. Для
-использования собственного класса запроса вам необходимо переопределить метод [[yii\db\ActiveRecord::find()]] и
+По умолчанию все запросы данных для Active Record поддерживаются с помощью класса [[Yiisoft\Db\ActiveQuery]]. Для
+использования собственного класса запроса вам необходимо переопределить метод [[Yiisoft\Db\ActiveRecord::find()]] и
 возвращать из него объект вашего собственного класса запроса. Например:
  
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
-use yii\db\ActiveQuery;
+use Yiisoft\Db\ActiveRecord;
+use Yiisoft\Db\ActiveQuery;
 
 class Comment extends ActiveRecord
 {
@@ -1444,9 +1444,9 @@ class CommentQuery extends ActiveQuery
 }
 ```
 
-> Note: Вместо вызова метода [[yii\db\ActiveQuery::where()|where()]] старайтесь во время объявления новых методов
-  построения запросов использовать [[yii\db\ActiveQuery::andWhere()|andWhere()]] или
-  [[yii\db\ActiveQuery::orWhere()|orWhere()]] для добавления дополнительных условий, в этом случае уже заданные условия
+> Note: Вместо вызова метода [[Yiisoft\Db\ActiveQuery::where()|where()]] старайтесь во время объявления новых методов
+  построения запросов использовать [[Yiisoft\Db\ActiveQuery::andWhere()|andWhere()]] или
+  [[Yiisoft\Db\ActiveQuery::orWhere()|orWhere()]] для добавления дополнительных условий, в этом случае уже заданные условия
   выборок не будут перезаписаны.
 
 Это позволит вам писать код построения запросов как показано ниже:
@@ -1460,7 +1460,7 @@ $inactiveComments = Comment::find()->active(false)->all();
 осуществляете запрос для выборки связных данных:
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public function getActiveComments()
     {
@@ -1498,7 +1498,7 @@ $customers = Customer::find()->with([
 Record классе 'Room', который будет хранить значение 'volume':
 
 ```php
-class Room extends \yii\db\ActiveRecord
+class Room extends \Yiisoft\Db\ActiveRecord
 {
     public $volume;
 
@@ -1527,7 +1527,7 @@ foreach ($rooms as $room) {
 `Customer` со связью 'orders' и дополнительным атрибутом для хранения расчётов:
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public $ordersCount;
 
@@ -1567,11 +1567,11 @@ $room->height = 2;
 $room->volume; // значение будет равно `null`, т.к. поле не было заполнено
 ```
 
-Использование магических методов [[yii\db\BaseActiveRecord::__get()|__get()]] и [[yii\db\BaseActiveRecord::__set()|__set()]]
+Использование магических методов [[Yiisoft\Db\BaseActiveRecord::__get()|__get()]] и [[Yiisoft\Db\BaseActiveRecord::__set()|__set()]]
 позволяет эмулировать поведение обычного поля:
 
 ```php
-class Room extends \yii\db\ActiveRecord
+class Room extends \Yiisoft\Db\ActiveRecord
 {
     private $_volume;
 
@@ -1605,7 +1605,7 @@ class Room extends \yii\db\ActiveRecord
 Вы также можете вычислять агрегируемые поля используя объявленные отношения:
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     private $_ordersCount;
 
@@ -1643,7 +1643,7 @@ class Customer extends \yii\db\ActiveRecord
 Например:
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     /**
      * Объявляет виртуальное свойство для агрегируемых данных, доступное только на чтение.

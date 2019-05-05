@@ -47,7 +47,7 @@ class EntryForm extends Model
 Klasa `EntryForm` rozszerza [[yii\base\Model|Model]], podstawową klasę dostarczoną przez Yii, głównie używaną do reprezentowania danych z formularzy.
 
 > Info: [[yii\base\Model|Model]] jest używane jako rodzic dla klasy modeli *NIE* powiązanych z tabelą bazy danych.
-> [[yii\db\ActiveRecord|ActiveRecord]] jest rodzicem dla klas modeli powiązanych z tabelami bazy danych.
+> [[Yiisoft\Db\ActiveRecord|ActiveRecord]] jest rodzicem dla klas modeli powiązanych z tabelami bazy danych.
 
 Klasa `EntryForm` zawiera dwa elementy publiczne, `name` oraz `email`, które są używane do przechowania danych wprowadzonych przez użytkownika.
 Zawiera również metodę nazwaną `rules()`, która zwraca zestaw zasad do walidacji wprowadzonych danych. Zadeklarowane zasady oznaczają:

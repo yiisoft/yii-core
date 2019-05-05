@@ -13,7 +13,7 @@ Mỗi thành phần ứng dụng đều có một định danh ID giúp xác đ�
 \Yii::$app->componentID
 ```
 
-Ví dụ, sử dụng câu lệnh `\Yii::$app->db` để lấy thông tin [[yii\db\Connection|kết nối tới CSDL]],
+Ví dụ, sử dụng câu lệnh `\Yii::$app->db` để lấy thông tin [[Yiisoft\Db\Connection|kết nối tới CSDL]],
 và câu lệnh `\Yii::$app->cache` để lấy thông tin [[yii\caching\Cache|primary cache]] đã đăng ký trong ứng dụng.
 
 Mỗi thành phần ứng dụng được tạo một lần và được truy cập trong ứng dụng. Và có bất kỳ sự truy cập nào
@@ -31,7 +31,7 @@ Ví dụ,
 
         // Dùng mảng các tham số để đăng ký thành phần "db"
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',
@@ -88,9 +88,9 @@ nếu bạn không xác định các class, thì giá trị mặc định sẽ �
 
 * [[yii\web\AssetManager|assetManager]]: quản lý các file tài nguyên (asset) được đóng gói và chia sẽ.
   Tham khảo thêm mục [Quản lý các file tài nguyên](structure-assets.md) để biết thêm chi tiết.
-* [[yii\db\Connection|db]]: thực hiện kết nối CSDL và dựa vào thành phần có thể thực hiện các câu lệnh truy vấn dữ liệu.
+* [[Yiisoft\Db\Connection|db]]: thực hiện kết nối CSDL và dựa vào thành phần có thể thực hiện các câu lệnh truy vấn dữ liệu.
   Lưu ý, khi bạn thiết lập thành phần này, bạn cần phải cung cấp các thông tin về các thuộc tính được yêu cầu
-  , như [[yii\db\Connection::dsn]].
+  , như [[Yiisoft\Db\Connection::dsn]].
   Tham khảo thêm tại mục [Data Access Objects](db-dao.md) để biết thêm thông tin.
 * [[yii\base\Application::errorHandler|errorHandler]]: nắm giữ các ngoại lệ và lỗi của PHP.
   Tham khảo thêm mục [Bắt lỗi](runtime-handling-errors.md) để biết thêm thông tin.

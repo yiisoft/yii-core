@@ -72,7 +72,7 @@ yii migrate/create create_news_table
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -101,7 +101,7 @@ class m150101_185401_create_news_table extends Migration
 }
 ```
 
-各データベース・マイグレーションは [[yii\db\Migration]] から拡張した PHP クラスとして定義されます。
+各データベース・マイグレーションは [[Yiisoft\Db\Migration]] から拡張した PHP クラスとして定義されます。
 マイグレーション・クラスの名前は、`m<YYMMDD_HHMMSS>_<Name>` という形式で自動的に生成されます。ここで、
 
 * `<YYMMDD_HHMMSS>` は、マイグレーション作成コマンドが実行された UTC 日時を表し、
@@ -115,8 +115,8 @@ class m150101_185401_create_news_table extends Migration
 ```php
 <?php
 
-use yii\db\Schema;
-use yii\db\Migration;
+use Yiisoft\Db\Schema;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -141,13 +141,13 @@ class m150101_185401_create_news_table extends Migration
   また、データベース・マイグレーションを取り消すことはあまり一般的ではありませんので、場合によっては、面倒くさいというだけの理由で `down()` を実装しないこともあるでしょう。
   そういう場合は、マイグレーションが取り消し不可能であることを示すために、`down()` メソッドで false を返さなければなりません。
 
-基底のマイグレーション・クラス [[yii\db\Migration]] は、[[yii\db\Migration::db|db]] プロパティによって、
+基底のマイグレーション・クラス [[Yiisoft\Db\Migration]] は、[[Yiisoft\Db\Migration::db|db]] プロパティによって、
 データベース接続にアクセスすることを可能にしています。このデータベース接続によって、[データベース・スキーマを扱う](db-dao.md#database-schema)
 で説明されているメソッドを使い、データベース・スキーマを操作することが出来ます。
 
 テーブルやカラムを作成するときは、物理的な型を使うのでなく、*抽象型* を使って、
 あなたのマイグレーションが特定の DBMS に依存しないようにします。
-[[yii\db\Schema]] クラスが、サポートされている抽象型を表す一連の定数を定義しています。
+[[Yiisoft\Db\Schema]] クラスが、サポートされている抽象型を表す一連の定数を定義しています。
 これらの定数は `TYPE_<Name>` という形式の名前を持っています。
 例えば、`TYPE_PK` は、オート・インクリメントのプライマリ・キー型であり、`TYPE_STRING` は文字列型です。
 これらの抽象型は、マイグレーションが特定のデータベースに適用されるときに、対応する物理型に翻訳されます。
@@ -156,7 +156,7 @@ MySQL の場合は、`TYPE_PK` は `int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY`
 抽象型を使用するときに、付随的な制約を追加することが出来ます。
 上記の例では、`Schema::TYPE_STRING` に ` NOT NULL` を追加して、このカラムが null を許容しないことを指定しています。
 
-> Info: 抽象型と物理型の対応関係は、それぞれの `QueryBuilder` の具象クラスの [[yii\db\QueryBuilder::$typeMap|$typeMap]]
+> Info: 抽象型と物理型の対応関係は、それぞれの `QueryBuilder` の具象クラスの [[Yiisoft\Db\QueryBuilder::$typeMap|$typeMap]]
   プロパティによって定義されています。
 
 バージョン 2.0.6 以降は、カラムのスキーマを定義するための更に便利な方法を提供するスキーマビルダが新たに導入されています。
@@ -165,7 +165,7 @@ MySQL の場合は、`TYPE_PK` は `int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY`
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -185,7 +185,7 @@ class m150101_185401_create_news_table extends Migration
 }
 ```
 
-カラムの型を定義するために利用できる全てのメソッドのリストは、[[yii\db\SchemaBuilderTrait]] の API ドキュメントで参照することが出来ます。
+カラムの型を定義するために利用できる全てのメソッドのリストは、[[Yiisoft\Db\SchemaBuilderTrait]] の API ドキュメントで参照することが出来ます。
 
 
 ## マイグレーションを生成する <span id="generating-migrations"></span>
@@ -638,7 +638,7 @@ class m160328_041642_create_junction_table_for_post_and_tag_tables extends Migra
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -675,42 +675,42 @@ class m150101_185401_create_news_table extends Migration
 
 ### データベース・アクセス・メソッド <span id="db-accessing-methods"></span>
 
-基底のマイグレーション・クラス [[yii\db\Migration]] は、データベースにアクセスして操作するための一連のメソッドを提供しています。
-あなたは、これらのメソッドが、[[yii\db\Command]] クラスによって提供される [DAO メソッド](db-dao.md) と同じような名前を付けられていることに気付くでしょう。
-例えば、[[yii\db\Migration::createTable()]] メソッドは、[[yii\db\Command::createTable()]] と全く同じように、
+基底のマイグレーション・クラス [[Yiisoft\Db\Migration]] は、データベースにアクセスして操作するための一連のメソッドを提供しています。
+あなたは、これらのメソッドが、[[Yiisoft\Db\Command]] クラスによって提供される [DAO メソッド](db-dao.md) と同じような名前を付けられていることに気付くでしょう。
+例えば、[[Yiisoft\Db\Migration::createTable()]] メソッドは、[[Yiisoft\Db\Command::createTable()]] と全く同じように、
 新しいテーブルを作成します。
 
-[[yii\db\Migration]] によって提供されているメソッドを使うことの利点は、[[yii\db\Command]]
+[[Yiisoft\Db\Migration]] によって提供されているメソッドを使うことの利点は、[[Yiisoft\Db\Command]]
 インスタンスを明示的に作成する必要がないこと、そして、各メソッドを実行すると、
 どのようなデータベース操作がどれだけの時間をかけて実行されたかを教えてくれる有益なメッセージが自動的に表示されることです。
 
 以下がそういうデータベース・アクセス・メソッドの一覧です。
 
-* [[yii\db\Migration::execute()|execute()]]: SQL 文を実行
-* [[yii\db\Migration::insert()|insert()]]: 一行を挿入
-* [[yii\db\Migration::batchInsert()|batchInsert()]]: 複数行を挿入
-* [[yii\db\Migration::update()|update()]]: 行を更新
-* [[yii\db\Migration::delete()|delete()]]: 行を削除
-* [[yii\db\Migration::createTable()|createTable()]]: テーブルを作成
-* [[yii\db\Migration::renameTable()|renameTable()]]: テーブルの名前を変更
-* [[yii\db\Migration::dropTable()|dropTable()]]: テーブルを削除
-* [[yii\db\Migration::truncateTable()|truncateTable()]]: テーブル中の全ての行を削除
-* [[yii\db\Migration::addColumn()|addColumn()]]: カラムを追加
-* [[yii\db\Migration::renameColumn()|renameColumn()]]: カラムの名前を変更
-* [[yii\db\Migration::dropColumn()|dropColumn()]]: カラムを削除
-* [[yii\db\Migration::alterColumn()|alterColumn()]]: カラムの定義を変更
-* [[yii\db\Migration::addPrimaryKey()|addPrimaryKey()]]: プライマリ・キーを追加
-* [[yii\db\Migration::dropPrimaryKey()|dropPrimaryKey()]]: プライマリ・キーを削除
-* [[yii\db\Migration::addForeignKey()|addForeignKey()]]: 外部キーを追加
-* [[yii\db\Migration::dropForeignKey()|dropForeignKey()]]: 外部キーを削除
-* [[yii\db\Migration::createIndex()|createIndex()]]: インデックスを作成
-* [[yii\db\Migration::dropIndex()|dropIndex()]]: インデックスを削除
-* [[yii\db\Migration::addCommentOnColumn()|addCommentOnColumn()]]: カラムにコメントを追加
-* [[yii\db\Migration::dropCommentFromColumn()|dropCommentFromColumn()]]: カラムからコメントを削除
-* [[yii\db\Migration::addCommentOnTable()|addCommentOnTable()]]: テーブルにコメントを追加
-* [[yii\db\Migration::dropCommentFromTable()|dropCommentFromTable()]]: テーブルからコメントを削除
+* [[Yiisoft\Db\Migration::execute()|execute()]]: SQL 文を実行
+* [[Yiisoft\Db\Migration::insert()|insert()]]: 一行を挿入
+* [[Yiisoft\Db\Migration::batchInsert()|batchInsert()]]: 複数行を挿入
+* [[Yiisoft\Db\Migration::update()|update()]]: 行を更新
+* [[Yiisoft\Db\Migration::delete()|delete()]]: 行を削除
+* [[Yiisoft\Db\Migration::createTable()|createTable()]]: テーブルを作成
+* [[Yiisoft\Db\Migration::renameTable()|renameTable()]]: テーブルの名前を変更
+* [[Yiisoft\Db\Migration::dropTable()|dropTable()]]: テーブルを削除
+* [[Yiisoft\Db\Migration::truncateTable()|truncateTable()]]: テーブル中の全ての行を削除
+* [[Yiisoft\Db\Migration::addColumn()|addColumn()]]: カラムを追加
+* [[Yiisoft\Db\Migration::renameColumn()|renameColumn()]]: カラムの名前を変更
+* [[Yiisoft\Db\Migration::dropColumn()|dropColumn()]]: カラムを削除
+* [[Yiisoft\Db\Migration::alterColumn()|alterColumn()]]: カラムの定義を変更
+* [[Yiisoft\Db\Migration::addPrimaryKey()|addPrimaryKey()]]: プライマリ・キーを追加
+* [[Yiisoft\Db\Migration::dropPrimaryKey()|dropPrimaryKey()]]: プライマリ・キーを削除
+* [[Yiisoft\Db\Migration::addForeignKey()|addForeignKey()]]: 外部キーを追加
+* [[Yiisoft\Db\Migration::dropForeignKey()|dropForeignKey()]]: 外部キーを削除
+* [[Yiisoft\Db\Migration::createIndex()|createIndex()]]: インデックスを作成
+* [[Yiisoft\Db\Migration::dropIndex()|dropIndex()]]: インデックスを削除
+* [[Yiisoft\Db\Migration::addCommentOnColumn()|addCommentOnColumn()]]: カラムにコメントを追加
+* [[Yiisoft\Db\Migration::dropCommentFromColumn()|dropCommentFromColumn()]]: カラムからコメントを削除
+* [[Yiisoft\Db\Migration::addCommentOnTable()|addCommentOnTable()]]: テーブルにコメントを追加
+* [[Yiisoft\Db\Migration::dropCommentFromTable()|dropCommentFromTable()]]: テーブルからコメントを削除
 
-> Info: [[yii\db\Migration]] は、データベース・クエリ・メソッドを提供しません。
+> Info: [[Yiisoft\Db\Migration]] は、データベース・クエリ・メソッドを提供しません。
 > これは、通常、データベースからのデータ取得については、メッセージを追加して表示する必要がないからです。
 > 更にまた、複雑なクエリを構築して実行するためには、強力な [クエリ・ビルダ](db-query-builder.md) を使うことが出来るからです。
 > マイグレーションの中でクエリ・ビルダを使うと、次のようなコードになります。
@@ -1019,7 +1019,7 @@ yii migrate --db=db2
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -1037,7 +1037,7 @@ class m150101_185401_create_news_table extends Migration
 同じデータベースを使う複数のマイグレーションがある場合は、上記の `init()` コードを持つ基底のマイグレーション・クラスを作成することを推奨します。
 そうすれば、個々のマイグレーション・クラスは、その基底クラスから拡張することが出来ます。
 
-> Tip: 異なるデータベースを操作するためには、[[yii\db\Migration::db|db]] プロパティを設定する以外にも、
+> Tip: 異なるデータベースを操作するためには、[[Yiisoft\Db\Migration::db|db]] プロパティを設定する以外にも、
   マイグレーション・クラスの中で新しいデータベース接続を作成するという方法があります。
   そうすれば、そのデータベース接続で [DAO メソッド](db-dao.md) を使って、違うデータベースを操作することが出来ます。
 

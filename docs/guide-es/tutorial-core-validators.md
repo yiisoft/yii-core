@@ -196,7 +196,7 @@ Este validador comprueba si el valor de entrada puede ser encontrado en una colu
 - `targetAttribute`: el nombre del atributo en `targetClass` que debe de ser usado para validar la existencia del valor de entrada. Si no tiene valor, puede usar el nombra del atributoactualmente siendo validado.
   Puede usar una array para validar la existencia de múltiples columnas al mismo tiempo. El array de valores son los atributos que pueden ser usados para validar la existencia, mientras que las claves del array son los atributos a ser validados. Si la clave y el valor son los mismos, solo en ese momento puedes especificar el valor.
 - `filter`: filtro adicional a aplicar a la consulta de la base de datos usado para comprobar la existencia de una valor de entrada.
-  Esto puede ser una cadena o un array representando la condición de la consulta (referirse a [[yii\db\Query::where()]] sobre el formato de la condición de consulta), o una función anónima con la signatura `function ($query)`, donde `$query` es el objeto [[yii\db\Query|Query]] que puedes modificar en la función.
+  Esto puede ser una cadena o un array representando la condición de la consulta (referirse a [[Yiisoft\Db\Query::where()]] sobre el formato de la condición de consulta), o una función anónima con la signatura `function ($query)`, donde `$query` es el objeto [[Yiisoft\Db\Query|Query]] que puedes modificar en la función.
 - `allowArray`: indica cuando permitir que el valor de entrada sea un array. Por defecto a `false`.Si la propiedad es `true` y la entrada es un array, cada elemento del array debe existir en la columna destino. Nota que esta propiedad no puede ser `true` si estás validando, por el contrario, múltiple columnas poniendo el valor del atributo `targetAttribute` como que es un array.
 
 
@@ -422,7 +422,7 @@ Este validador comprueba si el valor de entrada es único en una columna de una 
 - `targetAttribute`: el nombre de el atributo en `targetClass`que debe de ser usado para validar la unicidad de el valor de entrada. Si no tiene valor, puede usar el nombre del atributo actualmente siendo validado.
   Puedes usar un array para validar la unicidad de múltiples columnas al mismo tiempo. Los valores del array son atributos que pueden ser usados para validar la unicidad, mientras que las claves del array son los atributos que cuyos valores van a ser validados. Si la clave y el valor son el mismo, entonces puedes especificar el valor.
 - `filter`: filtro adicional puede ser aplicado a la consulta de la base de datos usado para comprobar la unicidad del valor de entrada.
-  Esto puede ser una cadena o un array representando la condición adicional a la consulta (Referirse a [[yii\db\Query::where()]] para el formato de la condición de la consulta), o una función anónima de la forma  `function ($query)`, donde `$query` es el objeto [[yii\db\Query|Query]] que puedes modificar en la función.
+  Esto puede ser una cadena o un array representando la condición adicional a la consulta (Referirse a [[Yiisoft\Db\Query::where()]] para el formato de la condición de la consulta), o una función anónima de la forma  `function ($query)`, donde `$query` es el objeto [[Yiisoft\Db\Query|Query]] que puedes modificar en la función.
 
 
 ## [[yii\validators\UrlValidator|url]] <span id="url"></span>

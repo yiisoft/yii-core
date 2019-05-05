@@ -184,4 +184,4 @@ component in the application [configuration](concept-configuration.md) like the 
 When returning data from a database using the [DAO](db-dao.md) database layer all data will be represented
 as strings, which is not always the expected result especially numeric values should be represented as
 numbers in JSON. When using the ActiveRecord layer for retrieving data from the database, the values for numeric
-columns will be converted to integers when data is fetched from the database in [[yii\db\ActiveRecord::populateRecord()]].
+columns will be converted to integers when data is fetched from the database in [[Yiisoft\Db\ActiveRecord::populateRecord()]].

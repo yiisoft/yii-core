@@ -124,7 +124,7 @@ micro-app/
 ```php
 'components' => [
     'db' => [
-        'class' => 'yii\db\Connection',
+        'class' => 'Yiisoft\Db\Connection',
         'dsn' => 'sqlite:@micro/database.sqlite',
     ],
 ],
@@ -146,7 +146,7 @@ micro-app/
 
 namespace micro\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Post extends ActiveRecord
 { 

@@ -7,13 +7,13 @@
 
 通常、クエリ・ビルダの使用は、二つのステップから成ります。
 
-1. SELECT SQL 文のさまざまな部分 (例えば、`SELECT`、`FROM`) を表現する [[yii\db\Query]] オブジェクトを構築する。
-2. [[yii\db\Query]] のクエリ・メソッド (例えば `all()`) を実行して、データベースからデータを取得する。
+1. SELECT SQL 文のさまざまな部分 (例えば、`SELECT`、`FROM`) を表現する [[Yiisoft\Db\Query]] オブジェクトを構築する。
+2. [[Yiisoft\Db\Query]] のクエリ・メソッド (例えば `all()`) を実行して、データベースからデータを取得する。
 
 次のコードは、クエリ・ビルダを使用する典型的な方法を示すものです。
 
 ```php
-$rows = (new \yii\db\Query())
+$rows = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->where(['last_name' => 'Smith'])
@@ -31,15 +31,15 @@ WHERE `last_name` = :last_name
 LIMIT 10
 ```
 
-> Info: 通常は、[[yii\db\QueryBuilder]] ではなく、主として [[yii\db\Query]] を使用します。
+> Info: 通常は、[[Yiisoft\Db\QueryBuilder]] ではなく、主として [[Yiisoft\Db\Query]] を使用します。
   前者は、クエリ・メソッドの一つを呼ぶときに、後者によって黙示的に起動されます。
-  [[yii\db\QueryBuilder]] は、DBMS に依存しない [[yii\db\Query]] オブジェクトから、DBMS に依存する SQL 文を生成する
+  [[Yiisoft\Db\QueryBuilder]] は、DBMS に依存しない [[Yiisoft\Db\Query]] オブジェクトから、DBMS に依存する SQL 文を生成する
   (例えば、テーブルやカラムの名前を DBMS ごとに違う方法で引用符で囲む) 役割を負っているクラスです。
 
 
 ## クエリを構築する <span id="building-queries"></span>
 
-[[yii\db\Query]] オブジェクトを構築するために、さまざまなクエリ構築メソッドを呼んで、SQL クエリのさまざまな部分を定義します。
+[[Yiisoft\Db\Query]] オブジェクトを構築するために、さまざまなクエリ構築メソッドを呼んで、SQL クエリのさまざまな部分を定義します。
 これらのメソッドの名前は、SQL 文の対応する部分に使われる SQL キーワードに似たものになっています。
 例えば、SQL クエリの `FROM` の部分を定義するためには、`from()` メソッドを呼び出します。
 クエリ構築メソッドは、すべて、クエリ・オブジェクトそのものを返しますので、複数の呼び出しをチェーンしてまとめることが出来ます。
@@ -47,9 +47,9 @@ LIMIT 10
 以下で、それぞれのクエリ構築メソッドの使用方法を説明しましょう。
 
 
-### [[yii\db\Query::select()|select()]] <span id="select"></span>
+### [[Yiisoft\Db\Query::select()|select()]] <span id="select"></span>
 
-[[yii\db\Query::select()|select()]] メソッドは、SQL 文の `SELECT` 句を定義します。
+[[Yiisoft\Db\Query::select()|select()]] メソッドは、SQL 文の `SELECT` 句を定義します。
 選択されるカラムは、次のように、配列または文字列として指定することが出来ます。
 選択されるカラムの名前は、クエリ・オブジェクトから SQL 文が生成されるときに、自動的に引用符で囲まれます。
 
@@ -79,7 +79,7 @@ $query->select('user.id AS user_id, email');
 $query->select(['user_id' => 'user.id', 'email']);
 ```
 
-クエリを構築するときに [[yii\db\Query::select()|select()]] メソッドを呼ばなかった場合は、`*` がセレクトされます。
+クエリを構築するときに [[Yiisoft\Db\Query::select()|select()]] メソッドを呼ばなかった場合は、`*` がセレクトされます。
 すなわち、*全て* のカラムが選択されることになります。
 
 カラム名に加えて、DB 式をセレクトすることも出来ます。
@@ -93,7 +93,7 @@ $query->select(["CONCAT(first_name, ' ', last_name) AS full_name", 'email']);
 [特定のデータベースに依存しない引用符の構文](db-dao.md#quoting-table-and-column-names) を使うことが出来ます。
 
 バージョン 2.0.1 以降では、サブ・クエリもセレクトすることが出来ます。
-各サブ・クエリは、[[yii\db\Query]] オブジェクトの形で指定しなければなりません。例えば、
+各サブ・クエリは、[[Yiisoft\Db\Query]] オブジェクトの形で指定しなければなりません。例えば、
 
 ```php
 $subQuery = (new Query())->select('COUNT(*)')->from('user');
@@ -102,14 +102,14 @@ $subQuery = (new Query())->select('COUNT(*)')->from('user');
 $query = (new Query())->select(['id', 'count' => $subQuery])->from('post');
 ```
 
-重複行を除外してセレクトするためには、次のように、[[yii\db\Query::distinct()|distinct()]] を呼ぶことが出来ます。
+重複行を除外してセレクトするためには、次のように、[[Yiisoft\Db\Query::distinct()|distinct()]] を呼ぶことが出来ます。
 
 ```php
 // SELECT DISTINCT `user_id` ...
 $query->select('user_id')->distinct();
 ```
 
-追加のカラムをセレクトするためには [[yii\db\Query::addSelect()|addSelect()]] を呼ぶことが出来ます。例えば、
+追加のカラムをセレクトするためには [[Yiisoft\Db\Query::addSelect()|addSelect()]] を呼ぶことが出来ます。例えば、
 
 ```php
 $query->select(['id', 'username'])
@@ -117,9 +117,9 @@ $query->select(['id', 'username'])
 ```
 
 
-### [[yii\db\Query::from()|from()]] <span id="from"></span>
+### [[Yiisoft\Db\Query::from()|from()]] <span id="from"></span>
 
-[[yii\db\Query::from()|from()]] メソッドは、SQL 文の `FROM` 句を定義します。例えば、
+[[Yiisoft\Db\Query::from()|from()]] メソッドは、SQL 文の `FROM` 句を定義します。例えば、
 
 ```php
 // SELECT * FROM `user`
@@ -143,7 +143,7 @@ $query->from('public.user u, public.post p');
 $query->from(['u' => 'public.user', 'p' => 'public.post']);
 ```
 
-テーブル名の他に、[[yii\db\Query]] オブジェクトの形で指定することによって、サブ・クエリをセレクトの対象とすることも出来ます。
+テーブル名の他に、[[Yiisoft\Db\Query]] オブジェクトの形で指定することによって、サブ・クエリをセレクトの対象とすることも出来ます。
 例えば、
 
 ```php
@@ -154,12 +154,12 @@ $query->from(['u' => $subQuery]);
 ```
 
 #### プレフィックス
-また、デフォルトの [[yii\db\Connection::$tablePrefix|tablePrefix]] を適用することも出来ます。
+また、デフォルトの [[Yiisoft\Db\Connection::$tablePrefix|tablePrefix]] を適用することも出来ます。
 実装の仕方は ["データベース・アクセス・オブジェクト" ガイドの "テーブル名を引用符で囲む" のセクション](guide-db-dao.html#quoting-table-and-column-names) にあります。
 
-### [[yii\db\Query::where()|where()]] <span id="where"></span>
+### [[Yiisoft\Db\Query::where()|where()]] <span id="where"></span>
 
-[[yii\db\Query::where()|where()]] メソッドは、SQL クエリの `WHERE` 句を定義します。
+[[Yiisoft\Db\Query::where()|where()]] メソッドは、SQL クエリの `WHERE` 句を定義します。
 `WHERE` の条件を指定するために、次の4つの形式から一つを選んで使うことが出来ます。
 
 - 文字列形式、例えば、`'status=1'`
@@ -190,7 +190,7 @@ $query->where('YEAR(somedate) = 2015');
 $query->where("status=$status");
 ```
 
-`パラメータ・バインディング` を使う場合は、[[yii\db\Query::params()|params()]] または [[yii\db\Query::addParams()|addParams()]]
+`パラメータ・バインディング` を使う場合は、[[Yiisoft\Db\Query::params()|params()]] または [[Yiisoft\Db\Query::addParams()|addParams()]]
 を使って、パラメータの指定を分離することが出来ます。
 
 ```php
@@ -266,7 +266,7 @@ $query->where([$column => $value]);
 - `between`: オペランド 1 はカラム名、オペランド 2 と 3 はカラムの値が属すべき範囲の開始値と終了値としなければなりません。
   例えば、`['between', 'id', 1, 10]` は `id BETWEEN 1 AND 10` を生成します。
   値が二つのカラムの値の間にあるという条件 (例えば、`11 BETWEEN min_id AND max_id`) を構築する必要がある場合は、
-  [[yii\db\conditions\BetweenColumnsCondition|BetweenColumnsCondition]] を使用しなければなりません。
+  [[Yiisoft\Db\Conditions\BetweenColumnsCondition|BetweenColumnsCondition]] を使用しなければなりません。
   条件定義のオブジェクト形式について更に学習するためには [条件 – オブジェクト形式](#object-format)
   のセクションを参照して下さい。
 
@@ -309,7 +309,7 @@ $query->where([$column => $value]);
 - `or not like`: `NOT LIKE` 述語が `OR` によって結合される以外は、
   `not like` 演算子と同じです。
 
-- `exists`: 要求される一つだけのオペランドは、サブ・クエリを表す [[yii\db\Query]] のインスタンスでなければなりません。
+- `exists`: 要求される一つだけのオペランドは、サブ・クエリを表す [[Yiisoft\Db\Query]] のインスタンスでなければなりません。
   これは `EXISTS (sub-query)` という式を構築します。
 
 - `not exists`: `exists` 演算子と同じで、`NOT EXISTS (sub-query)` という式を構築します。
@@ -354,13 +354,13 @@ $query->andWhere(new OrCondition([
 ```
 
 演算子形式からオブジェクト形式への変換は、
-演算子の名前とそれを表すクラス名を対応づける [[yii\db\QueryBuilder::conditionClasses|QueryBuilder::conditionClasses]]
+演算子の名前とそれを表すクラス名を対応づける [[Yiisoft\Db\QueryBuilder::conditionClasses|QueryBuilder::conditionClasses]]
 プロパティに従って行われます。
 
-- `AND`, `OR` -> `yii\db\conditions\ConjunctionCondition`
-- `NOT` -> `yii\db\conditions\NotCondition`
-- `IN`, `NOT IN` -> `yii\db\conditions\InCondition`
-- `BETWEEN`, `NOT BETWEEN` -> `yii\db\conditions\BetweenCondition`
+- `AND`, `OR` -> `Yiisoft\Db\Conditions\ConjunctionCondition`
+- `NOT` -> `Yiisoft\Db\Conditions\NotCondition`
+- `IN`, `NOT IN` -> `Yiisoft\Db\Conditions\InCondition`
+- `BETWEEN`, `NOT BETWEEN` -> `Yiisoft\Db\Conditions\BetweenCondition`
 
 等々。
 
@@ -370,7 +370,7 @@ $query->andWhere(new OrCondition([
 
 #### 条件を追加する <span id="appending-conditions"></span>
 
-[[yii\db\Query::andWhere()|andWhere()]] または [[yii\db\Query::orWhere()|orWhere()]] を使って、既存の条件に別の条件を追加することが出来ます。
+[[Yiisoft\Db\Query::andWhere()|andWhere()]] または [[Yiisoft\Db\Query::orWhere()|orWhere()]] を使って、既存の条件に別の条件を追加することが出来ます。
 これらのメソッドを複数回呼んで、複数の条件を別々に追加することが出来ます。
 例えば、
 
@@ -397,7 +397,7 @@ WHERE (`status` = 10) AND (`title` LIKE '%yii%')
 ユーザの入力に基づいて `WHERE` の条件を構築する場合、普通は、空の入力値は無視したいものです。
 例えば、ユーザ名とメール・アドレスによる検索が可能な検索フォームにおいては、
 ユーザが username/email のインプット・フィールドに何も入力しなかった場合は、username/email の条件を無視したいでしょう。
-[[yii\db\Query::filterWhere()|filterWhere()]] メソッドを使うことによって、この目的を達することが出来ます。
+[[Yiisoft\Db\Query::filterWhere()|filterWhere()]] メソッドを使うことによって、この目的を達することが出来ます。
 
 ```php
 // $username と $email はユーザの入力による
@@ -407,18 +407,18 @@ $query->filterWhere([
 ]);
 ```
 
-[[yii\db\Query::filterWhere()|filterWhere()]] と [[yii\db\Query::where()|where()]] の唯一の違いは、
+[[Yiisoft\Db\Query::filterWhere()|filterWhere()]] と [[Yiisoft\Db\Query::where()|where()]] の唯一の違いは、
 前者は [ハッシュ形式](#hash-format) の条件において提供された空の値を無視する、という点です。
 従って、`$email` が空で `$sername` がそうではない場合は、上記のコードは、結果として `WHERE username=:username` という SQL 条件になります。
 
 > Info: 値が空であると見なされるのは、`null`、空の配列、空の文字列、または空白のみを含む文字列である場合です。
 
-[[yii\db\Query::andWhere()|andWhere()]] または [[yii\db\Query::orWhere()|orWhere()]] と同じように、
-[[yii\db\Query::andFilterWhere()|andFilterWhere()]] または [[yii\db\Query::orFilterWhere()|orFilterWhere()]] を使って、
+[[Yiisoft\Db\Query::andWhere()|andWhere()]] または [[Yiisoft\Db\Query::orWhere()|orWhere()]] と同じように、
+[[Yiisoft\Db\Query::andFilterWhere()|andFilterWhere()]] または [[Yiisoft\Db\Query::orFilterWhere()|orFilterWhere()]] を使って、
 既存の条件に別のフィルタ条件を追加することも出来ます。
 
 さらに加えて、値の方に含まれている比較演算子を適切に判断してくれる
-[[yii\db\Query::andFilterCompare()]] があります。
+[[Yiisoft\Db\Query::andFilterCompare()]] があります。
 
 ```php
 $query->andFilterCompare('name', 'John Doe');
@@ -434,13 +434,13 @@ $query->andFilterCompare('name', 'Doe', 'like');
 
 Yii 2.0.11 以降には、`HAVING` の条件のためにも、同様のメソッドがあります。
 
-- [[yii\db\Query::filterHaving()|filterHaving()]]
-- [[yii\db\Query::andFilterHaving()|andFilterHaving()]]
-- [[yii\db\Query::orFilterHaving()|orFilterHaving()]]
+- [[Yiisoft\Db\Query::filterHaving()|filterHaving()]]
+- [[Yiisoft\Db\Query::andFilterHaving()|andFilterHaving()]]
+- [[Yiisoft\Db\Query::orFilterHaving()|orFilterHaving()]]
 
-### [[yii\db\Query::orderBy()|orderBy()]] <span id="order-by"></span>
+### [[Yiisoft\Db\Query::orderBy()|orderBy()]] <span id="order-by"></span>
 
-[[yii\db\Query::orderBy()|orderBy()]] メソッドは SQL クエリの `ORDER BY` 句を指定します。例えば、
+[[Yiisoft\Db\Query::orderBy()|orderBy()]] メソッドは SQL クエリの `ORDER BY` 句を指定します。例えば、
 
 ```php
 // ... ORDER BY `id` ASC, `name` DESC
@@ -462,7 +462,7 @@ $query->orderBy('id ASC, name DESC');
 
 > Note: `ORDER BY` が何らかの DB 式を含む場合は、配列形式を使わなければなりません。
 
-[[yii\db\Query::addOrderBy()|addOrderBy()]] を呼んで、`ORDER BY' 句にカラムを追加することが出来ます。
+[[Yiisoft\Db\Query::addOrderBy()|addOrderBy()]] を呼んで、`ORDER BY' 句にカラムを追加することが出来ます。
 例えば、
 
 ```php
@@ -471,9 +471,9 @@ $query->orderBy('id ASC')
 ```
 
 
-### [[yii\db\Query::groupBy()|groupBy()]] <span id="group-by"></span>
+### [[Yiisoft\Db\Query::groupBy()|groupBy()]] <span id="group-by"></span>
 
-[[yii\db\Query::groupBy()|groupBy()]] メソッドは SQL クエリの `GROUP BY` 句を指定します。例えば、
+[[Yiisoft\Db\Query::groupBy()|groupBy()]] メソッドは SQL クエリの `GROUP BY` 句を指定します。例えば、
 
 ```php
 // ... GROUP BY `id`, `status`
@@ -489,7 +489,7 @@ $query->groupBy('id, status');
 
 > Note: `GROUP BY` が何らかの DB 式を含む場合は、配列形式を使わなければなりません。
  
-[[yii\db\Query::addGroupBy()|addGroupBy()]] を呼んで、`GROUP BY` 句にカラムを追加することが出来ます。
+[[Yiisoft\Db\Query::addGroupBy()|addGroupBy()]] を呼んで、`GROUP BY` 句にカラムを追加することが出来ます。
 例えば、
 
 ```php
@@ -498,9 +498,9 @@ $query->groupBy(['id', 'status'])
 ```
 
 
-### [[yii\db\Query::having()|having()]] <span id="having"></span>
+### [[Yiisoft\Db\Query::having()|having()]] <span id="having"></span>
 
-[[yii\db\Query::having()|having()]] メソッドは SQL クエリの `HAVING` 句を指定します。
+[[Yiisoft\Db\Query::having()|having()]] メソッドは SQL クエリの `HAVING` 句を指定します。
 このメソッドが取る条件は、[where()](#where) と同じ方法で指定することが出来ます。例えば、
 
 ```php
@@ -510,7 +510,7 @@ $query->having(['status' => 1]);
 
 条件を指定する方法の詳細については、[where()](#where) のドキュメントを参照してください。
 
-[[yii\db\Query::andHaving()|andHaving()]] または [[yii\db\Query::orHaving()|orHaving()]] を呼んで、`HAVING` 句に条件を追加することが出来ます。
+[[Yiisoft\Db\Query::andHaving()|andHaving()]] または [[Yiisoft\Db\Query::orHaving()|orHaving()]] を呼んで、`HAVING` 句に条件を追加することが出来ます。
 例えば、
 
 ```php
@@ -520,9 +520,9 @@ $query->having(['status' => 1])
 ```
 
 
-### [[yii\db\Query::limit()|limit()]] と [[yii\db\Query::offset()|offset()]] <span id="limit-offset"></span>
+### [[Yiisoft\Db\Query::limit()|limit()]] と [[Yiisoft\Db\Query::offset()|offset()]] <span id="limit-offset"></span>
 
-[[yii\db\Query::limit()|limit()]] と [[yii\db\Query::offset()|offset()]] のメソッドは、SQL クエリの `LIMIT` 句と `OFFSET` 句を指定します。
+[[Yiisoft\Db\Query::limit()|limit()]] と [[Yiisoft\Db\Query::offset()|offset()]] のメソッドは、SQL クエリの `LIMIT` 句と `OFFSET` 句を指定します。
 例えば、
  
 ```php
@@ -536,16 +536,16 @@ $query->limit(10)->offset(20);
 クエリ・ビルダが `LIMIT`/`OFFSET` の振る舞いをエミュレートする SQL 文を生成します。
 
 
-### [[yii\db\Query::join()|join()]] <span id="join"></span>
+### [[Yiisoft\Db\Query::join()|join()]] <span id="join"></span>
 
-[[yii\db\Query::join()|join()]] メソッドは SQL クエリの `JOIN` 句を指定します。例えば、
+[[Yiisoft\Db\Query::join()|join()]] メソッドは SQL クエリの `JOIN` 句を指定します。例えば、
  
 ```php
 // ... LEFT JOIN `post` ON `post`.`user_id` = `user`.`id`
 $query->join('LEFT JOIN', 'post', 'post.user_id = user.id');
 ```
 
-[[yii\db\Query::join()|join()]] メソッドは、四つのパラメータを取ります。
+[[Yiisoft\Db\Query::join()|join()]] メソッドは、四つのパラメータを取ります。
  
 - `$type`: 結合のタイプ、例えば、`'INNER JOIN'`、`'LEFT JOIN'`。
 - `$table`: 結合されるテーブルの名前。
@@ -558,9 +558,9 @@ $query->join('LEFT JOIN', 'post', 'post.user_id = user.id');
 
 `INNER JOIN`、`LEFT JOIN` および `RIGHT JOIN` を指定するためには、それぞれ、次のショートカット・メソッドを使うことが出来ます。
 
-- [[yii\db\Query::innerJoin()|innerJoin()]]
-- [[yii\db\Query::leftJoin()|leftJoin()]]
-- [[yii\db\Query::rightJoin()|rightJoin()]]
+- [[Yiisoft\Db\Query::innerJoin()|innerJoin()]]
+- [[Yiisoft\Db\Query::leftJoin()|leftJoin()]]
+- [[Yiisoft\Db\Query::rightJoin()|rightJoin()]]
 
 例えば、
 
@@ -571,27 +571,27 @@ $query->leftJoin('post', 'post.user_id = user.id');
 複数のテーブルを結合するためには、テーブルごとに一回ずつ、上記の結合メソッドを複数回呼び出します。
 
 テーブルを結合することに加えて、サブ・クエリを結合することも出来ます。
-そうするためには、結合されるべきサブ・クエリを [[yii\db\Query]] オブジェクトとして指定します。例えば、
+そうするためには、結合されるべきサブ・クエリを [[Yiisoft\Db\Query]] オブジェクトとして指定します。例えば、
 
 ```php
-$subQuery = (new \yii\db\Query())->from('post');
+$subQuery = (new \Yiisoft\Db\Query())->from('post');
 $query->leftJoin(['u' => $subQuery], 'u.id = author_id');
 ```
 
 この場合、サブ・クエリを配列に入れて、配列のキーを使ってエイリアスを指定しなければなりません。
 
 
-### [[yii\db\Query::union()|union()]] <span id="union"></span>
+### [[Yiisoft\Db\Query::union()|union()]] <span id="union"></span>
 
-[[yii\db\Query::union()|union()]] メソッドは SQL クエリの `UNION` 句を指定します。例えば、
+[[Yiisoft\Db\Query::union()|union()]] メソッドは SQL クエリの `UNION` 句を指定します。例えば、
 
 ```php
-$query1 = (new \yii\db\Query())
+$query1 = (new \Yiisoft\Db\Query())
     ->select("id, category_id AS type, name")
     ->from('post')
     ->limit(10);
 
-$query2 = (new \yii\db\Query())
+$query2 = (new \Yiisoft\Db\Query())
     ->select('id, type, name')
     ->from('user')
     ->limit(10);
@@ -599,68 +599,68 @@ $query2 = (new \yii\db\Query())
 $query1->union($query2);
 ```
 
-[[yii\db\Query::union()|union()]] を複数回呼んで、`UNION` 句をさらに追加することが出来ます。
+[[Yiisoft\Db\Query::union()|union()]] を複数回呼んで、`UNION` 句をさらに追加することが出来ます。
 
 
 ## クエリ・メソッド <span id="query-methods"></span>
 
-[[yii\db\Query]] は、さまざまな目的のクエリのために、一揃いのメソッドを提供しています。
+[[Yiisoft\Db\Query]] は、さまざまな目的のクエリのために、一揃いのメソッドを提供しています。
 
-- [[yii\db\Query::all()|all()]]: 各行を「名前-値」のペアの連想配列とする、結果の行の配列を返す。
-- [[yii\db\Query::one()|one()]]: 結果の最初の行を返す。
-- [[yii\db\Query::column()|column()]]: 結果の最初のカラムを返す。
-- [[yii\db\Query::scalar()|scalar()]]: 結果の最初の行の最初のカラムにあるスカラ値を返す。
-- [[yii\db\Query::exists()|exists()]]: クエリが結果を含むか否かを示す値を返す。
-- [[yii\db\Query::count()|count()]]: `COUNT` クエリの結果を返す。
-- その他の集計クエリ、すなわち、[[yii\db\Query::sum()|sum($q)]], [[yii\db\Query::average()|average($q)]],
-  [[yii\db\Query::max()|max($q)]], [[yii\db\Query::min()|min($q)]].
+- [[Yiisoft\Db\Query::all()|all()]]: 各行を「名前-値」のペアの連想配列とする、結果の行の配列を返す。
+- [[Yiisoft\Db\Query::one()|one()]]: 結果の最初の行を返す。
+- [[Yiisoft\Db\Query::column()|column()]]: 結果の最初のカラムを返す。
+- [[Yiisoft\Db\Query::scalar()|scalar()]]: 結果の最初の行の最初のカラムにあるスカラ値を返す。
+- [[Yiisoft\Db\Query::exists()|exists()]]: クエリが結果を含むか否かを示す値を返す。
+- [[Yiisoft\Db\Query::count()|count()]]: `COUNT` クエリの結果を返す。
+- その他の集計クエリ、すなわち、[[Yiisoft\Db\Query::sum()|sum($q)]], [[Yiisoft\Db\Query::average()|average($q)]],
+  [[Yiisoft\Db\Query::max()|max($q)]], [[Yiisoft\Db\Query::min()|min($q)]].
   これらのメソッドでは、`$q` パラメータは必須であり、カラム名または DB 式とすることが出来る。
 
 例えば、
 
 ```php
 // SELECT `id`, `email` FROM `user`
-$rows = (new \yii\db\Query())
+$rows = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->all();
     
 // SELECT * FROM `user` WHERE `username` LIKE `%test%`
-$row = (new \yii\db\Query())
+$row = (new \Yiisoft\Db\Query())
     ->from('user')
     ->where(['like', 'username', 'test'])
     ->one();
 ```
 
-> Note: [[yii\db\Query::one()|one()]] メソッドはクエリ結果の最初の行だけを返します。このメソッドは `LIMIT 1`
+> Note: [[Yiisoft\Db\Query::one()|one()]] メソッドはクエリ結果の最初の行だけを返します。このメソッドは `LIMIT 1`
   を生成された SQL 文に追加しません。このことは、クエリが一つまたは少数の行しか返さないことが判っている場合
   (例えば、何らかのプライマリ・キーでクエリを発行する場合) は問題になりませんし、むしろ好ましいことです。
   しかし、クエリ結果が多数のデータ行になる可能性がある場合は、パフォーマンスを向上させるために、明示的に `limit(1)` を呼ぶべきです。例えば、
-  `(new \yii\db\Query())->from('user')->limit(1)->one()`
+  `(new \Yiisoft\Db\Query())->from('user')->limit(1)->one()`
 
-上記のメソッドの全ては、オプションで、DB クエリの実行に使用されるべき [[yii\db\Connection|DB 接続]] を表す `$db` パラメータを取ることが出来ます。
+上記のメソッドの全ては、オプションで、DB クエリの実行に使用されるべき [[Yiisoft\Db\Connection|DB 接続]] を表す `$db` パラメータを取ることが出来ます。
 このパラメータを省略した場合は、DB 接続として `db` [アプリケーション・コンポーネント](structure-application-components.md) が使用されます。
-次に [[yii\db\Query::count()|count()]] クエリ・メソッドを使う例をもう一つ挙げます。
+次に [[Yiisoft\Db\Query::count()|count()]] クエリ・メソッドを使う例をもう一つ挙げます。
 
 ```php
 // 実行される SQL: SELECT COUNT(*) FROM `user` WHERE `last_name`=:last_name
-$count = (new \yii\db\Query())
+$count = (new \Yiisoft\Db\Query())
     ->from('user')
     ->where(['last_name' => 'Smith'])
     ->count();
 ```
 
-あなたが [[yii\db\Query]] のクエリ・メソッドを呼び出すと、実際には、内部的に次の仕事がなされます。
+あなたが [[Yiisoft\Db\Query]] のクエリ・メソッドを呼び出すと、実際には、内部的に次の仕事がなされます。
 
-* [[yii\db\QueryBuilder]] を呼んで、[[yii\db\Query]] の現在の構成に基づいた SQL 文を生成する。
-* 生成された SQL 文で [[yii\db\Command]] オブジェクトを作成する。
-* [[yii\db\Command]] のクエリ・メソッド (例えば [[yii\db\Command::queryAll()|queryAll()]]) を呼んで、SQL 文を実行し、データを取得する。
+* [[Yiisoft\Db\QueryBuilder]] を呼んで、[[Yiisoft\Db\Query]] の現在の構成に基づいた SQL 文を生成する。
+* 生成された SQL 文で [[Yiisoft\Db\Command]] オブジェクトを作成する。
+* [[Yiisoft\Db\Command]] のクエリ・メソッド (例えば [[Yiisoft\Db\Command::queryAll()|queryAll()]]) を呼んで、SQL 文を実行し、データを取得する。
 
-場合によっては、[[yii\db\Query]] オブジェクトから構築された SQL 文を調べたり使ったりしたいことがあるでしょう。
+場合によっては、[[Yiisoft\Db\Query]] オブジェクトから構築された SQL 文を調べたり使ったりしたいことがあるでしょう。
 次のコードを使って、その目的を達することが出来ます。
 
 ```php
-$command = (new \yii\db\Query())
+$command = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->where(['last_name' => 'Smith'])
@@ -679,24 +679,24 @@ $rows = $command->queryAll();
 
 ## クエリ結果をインデックスする <span id="indexing-query-results"></span>
 
-[[yii\db\Query::all()|all()]] を呼ぶと、結果の行は連続した整数でインデックスされた配列で返されます。
+[[Yiisoft\Db\Query::all()|all()]] を呼ぶと、結果の行は連続した整数でインデックスされた配列で返されます。
 場合によっては、違う方法でインデックスしたいことがあるでしょう。
 例えば、特定のカラムの値や、何らかの式の値によってインデックスするなどです。
-この目的は、[[yii\db\Query::all()|all()]] の前に [[yii\db\Query::indexBy()|indexBy()]] を呼ぶことによって達成することが出来ます。例えば、
+この目的は、[[Yiisoft\Db\Query::all()|all()]] の前に [[Yiisoft\Db\Query::indexBy()|indexBy()]] を呼ぶことによって達成することが出来ます。例えば、
 
 ```php
 // [100 => ['id' => 100, 'username' => '...', ...], 101 => [...], 103 => [...], ...] を返す
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->limit(10)
     ->indexBy('id')
     ->all();
 ```
 
-式の値によってインデックスするためには、[[yii\db\Query::indexBy()|indexBy()]] メソッドに無名関数を渡します。
+式の値によってインデックスするためには、[[Yiisoft\Db\Query::indexBy()|indexBy()]] メソッドに無名関数を渡します。
 
 ```php
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->indexBy(function ($row) {
         return $row['id'] . $row['username'];
@@ -706,7 +706,7 @@ $query = (new \yii\db\Query())
 この無名関数は、現在の行データを含む `$row` というパラメータを取り、
 現在の行のインデックス値として使われるスカラ値を返さなくてはなりません。
 
-> Note: [[yii\db\Query::groupBy()|groupBy()]] や [[yii\db\Query::orderBy()|orderBy()]]
+> Note: [[Yiisoft\Db\Query::groupBy()|groupBy()]] や [[Yiisoft\Db\Query::orderBy()|orderBy()]]
 > のようなクエリ・メソッドが SQL に変換されてクエリの一部となるのとは対照的に、このメソッドはデータベースからデータが取得された後で動作します。
 > このことは、クエリの SELECT に含まれるカラム名だけを使うことが出来る、ということを意味します。
 > また、テーブル・プレフィックスを付けてカラムを選択した場合、例えば `customer.id` を選択した場合は、
@@ -715,7 +715,7 @@ $query = (new \yii\db\Query())
 
 ## バッチ・クエリ <span id="batch-query"></span>
 
-大量のデータを扱う場合は、[[yii\db\Query::all()]] のようなメソッドは適していません。
+大量のデータを扱う場合は、[[Yiisoft\Db\Query::all()]] のようなメソッドは適していません。
 なぜなら、それらのメソッドは、クエリの結果全てをクライアントのメモリに読み込むことを必要とするためです。
 この問題を解決するために、Yii はバッチ・クエリのサポートを提供しています。クエリ結果はサーバに保持し、
 クライアントはカーソルを利用して1回に1バッチずつ結果セットを反復取得するのです。
@@ -725,7 +725,7 @@ $query = (new \yii\db\Query())
 バッチ・クエリは次のようにして使うことが出来ます。
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())
     ->from('user')
@@ -742,21 +742,21 @@ foreach ($query->each() as $user) {
 }
 ```
 
-[[yii\db\Query::batch()]] メソッドと [[yii\db\Query::each()]] メソッドは [[yii\db\BatchQueryResult]]
+[[Yiisoft\Db\Query::batch()]] メソッドと [[Yiisoft\Db\Query::each()]] メソッドは [[Yiisoft\Db\BatchQueryResult]]
 オブジェクトを返します。このオブジェクトは `Iterator` インタフェイスを実装しており、従って、`foreach` 構文の中で使うことが出来ます。
 初回の反復の際に、データベースに対する SQL クエリが作成されます。データは、その後、反復のたびにバッチ・モードで取得されます。
 デフォルトでは、バッチ・サイズは 100 であり、各バッチにおいて 100 行のデータが取得されます。
 バッチ・サイズは、`batch()` または `each()` メソッドに最初のパラメータを渡すことによって変更することが出来ます。
 
-[[yii\db\Query::all()]] とは対照的に、バッチ・クエリは一度に 100 行のデータしかメモリに読み込みません。
+[[Yiisoft\Db\Query::all()]] とは対照的に、バッチ・クエリは一度に 100 行のデータしかメモリに読み込みません。
 
-[[yii\db\Query::indexBy()]] によって、いずれかのカラムでクエリ結果をインデックスするように指定している場合でも、
+[[Yiisoft\Db\Query::indexBy()]] によって、いずれかのカラムでクエリ結果をインデックスするように指定している場合でも、
 バッチ・クエリは正しいインデックスを保持します。
 
 例えば、
 
 ```php
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->indexBy('username');
 
@@ -803,7 +803,7 @@ Yii::$app->db->pdo->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
 独立した非バッファ・モードのデータベース接続を作成することが出来ます。
 
 ```php
-$unbufferedDb = new \yii\db\Connection([
+$unbufferedDb = new \Yiisoft\Db\Connection([
     'dsn' => Yii::$app->db->dsn,
     'username' => Yii::$app->db->username,
     'password' => Yii::$app->db->password,
@@ -863,7 +863,7 @@ $unbufferedDb->close();
 このような条件を一度に適用できたら良いですね。一つのクエリの中で複数回使われる場合には、最適化の効果が大きいでしょう。
 特製の条件オブジェクトを作って、それを実証しましょう。
 
-Yii には、条件を表現するクラスを特徴付ける [[yii\db\conditions\ConditionInterface|ConditionInterface]] があります。
+Yii には、条件を表現するクラスを特徴付ける [[Yiisoft\Db\Conditions\ConditionInterface|ConditionInterface]] があります。
 このインタフェイスは、配列形式から条件を作ることを可能にするための `fromArrayDefinition()` メソッドを実装することを要求します。
 あなたがそれを必要としない場合は、例外を投げるだけのメソッドとして実装しても構いません。
 
@@ -872,7 +872,7 @@ Yii には、条件を表現するクラスを特徴付ける [[yii\db\condition
 ```php
 namespace app\db\conditions;
 
-class AllGreaterCondition implements \yii\db\conditions\ConditionInterface
+class AllGreaterCondition implements \Yiisoft\Db\Conditions\ConditionInterface
 {
     private $columns;
     private $value;
@@ -905,14 +905,14 @@ $conditon = new AllGreaterCondition(['col1', 'col2'], 42);
 
 しかし `QueryBuilder` は、このオブジェクトから SQL 条件式を作る方法を知りません。
 次に、この条件に対する式ビルダを作成する必要があります。
-式ビルダは `build()` メソッドを提供する [[yii\db\ExpressionBuilderInterface]] を実装しなければいけません。
+式ビルダは `build()` メソッドを提供する [[Yiisoft\Db\ExpressionBuilderInterface]] を実装しなければいけません。
 
 ```php
 namespace app\db\conditions;
 
-class AllGreaterConditionBuilder implements \yii\db\ExpressionBuilderInterface
+class AllGreaterConditionBuilder implements \Yiisoft\Db\ExpressionBuilderInterface
 {
-    use \yii\db\Condition\ExpressionBuilderTrait; // コンストラクタと `queryBuilder` プロパティを含む。
+    use \Yiisoft\Db\Condition\ExpressionBuilderTrait; // コンストラクタと `queryBuilder` プロパティを含む。
 
     /**
      * @param AllGreaterCondition $condition ビルドすべき条件
@@ -932,12 +932,12 @@ class AllGreaterConditionBuilder implements \yii\db\ExpressionBuilderInterface
 }
 ```
 
-後は、単に [[yii\db\QueryBuilder|QueryBuilder]] に私たちの新しい条件について知らせるだけです – 
+後は、単に [[Yiisoft\Db\QueryBuilder|QueryBuilder]] に私たちの新しい条件について知らせるだけです – 
 条件のマッピングを `expressionBuilders` 配列に追加します。次のように、アプリケーション構成で直接に追加することが出来ます。
 
 ```php
 'db' => [
-    '__class' => yii\db\mysql\Connection::class,
+    '__class' => Yiisoft\Db\Mysql\Connection::class,
     // ...
     'queryBuilder' => [
         'expressionBuilders' => [
@@ -954,11 +954,11 @@ $query->andWhere(new AllGreaterCondition(['posts', 'comments', 'reactions', 'sub
 ```
 
 演算子形式を使って私たちの特製の条件を作成することが出来るようにしたい場合は、
-演算子を [[yii\db\QueryBuilder::conditionClasses|QueryBuilder::conditionClasses]] の中で宣言しなければなりません。
+演算子を [[Yiisoft\Db\QueryBuilder::conditionClasses|QueryBuilder::conditionClasses]] の中で宣言しなければなりません。
 
 ```php
 'db' => [
-    '__class' => yii\db\mysql\Connection::class,
+    '__class' => Yiisoft\Db\Mysql\Connection::class,
     // ...
     'queryBuilder' => [
         'expressionBuilders' => [
@@ -977,7 +977,7 @@ $query->andWhere(new AllGreaterCondition(['posts', 'comments', 'reactions', 'sub
 ```php
 namespace app\db\conditions;
 
-class AllGreaterCondition implements \yii\db\conditions\ConditionInterface
+class AllGreaterCondition implements \Yiisoft\Db\Conditions\ConditionInterface
 {
     // ... 上記の実装を参照
      
@@ -995,9 +995,9 @@ $query->andWhere(['ALL>', ['posts', 'comments', 'reactions', 'subscriptions'], $
 ```
 
 お気付きのことと思いますが、ここには二つの概念があります。Expression(式)と Condition(条件)です。
-[[yii\db\ExpressionInterface]] は、それを構築するために [[yii\db\ExpressionBuilderInterface]]
+[[Yiisoft\Db\ExpressionInterface]] は、それを構築するために [[Yiisoft\Db\ExpressionBuilderInterface]]
 を実装した式ビルダクラスを必要とするオブジェクトを特徴付けるインタフェイスです。
-また [[yii\db\condition\ConditionInterface]] は、[[yii\db\ExpressionInterface|ExpressionInterface]] を拡張して、
+また [[Yiisoft\Db\Condition\ConditionInterface]] は、[[Yiisoft\Db\ExpressionInterface|ExpressionInterface]] を拡張して、
 上述されたように配列形式の定義から作成できるオブジェクトに対して使用されるべきものですが、同様にビルダを必要とするものです。
 
 要約すると、
@@ -1007,6 +1007,6 @@ $query->andWhere(['ALL>', ['posts', 'comments', 'reactions', 'subscriptions'], $
 - Condition(条件) – Expression(式) のスーパーセットで、一つの SQL 条件にコンパイルすることが可能な複数の式
   (またはスカラ値)の集合。
 
-[[yii\db\ExpressionInterface|ExpressionInterface]] を実装する独自のクラスを作成して、
+[[Yiisoft\Db\ExpressionInterface|ExpressionInterface]] を実装する独自のクラスを作成して、
 データを SQL 文に変換することの複雑さを隠蔽することが出来ます。
 [次の記事](db-active-record.md) では、式について、さらに多くの例を学習します。

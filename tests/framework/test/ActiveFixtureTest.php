@@ -13,7 +13,7 @@ use Yiisoft\ActiveRecord\Tests\Data\ActiveRecord;
 use Yiisoft\ActiveRecord\Tests\Data\Animal;
 use Yiisoft\ActiveRecord\Tests\Data\Customer;
 use Yiisoft\ActiveRecord\Tests\Data\Profile;
-use yii\db\tests\unit\DatabaseTestCase;
+use Yiisoft\Db\Tests\DatabaseTestCase;
 
 class ProfileFixture extends ActiveFixture
 {

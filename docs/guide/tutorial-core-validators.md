@@ -312,9 +312,9 @@ multiple attribute values should exist).
   whose values are to be validated. If the key and the value are the same, you can just specify the value.
 - `targetRelation`: since version 2.0.14 you can use convenient attribute `targetRelation`, which overrides the `targetClass` and `targetAttribute` attributes using specs from the requested relation.  
 - `filter`: additional filter to be applied to the DB query used to check the existence of the input value.
-  This can be a string or an array representing the additional query condition (refer to [[yii\db\Query::where()]]
+  This can be a string or an array representing the additional query condition (refer to [[Yiisoft\Db\Query::where()]]
   on the format of query condition), or an anonymous function with the signature `function ($query)`, where `$query`
-  is the [[yii\db\Query|Query]] object that you can modify in the function.
+  is the [[Yiisoft\Db\Query|Query]] object that you can modify in the function.
 - `allowArray`: whether to allow the input value to be an array. Defaults to `false`. If this property is `true`
   and the input is an array, then every element of the array must exist in the target column. Note that
   this property cannot be set `true` if you are validating against multiple columns by setting `targetAttribute` as an array.
@@ -659,9 +659,9 @@ either a single column or multiple columns.
   are the attributes that will be used to validate the uniqueness, while the array keys are the attributes
   whose values are to be validated. If the key and the value are the same, you can just specify the value.
 - `filter`: additional filter to be applied to the DB query used to check the uniqueness of the input value.
-  This can be a string or an array representing the additional query condition (refer to [[yii\db\Query::where()]]
+  This can be a string or an array representing the additional query condition (refer to [[Yiisoft\Db\Query::where()]]
   on the format of query condition), or an anonymous function with the signature `function ($query)`, where `$query`
-  is the [[yii\db\Query|Query]] object that you can modify in the function.
+  is the [[Yiisoft\Db\Query|Query]] object that you can modify in the function.
 
 
 ## [[yii\validators\UrlValidator|url]] <span id="url"></span>

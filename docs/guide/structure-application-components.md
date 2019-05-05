@@ -13,7 +13,7 @@ in the same application. You can access an application component through the exp
 \Yii::$app->componentID
 ```
 
-For example, you can use `\Yii::$app->db` to get the [[yii\db\Connection|DB connection]],
+For example, you can use `\Yii::$app->db` to get the [[Yiisoft\Db\Connection|DB connection]],
 and `\Yii::$app->cache` to get the [[yii\caching\Cache|primary cache]] registered with the application.
 
 An application component is created the first time it is accessed through the above expression. Any
@@ -31,7 +31,7 @@ For example,
 
         // register "db" component using a configuration array
         'db' => [
-            '__class' => yii\db\Connection::class,
+            '__class' => Yiisoft\Db\Connection::class,
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',
@@ -98,9 +98,9 @@ if you do not specify its class, the default one will be used.
 
 * [[yii\web\AssetManager|assetManager]]: manages asset bundles and asset publishing.
   Please refer to the [Assets](structure-assets.md) section for more details.
-* [[yii\db\Connection|db]]: represents a database connection through which you can perform DB queries.
+* [[Yiisoft\Db\Connection|db]]: represents a database connection through which you can perform DB queries.
   Note that when you configure this component, you must specify the component class as well as other required
-  component properties, such as [[yii\db\Connection::dsn]].
+  component properties, such as [[Yiisoft\Db\Connection::dsn]].
   Please refer to the [Database Access Objects](db-dao.md) section for more details.
 * [[yii\base\Application::errorHandler|errorHandler]]: handles PHP errors and exceptions.
   Please refer to the [Handling Errors](runtime-handling-errors.md) section for more details.

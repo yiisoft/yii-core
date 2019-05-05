@@ -29,16 +29,16 @@ abstract class Target extends Component
     /**
      * @var array list of message categories that this target is interested in. Defaults to empty, meaning all categories.
      * You can use an asterisk at the end of a category so that the category may be used to
-     * match those categories sharing the same common prefix. For example, 'yii\db\*' will match
-     * categories starting with 'yii\db\', such as `yii\db\Connection`.
+     * match those categories sharing the same common prefix. For example, 'Yiisoft\Db\*' will match
+     * categories starting with 'Yiisoft\Db\', such as `Yiisoft\Db\Connection`.
      */
     public $categories = [];
     /**
      * @var array list of message categories that this target is NOT interested in. Defaults to empty, meaning no uninteresting messages.
      * If this property is not empty, then any category listed here will be excluded from [[categories]].
      * You can use an asterisk at the end of a category so that the category can be used to
-     * match those categories sharing the same common prefix. For example, 'yii\db\*' will match
-     * categories starting with 'yii\db\', such as `yii\db\Connection`.
+     * match those categories sharing the same common prefix. For example, 'Yiisoft\Db\*' will match
+     * categories starting with 'Yiisoft\Db\', such as `Yiisoft\Db\Connection`.
      * @see categories
      */
     public $except = [];

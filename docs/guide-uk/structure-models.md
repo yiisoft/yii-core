@@ -76,7 +76,7 @@ class ContactForm extends Model
 
 
 Ви можете перевизначити метод [[yii\base\Model::attributes()]] для визначення атрибутів в інший спосіб. Метод повинен
-повертати імена атрибутів у моделі. Наприклад, [[yii\db\ActiveRecord]] повертає
+повертати імена атрибутів у моделі. Наприклад, [[Yiisoft\Db\ActiveRecord]] повертає
 імена колонок відповідної таблиці бази даних як імена атрибутів. Також можливо знадобиться перевизначити
 магічні методи, такі як `__get()` і `__set()`, щоб атрибути могли бути доступними як
 звичайні властивості об’єкту.
@@ -178,7 +178,7 @@ $model = new User(['scenario' => 'login']);
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {
@@ -192,7 +192,7 @@ class User extends ActiveRecord
 }
 ```
 
-> Info: У вищенаведеному та у наступних прикладах класи моделей успадковані від [[yii\db\ActiveRecord]],
+> Info: У вищенаведеному та у наступних прикладах класи моделей успадковані від [[Yiisoft\Db\ActiveRecord]],
 тому що використання декількох сценаріїв зазвичай відбувається з класами [Active Record](db-active-record.md).
 
 Метод `scenarios()` повертає масив, ключами якого є імена сценаріїв, а значеннями - відповідні
@@ -207,7 +207,7 @@ class User extends ActiveRecord
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {

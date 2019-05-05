@@ -358,12 +358,12 @@ Konstruktor kwerend
 -------------------
 
 W 1.1 budowanie kwerend było rozrzucone pomiędzy kilka klas, tj. `CDbCommand`, `CDbCriteria` i `CDbCommandBuilder`. 
-Yii 2.0 reprezentuje kwerendę bazodanową w postaci obiektu [[yii\db\Query|Query]], który może być zamieniony 
-w komendę SQL za pomocą [[yii\db\QueryBuilder|QueryBuilder]].
+Yii 2.0 reprezentuje kwerendę bazodanową w postaci obiektu [[Yiisoft\Db\Query|Query]], który może być zamieniony 
+w komendę SQL za pomocą [[Yiisoft\Db\QueryBuilder|QueryBuilder]].
 Przykładowo:
 
 ```php
-$query = new \yii\db\Query();
+$query = new \Yiisoft\Db\Query();
 $query->select('id, name')
       ->from('user')
       ->limit(10);
@@ -383,8 +383,8 @@ Active Record
 
 Yii 2.0 wprowadza sporo zmian w mechanizmie [Active Record](db-active-record.md). Dwie najbardziej znaczące to konstruowanie kwerend i obsługa relacji.
 
-Klasa `CDbCriteria` z 1.1 została zastąpiona przez [[yii\db\ActiveQuery|ActiveQuery]] w Yii 2. Klasa ta rozszerza [[yii\db\Query|Query]], dzięki czemu 
-dziedziczy wszystkie metody konstruowania kwerend. Aby rozpocząć budowanie kwerendy, wywołaj metodę [[yii\db\ActiveRecord::find()|find()]]:
+Klasa `CDbCriteria` z 1.1 została zastąpiona przez [[Yiisoft\Db\ActiveQuery|ActiveQuery]] w Yii 2. Klasa ta rozszerza [[Yiisoft\Db\Query|Query]], dzięki czemu 
+dziedziczy wszystkie metody konstruowania kwerend. Aby rozpocząć budowanie kwerendy, wywołaj metodę [[Yiisoft\Db\ActiveRecord::find()|find()]]:
 
 ```php
 // Pobranie wszystkich *aktywnych* klientów i posortowanie po ich ID:
@@ -394,12 +394,12 @@ $customers = Customer::find()
     ->all();
 ```
 
-Deklaracja relacji polega na prostym zdefiniowaniu metody gettera, który zwróci obiekt [[yii\db\ActiveQuery|ActiveQuery]].
+Deklaracja relacji polega na prostym zdefiniowaniu metody gettera, który zwróci obiekt [[Yiisoft\Db\ActiveQuery|ActiveQuery]].
 Nazwa właściwości określonej przez tego gettera reprezentuje nazwę stworzonej relacji. Dla przykładu: w poniższym kodzie deklarujemy 
 relację `orders` (w 1.1 konieczne było zadeklarowanie relacji wewnątrz wydzielonej specjalnie metody `relations()`):
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public function getOrders()
     {
@@ -419,8 +419,8 @@ Przy "gorliwym" pobieraniu relacji ("eager", w przyciwieństwie do leniwego pobi
 aby pobrać zarówno główne, jak i relacyjne rekordy. W Yii 2.0 wywoływane są dwie komendy SQL bez użycia JOIN - pierwsza pobiera główne rekordy, a druga relacyjne, filtrując je 
 przy użyciu kluczy głównych rekordów.
 
-Aby zmniejszyć zużycie CPU i pamięci, zamiast zwracać obiekty [[yii\db\ActiveRecord|ActiveRecord]], do kwerendy pobierającej dużą ilość rekordów możesz podpiąć metodę 
-[[yii\db\ActiveQuery::asArray()|asArray()]], dzięki czemu zostaną one pobrane jako tablice. Przykładowo:
+Aby zmniejszyć zużycie CPU i pamięci, zamiast zwracać obiekty [[Yiisoft\Db\ActiveRecord|ActiveRecord]], do kwerendy pobierającej dużą ilość rekordów możesz podpiąć metodę 
+[[Yiisoft\Db\ActiveQuery::asArray()|asArray()]], dzięki czemu zostaną one pobrane jako tablice. Przykładowo:
 
 ```php
 $customers = Customer::find()->asArray()->all();
@@ -438,7 +438,7 @@ public function init()
 ```
 
 Nadpisywanie konstruktora klasy ActiveRecord w 1.1 wiązało się z pewnymi problemami, co nie występuje już w wersji 2.0. 
-Zwróć jednak uwagę na to, że przy dodawaniu parametrów do konstruktora możesz potrzebować nadpisać metodę [[yii\db\ActiveRecord::instantiate()|instantiate()]].
+Zwróć jednak uwagę na to, że przy dodawaniu parametrów do konstruktora możesz potrzebować nadpisać metodę [[Yiisoft\Db\ActiveRecord::instantiate()|instantiate()]].
 
 W nowym rekordzie aktywnym znajdziesz wiele innych zmian i udogodnień. Aby zapoznać się z nimi, przejdź do sekcji [Rekord aktywny](db-active-record.md).
 
@@ -453,7 +453,7 @@ jak zaprezentowano poniżej:
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior

@@ -8,13 +8,13 @@
 namespace yii\behaviors;
 
 use yii\helpers\Yii;
-use yii\db\BaseActiveRecord;
+use Yiisoft\Db\BaseActiveRecord;
 use yii\exceptions\InvalidCallException;
 use yii\validators\NumberValidator;
 
 /**
  * OptimisticLockBehavior automatically upgrades a model's lock version using the column name
- * returned by [[\yii\db\BaseActiveRecord::optimisticLock()|optimisticLock()]].
+ * returned by [[\Yiisoft\Db\BaseActiveRecord::optimisticLock()|optimisticLock()]].
  *
  * Optimistic locking allows multiple users to access the same record for edits and avoids
  * potential conflicts. In case when a user attempts to save the record upon some staled data
@@ -22,7 +22,7 @@ use yii\validators\NumberValidator;
  * and the update or deletion is skipped.
  *
  * To use this behavior, first enable optimistic lock by following the steps listed in
- * [[\yii\db\BaseActiveRecord::optimisticLock()|optimisticLock()]], remove the column name
+ * [[\Yiisoft\Db\BaseActiveRecord::optimisticLock()|optimisticLock()]], remove the column name
  * holding the lock version from the [[\yii\base\Model::rules()|rules()]] method of your
  * ActiveRecord class, then add the following code to it:
  *
@@ -53,7 +53,7 @@ use yii\validators\NumberValidator;
  *
  * @author Salem Ouerdani <tunecino@gmail.com>
  * @since 2.0.16
- * @see \yii\db\BaseActiveRecord::optimisticLock() for details on how to enable optimistic lock.
+ * @see \Yiisoft\Db\BaseActiveRecord::optimisticLock() for details on how to enable optimistic lock.
  */
 class OptimisticLockBehavior extends AttributeBehavior
 {
@@ -99,9 +99,9 @@ class OptimisticLockBehavior extends AttributeBehavior
     }
 
     /**
-     * Returns the column name to hold the version value as defined in [[\yii\db\BaseActiveRecord::optimisticLock()|optimisticLock()]].
+     * Returns the column name to hold the version value as defined in [[\Yiisoft\Db\BaseActiveRecord::optimisticLock()|optimisticLock()]].
      * @return string the property name.
-     * @throws InvalidCallException if [[\yii\db\BaseActiveRecord::optimisticLock()|optimisticLock()]] is not properly configured.
+     * @throws InvalidCallException if [[\Yiisoft\Db\BaseActiveRecord::optimisticLock()|optimisticLock()]] is not properly configured.
      * @since 2.0.16
      */
     protected function getLockAttribute()

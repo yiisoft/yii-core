@@ -10,7 +10,7 @@ namespace yii\base;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\di\Initiable;
 use yii\exceptions\ExitException;
 use yii\exceptions\InvalidConfigException;

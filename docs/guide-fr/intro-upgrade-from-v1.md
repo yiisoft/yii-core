@@ -377,12 +377,12 @@ Constructeur de requêtes
 -----------------------
 
 Dans la version 1.1, la construction des requêtes était dispersée dans plusieurs classes, y compris `CDbCommand`,
-`CDbCriteria` et `CDbCommandBuilder`. Avec Yii 2.0, une requête de base de données est représentée par un objet de la classe [[yii\db\Query|Query]]
-qui peut être transformé en une instruction SQL à l'aide de la classe [[yii\db\QueryBuilder|QueryBuilder]].
+`CDbCriteria` et `CDbCommandBuilder`. Avec Yii 2.0, une requête de base de données est représentée par un objet de la classe [[Yiisoft\Db\Query|Query]]
+qui peut être transformé en une instruction SQL à l'aide de la classe [[Yiisoft\Db\QueryBuilder|QueryBuilder]].
 Par exemple:
 
 ```php
-$query = new \yii\db\Query();
+$query = new \Yiisoft\Db\Query();
 $query->select('id, name')
       ->from('user')
       ->limit(10);
@@ -402,8 +402,8 @@ Active Record
 
 Yii 2.0 introduit beaucoup de modifications au modèle [Active Record](db-active-record.md). Les deux plus évidentes concernent la construction des requêtes et la manipulation de requêtes relationnelles.
 
-La classe `CDbCriteria` en 1.1 est remplacée par [[yii\db\ActiveQuery]] dans Yii 2. Cette classe étend [[yii\db\Query]],
-et hérite donc de toutes les méthodes de construction de requête. Pour commencer à construire une requête il suffit d'utiliser [[yii\db\ActiveRecord::find()]] :
+La classe `CDbCriteria` en 1.1 est remplacée par [[Yiisoft\Db\ActiveQuery]] dans Yii 2. Cette classe étend [[Yiisoft\Db\Query]],
+et hérite donc de toutes les méthodes de construction de requête. Pour commencer à construire une requête il suffit d'utiliser [[Yiisoft\Db\ActiveRecord::find()]] :
 
 ```php
 // Pour récupérer tous les clients *actifs* et les trier selon leur identifiant
@@ -413,12 +413,12 @@ $customers = Customer::find()
     ->all();
 ```
 
-Pour déclarer une relation, il suffit de définir un accesseur qui renvoie un objet [[yii\db\ActiveQuery|ActiveQuery]].
+Pour déclarer une relation, il suffit de définir un accesseur qui renvoie un objet [[Yiisoft\Db\ActiveQuery|ActiveQuery]].
 Le nom de la propriété définie par l'accesseur représente le nom de la relation. Par exemple, le code suivant déclare
 une relation `orders` (en 1.1, vous aviez à déclarer les relations dans la méthode `relations()`):
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public function getOrders()
     {
@@ -441,8 +441,8 @@ enregistrements liés. Avec Yii 2.0, deux instructions SQL sont exécutées sans
 récupère les enregistrements principaux et la seconde récupère les enregistrements liés en filtrant selon les clés
 primaires des enregistrements principaux.
 
-Au lieu de retourner des objets [[yii\db\ActiveRecord|ActiveRecord]], vous pouvez utiliser la méthode
-[[yii\db\ActiveQuery::asArray()|asArray()]] lors de la construction d'une requête pour renvoyer un grand nombre
+Au lieu de retourner des objets [[Yiisoft\Db\ActiveRecord|ActiveRecord]], vous pouvez utiliser la méthode
+[[Yiisoft\Db\ActiveQuery::asArray()|asArray()]] lors de la construction d'une requête pour renvoyer un grand nombre
 d'enregistrements. Ainsi le résultat  sera retourné sous forme de tableaux, ce qui peut réduire considérablement le temps de calcul et la mémoire nécessaires dans le cas d'un grand nombre d'enregistrements. Par exemple:
 
 ```php
@@ -462,7 +462,7 @@ public function init()
 
 Il y avait des problèmes de surcharge du constructeur de la classe ActiveRecord 1.1. Ces problèmes n'existent plus dans
 la version 2.0. Notez que lorsque vous ajoutez des paramètres au constructeur, vous avez éventuellement à surcharger
-la méthode [[yii\db\ActiveRecord::instantiate()]].
+la méthode [[Yiisoft\Db\ActiveRecord::instantiate()]].
 
 Il y a beaucoup d'autres modifications et améliorations à Active Record.
 Reportez-vous à la section [Active Record](db-active-record.md) pour en savoir plus.
@@ -475,7 +475,7 @@ Dans la version 2.0, nous avons la classe de base des  *behaviors* (comportement
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior

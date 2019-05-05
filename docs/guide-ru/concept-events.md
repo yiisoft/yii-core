@@ -180,19 +180,19 @@ $foo->off(Foo::EVENT_HELLO);
 
 Во всех предыдущих примерах мы рассматривали присоединение событий *на уровне экземпляров*. Есть случаи, когда необходимо обрабатывать события, которые инициируются *любым* экземпляром класса, а не только конкретным экземпляром. В таком случае присоединять обработчик события к каждому экземпляру класса не нужно. Достаточно присоединить обработчик *на уровне класса*, вызвав статический метод [[yii\base\Event::on()]].
 
-Например, объект [Active Record](db-active-record.md) инициирует событие [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] после добавления в базу данных новой записи. Чтобы отслеживать записи, добавленные в базу данных *каждым* объектом [Active Record](db-active-record.md), можно использовать следующий код:
+Например, объект [Active Record](db-active-record.md) инициирует событие [[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] после добавления в базу данных новой записи. Чтобы отслеживать записи, добавленные в базу данных *каждым* объектом [Active Record](db-active-record.md), можно использовать следующий код:
 
 ```php
 use yii\helpers\Yii;
 use yii\base\Event;
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 Event::on(ActiveRecord::class, ActiveRecord::EVENT_AFTER_INSERT, function ($event) {
     Yii::debug(get_class($event->sender) . ' добавлен');
 });
 ```
 
-Обработчик будет вызван при срабатывании события [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] в экземплярах класса [[yii\db\ActiveRecord|ActiveRecord]] или его потомков. В обработчике можно получить доступ к объекту, который инициировал событие, с помощью свойства `$event->sender`.
+Обработчик будет вызван при срабатывании события [[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] в экземплярах класса [[Yiisoft\Db\ActiveRecord|ActiveRecord]] или его потомков. В обработчике можно получить доступ к объекту, который инициировал событие, с помощью свойства `$event->sender`.
 
 При срабатывании события будут в первую очередь вызваны обработчики на уровне экземпляра, а затем - обработчики на уровне класса.
 

@@ -377,12 +377,12 @@ Constructor de Consultas
 ------------------------
 
 En Yii 1.1, la generación de consultas a la base de datos estaba dividida en varias clases, incluyendo `CDbCommand`,
-`CDbCriteria`, y `CDbCommandBuilder`. Yii 2.0 representa una consulta a la base de datos en términos de un objeto [[yii\db\Query|Query]]
-que puede ser convertido en una declaración SQL con la ayuda de [[yii\db\QueryBuilder|QueryBuilder]] detrás de la escena.
+`CDbCriteria`, y `CDbCommandBuilder`. Yii 2.0 representa una consulta a la base de datos en términos de un objeto [[Yiisoft\Db\Query|Query]]
+que puede ser convertido en una declaración SQL con la ayuda de [[Yiisoft\Db\QueryBuilder|QueryBuilder]] detrás de la escena.
 Por ejemplo:
 
 ```php
-$query = new \yii\db\Query();
+$query = new \Yiisoft\Db\Query();
 $query->select('id, name')
       ->from('user')
       ->limit(10);
@@ -403,9 +403,9 @@ Active Record
 Yii 2.0 introduce muchísimos cambios con respecto a [Active Record](db-active-record.md). Los dos más obvios se relacionan a
 la generación de consultas y al manejo de relaciones.
 
-La clase de Yii 1.1 `CDbCriteria` es reemplazada por [[yii\db\ActiveQuery]] en Yii 2. Esta clase extiende de [[yii\db\Query]],
+La clase de Yii 1.1 `CDbCriteria` es reemplazada por [[Yiisoft\Db\ActiveQuery]] en Yii 2. Esta clase extiende de [[Yiisoft\Db\Query]],
 y por lo tanto hereda todos los métodos de generación de consultas.
-Para comenzar a generar una consulta, llamas al método [[yii\db\ActiveRecord::find()]]:
+Para comenzar a generar una consulta, llamas al método [[Yiisoft\Db\ActiveRecord::find()]]:
 
 ```php
 // Recibe todos los clientes *activos* y ordenados por su ID:
@@ -415,12 +415,12 @@ $customers = Customer::find()
     ->all();
 ```
 
-Para declarar una relación, simplemente define un método getter que devuelva un objeto [[yii\db\ActiveQuery|ActiveQuery]].
+Para declarar una relación, simplemente define un método getter que devuelva un objeto [[Yiisoft\Db\ActiveQuery|ActiveQuery]].
 El nombre de la propiedad definida en el getter representa el nombre de la relación. Por ejemplo, el siguiente código declara
 una relación `orders` (en Yii 1.1, las relaciones se declaraban centralmente en el método `relations()`):
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public function getOrders()
     {
@@ -441,7 +441,7 @@ sería creada para seleccionar tanto los registros de la tabla primaria como los
 sin utilizar un JOIN: la primera trae todos los modelos primarios, mientras que la segunda trae los registros relacionados
 utilizando como condición la clave primaria de los primarios.
 
-En vez de devolver objetos [[yii\db\ActiveRecord|ActiveRecord]], puedes conectar el método [[yii\db\ActiveQuery::asArray()|asArray()]]
+En vez de devolver objetos [[Yiisoft\Db\ActiveRecord|ActiveRecord]], puedes conectar el método [[Yiisoft\Db\ActiveQuery::asArray()|asArray()]]
 mientras generas una consulta que devuelve un gran número de registros. Esto causará que el resultado de la consulta sea devuelto como
 arrays, lo que puede reducir significativamente la necesidad de tiempo de CPU y memoria si el número de registros es grande.
 Por ejemplo:
@@ -462,7 +462,7 @@ public function init()
 ```
 
 Anteriormente, solía haber algunos problemas al sobrescribir el constructor de una clase ActiveRecord en 1.1. Estos ya no están presentes en
-Yii 2.0. Ten en cuenta que al agregar parámetros al constructor podrías llegar a tener que sobrescribir [[yii\db\ActiveRecord::instantiate()]].
+Yii 2.0. Ten en cuenta que al agregar parámetros al constructor podrías llegar a tener que sobrescribir [[Yiisoft\Db\ActiveRecord::instantiate()]].
 
 Hay muchos otros cambios y mejoras con respecto a ActiveRecord. Por favor, consulta
 la sección [Active Record](db-active-record.md) para más detalles.
@@ -476,7 +476,7 @@ En 2.0, hemos eliminado la clase del comportamiento base `CActiveRecordBehavior`
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior

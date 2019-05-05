@@ -22,7 +22,7 @@ $locator->set('cache', 'yii\caching\ApcCache');
 
 // enregistre "db" en utilisant un tableau de configuration qui peut être utilisé pour créer un composant
 $locator->set('db', [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -59,7 +59,7 @@ return [
     // ...
     'components' => [
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',

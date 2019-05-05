@@ -158,7 +158,7 @@ $foo = $container->get('Foo');
 $container = new \yii\di\Container;
 
 // クラス名そのままの登録。これは省略可能です。
-$container->set('yii\db\Connection');
+$container->set('Yiisoft\Db\Connection');
 
 // インタフェイスの登録
 // クラスがインタフェイスに依存する場合、対応するクラスが
@@ -167,11 +167,11 @@ $container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // エイリアス名の登録。$container->get('foo') を使って
 // Connection のインスタンスを作成できます
-$container->set('foo', 'yii\db\Connection');
+$container->set('foo', 'Yiisoft\Db\Connection');
 
 // 構成情報をともなうクラスの登録。クラスが get() でインスタンス化
 // されるとき構成情報が適用されます
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -181,7 +181,7 @@ $container->set('yii\db\Connection', [
 // クラスの構成情報をともなうエイリアス名の登録
 // この場合、クラスを指定する "class" 要素が必要です
 $container->set('db', [
-    '__class' => \yii\db\Connection::class,
+    '__class' => \Yiisoft\Db\Connection::class,
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -191,7 +191,7 @@ $container->set('db', [
 // PHP コーラブルの登録
 // このコーラブルは $container->get('db') が呼ばれるたびに実行されます
 $container->set('db', function ($container, $params, $config) {
-    return new \yii\db\Connection($config);
+    return new \Yiisoft\Db\Connection($config);
 });
 
 // コンポーネント・インスタンスの登録
@@ -207,7 +207,7 @@ $container->set('pageCache', new FileCache);
 単一のインスタンスしか生成しない依存を登録することができます:
 
 ```php
-$container->setSingleton('yii\db\Connection', [
+$container->setSingleton('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -254,7 +254,7 @@ $engine = $container->get('app\components\SearchEngine', [$apiKey, $apiSecret], 
 namespace app\models;
 
 use yii\base\BaseObject;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\di\Container;
 
 interface UserFinderInterface
@@ -289,7 +289,7 @@ class UserLister extends BaseObject
 }
 
 $container = new Container;
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => '...',
 ]);
 $container->set('app\models\UserFinderInterface', [
@@ -301,7 +301,7 @@ $lister = $container->get('userLister');
 
 // と、いうのはこれと同じ:
 
-$db = new \yii\db\Connection(['dsn' => '...']);
+$db = new \Yiisoft\Db\Connection(['dsn' => '...']);
 $finder = new UserFinder($db);
 $lister = new UserLister($finder);
 ```

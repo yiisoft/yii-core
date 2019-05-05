@@ -7,13 +7,13 @@
 
 Использование построителя запросов, как правило, включает два этапа:
 
-1. Создание объекта [[yii\db\Query]] представляющего различные части (такие как `SELECT`, `FROM`) SQL выражения SELECT.
-2. Выполнить запрос методом [[yii\db\Query]] (таким как `all()`) для извлечения данных из базы данных.
+1. Создание объекта [[Yiisoft\Db\Query]] представляющего различные части (такие как `SELECT`, `FROM`) SQL выражения SELECT.
+2. Выполнить запрос методом [[Yiisoft\Db\Query]] (таким как `all()`) для извлечения данных из базы данных.
 
 Следующий код показывает обычное использование построителя запросов:
 
 ```php
-$rows = (new \yii\db\Query())
+$rows = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->where(['last_name' => 'Smith'])
@@ -30,25 +30,25 @@ WHERE `last_name` = :last_name
 LIMIT 10
 ```
 
-> Info: В основном вы будете работать с [[yii\db\Query]] вместо [[yii\db\QueryBuilder]]. Последний вызывается
-  неявно при вызове одного из методов запроса. [[yii\db\QueryBuilder]] это класс, отвечающий за генерацию зависимого
-  от СУБД SQL выражения (такие как экранирование имён таблиц/столбцов) из независимых от СУБД объектов [[yii\db\Query]]. 
+> Info: В основном вы будете работать с [[Yiisoft\Db\Query]] вместо [[Yiisoft\Db\QueryBuilder]]. Последний вызывается
+  неявно при вызове одного из методов запроса. [[Yiisoft\Db\QueryBuilder]] это класс, отвечающий за генерацию зависимого
+  от СУБД SQL выражения (такие как экранирование имён таблиц/столбцов) из независимых от СУБД объектов [[Yiisoft\Db\Query]]. 
 
 
 ## Построение запросов <span id="building-queries"></span>
 
-Создав объект [[yii\db\Query]], вы можете вызвать различные методы для создания различных частей SQL выражения.
+Создав объект [[Yiisoft\Db\Query]], вы можете вызвать различные методы для создания различных частей SQL выражения.
 Имена методов напоминают ключевые слова SQL, используемые в соответствующих частях SQL запроса. Например,
-чтобы указать `FROM` часть запроса, вам нужно вызвать метод [[yii\db\Query::from()|from()]]. Все методы построителя
+чтобы указать `FROM` часть запроса, вам нужно вызвать метод [[Yiisoft\Db\Query::from()|from()]]. Все методы построителя
 запросов возвращают свой объект, который позволяет объединять несколько вызовов в цепочку.
 
 Далее будет описание каждого метода построителя запросов.
 
-### [[yii\db\Query::select()|select()]] <span id="select"></span>
+### [[Yiisoft\Db\Query::select()|select()]] <span id="select"></span>
 
-Метод [[yii\db\Query::select()|select()]] определяет фрагмент `SELECT` SQL запроса. Вы можете указать столбцы, которые
+Метод [[Yiisoft\Db\Query::select()|select()]] определяет фрагмент `SELECT` SQL запроса. Вы можете указать столбцы, которые
 должны быть выбраны, они должны быть указаны в виде массива или строки. Имена столбцов автоматически экранируются
-при создании SQL-запроса при его генерации из объекта [[yii\db\Query]].
+при создании SQL-запроса при его генерации из объекта [[Yiisoft\Db\Query]].
  
 ```php
 $query->select(['id', 'email']);
@@ -76,7 +76,7 @@ $query->select('user.id AS user_id, email');
 $query->select(['user_id' => 'user.id', 'email']);
 ```
 
-Если вы не вызываете метод [[yii\db\Query::select()|select()]] при создании запроса, будет использована `*`, что означает
+Если вы не вызываете метод [[Yiisoft\Db\Query::select()|select()]] при создании запроса, будет использована `*`, что означает
 выбрать *все* столбцы.
 
 Кроме имён столбцов, вы можете также использовать SQL выражения. Вы должны использовать формат массива для использования
@@ -87,7 +87,7 @@ $query->select(["CONCAT(first_name, ' ', last_name) AS full_name", 'email']);
 ```
 
 Начиная с версии 2.0.1, вы также можете использовать подзапросы. Вы должны указывать каждый подзапрос в выражении как
-объект [[yii\db\Query]]. Например,
+объект [[Yiisoft\Db\Query]]. Например,
  
 ```php
 $subQuery = (new Query())->select('COUNT(*)')->from('user');
@@ -96,14 +96,14 @@ $subQuery = (new Query())->select('COUNT(*)')->from('user');
 $query = (new Query())->select(['id', 'count' => $subQuery])->from('post');
 ```
 
-Чтоб выбрать конкретные строки, вы можете вызвать метод [[yii\db\Query::distinct()|distinct()]]:
+Чтоб выбрать конкретные строки, вы можете вызвать метод [[Yiisoft\Db\Query::distinct()|distinct()]]:
 
 ```php
 // SELECT DISTINCT `user_id` ...
 $query->select('user_id')->distinct();
 ```
 
-Вы можете вызвать [[yii\db\Query::addSelect()|addSelect()]] для добавления полей. Например,
+Вы можете вызвать [[Yiisoft\Db\Query::addSelect()|addSelect()]] для добавления полей. Например,
 
 ```php
 $query->select(['id', 'username'])
@@ -111,9 +111,9 @@ $query->select(['id', 'username'])
 ```
 
 
-### [[yii\db\Query::from()|from()]] <span id="from"></span>
+### [[Yiisoft\Db\Query::from()|from()]] <span id="from"></span>
 
-Метод [[yii\db\Query::from()|from()]] указывает фрагмент `FROM` SQL запроса. Например,
+Метод [[Yiisoft\Db\Query::from()|from()]] указывает фрагмент `FROM` SQL запроса. Например,
 
 ```php
 // SELECT * FROM `user`
@@ -137,7 +137,7 @@ $query->from('public.user u, public.post p');
 $query->from(['u' => 'public.user', 'p' => 'public.post']);
 ```
 
-Кроме имён таблиц, вы можете так же, как и в select, указывать подзапросы в виде объекта [[yii\db\Query]].
+Кроме имён таблиц, вы можете так же, как и в select, указывать подзапросы в виде объекта [[Yiisoft\Db\Query]].
 
 ```php
 $subQuery = (new Query())->select('id')->from('user')->where('status=1');
@@ -148,12 +148,12 @@ $query->from(['u' => $subQuery]);
 
 #### Префиксы
 
-Также может применяться [[yii\db\Connection::$tablePrefix|tablePrefix]] по умолчанию. Подробное описание смотрите
+Также может применяться [[Yiisoft\Db\Connection::$tablePrefix|tablePrefix]] по умолчанию. Подробное описание смотрите
 в подразделе [«Экранирование имён таблиц и столбцов» раздела «Объекты доступа к данным (DAO)»](guide-db-dao.html#quoting-table-and-column-names).
 
-### [[yii\db\Query::where()|where()]] <span id="where"></span>
+### [[Yiisoft\Db\Query::where()|where()]] <span id="where"></span>
 
-Метод [[yii\db\Query::where()|where()]] определяет фрагмент `WHERE` SQL выражения. Вы можете использовать один из
+Метод [[Yiisoft\Db\Query::where()|where()]] определяет фрагмент `WHERE` SQL выражения. Вы можете использовать один из
 трёх форматов:
 
 - строковый формат, Например, `'status=1'`
@@ -180,8 +180,8 @@ $query->where('status=:status', [':status' => $status]);
 $query->where("status=$status");
 ```
 
-При использовании привязки параметров, вы можете вызывать [[yii\db\Query::params()|params()]] или
-[[yii\db\Query::addParams()|addParams()]] для раздельного указания параметров.
+При использовании привязки параметров, вы можете вызывать [[Yiisoft\Db\Query::params()|params()]] или
+[[Yiisoft\Db\Query::addParams()|addParams()]] для раздельного указания параметров.
 
 ```php
 $query->where('status=:status')
@@ -287,7 +287,7 @@ $query->where([$column => $value]);
 
 - `or not like`: похож на оператор `not like`, только утверждения `NOT LIKE` будут объединены с помощью `OR`.
 
-- `exists`: требует один операнд, который должен быть экземпляром [[yii\db\Query]] представляющим подзапрос. Будет
+- `exists`: требует один операнд, который должен быть экземпляром [[Yiisoft\Db\Query]] представляющим подзапрос. Будет
   сгенерировано выражение `EXISTS (sub-query)`.
 
 - `not exists`: похож на оператор `exists` и сформирует выражение `NOT EXISTS (sub-query)`.
@@ -312,7 +312,7 @@ $query->where(['=', $column, $value]);
 
 #### Добавление условий <span id="appending-conditions"></span>
 
-Вы можете использовать [[yii\db\Query::andWhere()|andWhere()]] или [[yii\db\Query::orWhere()|orWhere()]] для добавления
+Вы можете использовать [[Yiisoft\Db\Query::andWhere()|andWhere()]] или [[Yiisoft\Db\Query::orWhere()|orWhere()]] для добавления
 дополнительных условий. Вы можете использовать эти вызовы несколько раз для добавления нескольких условий.
 Например,
 
@@ -339,7 +339,7 @@ WHERE (`status` = 10) AND (`title` LIKE '%yii%')
 Когда условие `WHERE` формируется на основе пользовательского ввода, обычно, хочется проигнорировать не заданные значения.
 Например, в форме поиска, которая позволяет осуществлять поиск по имени пользователя или email, вы хотели бы игнорировать
 username/email условие, если пользователь ничего не ввёл в поле ввода. Вы можете достичь этого используя метод
-[[yii\db\Query::filterWhere()|filterWhere()]].
+[[Yiisoft\Db\Query::filterWhere()|filterWhere()]].
 
 ```php
 // $username и $email вводит пользователь
@@ -349,20 +349,20 @@ $query->filterWhere([
 ]);
 ```
 
-Единственное отличие между [[yii\db\Query::filterWhere()|filterWhere()]] и [[yii\db\Query::where()|where()]] 
+Единственное отличие между [[Yiisoft\Db\Query::filterWhere()|filterWhere()]] и [[Yiisoft\Db\Query::where()|where()]] 
 заключается в игнорировании пустых значений, переданных в условие в [форме массива](#hash-format). Таким образом
 если `$email` будет пустым, а `$username` нет, то приведённый выше код сформирует условие `WHERE username=:username`.
 
 > Info: значение признаётся пустым, если это `null`, пустой массив, пустая строка или строка состоящая из одних пробельных символов.
 
-Также вместо [[yii\db\Query::andWhere()|andWhere()]] и [[yii\db\Query::orWhere()|orWhere()]], вы можете использовать
-[[yii\db\Query::andFilterWhere()|andFilterWhere()]] и [[yii\db\Query::orFilterWhere()|orFilterWhere()]]
+Также вместо [[Yiisoft\Db\Query::andWhere()|andWhere()]] и [[Yiisoft\Db\Query::orWhere()|orWhere()]], вы можете использовать
+[[Yiisoft\Db\Query::andFilterWhere()|andFilterWhere()]] и [[Yiisoft\Db\Query::orFilterWhere()|orFilterWhere()]]
 для добавления дополнительных условий фильтрации.
 
 
-### [[yii\db\Query::orderBy()|orderBy()]] <span id="order-by"></span>
+### [[Yiisoft\Db\Query::orderBy()|orderBy()]] <span id="order-by"></span>
 
-Метод [[yii\db\Query::orderBy()|orderBy()]] определяет фрагмент `ORDER BY` SQL выражения. Например,
+Метод [[Yiisoft\Db\Query::orderBy()|orderBy()]] определяет фрагмент `ORDER BY` SQL выражения. Например,
  
 ```php
 // ... ORDER BY `id` ASC, `name` DESC
@@ -384,7 +384,7 @@ $query->orderBy('id ASC, name DESC');
 
 > Note: Вы должны использовать массив для указания `ORDER BY` содержащих выражения БД.
 
-Вы можете вызывать [[yii\db\Query::addOrderBy()|addOrderBy()]] для добавления столбцов в фрагмент `ORDER BY`.
+Вы можете вызывать [[Yiisoft\Db\Query::addOrderBy()|addOrderBy()]] для добавления столбцов в фрагмент `ORDER BY`.
 
 ```php
 $query->orderBy('id ASC')
@@ -392,9 +392,9 @@ $query->orderBy('id ASC')
 ```
 
 
-### [[yii\db\Query::groupBy()|groupBy()]] <span id="group-by"></span>
+### [[Yiisoft\Db\Query::groupBy()|groupBy()]] <span id="group-by"></span>
 
-Метод [[yii\db\Query::groupBy()|groupBy()]] определяет фрагмент `GROUP BY` SQL запроса.
+Метод [[Yiisoft\Db\Query::groupBy()|groupBy()]] определяет фрагмент `GROUP BY` SQL запроса.
 
 ```php
 // ... GROUP BY `id`, `status`
@@ -410,7 +410,7 @@ $query->groupBy('id, status');
 
 > Note: Вы должны использовать массив для указания `GROUP BY` содержащих выражения БД.
  
-Вы можете вызывать [[yii\db\Query::addGroupBy()|addGroupBy()]] для добавления имён столбцов в фрагмент `GROUP BY`.
+Вы можете вызывать [[Yiisoft\Db\Query::addGroupBy()|addGroupBy()]] для добавления имён столбцов в фрагмент `GROUP BY`.
 For example,
 
 ```php
@@ -419,9 +419,9 @@ $query->groupBy(['id', 'status'])
 ```
 
 
-### [[yii\db\Query::having()|having()]] <span id="having"></span>
+### [[Yiisoft\Db\Query::having()|having()]] <span id="having"></span>
 
-Метод [[yii\db\Query::having()|having()]] определяет фрагмент `HAVING` SQL запроса. Он принимает условия, которое
+Метод [[Yiisoft\Db\Query::having()|having()]] определяет фрагмент `HAVING` SQL запроса. Он принимает условия, которое
 может быть определено тем же способом, что и для [where()](#where).
 
 ```php
@@ -431,7 +431,7 @@ $query->having(['status' => 1]);
 
 Пожалуйста, обратитесь к документации для [where()](#where) для более подробной информации о определении условий.
 
-Вы можете вызывать [[yii\db\Query::andHaving()|andHaving()]] или [[yii\db\Query::orHaving()|orHaving()]] для добавления
+Вы можете вызывать [[Yiisoft\Db\Query::andHaving()|andHaving()]] или [[Yiisoft\Db\Query::orHaving()|orHaving()]] для добавления
 дополнительных условий в фрагмент `HAVING`.
 
 ```php
@@ -441,9 +441,9 @@ $query->having(['status' => 1])
 ```
 
 
-### [[yii\db\Query::limit()|limit()]] и [[yii\db\Query::offset()|offset()]] <span id="limit-offset"></span>
+### [[Yiisoft\Db\Query::limit()|limit()]] и [[Yiisoft\Db\Query::offset()|offset()]] <span id="limit-offset"></span>
 
-Методы [[yii\db\Query::limit()|limit()]] и [[yii\db\Query::offset()|offset()]] определяют фрагменты `LIMIT`
+Методы [[Yiisoft\Db\Query::limit()|limit()]] и [[Yiisoft\Db\Query::offset()|offset()]] определяют фрагменты `LIMIT`
 и `OFFSET` SQL запроса.
  
 ```php
@@ -457,16 +457,16 @@ $query->limit(10)->offset(20);
   генерировать SQL выражения, которые эмулирует поведение `LIMIT`/`OFFSET`.
 
 
-### [[yii\db\Query::join()|join()]] <span id="join"></span>
+### [[Yiisoft\Db\Query::join()|join()]] <span id="join"></span>
 
-Метод [[yii\db\Query::join()|join()]] определяет фрагмент `JOIN` SQL запроса.
+Метод [[Yiisoft\Db\Query::join()|join()]] определяет фрагмент `JOIN` SQL запроса.
  
 ```php
 // ... LEFT JOIN `post` ON `post`.`user_id` = `user`.`id`
 $query->join('LEFT JOIN', 'post', 'post.user_id = user.id');
 ```
 
-Метод [[yii\db\Query::join()|join()]] принимает четыре параметра:
+Метод [[Yiisoft\Db\Query::join()|join()]] принимает четыре параметра:
  
 - `$type`: тип объединения, например, `'INNER JOIN'`, `'LEFT JOIN'`.
 - `$table`: имя таблицы, которая должна быть присоединена.
@@ -478,9 +478,9 @@ $query->join('LEFT JOIN', 'post', 'post.user_id = user.id');
 
 Вы можете использовать следующие сокращающие методы для указания `INNER JOIN`, `LEFT JOIN` и `RIGHT JOIN`, в указанном порядке.
 
-- [[yii\db\Query::innerJoin()|innerJoin()]]
-- [[yii\db\Query::leftJoin()|leftJoin()]]
-- [[yii\db\Query::rightJoin()|rightJoin()]]
+- [[Yiisoft\Db\Query::innerJoin()|innerJoin()]]
+- [[Yiisoft\Db\Query::leftJoin()|leftJoin()]]
+- [[Yiisoft\Db\Query::rightJoin()|rightJoin()]]
 
 Например,
 
@@ -491,27 +491,27 @@ $query->leftJoin('post', 'post.user_id = user.id');
 Для соединения с несколькими таблицами, вызовите вышеуказанные методы несколько раз.
 
 Кроме соединения с таблицами, вы можете также присоединять подзапросы. Чтобы это сделать, укажите объединяемый подзапрос
-как объект [[yii\db\Query]].
+как объект [[Yiisoft\Db\Query]].
 
 ```php
-$subQuery = (new \yii\db\Query())->from('post');
+$subQuery = (new \Yiisoft\Db\Query())->from('post');
 $query->leftJoin(['u' => $subQuery], 'u.id = author_id');
 ```
 
 В этом случае, вы должны передать подзапросы в массиве и использовать ключи для определения алиасов.
 
 
-### [[yii\db\Query::union()|union()]] <span id="union"></span>
+### [[Yiisoft\Db\Query::union()|union()]] <span id="union"></span>
 
-Метод [[yii\db\Query::union()|union()]] определяет фрагмент `UNION` SQL запроса.
+Метод [[Yiisoft\Db\Query::union()|union()]] определяет фрагмент `UNION` SQL запроса.
 
 ```php
-$query1 = (new \yii\db\Query())
+$query1 = (new \Yiisoft\Db\Query())
     ->select("id, category_id AS type, name")
     ->from('post')
     ->limit(10);
 
-$query2 = (new \yii\db\Query())
+$query2 = (new \Yiisoft\Db\Query())
     ->select('id, type, name')
     ->from('user')
     ->limit(10);
@@ -519,69 +519,69 @@ $query2 = (new \yii\db\Query())
 $query1->union($query2);
 ```
 
-Вы можете вызвать [[yii\db\Query::union()|union()]] несколько раз для присоединения фрагментов `UNION`. 
+Вы можете вызвать [[Yiisoft\Db\Query::union()|union()]] несколько раз для присоединения фрагментов `UNION`. 
 
 
 ## Методы выборки <span id="query-methods"></span>
 
-[[yii\db\Query]] предоставляет целый набор методов для разных вариантов выборки:
+[[Yiisoft\Db\Query]] предоставляет целый набор методов для разных вариантов выборки:
 
-- [[yii\db\Query::all()|all()]]: возвращает массив строк, каждая из которых это ассоциативный массив пар ключ-значение.
-- [[yii\db\Query::one()|one()]]: возвращает первую строку запроса.
-- [[yii\db\Query::column()|column()]]: возвращает первый столбец результата.
-- [[yii\db\Query::scalar()|scalar()]]: возвращает скалярное значение первого столбца первой строки результата.
-- [[yii\db\Query::exists()|exists()]]: возвращает значение указывающее, что выборка содержит результат.
-- [[yii\db\Query::count()|count()]]: возвращает результат `COUNT` запроса.
-- Другие методы агрегирования запросов, включая [[yii\db\Query::sum()|sum($q)]], [[yii\db\Query::average()|average($q)]],
-  [[yii\db\Query::max()|max($q)]], [[yii\db\Query::min()|min($q)]]. Параметр `$q` обязателен для этих методов и могут
+- [[Yiisoft\Db\Query::all()|all()]]: возвращает массив строк, каждая из которых это ассоциативный массив пар ключ-значение.
+- [[Yiisoft\Db\Query::one()|one()]]: возвращает первую строку запроса.
+- [[Yiisoft\Db\Query::column()|column()]]: возвращает первый столбец результата.
+- [[Yiisoft\Db\Query::scalar()|scalar()]]: возвращает скалярное значение первого столбца первой строки результата.
+- [[Yiisoft\Db\Query::exists()|exists()]]: возвращает значение указывающее, что выборка содержит результат.
+- [[Yiisoft\Db\Query::count()|count()]]: возвращает результат `COUNT` запроса.
+- Другие методы агрегирования запросов, включая [[Yiisoft\Db\Query::sum()|sum($q)]], [[Yiisoft\Db\Query::average()|average($q)]],
+  [[Yiisoft\Db\Query::max()|max($q)]], [[Yiisoft\Db\Query::min()|min($q)]]. Параметр `$q` обязателен для этих методов и могут
   содержать либо имя столбца, либо выражение БД.
 
 Например,
 
 ```php
 // SELECT `id`, `email` FROM `user`
-$rows = (new \yii\db\Query())
+$rows = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->all();
     
 // SELECT * FROM `user` WHERE `username` LIKE `%test%`
-$row = (new \yii\db\Query())
+$row = (new \Yiisoft\Db\Query())
     ->from('user')
     ->where(['like', 'username', 'test'])
     ->one();
 ```
 
-> Note: метод [[yii\db\Query::one()|one()]] вернёт только первую строку результата запроса. Он НЕ добавляет
+> Note: метод [[Yiisoft\Db\Query::one()|one()]] вернёт только первую строку результата запроса. Он НЕ добавляет
   `LIMIT 1` в генерируемый SQL. Это хорошо и предпочтительно если вы знаете, что запрос вернёт только одну или несколько
   строк данных (например, при запросе по первичному ключу). Однако, если запрос потенциально может вернут много
   строк данных, вы должны вызвать `limit(1)` для повышения производительности, Например, 
-  `(new \yii\db\Query())->from('user')->limit(1)->one()`.
+  `(new \Yiisoft\Db\Query())->from('user')->limit(1)->one()`.
 
-Все методы выборки могут получать необязательный параметр `$db`, представляющий [[yii\db\Connection|соединение с БД]],
+Все методы выборки могут получать необязательный параметр `$db`, представляющий [[Yiisoft\Db\Connection|соединение с БД]],
 которое должно использоваться, чтобы выполнить запрос к БД. Если вы упускаете этот параметр, будет использоваться
 [компонент приложения](structure-application-components.md) `$db`. Ниже приведён ещё один пример использования метода
-[[yii\db\Query::count()|count()]]:
+[[Yiisoft\Db\Query::count()|count()]]:
 
 ```php
 // executes SQL: SELECT COUNT(*) FROM `user` WHERE `last_name`=:last_name
-$count = (new \yii\db\Query())
+$count = (new \Yiisoft\Db\Query())
     ->from('user')
     ->where(['last_name' => 'Smith'])
     ->count();
 ```
 
-При вызове методов выборки [[yii\db\Query]], внутри на самом деле проводится следующая работа:
+При вызове методов выборки [[Yiisoft\Db\Query]], внутри на самом деле проводится следующая работа:
 
-* Вызывается [[yii\db\QueryBuilder]] для генерации SQL запроса на основе текущего [[yii\db\Query]];
-* Создаёт объект [[yii\db\Command]] с сгенерированным SQL запросом;
-* Вызывается выбирающий метод (например [[yii\db\Command::queryAll()|queryAll()]]) из [[yii\db\Command]] для выполнения SQL запроса и извлечения данных.
+* Вызывается [[Yiisoft\Db\QueryBuilder]] для генерации SQL запроса на основе текущего [[Yiisoft\Db\Query]];
+* Создаёт объект [[Yiisoft\Db\Command]] с сгенерированным SQL запросом;
+* Вызывается выбирающий метод (например [[Yiisoft\Db\Command::queryAll()|queryAll()]]) из [[Yiisoft\Db\Command]] для выполнения SQL запроса и извлечения данных.
 
-Иногда вы можете захотеть увидеть или использовать SQL запрос построенный из объекта [[yii\db\Query]]. Этой цели можно
+Иногда вы можете захотеть увидеть или использовать SQL запрос построенный из объекта [[Yiisoft\Db\Query]]. Этой цели можно
 добиться с помощью следующего кода: 
 
 ```php
-$command = (new \yii\db\Query())
+$command = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->where(['last_name' => 'Smith'])
@@ -600,24 +600,24 @@ $rows = $command->queryAll();
 
 ### Индексация результатов запроса <span id="indexing-query-results"></span>
 
-При вызове [[yii\db\Query::all()|all()]] возвращается массив строк индексированный последовательными целыми числами.
+При вызове [[Yiisoft\Db\Query::all()|all()]] возвращается массив строк индексированный последовательными целыми числами.
 Иногда вам может потребоваться индексировать его по-другому, например, сделать индекс по указанному столбцу или
-значением выражения. Вы можете реализовать такое поведение через вызов [[yii\db\Query::indexBy()|indexBy()]] перед
-вызовом [[yii\db\Query::all()|all()]].
+значением выражения. Вы можете реализовать такое поведение через вызов [[Yiisoft\Db\Query::indexBy()|indexBy()]] перед
+вызовом [[Yiisoft\Db\Query::all()|all()]].
 
 ```php
 // возвращает [100 => ['id' => 100, 'username' => '...', ...], 101 => [...], 103 => [...], ...]
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->limit(10)
     ->indexBy('id')
     ->all();
 ```
 
-Для индексации по значению выражения, передайте анонимную функцию в метод [[yii\db\Query::indexBy()|indexBy()]]:
+Для индексации по значению выражения, передайте анонимную функцию в метод [[Yiisoft\Db\Query::indexBy()|indexBy()]]:
 
 ```php
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->indexBy(function ($row) {
         return $row['id'] . $row['username'];
@@ -630,14 +630,14 @@ $query = (new \yii\db\Query())
 
 ### Пакетная выборка <span id="batch-query"></span>
 
-При работе с большими объемами данных, методы на подобие [[yii\db\Query::all()]] не подходят, потому что они требуют
+При работе с большими объемами данных, методы на подобие [[Yiisoft\Db\Query::all()]] не подходят, потому что они требуют
 загрузки всех данных в память. Чтобы сохранить требования к памяти минимальными, Yii предоставляет поддержку
 так называемых пакетных выборок. Пакетная выборка делает возможным курсоры данных и выборку данных пакетами.
 
 Пакетная выборка может использоваться следующим образом:
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())
     ->from('user')
@@ -653,20 +653,20 @@ foreach ($query->each() as $user) {
 }
 ```
 
-Метод [[yii\db\Query::batch()]] и [[yii\db\Query::each()]] возвращает объект [[yii\db\BatchQueryResult]], который
+Метод [[Yiisoft\Db\Query::batch()]] и [[Yiisoft\Db\Query::each()]] возвращает объект [[Yiisoft\Db\BatchQueryResult]], который
 реализует интерфейс `Iterator` и может использоваться в конструкции `foreach`. Во время первой итерации будет выполнен
 SQL запрос к базе данных. Данные будут выбираться пакетами в следующих итерациях. По умолчанию, размер пакета имеет
 размер 100, то есть при каждой выборке будет выбираться по 100 строк. Вы можете изменить размер пакета, передав
 первый параметр в метод `batch()` или `each()`.
 
-По сравнению с [[yii\db\Query::all()]], пакетная выборка загружает только по 100 строк данных за раз в память.
+По сравнению с [[Yiisoft\Db\Query::all()]], пакетная выборка загружает только по 100 строк данных за раз в память.
 Если вы обрабатываете данные и затем сразу выбрасываете их, пакетная выборка может помочь уменьшить использование памяти.
 
-Если указать индексный столбец через [[yii\db\Query::indexBy()]], в пакетной выборке индекс будет сохранятся.
+Если указать индексный столбец через [[Yiisoft\Db\Query::indexBy()]], в пакетной выборке индекс будет сохранятся.
 Например,
 
 ```php
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->indexBy('username');
 

@@ -94,7 +94,7 @@ llamada de retorno PHP.
 $container = new \yii\di\Container;
 
 // registra un nombre de clase como tal. Puede se omitido.
-$container->set('yii\db\Connection');
+$container->set('Yiisoft\Db\Connection');
 
 // registra una interfaz
 // Cuando una clase depende de una interfaz, la clase correspondiente
@@ -103,11 +103,11 @@ $container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // registra un nombre de alias. Se puede usar $container->get('foo')
 // para crear una instancia de Connection
-$container->set('foo', 'yii\db\Connection');
+$container->set('foo', 'Yiisoft\Db\Connection');
 
 // registrar una clase con configuración. La configuración
 // se aplicara cuando la clase se instancie por get()
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -117,7 +117,7 @@ $container->set('yii\db\Connection', [
 // registra un nombre de alias con configuración de clase
 // En este caso, se requiere un elemento "clase" para especificar la clase
 $container->set('db', [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -127,7 +127,7 @@ $container->set('db', [
 // registra una llamada de retorno de PHP
 // La llamada de retorno sera ejecutada cada vez que se ejecute $container->get('db') 
 $container->set('db', function ($container, $params, $config) {
-    return new \yii\db\Connection($config);
+    return new \Yiisoft\Db\Connection($config);
 });
 
 // registra un componente instancia
@@ -142,7 +142,7 @@ Una dependencia registrada mediante `set()` generará una instancia cada vez que
 usar [[yii\di\Container::setSingleton()]] para registrar una dependencia que genere una única instancia:
 
 ```php
-$container->setSingleton('yii\db\Connection', [
+$container->setSingleton('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -186,7 +186,7 @@ una nueva instancia de `UserLister` con una simple llamada a `get('userLister')`
 namespace app\models;
 
 use yii\base\BaseObject;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\di\Container;
 
 interface UserFinderInterface
@@ -221,7 +221,7 @@ class UserLister extends BaseObject
 }
 
 $container = new Container;
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => '...',
 ]);
 $container->set('app\models\UserFinderInterface', [
@@ -233,7 +233,7 @@ $lister = $container->get('userLister');
 
 // que es equivalente a:
 
-$db = new \yii\db\Connection(['dsn' => '...']);
+$db = new \Yiisoft\Db\Connection(['dsn' => '...']);
 $finder = new UserFinder($db);
 $lister = new UserLister($finder);
 ```

@@ -65,7 +65,7 @@ yii migrate/create create_news_table
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -94,7 +94,7 @@ class m150101_185401_create_news_table extends Migration
 }
 ```
 
-每个数据库迁移都会被定义为一个继承自 [[yii\db\Migration]] 的 PHP 类。
+每个数据库迁移都会被定义为一个继承自 [[Yiisoft\Db\Migration]] 的 PHP 类。
 类的名称按照 `m<YYMMDD_HHMMSS>_<Name>` 的格式自动生成，其中
 
 * `<YYMMDD_HHMMSS>` 指执行创建迁移命令的 UTC 时间。
@@ -107,10 +107,10 @@ class m150101_185401_create_news_table extends Migration
 
 ```php
 
-use yii\db\Schema;
-use yii\db\Migration;
+use Yiisoft\Db\Schema;
+use Yiisoft\Db\Migration;
 
-class m150101_185401_create_news_table extends \yii\db\Migration
+class m150101_185401_create_news_table extends \Yiisoft\Db\Migration
 {
     public function up()
     {
@@ -134,13 +134,13 @@ class m150101_185401_create_news_table extends \yii\db\Migration
   因为它在恢复数据库迁移方面并不是那么的通用。在这种情况下，
   你应当在 `down()` 方法中返回 `false` 来表明这个 migration 是无法恢复的。
 
-migration 的基类 [[yii\db\Migration]] 通过 [[yii\db\Migration::db|db]] 属性来连接了数据库。
+migration 的基类 [[Yiisoft\Db\Migration]] 通过 [[Yiisoft\Db\Migration::db|db]] 属性来连接了数据库。
 你可以通过 [配合数据库工作](db-dao.md#working-with-database-schema-) 
 章节中所描述的那些方法来操作数据库表。
 
 当你通过 migration 创建一张表或者字段的时候，你应该使用 *抽象类型* 而不是 *实体类型*，
 这样一来你的迁移对象就可以从特定的 DBMS 当中抽离出来。
-[[yii\db\Schema]] 类定义了一整套可用的抽象类型常量。这些常量的格式为 `TYPE_<Name>`。
+[[Yiisoft\Db\Schema]] 类定义了一整套可用的抽象类型常量。这些常量的格式为 `TYPE_<Name>`。
 例如，`TYPE_PK` 指代自增主键类型；`TYPE_STRING` 指代字符串类型。
 当迁移对象被提交到某个特定的数据库的时候，这些抽象类型将会被转换成相对应的实体类型。
 以 MySQL 为例，`TYPE_PK` 将会变成 `int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY`，
@@ -150,7 +150,7 @@ migration 的基类 [[yii\db\Migration]] 通过 [[yii\db\Migration::db|db]] 属�
 `NOT NULL` 被添加到 `Schema::TYPE_STRING` 当中来指定该字段不能为空。
 
 > Tip: 抽象类型和实体类型之间的映射关系是由每个具体的 `QueryBuilder` 
-  类当中的 [[yii\db\QueryBuilder::$typeMap|$typeMap]] 属性所指定的。
+  类当中的 [[Yiisoft\Db\QueryBuilder::$typeMap|$typeMap]] 属性所指定的。
   
 Since version 2.0.6, you can make use of the newly introduced schema builder which provides more convenient way of defining column schema.
 So the migration above could be written like the following:
@@ -158,7 +158,7 @@ So the migration above could be written like the following:
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -178,7 +178,7 @@ class m150101_185401_create_news_table extends Migration
 }
 ```
 
-A list of all available methods for defining the column types is available in the API documentation of [[yii\db\SchemaBuilderTrait]].
+A list of all available methods for defining the column types is available in the API documentation of [[Yiisoft\Db\SchemaBuilderTrait]].
 
 
 ## Generating Migrations <span id="generating-migrations"></span>
@@ -616,8 +616,8 @@ class m160328_041642_create_junction_post_and_tag extends Migration
 
 ```php
 
-use yii\db\Schema;
-use yii\db\Migration;
+use Yiisoft\Db\Schema;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -654,42 +654,42 @@ class m150101_185401_create_news_table extends Migration
 
 ### 访问数据库的方法 <span id="db-accessing-methods"></span>
 
-迁移的基类 [[yii\db\Migration]] 提供了一整套访问和操作数据库的方法。
-你可能会发现这些方法的命名和 [[yii\db\Command]] 类提供的 [DAO 方法](db-dao.md) 很类似。
-例如，[[yii\db\Migration::createTable()]] 方法可以创建一张新的表，
-这和 [[yii\db\Command::createTable()]] 的功能是一模一样的。
+迁移的基类 [[Yiisoft\Db\Migration]] 提供了一整套访问和操作数据库的方法。
+你可能会发现这些方法的命名和 [[Yiisoft\Db\Command]] 类提供的 [DAO 方法](db-dao.md) 很类似。
+例如，[[Yiisoft\Db\Migration::createTable()]] 方法可以创建一张新的表，
+这和 [[Yiisoft\Db\Command::createTable()]] 的功能是一模一样的。
 
-使用 [[yii\db\Migration]] 所提供的方法的好处在于你不需要再显式的创建 [[yii\db\Command]] 实例，
+使用 [[Yiisoft\Db\Migration]] 所提供的方法的好处在于你不需要再显式的创建 [[Yiisoft\Db\Command]] 实例，
 而且在执行每个方法的时候都会显示一些有用的信息来告诉我们数据库操作是不是都已经完成，
 还有它们完成这些操作花了多长时间等等。
 
 如下是所有这些数据库访问方法的列表：
 
-* [[yii\db\Migration::execute()|execute()]]: 执行一条 SQL 语句
-* [[yii\db\Migration::insert()|insert()]]: 插入单行数据
-* [[yii\db\Migration::batchInsert()|batchInsert()]]: 插入多行数据
-* [[yii\db\Migration::update()|update()]]: 更新数据
-* [[yii\db\Migration::delete()|delete()]]: 删除数据
-* [[yii\db\Migration::createTable()|createTable()]]: 创建表
-* [[yii\db\Migration::renameTable()|renameTable()]]: 重命名表名
-* [[yii\db\Migration::dropTable()|dropTable()]]: 删除一张表
-* [[yii\db\Migration::truncateTable()|truncateTable()]]: 清空表中的所有数据
-* [[yii\db\Migration::addColumn()|addColumn()]]: 加一个字段
-* [[yii\db\Migration::renameColumn()|renameColumn()]]: 重命名字段名称
-* [[yii\db\Migration::dropColumn()|dropColumn()]]: 删除一个字段
-* [[yii\db\Migration::alterColumn()|alterColumn()]]: 修改字段
-* [[yii\db\Migration::addPrimaryKey()|addPrimaryKey()]]: 添加一个主键
-* [[yii\db\Migration::dropPrimaryKey()|dropPrimaryKey()]]: 删除一个主键
-* [[yii\db\Migration::addForeignKey()|addForeignKey()]]: 添加一个外键
-* [[yii\db\Migration::dropForeignKey()|dropForeignKey()]]: 删除一个外键
-* [[yii\db\Migration::createIndex()|createIndex()]]: 创建一个索引
-* [[yii\db\Migration::dropIndex()|dropIndex()]]: 删除一个索引
-* [[yii\db\Migration::addCommentOnColumn()|addCommentOnColumn()]]: adding comment to column
-* [[yii\db\Migration::dropCommentFromColumn()|dropCommentFromColumn()]]: dropping comment from column
-* [[yii\db\Migration::addCommentOnTable()|addCommentOnTable()]]: adding comment to table
-* [[yii\db\Migration::dropCommentFromTable()|dropCommentFromTable()]]: dropping comment from table
+* [[Yiisoft\Db\Migration::execute()|execute()]]: 执行一条 SQL 语句
+* [[Yiisoft\Db\Migration::insert()|insert()]]: 插入单行数据
+* [[Yiisoft\Db\Migration::batchInsert()|batchInsert()]]: 插入多行数据
+* [[Yiisoft\Db\Migration::update()|update()]]: 更新数据
+* [[Yiisoft\Db\Migration::delete()|delete()]]: 删除数据
+* [[Yiisoft\Db\Migration::createTable()|createTable()]]: 创建表
+* [[Yiisoft\Db\Migration::renameTable()|renameTable()]]: 重命名表名
+* [[Yiisoft\Db\Migration::dropTable()|dropTable()]]: 删除一张表
+* [[Yiisoft\Db\Migration::truncateTable()|truncateTable()]]: 清空表中的所有数据
+* [[Yiisoft\Db\Migration::addColumn()|addColumn()]]: 加一个字段
+* [[Yiisoft\Db\Migration::renameColumn()|renameColumn()]]: 重命名字段名称
+* [[Yiisoft\Db\Migration::dropColumn()|dropColumn()]]: 删除一个字段
+* [[Yiisoft\Db\Migration::alterColumn()|alterColumn()]]: 修改字段
+* [[Yiisoft\Db\Migration::addPrimaryKey()|addPrimaryKey()]]: 添加一个主键
+* [[Yiisoft\Db\Migration::dropPrimaryKey()|dropPrimaryKey()]]: 删除一个主键
+* [[Yiisoft\Db\Migration::addForeignKey()|addForeignKey()]]: 添加一个外键
+* [[Yiisoft\Db\Migration::dropForeignKey()|dropForeignKey()]]: 删除一个外键
+* [[Yiisoft\Db\Migration::createIndex()|createIndex()]]: 创建一个索引
+* [[Yiisoft\Db\Migration::dropIndex()|dropIndex()]]: 删除一个索引
+* [[Yiisoft\Db\Migration::addCommentOnColumn()|addCommentOnColumn()]]: adding comment to column
+* [[Yiisoft\Db\Migration::dropCommentFromColumn()|dropCommentFromColumn()]]: dropping comment from column
+* [[Yiisoft\Db\Migration::addCommentOnTable()|addCommentOnTable()]]: adding comment to table
+* [[Yiisoft\Db\Migration::dropCommentFromTable()|dropCommentFromTable()]]: dropping comment from table
 
-> Tip: [[yii\db\Migration]] 并没有提供数据库的查询方法。
+> Tip: [[Yiisoft\Db\Migration]] 并没有提供数据库的查询方法。
   这是因为通常你是不需要去数据库把数据一行一行查出来再显示出来的。
   另外一个原因是你完全可以使用强大的 [Query Builder 查询构建器](db-query-builder.md) 来构建和查询。  
 
@@ -901,7 +901,7 @@ yii migrate --db=db2
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -919,7 +919,7 @@ class m150101_185401_create_news_table extends Migration
 如果有多个迁移都使用到了同一个数据库，那么建议你创建一个迁移的基类，里面包含上述的 `init()` 代码。
 然后每个迁移类都继承这个基类就可以了。
 
-> Tip: 除了在 [[yii\db\Migration::db|db]] 参数当中进行设置以外， 
+> Tip: 除了在 [[Yiisoft\Db\Migration::db|db]] 参数当中进行设置以外， 
   你还可以通过在迁移类中创建新的数据库连接来操作不同的数据库。
   然后通过这些连接再使用 [DAO 方法](db-dao.md) 来操作不同的数据库。
 

@@ -59,7 +59,7 @@ Si un comportamiento necesita responder a los acontecimientos desencadenados por
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior
@@ -81,7 +81,7 @@ class MyBehavior extends Behavior
 ```
 
 El método [[yii\base\Behavior::events()|events()]] debe devolver una lista de eventos y sus correspondientes controladores.
-El ejemplo anterior declara que el evento [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] existe y esta  exists y define su controlador, `beforeValidate()`. Al especificar un controlador de eventos, puede utilizar uno de los siguientes formatos:
+El ejemplo anterior declara que el evento [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] existe y esta  exists y define su controlador, `beforeValidate()`. Al especificar un controlador de eventos, puede utilizar uno de los siguientes formatos:
 
 * una cadena que se refiere al nombre de un método de la clase del comportamiento, como el ejemplo anterior
 * un arreglo de objeto o nombre de clase, y un nombre de método como una cadena (sin paréntesis), ej., `[$object, 'methodName']`;
@@ -107,7 +107,7 @@ Cada configuración de comportamiento puede ser un nombre de clase de comportami
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use app\components\MyBehavior;
 
 class User extends ActiveRecord
@@ -251,15 +251,15 @@ Utilizando `TimestampBehavior` <span id="using-timestamp-behavior"></span>
 -----------------------------
 
 Para terminar, vamos a echar un vistazo a [[yii\behaviors\TimestampBehavior]]. Este comportamiento soporta de forma
-automática la actualización de atributos timestamp de un modelo [[yii\db\ActiveRecord|Registro Activo]]
+automática la actualización de atributos timestamp de un modelo [[Yiisoft\Db\ActiveRecord|Registro Activo]]
 (Active Record) en cualquier momento donde se guarda el modelo (ej., en la inserción o actualización).
 
-Primero, vincula este comportamiento a la clase [[yii\db\ActiveRecord|Active Record]] que desees utilizar.
+Primero, vincula este comportamiento a la clase [[Yiisoft\Db\ActiveRecord|Active Record]] que desees utilizar.
 
 ```php
 namespace app\models\User;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord

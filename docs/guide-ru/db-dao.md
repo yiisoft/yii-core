@@ -25,10 +25,10 @@ Yii DAO из коробки поддерживает следующие базы
 
 ## Создание подключения к базе данных <span id="creating-db-connections"></span>
 
-Для доступа к базе данных, вы сначала должны подключится к ней, создав экземпляр класса [[yii\db\Connection]]:
+Для доступа к базе данных, вы сначала должны подключится к ней, создав экземпляр класса [[Yiisoft\Db\Connection]]:
 
 ```php
-$db = new yii\db\Connection([
+$db = new Yiisoft\Db\Connection([
     'dsn' => 'mysql:host=localhost;dbname=example',
     'username' => 'root',
     'password' => '',
@@ -45,7 +45,7 @@ return [
     'components' => [
         // ...
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=example',
             'username' => 'root',
             'password' => '',
@@ -60,7 +60,7 @@ return [
 
 > Tip: Вы можете настроить несколько компонентов подключения, если в вашем приложении используется несколько баз данных.
 
-При настройке подключения, вы должны обязательно указывать Имя Источника Данных (DSN) через параметр [[yii\db\Connection::dsn|dsn]].
+При настройке подключения, вы должны обязательно указывать Имя Источника Данных (DSN) через параметр [[Yiisoft\Db\Connection::dsn|dsn]].
 Формат DSN отличается для разных баз данных. Дополнительное описание смотрите в [справочнике PHP](http://php.net/manual/ru/pdo.construct.php).
 Ниже представлены несколько примеров:
  
@@ -72,12 +72,12 @@ return [
 * MS SQL Server (via mssql driver): `mssql:host=localhost;dbname=mydatabase`
 * Oracle: `oci:dbname=//localhost:1521/mydatabase`
 
-Заметьте, что если вы подключаетесь к базе данных через ODBC, вам необходимо указать свойство [[yii\db\Connection::driverName]],
+Заметьте, что если вы подключаетесь к базе данных через ODBC, вам необходимо указать свойство [[Yiisoft\Db\Connection::driverName]],
 чтобы Yii знал какой тип базы данных используется. Например,
 
 ```php
 'db' => [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'driverName' => 'mysql',
     'dsn' => 'odbc:Driver={MySQL};Server=localhost;Database=test',
     'username' => 'root',
@@ -85,15 +85,15 @@ return [
 ],
 ```
 
-Кроме свойства [[yii\db\Connection::dsn|dsn]], вам необходимо указать [[yii\db\Connection::username|username]]
-и [[yii\db\Connection::password|password]]. Смотрите [[yii\db\Connection]] для того, чтоб посмотреть полный список свойств. 
+Кроме свойства [[Yiisoft\Db\Connection::dsn|dsn]], вам необходимо указать [[Yiisoft\Db\Connection::username|username]]
+и [[Yiisoft\Db\Connection::password|password]]. Смотрите [[Yiisoft\Db\Connection]] для того, чтоб посмотреть полный список свойств. 
 
 > Info: При создании экземпляра соединения к БД, фактическое соединение с базой данных будет установлено только
-  при выполнении первого SQL запроса или при явном вызове метода [[yii\db\Connection::open()|open()]].
+  при выполнении первого SQL запроса или при явном вызове метода [[Yiisoft\Db\Connection::open()|open()]].
 
 > Tip: Иногда может потребоваться выполнить некоторые запросы сразу после соединения с базой данных, для инициализации
 > переменных окружения. Например, чтобы задать часовой пояс или кодировку. Сделать это можно зарегистрировав обработчик
-> для события [[yii\db\Connection::EVENT_AFTER_OPEN|afterOpen]] в конфигурации приложения:
+> для события [[Yiisoft\Db\Connection::EVENT_AFTER_OPEN|afterOpen]] в конфигурации приложения:
 > 
 > ```php
 > 'db' => [
@@ -109,9 +109,9 @@ return [
 
 После создания экземпляра соединения, вы можете выполнить SQL запрос, выполнив следующие шаги:
  
-1. Создать [[yii\db\Command]] из запроса SQL;
+1. Создать [[Yiisoft\Db\Command]] из запроса SQL;
 2. Привязать параметры (не обязательно);
-3. Вызвать один из методов выполнения SQL из [[yii\db\Command]].
+3. Вызвать один из методов выполнения SQL из [[Yiisoft\Db\Command]].
 
 Следующий пример показывает различные способы получения данных из базы дынных:
  
@@ -154,9 +154,9 @@ $post = Yii::$app->db->createCommand('SELECT * FROM post WHERE id=:id AND status
 В SQL запрос, вы можете встраивать один или несколько маркеров (например `:id` в примере выше). Маркеры должны быть 
 строкой, начинающейся с двоеточия. Далее вам нужно вызвать один из следующих методов для привязки значений к параметрам:
 
-* [[yii\db\Command::bindValue()|bindValue()]]: привязка одного параметра по значению 
-* [[yii\db\Command::bindValues()|bindValues()]]: привязка нескольких параметров в одном вызове
-* [[yii\db\Command::bindParam()|bindParam()]]: похоже на [[yii\db\Command::bindValue()|bindValue()]], но привязка
+* [[Yiisoft\Db\Command::bindValue()|bindValue()]]: привязка одного параметра по значению 
+* [[Yiisoft\Db\Command::bindValues()|bindValues()]]: привязка нескольких параметров в одном вызове
+* [[Yiisoft\Db\Command::bindParam()|bindParam()]]: похоже на [[Yiisoft\Db\Command::bindValue()|bindValue()]], но привязка
   происходит по ссылке.
 
 Следующий пример показывает альтернативный путь привязки параметров:
@@ -184,7 +184,7 @@ $post2 = $command->bindValue(':id', 2)->queryOne();
 // ...
 ```
 
-Так как [[yii\db\Command::bindParam()|bindParam()]] поддерживает привязку параметров по ссылке, следующий код может
+Так как [[Yiisoft\Db\Command::bindParam()|bindParam()]] поддерживает привязку параметров по ссылке, следующий код может
 быть написан следующим образом:
 
 ```php
@@ -206,17 +206,17 @@ $post2 = $command->queryOne();
 ### Выполнение Не-SELECT запросов <span id="non-select-queries"></span>
 
 В методах `queryXyz()`, описанных в предыдущих разделах, вызываются SELECT запросы для извлечения данных из базы.
-Для запросов не возвращающих данные, вы должны использовать метод [[yii\db\Command::execute()]]. Например,
+Для запросов не возвращающих данные, вы должны использовать метод [[Yiisoft\Db\Command::execute()]]. Например,
 
 ```php
 Yii::$app->db->createCommand('UPDATE post SET status=1 WHERE id=1')
    ->execute();
 ```
 
-Метод [[yii\db\Command::execute()]] возвращает количество строк обработанных SQL запросом.
+Метод [[Yiisoft\Db\Command::execute()]] возвращает количество строк обработанных SQL запросом.
 
-Для запросов INSERT, UPDATE и DELETE, вместо написания чистого SQL, вы можете вызвать методы [[yii\db\Command::insert()|insert()]],
-[[yii\db\Command::update()|update()]], [[yii\db\Command::delete()|delete()]], соответственно, для создания указанных
+Для запросов INSERT, UPDATE и DELETE, вместо написания чистого SQL, вы можете вызвать методы [[Yiisoft\Db\Command::insert()|insert()]],
+[[Yiisoft\Db\Command::update()|update()]], [[Yiisoft\Db\Command::delete()|delete()]], соответственно, для создания указанных
 SQL конструкций. Например,
 
 ```php
@@ -233,7 +233,7 @@ Yii::$app->db->createCommand()->update('user', ['status' => 1], 'age > 30')->exe
 Yii::$app->db->createCommand()->delete('user', 'status = 0')->execute();
 ```
 
-Вы можете также вызвать [[yii\db\Command::batchInsert()|batchInsert()]] для вставки множества строк за один вызов.
+Вы можете также вызвать [[Yiisoft\Db\Command::batchInsert()|batchInsert()]] для вставки множества строк за один вызов.
 Это более эффективно чем вставлять записи по одной за раз:
 
 ```php
@@ -246,7 +246,7 @@ Yii::$app->db->createCommand()->batchInsert('user', ['name', 'age'], [
 ```
 
 Обратите внимание, что перечисленные методы лишь создают запрос. Чтобы его выполнить нужно вызывать
-[[yii\db\Command::execute()|execute()]].
+[[Yiisoft\Db\Command::execute()|execute()]].
 
 
 ## Экранирование имён таблиц и столбцов <span id="quoting-table-and-column-names"></span>
@@ -272,7 +272,7 @@ $count = Yii::$app->db->createCommand("SELECT COUNT([[id]]) FROM {{employee}}")
 
 Если большинство ваших таблиц использует общий префикс в имени, вы можете использовать свойство Yii DAO для указания префикса.
 
-Сначала, укажите префикс таблиц через свойство [[yii\db\Connection::tablePrefix]]:
+Сначала, укажите префикс таблиц через свойство [[Yiisoft\Db\Connection::tablePrefix]]:
 
 ```php
 return [
@@ -339,10 +339,10 @@ try {
 > `\Exception` реализует интерфейс [`\Throwable` interface](http://php.net/manual/ru/class.throwable.php)
 > начиная с PHP 7.0. Если вы используете только PHP 7 и новее, можете пропустить блок с `\Exception`.
 
-При вызове метода [[yii\db\Connection::beginTransaction()|beginTransaction()]], будет запущена новая транзакция.
-Транзакция представлена объектом [[yii\db\Transaction]] сохранённым в переменной `$transaction`. Потом, запросы будут
-выполняться в блоке `try...catch...`. Если запросы будут выполнены удачно, будет выполнен метод [[yii\db\Transaction::commit()|commit()]].
-Иначе, будет вызвано исключение, и будет вызван метод [[yii\db\Transaction::rollBack()|rollBack()]] для отката
+При вызове метода [[Yiisoft\Db\Connection::beginTransaction()|beginTransaction()]], будет запущена новая транзакция.
+Транзакция представлена объектом [[Yiisoft\Db\Transaction]] сохранённым в переменной `$transaction`. Потом, запросы будут
+выполняться в блоке `try...catch...`. Если запросы будут выполнены удачно, будет выполнен метод [[Yiisoft\Db\Transaction::commit()|commit()]].
+Иначе, будет вызвано исключение, и будет вызван метод [[Yiisoft\Db\Transaction::rollBack()|rollBack()]] для отката
 изменений сделанных до неудачно выполненного запроса внутри транзакции.
 
 ### Указание уровня изоляции <span id="specifying-isolation-levels"></span>
@@ -352,7 +352,7 @@ Yii поддерживает настройку [уровня изоляции] 
 указано ниже:
 
 ```php
-$isolationLevel = \yii\db\Transaction::REPEATABLE_READ;
+$isolationLevel = \Yiisoft\Db\Transaction::REPEATABLE_READ;
 
 Yii::$app->db->transaction(function ($db) {
     ....
@@ -365,10 +365,10 @@ $transaction = Yii::$app->db->beginTransaction($isolationLevel);
 
 Yii предоставляет четыре константы для наиболее распространённых уровней изоляции:
 
-- [[\yii\db\Transaction::READ_UNCOMMITTED]] - низший уровень, «Грязное» чтение, не повторяющееся чтение и фантомное чтение.
-- [[\yii\db\Transaction::READ_COMMITTED]] - предотвращает «Грязное» чтение.
-- [[\yii\db\Transaction::REPEATABLE_READ]] - предотвращает «Грязное» чтение и не повторяющееся чтение.
-- [[\yii\db\Transaction::SERIALIZABLE]] - высший уровень, предотвращает все вышеуказанные проблемы.
+- [[\Yiisoft\Db\Transaction::READ_UNCOMMITTED]] - низший уровень, «Грязное» чтение, не повторяющееся чтение и фантомное чтение.
+- [[\Yiisoft\Db\Transaction::READ_COMMITTED]] - предотвращает «Грязное» чтение.
+- [[\Yiisoft\Db\Transaction::REPEATABLE_READ]] - предотвращает «Грязное» чтение и не повторяющееся чтение.
+- [[\Yiisoft\Db\Transaction::SERIALIZABLE]] - высший уровень, предотвращает все вышеуказанные проблемы.
 
 Помимо использования приведённых выше констант для задания уровня изоляции, вы можете, также, использовать строки
 поддерживаемые вашей СУБД. Например, в PostgreSQL, вы можете использовать `SERIALIZABLE READ ONLY DEFERRABLE`.
@@ -382,7 +382,7 @@ Yii предоставляет четыре константы для наибо
 `READ UNCOMMITTED` и `SERIALIZABLE`. Использование других уровней изоляции приведёт к генерации исключения.
 
 > Note: PostgreSQL не допускает установки уровня изоляции до старта транзакции, так что вы не сможете установить
-уровень изоляции прямо при старте транзакции. Вы можете использовать [[yii\db\Transaction::setIsolationLevel()]] в
+уровень изоляции прямо при старте транзакции. Вы можете использовать [[Yiisoft\Db\Transaction::setIsolationLevel()]] в
 таком случае после старта транзакции.
 
 [Уровни изоляции]: https://ru.wikipedia.org/wiki/%D0%A3%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C_%D0%B8%D0%B7%D0%BE%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8_%D1%82%D1%80%D0%B0%D0%BD%D0%B7%D0%B0%D0%BA%D1%86%D0%B8%D0%B9
@@ -439,11 +439,11 @@ try {
 может производится и с подчинённых серверов.
 
 Чтоб воспользоваться преимуществами репликации и достичь разделения чтения и записи, вам необходимо настроить компонент
-[[yii\db\Connection]] как указано ниже:
+[[Yiisoft\Db\Connection]] как указано ниже:
 
 ```php
 [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
 
     // настройки для мастера
     'dsn' => 'dsn for master server',
@@ -485,16 +485,16 @@ $rows = Yii::$app->db->createCommand('SELECT * FROM user LIMIT 10')->queryAll();
 Yii::$app->db->createCommand("UPDATE user SET username='demo' WHERE id=1")->execute();
 ```
 
-> Info: Запросы выполненные через [[yii\db\Command::execute()]] определяются как запросы на запись, а все
-  остальные запросы через один из "query" методов [[yii\db\Command]] воспринимаются как запросы на чтение.
+> Info: Запросы выполненные через [[Yiisoft\Db\Command::execute()]] определяются как запросы на запись, а все
+  остальные запросы через один из "query" методов [[Yiisoft\Db\Command]] воспринимаются как запросы на чтение.
   Вы можете получить текущий статус соединения к подчинённому серверу через `$db->slave`.
 
 Компонент `Connection` поддерживает балансировку нагрузки и переключение при сбое для подчинённых серверов.
 При выполнении первого запроса на чтение, компонент `Connection` будет случайным образом выбирать подчинённый сервер
 и попытается подключиться к нему. Если сервер окажется "мёртвым", он попробует подключиться к другому. Если ни один
 из подчинённых серверов не будет доступен, он подключится к мастеру. Если настроить
-[[yii\db\Connection::serverStatusCache|кеш статуса серверов]], то недоступность серверов может быть запомнена, чтоб не
-использоваться в течении [[yii\db\Connection::serverRetryInterval|заданного промежутка времени]].
+[[Yiisoft\Db\Connection::serverStatusCache|кеш статуса серверов]], то недоступность серверов может быть запомнена, чтоб не
+использоваться в течении [[Yiisoft\Db\Connection::serverRetryInterval|заданного промежутка времени]].
 
 > Info: В конфигурации выше, таймаут соединения к подчинённому серверу настроен на 10 секунд.
   Это означает, что если сервер не ответит за 10 секунд, он будет считаться "мёртвым". Вы можете отрегулировать
@@ -504,7 +504,7 @@ Yii::$app->db->createCommand("UPDATE user SET username='demo' WHERE id=1")->exec
 
 ```php
 [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
 
     // общая конфигурация для основных серверов
     'masterConfig' => [
@@ -546,7 +546,7 @@ Yii::$app->db->createCommand("UPDATE user SET username='demo' WHERE id=1")->exec
 балансировку нагрузки и переключение при сбое между основными серверами, также как и между подчинёнными. Различие
 заключается в том, что когда ни к одному из основных серверов не удастся подключиться будет выброшено исключение.
 
-> Note: Когда вы используете свойство [[yii\db\Connection::masters|masters]] для настройки одного или нескольких
+> Note: Когда вы используете свойство [[Yiisoft\Db\Connection::masters|masters]] для настройки одного или нескольких
   основных серверов, все остальные свойства для настройки соединения с базой данных (такие как `dsn`, `username`, `password`)
   будут проигнорированы компонентом `Connection`.
 
@@ -596,20 +596,20 @@ $rows = Yii::$app->db->useMaster(function ($db) {
 Yii DAO предоставляет целый набор методов для управления схемой базы данных, таких как создание новых таблиц, удаление
 столбцов из таблицы, и т.д.. Эти методы описаны ниже:
 
-* [[yii\db\Command::createTable()|createTable()]]: создание таблицы
-* [[yii\db\Command::renameTable()|renameTable()]]: переименование таблицы
-* [[yii\db\Command::dropTable()|dropTable()]]: удаление таблицы
-* [[yii\db\Command::truncateTable()|truncateTable()]]: удаление всех записей в таблице
-* [[yii\db\Command::addColumn()|addColumn()]]: добавление столбца
-* [[yii\db\Command::renameColumn()|renameColumn()]]: переименование столбца
-* [[yii\db\Command::dropColumn()|dropColumn()]]: удаление столбца
-* [[yii\db\Command::alterColumn()|alterColumn()]]: преобразование столбца
-* [[yii\db\Command::addPrimaryKey()|addPrimaryKey()]]: добавление первичного ключа
-* [[yii\db\Command::dropPrimaryKey()|dropPrimaryKey()]]: удаление первичного ключа
-* [[yii\db\Command::addForeignKey()|addForeignKey()]]: добавление внешнего ключа
-* [[yii\db\Command::dropForeignKey()|dropForeignKey()]]: удаление внешнего ключа
-* [[yii\db\Command::createIndex()|createIndex()]]: создания индекса
-* [[yii\db\Command::dropIndex()|dropIndex()]]: удаление индекса
+* [[Yiisoft\Db\Command::createTable()|createTable()]]: создание таблицы
+* [[Yiisoft\Db\Command::renameTable()|renameTable()]]: переименование таблицы
+* [[Yiisoft\Db\Command::dropTable()|dropTable()]]: удаление таблицы
+* [[Yiisoft\Db\Command::truncateTable()|truncateTable()]]: удаление всех записей в таблице
+* [[Yiisoft\Db\Command::addColumn()|addColumn()]]: добавление столбца
+* [[Yiisoft\Db\Command::renameColumn()|renameColumn()]]: переименование столбца
+* [[Yiisoft\Db\Command::dropColumn()|dropColumn()]]: удаление столбца
+* [[Yiisoft\Db\Command::alterColumn()|alterColumn()]]: преобразование столбца
+* [[Yiisoft\Db\Command::addPrimaryKey()|addPrimaryKey()]]: добавление первичного ключа
+* [[Yiisoft\Db\Command::dropPrimaryKey()|dropPrimaryKey()]]: удаление первичного ключа
+* [[Yiisoft\Db\Command::addForeignKey()|addForeignKey()]]: добавление внешнего ключа
+* [[Yiisoft\Db\Command::dropForeignKey()|dropForeignKey()]]: удаление внешнего ключа
+* [[Yiisoft\Db\Command::createIndex()|createIndex()]]: создания индекса
+* [[Yiisoft\Db\Command::dropIndex()|dropIndex()]]: удаление индекса
 
 Эти методы могут быть использованы, как указано ниже:
 
@@ -622,13 +622,13 @@ Yii::$app->db->createCommand()->createTable('post', [
 ]);
 ```
 
-Вы также сможете получить описание схемы таблицы через вызов метода [[yii\db\Connection::getTableSchema()|getTableSchema()]].
+Вы также сможете получить описание схемы таблицы через вызов метода [[Yiisoft\Db\Connection::getTableSchema()|getTableSchema()]].
 Например,
 
 ```php
 $table = Yii::$app->db->getTableSchema('post');
 ```
 
-Метод вернёт объект [[yii\db\TableSchema]], который содержит информацию о столбцах таблицы, первичных ключах, внешних
+Метод вернёт объект [[Yiisoft\Db\TableSchema]], который содержит информацию о столбцах таблицы, первичных ключах, внешних
 ключах, и т.д.. Вся эта информация используется главным образом для [построителя запросов](db-query-builder.md) и
 [active record](db-active-record.md), чтоб помочь вам писать независимый от базы данных код.

@@ -21,11 +21,11 @@ $db->createCommand('INSERT INTO `customer` (`name`) VALUES (:name)', [
 
 Yii assure la prise en charge de l'enregistrement actif (*Active Record*) pour les bases de données relationnelles suivantes :
 
-* MySQL 4.1 ou versions postérieures : via [[yii\db\ActiveRecord]]
-* PostgreSQL 7.3 ou versions postérieures : via [[yii\db\ActiveRecord]]
-* SQLite 2 et 3 : via [[yii\db\ActiveRecord]]
-* Microsoft SQL Server 2008 ou versions postérieures : via [[yii\db\ActiveRecord]]
-* Oracle : via [[yii\db\ActiveRecord]]
+* MySQL 4.1 ou versions postérieures : via [[Yiisoft\Db\ActiveRecord]]
+* PostgreSQL 7.3 ou versions postérieures : via [[Yiisoft\Db\ActiveRecord]]
+* SQLite 2 et 3 : via [[Yiisoft\Db\ActiveRecord]]
+* Microsoft SQL Server 2008 ou versions postérieures : via [[Yiisoft\Db\ActiveRecord]]
+* Oracle : via [[Yiisoft\Db\ActiveRecord]]
 * Sphinx : via [[yii\sphinx\ActiveRecord]], requiert l'extension `yii2-sphinx`
 * ElasticSearch : via [[yii\elasticsearch\ActiveRecord]], requiert l'extension `yii2-elasticsearch`
 
@@ -39,13 +39,13 @@ Dans ce tutoriel, nous décrivons essentiellement l'utilisation de l'enregistrem
 
 ## Déclaration des classes d'enregistrement actif (*Active Record*) <span id="declaring-ar-classes"></span>
 
-Pour commencer, déclarez une classe d'enregistrement actif en étendant la classe [[yii\db\ActiveRecord]]. Comme chacune des classes d'enregistrement actif est associée à une table de la base de données, dans cette classe, vous devez redéfinir la méthode [[yii\db\ActiveRecord::tableName()|tableName()]]
+Pour commencer, déclarez une classe d'enregistrement actif en étendant la classe [[Yiisoft\Db\ActiveRecord]]. Comme chacune des classes d'enregistrement actif est associée à une table de la base de données, dans cette classe, vous devez redéfinir la méthode [[Yiisoft\Db\ActiveRecord::tableName()|tableName()]]
 pour spécifier à quelle table cette classe est associée. Dans l'exemple qui suit, nous déclarons une classe d'enregistrement actif nommée `Customer` pour la table de base de données `customer`.
 
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Customer extends ActiveRecord
 {
@@ -64,18 +64,18 @@ class Customer extends ActiveRecord
 
 Les instances d'une classe d'enregistrement actif (*Active Record*) sont considérées comme des [modèles](structure-models.md). Pour cette raison, nous plaçons les classes d'enregistrement actif dans l'espace de noms `app\models`(ou autres espaces de noms prévus pour contenir des classes de modèles). 
 
-Comme la classe [[yii\db\ActiveRecord]] étend la classe [[yii\base\Model]], elle hérite de *toutes* les fonctionnalités d'un [modèle](structure-models.md), comme les attributs, les règles de validation, la sérialisation des données, etc.
+Comme la classe [[Yiisoft\Db\ActiveRecord]] étend la classe [[yii\base\Model]], elle hérite de *toutes* les fonctionnalités d'un [modèle](structure-models.md), comme les attributs, les règles de validation, la sérialisation des données, etc.
 
 
 ## Connexion aux bases de données <span id="db-connection"></span>
 
-Par défaut, l'enregistrement actif utilise le [composant d'application](structure-application-components.md) `db` en tant que [[yii\db\Connection|DB connexion à une base de données]] pour accéder aux données de la base de données et les manipuler. Comme expliqué dans la section [Objets d'accès aux bases de données](db-dao.md), vous pouvez configurer le composant `db` dans la configuration de l'application comme montré ci-dessous :
+Par défaut, l'enregistrement actif utilise le [composant d'application](structure-application-components.md) `db` en tant que [[Yiisoft\Db\Connection|DB connexion à une base de données]] pour accéder aux données de la base de données et les manipuler. Comme expliqué dans la section [Objets d'accès aux bases de données](db-dao.md), vous pouvez configurer le composant `db` dans la configuration de l'application comme montré ci-dessous :
 
 ```php
 return [
     'components' => [
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=testdb',
             'username' => 'demo',
             'password' => 'demo',
@@ -84,7 +84,7 @@ return [
 ];
 ```
 
-Si vous voulez utiliser une connexion de base de données autre que le composant `db`, vous devez redéfinir la méthode [[yii\db\ActiveRecord::getDb()|getDb()]] :
+Si vous voulez utiliser une connexion de base de données autre que le composant `db`, vous devez redéfinir la méthode [[Yiisoft\Db\ActiveRecord::getDb()|getDb()]] :
 
 
 ```php
@@ -105,11 +105,11 @@ class Customer extends ActiveRecord
 
 Après avoir déclaré une classe d'enregistrement actif, vous pouvez l'utiliser pour faire une requête de données de la table correspondante dans la base de données. Ce processus s'accomplit en général en trois étapes :
 
-1. Créer un nouvel objet *query* (requête) en appelant la méthode [[yii\db\ActiveRecord::find()]] ;
+1. Créer un nouvel objet *query* (requête) en appelant la méthode [[Yiisoft\Db\ActiveRecord::find()]] ;
 2. Construire l'objet *query* en appelant des [méthodes de construction de requête](db-query-builder.md#building-queries);
 3. Appeler une [méthode de requête](db-query-builder.md#query-methods) pour retrouver les données en terme d'instances d'enregistrement actif. 
 
-Comme vous pouvez le voir, cela est très similaire à la procédure avec le [constructeur de requêtes](db-query-builder.md). La seule différence est que, au lieu d'utiliser l'opérateur `new` pour créer un objet *query* (requête), vous appelez la méthode [[yii\db\ActiveRecord::find()]] pour retourner un nouvel objet *query* qui est de la classe [[yii\db\ActiveQuery]].
+Comme vous pouvez le voir, cela est très similaire à la procédure avec le [constructeur de requêtes](db-query-builder.md). La seule différence est que, au lieu d'utiliser l'opérateur `new` pour créer un objet *query* (requête), vous appelez la méthode [[Yiisoft\Db\ActiveRecord::find()]] pour retourner un nouvel objet *query* qui est de la classe [[Yiisoft\Db\ActiveQuery]].
 
 Ce-dessous, nous donnons quelques exemples qui montrent comment utiliser l'*Active Query* (requête active) pour demander des données : 
 
@@ -142,12 +142,12 @@ $customers = Customer::find()
 
 Dans le code ci-dessus, `$customer` est un objet `Customer` tandis que `$customers` est un tableau d'objets `Customer`. Ils sont tous remplis par les données retrouvées dans la table `customer`.
 
-> Info: comme la classe [[yii\db\ActiveQuery]] étend la classe [[yii\db\Query]], vous pouvez utiliser *toutes* les méthodes de construction et de requête comme décrit dans la section sur le [constructeur de requête](db-query-builder.md).
+> Info: comme la classe [[Yiisoft\Db\ActiveQuery]] étend la classe [[Yiisoft\Db\Query]], vous pouvez utiliser *toutes* les méthodes de construction et de requête comme décrit dans la section sur le [constructeur de requête](db-query-builder.md).
 
 Parce que faire une requête de données par les valeurs de clés primaires ou par jeu de valeurs de colonne est une tâche assez courante, Yii fournit une prise en charge de méthodes raccourcis pour cela :
 
-- [[yii\db\ActiveRecord::findOne()]]: retourne une instance d'enregistrement actif remplie avec la première ligne du résultat de la requête.
-- [[yii\db\ActiveRecord::findAll()]]: retourne un tableau d'instances d'enregistrement actif rempli avec *tous* les résultats de la requête.
+- [[Yiisoft\Db\ActiveRecord::findOne()]]: retourne une instance d'enregistrement actif remplie avec la première ligne du résultat de la requête.
+- [[Yiisoft\Db\ActiveRecord::findAll()]]: retourne un tableau d'instances d'enregistrement actif rempli avec *tous* les résultats de la requête.
 
 Les deux méthodes acceptent un des formats de paramètres suivants :
 
@@ -180,9 +180,9 @@ $customers = Customer::findAll([
 ]);
 ```
 
-> Note: ni [[yii\db\ActiveRecord::findOne()]], ni [[yii\db\ActiveQuery::one()]] n'ajoutent `LIMIT 1` à l'instruction SQL générée. Si votre requête peut retourner plusieurs lignes de données, vous devez appeler `limit(1)` explicitement pour améliorer la performance, p. ex., `Customer::find()->limit(1)->one()`.
+> Note: ni [[Yiisoft\Db\ActiveRecord::findOne()]], ni [[Yiisoft\Db\ActiveQuery::one()]] n'ajoutent `LIMIT 1` à l'instruction SQL générée. Si votre requête peut retourner plusieurs lignes de données, vous devez appeler `limit(1)` explicitement pour améliorer la performance, p. ex., `Customer::find()->limit(1)->one()`.
 
-En plus d'utiliser les méthodes de construction de requête, vous pouvez aussi écrire du SQL brut pour effectuer une requête de données et vous servir des résultats pour remplir des objets enregistrements actifs. Vous pouvez le faire en appelant la méthode [[yii\db\ActiveRecord::findBySql()]] :
+En plus d'utiliser les méthodes de construction de requête, vous pouvez aussi écrire du SQL brut pour effectuer une requête de données et vous servir des résultats pour remplir des objets enregistrements actifs. Vous pouvez le faire en appelant la méthode [[Yiisoft\Db\ActiveRecord::findBySql()]] :
 
 ```php
 // retourne tous les clients inactifs
@@ -190,7 +190,7 @@ $sql = 'SELECT * FROM customer WHERE status=:status';
 $customers = Customer::findBySql($sql, [':status' => Customer::STATUS_INACTIVE])->all();
 ```
 
-N'appelez pas de méthodes de construction de requêtes supplémentaires après avoir appelé [[yii\db\ActiveRecord::findBySql()|findBySql()]] car elles seront ignorées. 
+N'appelez pas de méthodes de construction de requêtes supplémentaires après avoir appelé [[Yiisoft\Db\ActiveRecord::findBySql()|findBySql()]] car elles seront ignorées. 
 
 ## Accès aux données <span id="accessing-data"></span>
 
@@ -235,7 +235,7 @@ Désormais, dans votre code PHP, au lieu d'accéder à `$customer->birthday`, vo
 
 ### Retrouver des données dans des tableaux <span id="data-in-arrays"></span>
 
-Alors que retrouver des données en termes d'objets enregistrements actifs est souple et pratique, cela n'est pas toujours souhaitable lorsque vous devez extraire une grande quantité de données à cause de l'empreinte mémoire très importante. Dans ce cas, vous pouvez retrouver les données en utilisant des tableaux PHP en appelant [[yii\db\ActiveQuery::asArray()|asArray()]] avant d'exécuter une méthode de requête :
+Alors que retrouver des données en termes d'objets enregistrements actifs est souple et pratique, cela n'est pas toujours souhaitable lorsque vous devez extraire une grande quantité de données à cause de l'empreinte mémoire très importante. Dans ce cas, vous pouvez retrouver les données en utilisant des tableaux PHP en appelant [[Yiisoft\Db\ActiveQuery::asArray()|asArray()]] avant d'exécuter une méthode de requête :
 
 ```php
 // retourne tous les clients
@@ -275,7 +275,7 @@ En utilisant l'enregistrement actif, vous pouvez sauvegarder facilement les donn
 
 1. Préparer une instance de la classe d'enregistrement actif
 2. Assigner de nouvelles valeurs aux attributs de cette instance
-3. Appeler [[yii\db\ActiveRecord::save()]] pour sauvegarder les données dans la base de données.
+3. Appeler [[Yiisoft\Db\ActiveRecord::save()]] pour sauvegarder les données dans la base de données.
 
 Par exemple :
 
@@ -292,9 +292,9 @@ $customer->email = 'james@newexample.com';
 $customer->save();
 ```
 
-La méthode [[yii\db\ActiveRecord::save()|save()]] peut soit insérer, soit mettre à jour une ligne de données, selon l'état de l'instance de l'enregistrement actif. Si l'instance est en train d'être créée via l'opérateur `new`, appeler [[yii\db\ActiveRecord::save()|save()]] provoque l'insertion d'une nouvelle ligne de données ; si l'instance est le résultat d'une méthode de requête, appeler [[yii\db\ActiveRecord::save()|save()]] met à jour la ligne associée à l'instance. 
+La méthode [[Yiisoft\Db\ActiveRecord::save()|save()]] peut soit insérer, soit mettre à jour une ligne de données, selon l'état de l'instance de l'enregistrement actif. Si l'instance est en train d'être créée via l'opérateur `new`, appeler [[Yiisoft\Db\ActiveRecord::save()|save()]] provoque l'insertion d'une nouvelle ligne de données ; si l'instance est le résultat d'une méthode de requête, appeler [[Yiisoft\Db\ActiveRecord::save()|save()]] met à jour la ligne associée à l'instance. 
 
-Vous pouvez différentier les deux états d'une instance d'enregistrement actif en testant la valeur de sa propriété [[yii\db\ActiveRecord::isNewRecord|isNewRecord]]. Cette propriété est aussi utilisée par [[yii\db\ActiveRecord::save()|save()]] en interne, comme ceci :
+Vous pouvez différentier les deux états d'une instance d'enregistrement actif en testant la valeur de sa propriété [[Yiisoft\Db\ActiveRecord::isNewRecord|isNewRecord]]. Cette propriété est aussi utilisée par [[Yiisoft\Db\ActiveRecord::save()|save()]] en interne, comme ceci :
 
 ```php
 public function save($runValidation = true, $attributeNames = null)
@@ -307,14 +307,14 @@ public function save($runValidation = true, $attributeNames = null)
 }
 ```
 
-> Tip: vous pouvez appeler [[yii\db\ActiveRecord::insert()|insert()]] ou [[yii\db\ActiveRecord::update()|update()]] directement pour insérer ou mettre à jour une ligne.
+> Tip: vous pouvez appeler [[Yiisoft\Db\ActiveRecord::insert()|insert()]] ou [[Yiisoft\Db\ActiveRecord::update()|update()]] directement pour insérer ou mettre à jour une ligne.
   
 
 ### Validation des données <span id="data-validation"></span>
 
-Comme la classe [[yii\db\ActiveRecord]] étend la classe [[yii\base\Model]], elle partage la même fonctionnalité de [validation des données](input-validation.md). Vous pouvez déclarer les règles de validation en redéfinissant la méthode [[yii\db\ActiveRecord::rules()|rules()]] et effectuer la validation des données en appelant la méthode [[yii\db\ActiveRecord::validate()|validate()]].
+Comme la classe [[Yiisoft\Db\ActiveRecord]] étend la classe [[yii\base\Model]], elle partage la même fonctionnalité de [validation des données](input-validation.md). Vous pouvez déclarer les règles de validation en redéfinissant la méthode [[Yiisoft\Db\ActiveRecord::rules()|rules()]] et effectuer la validation des données en appelant la méthode [[Yiisoft\Db\ActiveRecord::validate()|validate()]].
 
-Lorsque vous appelez la méthode [[yii\db\ActiveRecord::save()|save()]], par défaut, elle appelle automatiquement la méthode [[yii\db\ActiveRecord::validate()|validate()]]. C'est seulement si la validation réussit, que les données sont effectivement sauvegardées ; autrement elle retourne simplement `false`, et vous pouvez tester la propriété [[yii\db\ActiveRecord::errors|errors]] pour retrouver les messages d'erreurs de validation.
+Lorsque vous appelez la méthode [[Yiisoft\Db\ActiveRecord::save()|save()]], par défaut, elle appelle automatiquement la méthode [[Yiisoft\Db\ActiveRecord::validate()|validate()]]. C'est seulement si la validation réussit, que les données sont effectivement sauvegardées ; autrement elle retourne simplement `false`, et vous pouvez tester la propriété [[Yiisoft\Db\ActiveRecord::errors|errors]] pour retrouver les messages d'erreurs de validation.
 
 > Tip: si vous êtes sûr que vos données n'ont pas besoin d'être validées (p. ex. vos données proviennent de sources fiables), vous pouvez appeler `save(false)` pour omettre la validation.
 
@@ -338,7 +338,7 @@ $customer->save();
 
 ### Mise à jour des compteurs <span id="updating-counters"></span>
 
-C'est une tâche courante que d'incrémenter ou décrémenter une colonne dans une table de base de données. Nous appelons ces colonnes « colonnes compteurs*. Vous pouvez utiliser la méthode [[yii\db\ActiveRecord::updateCounters()|updateCounters()]] pour mettre à jour une ou plusieurs colonnes de comptage. Par exemple : 
+C'est une tâche courante que d'incrémenter ou décrémenter une colonne dans une table de base de données. Nous appelons ces colonnes « colonnes compteurs*. Vous pouvez utiliser la méthode [[Yiisoft\Db\ActiveRecord::updateCounters()|updateCounters()]] pour mettre à jour une ou plusieurs colonnes de comptage. Par exemple : 
 
 ```php
 $post = Post::findOne(100);
@@ -347,23 +347,23 @@ $post = Post::findOne(100);
 $post->updateCounters(['view_count' => 1]);
 ```
 
-> Note: si vous utilisez la méthode [[yii\db\ActiveRecord::save()]] pour mettre à jour une colonne compteur, vous pouvez vous retrouver avec un résultat erroné car il est probable que le même compteur soit sauvegardé par de multiples requêtes qui lisent et écrivent la même valeur de compteur.
+> Note: si vous utilisez la méthode [[Yiisoft\Db\ActiveRecord::save()]] pour mettre à jour une colonne compteur, vous pouvez vous retrouver avec un résultat erroné car il est probable que le même compteur soit sauvegardé par de multiples requêtes qui lisent et écrivent la même valeur de compteur.
 
 
 ### Attributs sales (*Dirty Attributes*) <span id="dirty-attributes"></span>
 
-Lorsque vous appelez la méthode [[yii\db\ActiveRecord::save()|save()]] pour sauvegarder une instance d'enregistrement actif, seuls les attributs dit *attributs sales* sont sauvegardés. Un attribut est considéré comme *sale* si sa valeur a été modifiée depuis qu'il a été chargé depuis la base de données ou sauvegardé dans la base de données le plus récemment. Notez que la validation des données est assurée sans se préoccuper de savoir si l'instance d'enregistrement actif possède des attributs sales ou pas. 
+Lorsque vous appelez la méthode [[Yiisoft\Db\ActiveRecord::save()|save()]] pour sauvegarder une instance d'enregistrement actif, seuls les attributs dit *attributs sales* sont sauvegardés. Un attribut est considéré comme *sale* si sa valeur a été modifiée depuis qu'il a été chargé depuis la base de données ou sauvegardé dans la base de données le plus récemment. Notez que la validation des données est assurée sans se préoccuper de savoir si l'instance d'enregistrement actif possède des attributs sales ou pas. 
 
-L'enregistrement actif tient à jour la liste des attributs sales. Il le fait en conservant une version antérieure des valeurs d'attribut et en les comparant avec les dernières. Vous pouvez appeler la méthode [[yii\db\ActiveRecord::getDirtyAttributes()]] pour obtenir les attributs qui sont couramment sales. Vous pouvez aussi appeler la méthode [[yii\db\ActiveRecord::markAttributeDirty()]] pour marquer explicitement un attribut comme sale. 
+L'enregistrement actif tient à jour la liste des attributs sales. Il le fait en conservant une version antérieure des valeurs d'attribut et en les comparant avec les dernières. Vous pouvez appeler la méthode [[Yiisoft\Db\ActiveRecord::getDirtyAttributes()]] pour obtenir les attributs qui sont couramment sales. Vous pouvez aussi appeler la méthode [[Yiisoft\Db\ActiveRecord::markAttributeDirty()]] pour marquer explicitement un attribut comme sale. 
 
-Si vous êtes intéressé par les valeurs d'attribut antérieurs à leur plus récente modification, vous pouvez appeler la méthode [[yii\db\ActiveRecord::getOldAttributes()|getOldAttributes()]] ou la méthode [[yii\db\ActiveRecord::getOldAttribute()|getOldAttribute()]].
+Si vous êtes intéressé par les valeurs d'attribut antérieurs à leur plus récente modification, vous pouvez appeler la méthode [[Yiisoft\Db\ActiveRecord::getOldAttributes()|getOldAttributes()]] ou la méthode [[Yiisoft\Db\ActiveRecord::getOldAttribute()|getOldAttribute()]].
 
 > Note: la comparaison entre les anciennes et les nouvelles valeurs est faite en utilisant l'opérateur `===` , ainsi une valeur est considérée comme sale si le type est différent même si la valeur reste la même. Cela est souvent le cas lorsque le modèle reçoit des entrées utilisateur de formulaires HTML ou chacune des valeurs est représentée par une chaîne de caractères. Pour garantir le type correct pour p. ex. des valeurs entières, vous devez appliquer un [filtre de validation](input-validation.md#data-filtering):
 > `['attributeName', 'filter', 'filter' => 'intval']`. Cela fonctionne pour toutes les fonctions de transformation de type de PHP comme [intval()](http://php.net/manual/en/function.intval.php), [floatval()](http://php.net/manual/en/function.floatval.php), [boolval](http://php.net/manual/en/function.boolval.php), etc...
 
 ### Valeurs d'attribut par défaut <span id="default-attribute-values"></span>
 
-Quelques unes de vos colonnes de tables peuvent avoir des valeurs par défaut définies dans la base de données. Parfois, vous voulez peut-être pré-remplir votre formulaire Web pour un enregistrement actif à partir des valeurs par défaut. Pour éviter d'écrire la même valeur par défaut à nouveau, vous pouvez appeler la méthode [[yii\db\ActiveRecord::loadDefaultValues()|loadDefaultValues()]] pour remplir les attributs de l'enregistrement actif avec les valeurs par défaut prédéfinies dans la base de données :
+Quelques unes de vos colonnes de tables peuvent avoir des valeurs par défaut définies dans la base de données. Parfois, vous voulez peut-être pré-remplir votre formulaire Web pour un enregistrement actif à partir des valeurs par défaut. Pour éviter d'écrire la même valeur par défaut à nouveau, vous pouvez appeler la méthode [[Yiisoft\Db\ActiveRecord::loadDefaultValues()|loadDefaultValues()]] pour remplir les attributs de l'enregistrement actif avec les valeurs par défaut prédéfinies dans la base de données :
 
 ```php
 $customer = new Customer();
@@ -374,14 +374,14 @@ $customer->loadDefaultValues();
 
 ### Mise à jour de plusieurs lignes <span id="updating-multiple-rows"></span>
 
-Les méthodes décrites ci-dessus fonctionnent toutes sur des instances individuelles d'enregistrement actif. Pour mettre à jour plusieurs lignes à la fois, vous devez appeler la méthode statique [[yii\db\ActiveRecord::updateAll()|updateAll()]].
+Les méthodes décrites ci-dessus fonctionnent toutes sur des instances individuelles d'enregistrement actif. Pour mettre à jour plusieurs lignes à la fois, vous devez appeler la méthode statique [[Yiisoft\Db\ActiveRecord::updateAll()|updateAll()]].
 
 ```php
 // UPDATE `customer` SET `status` = 1 WHERE `email` LIKE `%@example.com%`
 Customer::updateAll(['status' => Customer::STATUS_ACTIVE], ['like', 'email', '@example.com']);
 ```
 
-De façon similaire, vous pouvez appeler [[yii\db\ActiveRecord::updateAllCounters()|updateAllCounters()]] pour mettre à jour les colonnes compteurs de plusieurs lignes à la fois.
+De façon similaire, vous pouvez appeler [[Yiisoft\Db\ActiveRecord::updateAllCounters()|updateAllCounters()]] pour mettre à jour les colonnes compteurs de plusieurs lignes à la fois.
 
 ```php
 // UPDATE `customer` SET `age` = `age` + 1
@@ -391,20 +391,20 @@ Customer::updateAllCounters(['age' => 1]);
 
 ## Suppression de données <span id="deleting-data"></span>
 
-Pour supprimer une ligne unique de données, commencez par retrouver l'instance d'enregistrement actif correspondant à cette ligne et appelez la méthode [[yii\db\ActiveRecord::delete()]].
+Pour supprimer une ligne unique de données, commencez par retrouver l'instance d'enregistrement actif correspondant à cette ligne et appelez la méthode [[Yiisoft\Db\ActiveRecord::delete()]].
 
 ```php
 $customer = Customer::findOne(123);
 $customer->delete();
 ```
 
-Vous pouvez appeler [[yii\db\ActiveRecord::deleteAll()]] pour effacer plusieurs ou toutes les lignes de données. Par exemple :
+Vous pouvez appeler [[Yiisoft\Db\ActiveRecord::deleteAll()]] pour effacer plusieurs ou toutes les lignes de données. Par exemple :
 
 ```php
 Customer::deleteAll(['status' => Customer::STATUS_INACTIVE]);
 ```
 
-> Note: soyez très prudent lorsque vous appelez [[yii\db\ActiveRecord::deleteAll()|deleteAll()]] parce que cela peut effacer totalement toutes les données de votre table si vous faites une erreur en spécifiant la condition. 
+> Note: soyez très prudent lorsque vous appelez [[Yiisoft\Db\ActiveRecord::deleteAll()|deleteAll()]] parce que cela peut effacer totalement toutes les données de votre table si vous faites une erreur en spécifiant la condition. 
 
 
 ## Cycles de vie de l'enregistrement actif <span id="ar-life-cycles"></span>
@@ -419,7 +419,7 @@ Dans l'exemple précédent, nous résumons les différents cycles de vie d'enreg
 Losque vous créez un nouvel enregistrement actif via l'opérateur `new`, le cycle suivant se réalise :
 
 1. Constructeur de la classe.
-2. [[yii\db\ActiveRecord::init()|init()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]].
+2. [[Yiisoft\Db\ActiveRecord::init()|init()]]: déclenche un événement [[Yiisoft\Db\ActiveRecord::EVENT_INIT|EVENT_INIT]].
 
 
 ### Cycle de vie lors d'une requête de données <span id="querying-data-life-cycle"></span>
@@ -427,42 +427,42 @@ Losque vous créez un nouvel enregistrement actif via l'opérateur `new`, le cyc
 Lorsque vous effectuez une requête de données via l'une des [méthodes de requête](#querying-data), chacun des enregistrements actifs nouvellement rempli entreprend le cycle suivant :
 
 1. Constructeur de la classe.
-2. [[yii\db\ActiveRecord::init()|init()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_INIT|EVENT_INIT]].
-3. [[yii\db\ActiveRecord::afterFind()|afterFind()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_AFTER_FIND|EVENT_AFTER_FIND]].
+2. [[Yiisoft\Db\ActiveRecord::init()|init()]]: déclenche un événement [[Yiisoft\Db\ActiveRecord::EVENT_INIT|EVENT_INIT]].
+3. [[Yiisoft\Db\ActiveRecord::afterFind()|afterFind()]]: déclenche un événement [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_FIND|EVENT_AFTER_FIND]].
 
 
 ### Cycle de vie lors d'une sauvegarde de données <span id="saving-data-life-cycle"></span>
 
-En appelant [[yii\db\ActiveRecord::save()|save()]] pour insérer ou mettre à jour une instance d'enregistrement actif, le cycle de vie suivant se réalise :
+En appelant [[Yiisoft\Db\ActiveRecord::save()|save()]] pour insérer ou mettre à jour une instance d'enregistrement actif, le cycle de vie suivant se réalise :
 
-1. [[yii\db\ActiveRecord::beforeValidate()|beforeValidate()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] . Si la méthode retourne `false` (faux), ou si [[yii\base\ValidationEvent::isValid]] est `false`, les étapes suivantes sont sautées.
+1. [[Yiisoft\Db\ActiveRecord::beforeValidate()|beforeValidate()]]: déclenche un événement [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] . Si la méthode retourne `false` (faux), ou si [[yii\base\ValidationEvent::isValid]] est `false`, les étapes suivantes sont sautées.
 2. Effectue la validation des données. Si la validation échoue, les étapes après l'étape 3 saut sautées. 
-3. [[yii\db\ActiveRecord::afterValidate()|afterValidate()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]].
-4. [[yii\db\ActiveRecord::beforeSave()|beforeSave()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] 
-   ou un événement [[yii\db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]]. Si la méthode retourne `false` ou si [[yii\base\ValidationEvent::isValid]] est `false`, les étapes suivantes sont sautées. 
+3. [[Yiisoft\Db\ActiveRecord::afterValidate()|afterValidate()]]: déclenche un événement [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_VALIDATE|EVENT_AFTER_VALIDATE]].
+4. [[Yiisoft\Db\ActiveRecord::beforeSave()|beforeSave()]]: déclenche un événement [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_INSERT|EVENT_BEFORE_INSERT]] 
+   ou un événement [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_UPDATE|EVENT_BEFORE_UPDATE]]. Si la méthode retourne `false` ou si [[yii\base\ValidationEvent::isValid]] est `false`, les étapes suivantes sont sautées. 
 5. Effectue l'insertion ou la mise à jour réelle.
-6. [[yii\db\ActiveRecord::afterSave()|afterSave()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] ou un événement [[yii\db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]].
+6. [[Yiisoft\Db\ActiveRecord::afterSave()|afterSave()]]: déclenche un événement [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] ou un événement [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_UPDATE|EVENT_AFTER_UPDATE]].
    
 
 ### Cycle de vie lors d'une suppression de données <span id="deleting-data-life-cycle"></span>
 
-En appelant [[yii\db\ActiveRecord::delete()|delete()]] pour supprimer une instance d'enregistrement actif, le cycle suivant se déroule :
+En appelant [[Yiisoft\Db\ActiveRecord::delete()|delete()]] pour supprimer une instance d'enregistrement actif, le cycle suivant se déroule :
 
-1. [[yii\db\ActiveRecord::beforeDelete()|beforeDelete()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]]. Si la méthode retourne `false` ou si [[yii\base\ValidationEvent::isValid]] est `false`, les étapes suivantes sont sautées. 
+1. [[Yiisoft\Db\ActiveRecord::beforeDelete()|beforeDelete()]]: déclenche un événement [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_DELETE|EVENT_BEFORE_DELETE]]. Si la méthode retourne `false` ou si [[yii\base\ValidationEvent::isValid]] est `false`, les étapes suivantes sont sautées. 
 2. Effectue la suppression réelle des données.
-3. [[yii\db\ActiveRecord::afterDelete()|afterDelete()]]: déclenche un événement [[yii\db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]].
+3. [[Yiisoft\Db\ActiveRecord::afterDelete()|afterDelete()]]: déclenche un événement [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_DELETE|EVENT_AFTER_DELETE]].
 
 
 > Note: l'appel de l'une des méthodes suivantes n'initie AUCUN des cycles vus ci-dessus parce qu'elles travaillent directement sur la base de données et pas sur la base d'un enregistrement actif :
 >
-> - [[yii\db\ActiveRecord::updateAll()]] 
-> - [[yii\db\ActiveRecord::deleteAll()]]
-> - [[yii\db\ActiveRecord::updateCounters()]] 
-> - [[yii\db\ActiveRecord::updateAllCounters()]] 
+> - [[Yiisoft\Db\ActiveRecord::updateAll()]] 
+> - [[Yiisoft\Db\ActiveRecord::deleteAll()]]
+> - [[Yiisoft\Db\ActiveRecord::updateCounters()]] 
+> - [[Yiisoft\Db\ActiveRecord::updateAllCounters()]] 
 
 ### Cycle de vie lors du rafraîchissement des données <span id="refreshing-data-life-cycle"></span>
 
-En appelant [[yii\db\ActiveRecord::refresh()|refresh()]] pour rafraîchir une instance d'enregistrement actif, l'événement [[yii\db\ActiveRecord::EVENT_AFTER_REFRESH|EVENT_AFTER_REFRESH]] est déclenché si le rafraîchissement réussit et si la méthode retourne `true`.
+En appelant [[Yiisoft\Db\ActiveRecord::refresh()|refresh()]] pour rafraîchir une instance d'enregistrement actif, l'événement [[Yiisoft\Db\ActiveRecord::EVENT_AFTER_REFRESH|EVENT_AFTER_REFRESH]] est déclenché si le rafraîchissement réussit et si la méthode retourne `true`.
 
 
 ## Travail avec des transactions <span id="transactional-operations"></span>
@@ -494,7 +494,7 @@ try {
 }
 ```
 
-La deuxième façon consiste à lister les opérations de base de données qui nécessitent une prise en charge transactionnelle dans la méthode [[yii\db\ActiveRecord::transactions()]]. Par exemple :
+La deuxième façon consiste à lister les opérations de base de données qui nécessitent une prise en charge transactionnelle dans la méthode [[Yiisoft\Db\ActiveRecord::transactions()]]. Par exemple :
 
 ```php
 class Customer extends ActiveRecord
@@ -511,28 +511,28 @@ class Customer extends ActiveRecord
 }
 ```
 
-La méthode [[yii\db\ActiveRecord::transactions()]] doit retourner un tableau dont les clés sont les noms de [scenario](structure-models.md#scenarios) et les valeurs les opérations correspondantes qui doivent être enfermées dans des transactions. Vous devez utiliser les constantes suivantes pour faire référence aux différentes opérations de base de données :
+La méthode [[Yiisoft\Db\ActiveRecord::transactions()]] doit retourner un tableau dont les clés sont les noms de [scenario](structure-models.md#scenarios) et les valeurs les opérations correspondantes qui doivent être enfermées dans des transactions. Vous devez utiliser les constantes suivantes pour faire référence aux différentes opérations de base de données :
 
-* [[yii\db\ActiveRecord::OP_INSERT|OP_INSERT]]: opération d'insertion réalisée par [[yii\db\ActiveRecord::insert()|insert()]];
-* [[yii\db\ActiveRecord::OP_UPDATE|OP_UPDATE]]: opération de mise à jour réalisée par [[yii\db\ActiveRecord::update()|update()]];
-* [[yii\db\ActiveRecord::OP_DELETE|OP_DELETE]]: opération de suppression réalisée par [[yii\db\ActiveRecord::delete()|delete()]].
+* [[Yiisoft\Db\ActiveRecord::OP_INSERT|OP_INSERT]]: opération d'insertion réalisée par [[Yiisoft\Db\ActiveRecord::insert()|insert()]];
+* [[Yiisoft\Db\ActiveRecord::OP_UPDATE|OP_UPDATE]]: opération de mise à jour réalisée par [[Yiisoft\Db\ActiveRecord::update()|update()]];
+* [[Yiisoft\Db\ActiveRecord::OP_DELETE|OP_DELETE]]: opération de suppression réalisée par [[Yiisoft\Db\ActiveRecord::delete()|delete()]].
 
-Utilisez l'opérateur `|` pour concaténer les constantes précédentes pour indiquer de multiples opérations. Vous pouvez également utiliser la constante raccourci [[yii\db\ActiveRecord::OP_ALL|OP_ALL]] pour faire référence à l'ensemble des trois opération ci-dessus.
+Utilisez l'opérateur `|` pour concaténer les constantes précédentes pour indiquer de multiples opérations. Vous pouvez également utiliser la constante raccourci [[Yiisoft\Db\ActiveRecord::OP_ALL|OP_ALL]] pour faire référence à l'ensemble des trois opération ci-dessus.
 
-Les transactions qui sont créées en utilisant cette méthode sont démarrées avant d'appeler [[yii\db\ActiveRecord::beforeSave()|beforeSave()]] et sont entérinées après que la méthode [[yii\db\ActiveRecord::afterSave()|afterSave()]] a été exécutée.
+Les transactions qui sont créées en utilisant cette méthode sont démarrées avant d'appeler [[Yiisoft\Db\ActiveRecord::beforeSave()|beforeSave()]] et sont entérinées après que la méthode [[Yiisoft\Db\ActiveRecord::afterSave()|afterSave()]] a été exécutée.
 
 ## Verrous optimistes <span id="optimistic-locks"></span>
 
 Le verrouillage optimiste est une manière d'empêcher les conflits qui peuvent survenir lorsqu'une même ligne de données est mise à jour par plusieurs utilisateurs. Par exemple, les utilisateurs A et B sont tous deux, simultanément, en train de modifier le même article de wiki. Après que l'utilisateur A a sauvegardé ses modifications, l'utilisateur B clique sur le bouton « Sauvegarder » dans le but de sauvegarder ses modifications lui aussi. Comme l'utilisateur B est en train de travailler sur une version périmée de l'article, il serait souhaitable de disposer d'un moyen de l'empêcher de sauvegarder sa version de l'article et de lui montrer un message d'explication.
 
-Le verrouillage optimiste résout le problème évoqué ci-dessus en utilisant une colonne pour enregistrer le numéro de version de chacune des lignes. Lorsqu'une ligne est sauvegardée avec un numéro de version périmée, une exception [[yii\db\StaleObjectException]] est levée, ce qui empêche la sauvegarde de la ligne. Le verrouillage optimiste, n'est seulement pris en charge que lorsque vous mettez à jour ou supprimez une ligne de données existante en utilisant les méthodes [[yii\db\ActiveRecord::update()]] ou [[yii\db\ActiveRecord::delete()]],respectivement.
+Le verrouillage optimiste résout le problème évoqué ci-dessus en utilisant une colonne pour enregistrer le numéro de version de chacune des lignes. Lorsqu'une ligne est sauvegardée avec un numéro de version périmée, une exception [[Yiisoft\Db\StaleObjectException]] est levée, ce qui empêche la sauvegarde de la ligne. Le verrouillage optimiste, n'est seulement pris en charge que lorsque vous mettez à jour ou supprimez une ligne de données existante en utilisant les méthodes [[Yiisoft\Db\ActiveRecord::update()]] ou [[Yiisoft\Db\ActiveRecord::delete()]],respectivement.
 
 Pour utiliser le verrouillage optimiste :
 
 1. Créez une colonne dans la table de base de données associée à la classe d'enregistrement actif pour stocker le numéro de version de chacune des lignes. Le colonne doit être du type *big integer* (dans MySQL ce doit être `BIGINT DEFAULT 0`).
-2. Redéfinissez la méthode [[yii\db\ActiveRecord::optimisticLock()]] pour qu'elle retourne le nom de cette colonne.
+2. Redéfinissez la méthode [[Yiisoft\Db\ActiveRecord::optimisticLock()]] pour qu'elle retourne le nom de cette colonne.
 3. Dans le formulaire Web qui reçoit les entrées de l'utilisateur, ajoutez un champ caché pour stocker le numéro de version courant de la ligne en modification. Assurez-vous que votre attribut *version* dispose de règles de validation et valide correctement. 
-4. Dans l'action de contrôleur qui met la ligne à jour en utilisant l'enregistrement actif, utiliser une structure *try-catch* pour l'exception [[yii\db\StaleObjectException]]. Mettez en œuvre la logique requise (p. ex. fusionner les modification, avertir des données douteuses) pour résoudre le conflit.
+4. Dans l'action de contrôleur qui met la ligne à jour en utilisant l'enregistrement actif, utiliser une structure *try-catch* pour l'exception [[Yiisoft\Db\StaleObjectException]]. Mettez en œuvre la logique requise (p. ex. fusionner les modification, avertir des données douteuses) pour résoudre le conflit.
 Par exemple, supposons que la colonne du numéro de version est nommée `version`. Vous pouvez mettre en œuvre le verrouillage optimiste avec un code similaire au suivant :
 
 ```php
@@ -546,7 +546,7 @@ echo Html::activeHiddenInput($model, 'version');
 
 // ------ controller code -------
 
-use yii\db\StaleObjectException;
+use Yiisoft\Db\StaleObjectException;
 
 public function actionUpdate($id)
 {
@@ -604,8 +604,8 @@ Chacune des méthodes de relation doit être nommée sous la forme `getXyz`. Nou
 
 En déclarant une relation, vous devez spécifier les informations suivantes :
 
-- la multiplicité de la relation : spécifiée en appelant soit la méthode [[yii\db\ActiveRecord::hasMany()|hasMany()]], soit la méthode [[yii\db\ActiveRecord::hasOne()|hasOne()]]. Dans l'exemple ci-dessus vous pouvez facilement déduire en lisant la déclaration des relations qu'un client a beaucoup de commandes, tandis qu'une commande n'a qu'un client.
-- le nom de la classe d'enregistrement actif : spécifié comme le premier paramètre de [[yii\db\ActiveRecord::hasMany()|hasMany()]] ou de [[yii\db\ActiveRecord::hasOne()|hasOne()]]. Une pratique conseillée est d'appeler `Xyz::class` pour obtenir la chaîne de caractères représentant le nom de la classe de manière à bénéficier de l'auto-complètement de l'EDI et de la détection d'erreur dans l'étape de compilation. 
+- la multiplicité de la relation : spécifiée en appelant soit la méthode [[Yiisoft\Db\ActiveRecord::hasMany()|hasMany()]], soit la méthode [[Yiisoft\Db\ActiveRecord::hasOne()|hasOne()]]. Dans l'exemple ci-dessus vous pouvez facilement déduire en lisant la déclaration des relations qu'un client a beaucoup de commandes, tandis qu'une commande n'a qu'un client.
+- le nom de la classe d'enregistrement actif : spécifié comme le premier paramètre de [[Yiisoft\Db\ActiveRecord::hasMany()|hasMany()]] ou de [[Yiisoft\Db\ActiveRecord::hasOne()|hasOne()]]. Une pratique conseillée est d'appeler `Xyz::class` pour obtenir la chaîne de caractères représentant le nom de la classe de manière à bénéficier de l'auto-complètement de l'EDI et de la détection d'erreur dans l'étape de compilation. 
 - Le lien entre les deux types de données : spécifie le(s) colonne(s) via lesquelles les deux types de données sont en relation. Les valeurs du tableau sont les colonnes des données primaires (représentées par la classe d'enregistrement actif dont vous déclarez les relations), tandis que les clés sont les colonnes des données en relation. 
 
 Une règle simple pour vous rappeler cela est, comme vous le voyez dans l'exemple ci-dessus, d'écrire la colonne qui appartient à l'enregistrement actif en relation juste à coté de lui. Vous voyez là que l'identifiant du client (`customer_id`) est une propriété de `Order` et `id` est une propriété de `Customer`.
@@ -625,11 +625,11 @@ $orders = $customer->orders;
 
 > Info: lorsque vous déclarez une relation nommée `xyz` via une méthode d'obtention `getXyz()`, vous êtes capable d'accéder à `xyz` comme à un [objet property](concept-properties.md). Notez que le nom est sensible à la casse. 
 
-Si une relation est déclarée avec la méthode [[yii\db\ActiveRecord::hasMany()|hasMany()]], l'accès à cette propriété de relation retourne un tableau des instances de l'enregistrement actif en relation ; si une relation est déclarée avec la méthode [[yii\db\ActiveRecord::hasOne()|hasOne()]], l'accès à la propriété de relation retourne l'instance de l'enregistrement actif en relation, ou `null` si aucune donnée en relation n'est trouvée. 
+Si une relation est déclarée avec la méthode [[Yiisoft\Db\ActiveRecord::hasMany()|hasMany()]], l'accès à cette propriété de relation retourne un tableau des instances de l'enregistrement actif en relation ; si une relation est déclarée avec la méthode [[Yiisoft\Db\ActiveRecord::hasOne()|hasOne()]], l'accès à la propriété de relation retourne l'instance de l'enregistrement actif en relation, ou `null` si aucune donnée en relation n'est trouvée. 
 
 Lorsque vous accédez à une propriété de relation pour la première fois, une instruction SQL est exécutée comme le montre l'exemple précédent. Si la même propriété fait l'objet d'un nouvel accès, le résultat précédent est retourné sans exécuter à nouveau l'instruction SQL. Pour forcer l'exécution à nouveau de l'instruction SQL, vous devez d'abord annuler la définition de la propriété de relation : `unset($customer->orders)`.
 
-> Note: bien que ce concept semble similaire à la fonctionnalité [propriété d'objet](concept-properties.md), il y a une différence importante. Pour les propriétés normales d'objet, la valeur est du même type que la méthode d'obtention de définition. Une méthode de relation cependant retourne toujours une instance d'[[yii\db\ActiveRecord]] ou un tableau de telles instances.
+> Note: bien que ce concept semble similaire à la fonctionnalité [propriété d'objet](concept-properties.md), il y a une différence importante. Pour les propriétés normales d'objet, la valeur est du même type que la méthode d'obtention de définition. Une méthode de relation cependant retourne toujours une instance d'[[Yiisoft\Db\ActiveRecord]] ou un tableau de telles instances.
 > 
 > ```php
 > $customer->orders; // est un tableau d'objets `Order` 
@@ -641,7 +641,7 @@ Lorsque vous accédez à une propriété de relation pour la première fois, une
 
 ### Requête relationnelle dynamique <span id="dynamic-relational-query"></span>
 
-Parce qu'une méthode de relation retourne une instance d'[[yii\db\ActiveQuery]], vous pouvez continuer à construire cette requête en utilisant les méthodes de construction avant de l'exécuter. Par exemple :
+Parce qu'une méthode de relation retourne une instance d'[[Yiisoft\Db\ActiveQuery]], vous pouvez continuer à construire cette requête en utilisant les méthodes de construction avant de l'exécuter. Par exemple :
 
 ```php
 $customer = Customer::findOne(123);
@@ -684,7 +684,7 @@ $orders = $customer->bigOrders;
 
 Dans la modélisation de base de données, lorsque la multiplicité entre deux tables en relation est *many-to-many* (de plusieurs à plusieurs), une [table de jointure](https://en.wikipedia.org/wiki/Junction_table) est en général introduite. Par exemple, la table `order` (commande) et la table `item` peuvent être en relation via une table de jointure nommée `order_item` (item_de_commande). Une commande correspond ensuite à de multiples items de commande, tandis qu'un item de produit correspond lui-aussi à de multiples items de commande (*order items*). 
 
-Lors de la déclaration de telles relations, vous devez appeler soit [[yii\db\ActiveQuery::via()|via()]], soit [[yii\db\ActiveQuery::viaTable()|viaTable()]], pour spécifier la table de jointure. La différence entre [[yii\db\ActiveQuery::via()|via()]] et [[yii\db\ActiveQuery::viaTable()|viaTable()]] est que la première spécifie la table de jointure en termes de noms de relation existante, tandis que la deuxième utilise directement la table de jointure. Par exemple : 
+Lors de la déclaration de telles relations, vous devez appeler soit [[Yiisoft\Db\ActiveQuery::via()|via()]], soit [[Yiisoft\Db\ActiveQuery::viaTable()|viaTable()]], pour spécifier la table de jointure. La différence entre [[Yiisoft\Db\ActiveQuery::via()|via()]] et [[Yiisoft\Db\ActiveQuery::viaTable()|viaTable()]] est que la première spécifie la table de jointure en termes de noms de relation existante, tandis que la deuxième utilise directement la table de jointure. Par exemple : 
 
 ```php
 class Order extends ActiveRecord
@@ -773,11 +773,11 @@ foreach ($customers as $customer) {
 }
 ```
 
-En appelant [[yii\db\ActiveQuery::with()]], vous donner comme instruction à l'enregistrement actif de rapporter les commandes (*orders*) pour les 100 premiers clients (*customers*) en une seule instruction SQL. En conséquence, vous réduisez le nombre d'instructions SQL de 101 à 2 !
+En appelant [[Yiisoft\Db\ActiveQuery::with()]], vous donner comme instruction à l'enregistrement actif de rapporter les commandes (*orders*) pour les 100 premiers clients (*customers*) en une seule instruction SQL. En conséquence, vous réduisez le nombre d'instructions SQL de 101 à 2 !
 
 Vous pouvez charger précocement une ou plusieurs relations. Vous pouvez même charger précocement des *relations imbriquées*. Une relation imbriquée est une relation qui est déclarée dans une classe d'enregistrement actif. Par exemple, `Customer` est en relation avec `Order` via la relation `orders`, et `Order` est en relation avec `Item` via la relation `items`. Lorsque vous effectuez une requête pour `Customer`, vous pouvez charger précocement `items` en utilisant la notation de relation imbriquée `orders.items`. 
 
-Le code suivant montre différentes utilisations de [[yii\db\ActiveQuery::with()|with()]]. Nous supposons que la classe `Customer` possède deux relations `orders` (commandes) et `country` (pays), tandis que la classe `Order` possède une relation `items`.
+Le code suivant montre différentes utilisations de [[Yiisoft\Db\ActiveQuery::with()|with()]]. Nous supposons que la classe `Customer` possède deux relations `orders` (commandes) et `country` (pays), tandis que la classe `Order` possède une relation `items`.
 
 ```php
 // chargement précoce à la fois de "orders" et de "country"
@@ -796,7 +796,7 @@ $customers = Customer::find()->with('orders.items')->all();
 $items = $customers[0]->orders[0]->items;
 ```
 
-Vous pouvez charger précocement des relations imbriquées en profondeur, telles que `a.b.c.d`. Toutes les relations parentes sont chargées précocement. C'est à dire, que lorsque vous appelez [[yii\db\ActiveQuery::with()|with()]] en utilisant `a.b.c.d`, vous chargez précocement `a`, `a.b`, `a.b.c` et `a.b.c.d`.
+Vous pouvez charger précocement des relations imbriquées en profondeur, telles que `a.b.c.d`. Toutes les relations parentes sont chargées précocement. C'est à dire, que lorsque vous appelez [[Yiisoft\Db\ActiveQuery::with()|with()]] en utilisant `a.b.c.d`, vous chargez précocement `a`, `a.b`, `a.b.c` et `a.b.c.d`.
 
 > Info: en général, lors du chargement précoce de `N` relations parmi lesquelles `M` relations sont définies par une [table de jointure](#junction-table), `N+M+1` instructions SQL sont exécutées au total. Notez qu'une relation imbriquée `a.b.c.d` possède 4 relations.
 
@@ -815,9 +815,9 @@ $customers = Customer::find()->with([
 ])->all();
 ```
 
-Lors de la personnalisation de la requête relationnelle pour une relation, vous devez spécifier le nom de la relation comme une clé de tableau et utiliser une fonction anonyme comme valeur de tableau correspondante. La fonction anonyme accepte une paramètre `$query` qui représente l'objet [[yii\db\ActiveQuery]] utilisé pour effectuer la requête relationnelle pour la relation. Dans le code ci-dessus, nous modifions la requête relationnelle en ajoutant une condition additionnelle à propos de l'état de la commande (*order*).
+Lors de la personnalisation de la requête relationnelle pour une relation, vous devez spécifier le nom de la relation comme une clé de tableau et utiliser une fonction anonyme comme valeur de tableau correspondante. La fonction anonyme accepte une paramètre `$query` qui représente l'objet [[Yiisoft\Db\ActiveQuery]] utilisé pour effectuer la requête relationnelle pour la relation. Dans le code ci-dessus, nous modifions la requête relationnelle en ajoutant une condition additionnelle à propos de l'état de la commande (*order*).
 
-> Note: si vous appelez [[yii\db\Query::select()|select()]] tout en chargeant précocement les relations, vous devez vous assurer que les colonnes référencées dans la déclaration de la relation sont sélectionnées. Autrement, les modèles en relation peuvent ne pas être chargés correctement. Par exemple :
+> Note: si vous appelez [[Yiisoft\Db\Query::select()|select()]] tout en chargeant précocement les relations, vous devez vous assurer que les colonnes référencées dans la déclaration de la relation sont sélectionnées. Autrement, les modèles en relation peuvent ne pas être chargés correctement. Par exemple :
 >
 > ```php
 > $orders = Order::find()->select(['id', 'amount'])->with('customer')->all();
@@ -848,7 +848,7 @@ $customers = Customer::find()
 
 > Note: il est important de supprimer les ambiguïtés sur les noms de colonnes lorsque vous construisez les requêtes relationnelles faisant appel à des instructions SQL JOIN. Une pratique courante est de préfixer les noms de colonnes par le nom des tables correspondantes. 
 
-Néanmoins, une meilleure approche consiste à exploiter les déclarations de relations existantes en appelant [[yii\db\ActiveQuery::joinWith()]] :
+Néanmoins, une meilleure approche consiste à exploiter les déclarations de relations existantes en appelant [[Yiisoft\Db\ActiveQuery::joinWith()]] :
 
 ```php
 $customers = Customer::find()
@@ -859,11 +859,11 @@ $customers = Customer::find()
 
 Les deux approches exécutent le même jeu d'instructions SQL. La deuxième approche est plus propre et plus légère cependant. 
 
-Par défaut, [[yii\db\ActiveQuery::joinWith()|joinWith()]] utilise `LEFT JOIN` pour joindre la table primaire avec les tables en relation. Vous pouvez spécifier une jointure différente (p .ex. `RIGHT JOIN`) via sont troisième paramètre `$joinType`. Si le type de jointure que vous désirez est `INNER JOIN`, vous pouvez simplement appeler [[yii\db\ActiveQuery::innerJoinWith()|innerJoinWith()]], à la place.
+Par défaut, [[Yiisoft\Db\ActiveQuery::joinWith()|joinWith()]] utilise `LEFT JOIN` pour joindre la table primaire avec les tables en relation. Vous pouvez spécifier une jointure différente (p .ex. `RIGHT JOIN`) via sont troisième paramètre `$joinType`. Si le type de jointure que vous désirez est `INNER JOIN`, vous pouvez simplement appeler [[Yiisoft\Db\ActiveQuery::innerJoinWith()|innerJoinWith()]], à la place.
 
-L'appel de [[yii\db\ActiveQuery::joinWith()|joinWith()]] [charge précocement](#lazy-eager-loading) les données en relation par défaut. Si vous ne voulez pas charger les données en relation, vous pouvez spécifier son deuxième paramètre `$eagerLoading` comme étant `false`. 
+L'appel de [[Yiisoft\Db\ActiveQuery::joinWith()|joinWith()]] [charge précocement](#lazy-eager-loading) les données en relation par défaut. Si vous ne voulez pas charger les données en relation, vous pouvez spécifier son deuxième paramètre `$eagerLoading` comme étant `false`. 
 
-Comme avec [[yii\db\ActiveQuery::with()|with()]], vous pouvez joindre une ou plusieurs relations ; vous pouvez personnaliser les requêtes de relation à la volée ; vous pouvez joindre des relations imbriquées ; et vous pouvez mélanger l'utilisation de [[yii\db\ActiveQuery::with()|with()]] et celle de [[yii\db\ActiveQuery::joinWith()|joinWith()]]. Par exemple :
+Comme avec [[Yiisoft\Db\ActiveQuery::with()|with()]], vous pouvez joindre une ou plusieurs relations ; vous pouvez personnaliser les requêtes de relation à la volée ; vous pouvez joindre des relations imbriquées ; et vous pouvez mélanger l'utilisation de [[Yiisoft\Db\ActiveQuery::with()|with()]] et celle de [[Yiisoft\Db\ActiveQuery::joinWith()|joinWith()]]. Par exemple :
 
 ```php
 $customers = Customer::find()->joinWith([
@@ -874,7 +874,7 @@ $customers = Customer::find()->joinWith([
     ->all();
 ```
 
-Parfois, en joignant deux tables, vous désirez peut-être spécifier quelques conditions supplémentaires dans la partie `ON` de la requête JOIN. Cela peut être réalisé en appelant la méthode [[yii\db\ActiveQuery::onCondition()]] comme ceci :
+Parfois, en joignant deux tables, vous désirez peut-être spécifier quelques conditions supplémentaires dans la partie `ON` de la requête JOIN. Cela peut être réalisé en appelant la méthode [[Yiisoft\Db\ActiveQuery::onCondition()]] comme ceci :
 
 ```php
 // SELECT `customer`.* FROM `customer`
@@ -890,7 +890,7 @@ $customers = Customer::find()->joinWith([
 
 La requête ci-dessus retourne *tous* les clients, et pour chacun des clients, toutes les commandes actives. Notez que cela est différent de notre exemple précédent qui ne retourne que les clients qui ont au moins une commande active. 
 
-> Info: quand [[yii\db\ActiveQuery]] est spécifiée avec une condition via une jointure [[yii\db\ActiveQuery::onCondition()|onCondition()]], la condition est placée dans la partie `ON` si la requête fait appel à une requête JOIN. Si la requête ne fait pas appel à JOIN, la *on-condition* est automatiquement ajoutée à la partie `WHERE` de la requête. Par conséquent elle peut ne contenir que des conditions incluant des colonnes de la table en relation. 
+> Info: quand [[Yiisoft\Db\ActiveQuery]] est spécifiée avec une condition via une jointure [[Yiisoft\Db\ActiveQuery::onCondition()|onCondition()]], la condition est placée dans la partie `ON` si la requête fait appel à une requête JOIN. Si la requête ne fait pas appel à JOIN, la *on-condition* est automatiquement ajoutée à la partie `WHERE` de la requête. Par conséquent elle peut ne contenir que des conditions incluant des colonnes de la table en relation. 
 
 #### Alias de table de relation <span id="relation-table-aliases"></span>
 
@@ -951,7 +951,7 @@ echo $customer2 === $customer ? 'same' : 'not the same';
 
 On aurait tendance à penser que `$customer` et `$customer2` sont identiques, mais ils ne le sont pas ! En réalité, ils contiennent les mêmes données de client, mais ce sont des objets différents. En accédant à `$order->customer`, une instruction SQL supplémentaire est exécutée pour remplir un nouvel objet `$customer2`.
 
-Pour éviter l'exécution redondante de la dernière instruction SQL dans l'exemple ci-dessus, nous devons dire à Yii que `customer` est une  *relation inverse* de `orders` en appelant la méthode [[yii\db\ActiveQuery::inverseOf()|inverseOf()]] comme ci-après :
+Pour éviter l'exécution redondante de la dernière instruction SQL dans l'exemple ci-dessus, nous devons dire à Yii que `customer` est une  *relation inverse* de `orders` en appelant la méthode [[Yiisoft\Db\ActiveQuery::inverseOf()|inverseOf()]] comme ci-après :
 
 
 ```php
@@ -980,7 +980,7 @@ $customer2 = $order->customer;
 echo $customer2 === $customer ? 'same' : 'not the same';
 ```
 
-> Note: les relations inverses ne peuvent être définies pour des relations faisant appel à une [table de jointure](#junction-table). C'est à dire que, si une relation est définie avec [[yii\db\ActiveQuery::via()|via()]] ou avec [[yii\db\ActiveQuery::viaTable()|viaTable()]], vous ne devez pas appeler [[yii\db\ActiveQuery::inverseOf()|inverseOf()]] ensuite.
+> Note: les relations inverses ne peuvent être définies pour des relations faisant appel à une [table de jointure](#junction-table). C'est à dire que, si une relation est définie avec [[Yiisoft\Db\ActiveQuery::via()|via()]] ou avec [[Yiisoft\Db\ActiveQuery::viaTable()|viaTable()]], vous ne devez pas appeler [[Yiisoft\Db\ActiveQuery::inverseOf()|inverseOf()]] ensuite.
 
 
 ## Sauvegarde des relations <span id="saving-relations"></span>
@@ -998,7 +998,7 @@ $order->customer_id = $customer->id;
 $order->save();
 ```
 
-L'enregistrement actif fournit la méthode [[yii\db\ActiveRecord::link()|link()]]qui vous permet d'accomplir cette tâche plus élégamment :
+L'enregistrement actif fournit la méthode [[Yiisoft\Db\ActiveRecord::link()|link()]]qui vous permet d'accomplir cette tâche plus élégamment :
 
 ```php
 $customer = Customer::findOne(123);
@@ -1009,11 +1009,11 @@ $order->subtotal = 100;
 $order->link('customer', $customer);
 ```
 
-La méthode [[yii\db\ActiveRecord::link()|link()]] requiert que vous spécifiiez le nom de la relation et l'instance d'enregistrement actif cible avec laquelle le relation doit être établie. La méthode modifie les valeurs des attributs qui lient deux instances d'enregistrement actif et les sauvegarde dans la base de données. Dans l'exemple ci-dessus, elle définit l'attribut `customer_id` de l'instance `Order` comme étant la valeur de l'attribut `id` de l'instance `Customer` et le sauvegarde ensuite dans la base de données.
+La méthode [[Yiisoft\Db\ActiveRecord::link()|link()]] requiert que vous spécifiiez le nom de la relation et l'instance d'enregistrement actif cible avec laquelle le relation doit être établie. La méthode modifie les valeurs des attributs qui lient deux instances d'enregistrement actif et les sauvegarde dans la base de données. Dans l'exemple ci-dessus, elle définit l'attribut `customer_id` de l'instance `Order` comme étant la valeur de l'attribut `id` de l'instance `Customer` et le sauvegarde ensuite dans la base de données.
 
 > Note: vous ne pouvez pas lier deux instances d'enregistrement actif nouvellement créées. 
 
-L'avantage d'utiliser [[yii\db\ActiveRecord::link()|link()]] est même plus évident lorsqu'une relation est définie via une [table de jointure](#junction-table). Par exemple, vous pouvez utiliser le code suivant pour lier une instance de `Order` à une instance de `Item` :
+L'avantage d'utiliser [[Yiisoft\Db\ActiveRecord::link()|link()]] est même plus évident lorsqu'une relation est définie via une [table de jointure](#junction-table). Par exemple, vous pouvez utiliser le code suivant pour lier une instance de `Order` à une instance de `Item` :
 
 ```php
 $order->link('items', $item);
@@ -1021,18 +1021,18 @@ $order->link('items', $item);
 
 Le code ci-dessus insère automatiquement une ligne dans la table de jointure `order_item` pour mettre la commande en relation avec l'item. 
 
-> Info: la méthode [[yii\db\ActiveRecord::link()|link()]] n'effectue AUCUNE validation de données lors de la sauvegarde de l'instance d'enregistrement actif affectée. Il est de votre responsabilité de valider toutes les données entrées avant d'appeler cette méthode. 
+> Info: la méthode [[Yiisoft\Db\ActiveRecord::link()|link()]] n'effectue AUCUNE validation de données lors de la sauvegarde de l'instance d'enregistrement actif affectée. Il est de votre responsabilité de valider toutes les données entrées avant d'appeler cette méthode. 
 
-L'opération opposée à [[yii\db\ActiveRecord::link()|link()]] est [[yii\db\ActiveRecord::unlink()|unlink()]] qui casse une relation existante entre deux instances d'enregistrement actif. Par exemple :
+L'opération opposée à [[Yiisoft\Db\ActiveRecord::link()|link()]] est [[Yiisoft\Db\ActiveRecord::unlink()|unlink()]] qui casse une relation existante entre deux instances d'enregistrement actif. Par exemple :
 
 ```php
 $customer = Customer::find()->with('orders')->where(['id' => 123])->one();
 $customer->unlink('orders', $customer->orders[0]);
 ```
 
-Par défaut, la méthode [[yii\db\ActiveRecord::unlink()|unlink()]] définit la valeur de la (des) clé(s) qui spécifie(nt) la relation existante à `null`. Vous pouvez cependant, choisir de supprimer la ligne de la table qui contient la valeur de clé étrangère en passant à la méthode la valeur `true` pour le paramètre `$delete`. 
+Par défaut, la méthode [[Yiisoft\Db\ActiveRecord::unlink()|unlink()]] définit la valeur de la (des) clé(s) qui spécifie(nt) la relation existante à `null`. Vous pouvez cependant, choisir de supprimer la ligne de la table qui contient la valeur de clé étrangère en passant à la méthode la valeur `true` pour le paramètre `$delete`. 
  
-Lorsqu'une table de jointure est impliquée dans une relation, appeler [[yii\db\ActiveRecord::unlink()|unlink()]] provoque l'effacement des clés étrangères dans la table de jointure, ou l'effacement de la ligne correspondante dans la table de jointure si `#delete` vaut `true`.
+Lorsqu'une table de jointure est impliquée dans une relation, appeler [[Yiisoft\Db\ActiveRecord::unlink()|unlink()]] provoque l'effacement des clés étrangères dans la table de jointure, ou l'effacement de la ligne correspondante dans la table de jointure si `#delete` vaut `true`.
 
 
 ## Relations inter bases de données <span id="cross-database-relations"></span> 
@@ -1041,7 +1041,7 @@ L'enregistrement actif vous permet de déclarer des relations entre les classes 
 
 ```php
 // Customer est associé à la table "customer" dans la base de données relationnelle (e.g. MySQL)
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public static function tableName()
     {
@@ -1075,18 +1075,18 @@ $customers = Customer::find()->with('comments')->all();
 
 Vous pouvez utiliser la plupart des fonctionnalités de requêtes relationnelles qui ont été décrites dans cette section.
  
-> Note: l'utilisation de [[yii\db\ActiveQuery::joinWith()|joinWith()]] est limitée aux bases de données qui permettent les requête JOIN inter bases. Pour cette raison, vous ne pouvez pas utiliser cette méthode dans l'exemple ci-dessus car MongoDB ne prend pas JOIN en charge. 
+> Note: l'utilisation de [[Yiisoft\Db\ActiveQuery::joinWith()|joinWith()]] est limitée aux bases de données qui permettent les requête JOIN inter bases. Pour cette raison, vous ne pouvez pas utiliser cette méthode dans l'exemple ci-dessus car MongoDB ne prend pas JOIN en charge. 
 
 
 ## Personnalisation des classes de requête <span id="customizing-query-classes"></span>
 
-Par défaut, toutes les requêtes d'enregistrement actif sont prises en charge par [[yii\db\ActiveQuery]]. Pour utiliser une classe de requête personnalisée dans une classe d'enregistrement actif, vous devez redéfinir la méthode [[yii\db\ActiveRecord::find()]] et retourner une instance de votre classe de requête personnalisée .Par exemple :
+Par défaut, toutes les requêtes d'enregistrement actif sont prises en charge par [[Yiisoft\Db\ActiveQuery]]. Pour utiliser une classe de requête personnalisée dans une classe d'enregistrement actif, vous devez redéfinir la méthode [[Yiisoft\Db\ActiveRecord::find()]] et retourner une instance de votre classe de requête personnalisée .Par exemple :
  
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
-use yii\db\ActiveQuery;
+use Yiisoft\Db\ActiveRecord;
+use Yiisoft\Db\ActiveQuery;
 
 class Comment extends ActiveRecord
 {
@@ -1118,7 +1118,7 @@ class CommentQuery extends ActiveQuery
 }
 ```
 
-> Note: au lieu d'appeler [[yii\db\ActiveQuery::where()|where()]], vous devez ordinairement appeler [[yii\db\ActiveQuery::andWhere()|andWhere()]] ou [[yii\db\ActiveQuery::orWhere()|orWhere()]] pour ajouter des conditions additionnelles lors de la définition de nouvelles méthodes de construction de requête afin que les conditions existantes ne soient pas redéfinies.
+> Note: au lieu d'appeler [[Yiisoft\Db\ActiveQuery::where()|where()]], vous devez ordinairement appeler [[Yiisoft\Db\ActiveQuery::andWhere()|andWhere()]] ou [[Yiisoft\Db\ActiveQuery::orWhere()|orWhere()]] pour ajouter des conditions additionnelles lors de la définition de nouvelles méthodes de construction de requête afin que les conditions existantes ne soient pas redéfinies.
 
 Cela vous permet d'écrire le code de construction de requêtes comme suit :
  
@@ -1130,7 +1130,7 @@ $inactiveComments = Comment::find()->active(false)->all();
 Vous pouvez aussi utiliser les méthodes de construction de requêtes en définissant des relations avec `Comment` ou en effectuant une requête relationnelle : 
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public function getActiveComments()
     {
@@ -1160,7 +1160,7 @@ Il vous est possible d'aller chercher des colonnes ou des valeurs additionnelles
 
 
 ```php
-class Room extends \yii\db\ActiveRecord
+class Room extends \Yiisoft\Db\ActiveRecord
 {
     public $volume;
 
@@ -1187,7 +1187,7 @@ foreach ($rooms as $room) {
 La possibilité de sélectionner des champs supplémentaires peut être exceptionnellement utile pour l'agrégation de requêtes. Supposons que vous ayez besoin d'afficher une liste des clients avec le nombre total de commandes qu'ils ont passées. Tout d'abord, vous devez déclarer une classe `Customer` avec une relation `orders` et un champ supplémentaire pour le stockage du nombre de commandes :
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public $ordersCount;
 
@@ -1224,10 +1224,10 @@ $room->height = 2;
 $room->volume; // cette valeur est `null` puisqu'elle n'a pas encore été déclarée
 ```
 
-En utilisant les méthodes magiques [[yii\db\BaseActiveRecord::__get()|__get()]] et [[yii\db\BaseActiveRecord::__set()|__set()]] nous pouvons émuler le comportement d'une propriété :
+En utilisant les méthodes magiques [[Yiisoft\Db\BaseActiveRecord::__get()|__get()]] et [[Yiisoft\Db\BaseActiveRecord::__set()|__set()]] nous pouvons émuler le comportement d'une propriété :
 
 ```php
-class Room extends \yii\db\ActiveRecord
+class Room extends \Yiisoft\Db\ActiveRecord
 {
     private $_volume;
     
@@ -1260,7 +1260,7 @@ Lorsque la requête *select* ne fournit pas le volume, le modèle est pas capabl
 De façon similaire, il peut être utilisé sur des champs supplémentaires en fonction des données relationnelles : 
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     private $_ordersCount;
     

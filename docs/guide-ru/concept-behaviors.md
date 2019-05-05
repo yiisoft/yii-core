@@ -66,7 +66,7 @@ class MyBehavior extends Behavior
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior
@@ -88,7 +88,7 @@ class MyBehavior extends Behavior
 ```
 
 Метод [[yii\base\Behavior::events()|events()]] должен возвращать список событий и соответствующих им обработчиков.
-В приведенном выше примере, объявлено событие [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]]
+В приведенном выше примере, объявлено событие [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]]
 и его обработчик `beforeValidate()`. Указать обработчик события, можно одним из следующих способов:
 
 * строка с именем метода текущего поведения, как в примере выше;
@@ -117,7 +117,7 @@ function ($event) {
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use app\components\MyBehavior;
 
 class User extends ActiveRecord
@@ -261,15 +261,15 @@ $component->detachBehaviors();
 --------------------------------------------------------------------------
 
 В заключении, давайте посмотрим на [[yii\behaviors\TimestampBehavior]] — поведение, которое позволяет автоматически
-обновлять атрибуты с метками времени при сохранении [[yii\db\ActiveRecord|Active Record]] моделей через `insert()`,
+обновлять атрибуты с метками времени при сохранении [[Yiisoft\Db\ActiveRecord|Active Record]] моделей через `insert()`,
 `update()` или `save()`.
 
-Для начала, необходимо прикрепить поведение к классу [[yii\db\ActiveRecord|Active Record]], в котором это необходимо:
+Для начала, необходимо прикрепить поведение к классу [[Yiisoft\Db\ActiveRecord|Active Record]], в котором это необходимо:
 
 ```php
 namespace app\models\User;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord

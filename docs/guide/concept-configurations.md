@@ -11,7 +11,7 @@ In the following, a configuration is used to create and initialize a database co
 
 ```php
 $config = [
-    '__class' => yii\db\Connection::class,
+    '__class' => Yiisoft\Db\Connection::class,
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -108,7 +108,7 @@ $config = [
             '__class' => \Yiisoft\Yii\SwiftMailer\Mailer::class,
         ],
         'db' => [
-            '__class' => \yii\db\Connection::class,
+            '__class' => \Yiisoft\Db\Connection::class,
             'dsn' => 'mysql:host=localhost;dbname=stay2',
             'username' => 'root',
             'password' => '',
@@ -203,7 +203,7 @@ return [
         '__class' => Yiisoft\Yii\SwiftMailer\Mailer::class,
     ],
     'db' => [
-        '__class' => \yii\db\Connection::class,
+        '__class' => \Yiisoft\Db\Connection::class,
         'dsn' => 'mysql:host=localhost;dbname=stay2',
         'username' => 'root',
         'password' => '',

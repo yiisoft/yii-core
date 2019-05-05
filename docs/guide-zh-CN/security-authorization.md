@@ -285,7 +285,7 @@ API 本身不会有所不同。
 
 ```php
 <?php
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m170124_084304_init_rbac extends Migration
 {

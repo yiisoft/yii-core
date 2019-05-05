@@ -8,7 +8,7 @@ A seguir, uma configuração é usada para criar e inicializar uma conexão com 
 
 ```php
 $config = [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -99,7 +99,7 @@ $config = [
             ],
         ],
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=stay2',
             'username' => 'root',
             'password' => '',
@@ -175,7 +175,7 @@ return [
         ],
     ],
     'db' => [
-        'class' => 'yii\db\Connection',
+        'class' => 'Yiisoft\Db\Connection',
         'dsn' => 'mysql:host=localhost;dbname=stay2',
         'username' => 'root',
         'password' => '',

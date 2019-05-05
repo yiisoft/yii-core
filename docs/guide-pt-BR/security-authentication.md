@@ -44,7 +44,7 @@ No exemplo a seguir, uma [[yii\web\User::identityClass|classe de identidade]] é
 ```php
 <?php
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 class User extends ActiveRecord implements IdentityInterface

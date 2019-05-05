@@ -428,14 +428,14 @@ Query Builder (Construtor de Consultas)
 
 No 1.1, a construção de consultas estava espalhada po diversas classes, incluindo
 a `CDbCommand`, a `CDbCriteria` e a `CDbCommandBuilder`. O Yii 2.0 representa uma
-consulta do banco de dados em termos de um objeto [[yii\db\Query|Query]] que pode
-ser convertido em uma instrução SQL com a ajuda do [[yii\db\QueryBuilder|QueryBuilder]] 
+consulta do banco de dados em termos de um objeto [[Yiisoft\Db\Query|Query]] que pode
+ser convertido em uma instrução SQL com a ajuda do [[Yiisoft\Db\QueryBuilder|QueryBuilder]] 
 que está por de trás dos panos.
 
 Por exemplo:
 
 ```php
-$query = new \yii\db\Query();
+$query = new \Yiisoft\Db\Query();
 $query->select('id, name')
       ->from('user')
       ->limit(10);
@@ -458,9 +458,9 @@ O Yii 2.0 introduz várias mudanças ao [Active Record](db-active-record.md). As
 dias mais óbvias envolvem a construção de consultas e o manuseio de consultas
 relacionais.
 
-A classe `CDbCriteria` do 1.1 foi substituída pela [[yii\db\ActiveQuery]] do Yii 2.
-Essa classe estende de [[yii\db\Query]], e assim herda todos os métodos de
-construção de consultas. Você chama [[yii\db\ActiveRecord::find()]] para começar
+A classe `CDbCriteria` do 1.1 foi substituída pela [[Yiisoft\Db\ActiveQuery]] do Yii 2.
+Essa classe estende de [[Yiisoft\Db\Query]], e assim herda todos os métodos de
+construção de consultas. Você chama [[Yiisoft\Db\ActiveRecord::find()]] para começar
 a construir uma consulta:
 
 ```php
@@ -472,13 +472,13 @@ $customers = Customer::find()
 ```
 
 Para declarar um relacionamento, simplesmente defina um método getter que retorne
-um objeto [[yii\db\ActiveQuery|ActiveQuery]]. O nome da propriedade definida pelo
+um objeto [[Yiisoft\Db\ActiveQuery|ActiveQuery]]. O nome da propriedade definida pelo
 getter representa o nome do relacionamento. Por exemplo, o código a seguir
 declara um relacionamento `orders` (no 1.1, você teria que declarar as relações
 em um local central, `relations()`):
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public function getOrders()
     {
@@ -502,8 +502,8 @@ relacionamentos. No Yii 2.0, duas instruções SQL são executadas sem usar JOIN
 a primeira instrução retorna os registros principais e a segunda retorna os registros
 de relacionamentos filtrando pelas chaves primários dos registros principais.
 
-Ao invés de retornar objetos [[yii\db\ActiveRecord|ActiveRecord]], você pode
-encadear o método [[yii\db\ActiveQuery::asArray()|asArray()]] ao construir uma
+Ao invés de retornar objetos [[Yiisoft\Db\ActiveRecord|ActiveRecord]], você pode
+encadear o método [[Yiisoft\Db\ActiveQuery::asArray()|asArray()]] ao construir uma
 consulta para retornar um grande número de registros. Isso fará com que o resultado
 da consulta retorne como arrays, o que pode reduzir significativamente o tempo
 de CPU e memória necessários para um grande número de registros. Por exemplo,
@@ -526,7 +526,7 @@ public function init()
 
 Havia alguns problemas ao sobrescrever o construtor de uma classe ActiveRecord
 no 1.1. Estes não ocorrem mais na versão 2.0. Perceba que ao adicionar parâmetros
-ao construtor você pode ter que sobrescrever o método [[yii\db\ActiveRecord::instantiate()]].
+ao construtor você pode ter que sobrescrever o método [[Yiisoft\Db\ActiveRecord::instantiate()]].
 
 Existem muitas outras mudanças e melhorias no Active Record. Por favor consulte
 a seção [Active Record](db-active-record.md) para mais detalhes.

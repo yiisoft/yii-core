@@ -181,7 +181,7 @@ $value2 = $cache['var2'];  // 等价于： $value2 = $cache->get('var2');
 它将会自动被序列化为一个字符串。
 
 定义一个缓存键常见的一个策略就是在一个数组中包含所有的决定性因素。
-例如，[[yii\db\Schema]] 使用如下键存储一个数据表的结构信息。
+例如，[[Yiisoft\Db\Schema]] 使用如下键存储一个数据表的结构信息。
 
 ```php
 [
@@ -285,8 +285,8 @@ $data = $cache->get($key);
 查询缓存是一个建立在数据缓存之上的特殊缓存特性。
 它用于缓存数据库查询的结果。
 
-查询缓存需要一个 [[yii\db\Connection|数据库连接]] 和一个有效的 `cache` 应用组件。
-查询缓存的基本用法如下，假设 `$db` 是一个 [[yii\db\Connection]] 实例：
+查询缓存需要一个 [[Yiisoft\Db\Connection|数据库连接]] 和一个有效的 `cache` 应用组件。
+查询缓存的基本用法如下，假设 `$db` 是一个 [[Yiisoft\Db\Connection]] 实例：
 
 ```php
 $result = $db->cache(function ($db) {
@@ -322,22 +322,22 @@ User::find()->cache(7200)->all();
 
 ### 配置 <span id="query-caching-configs"></span>
 
-查询缓存通过 [[yii\db\Connection]] 有三个全局可配置选项：
+查询缓存通过 [[Yiisoft\Db\Connection]] 有三个全局可配置选项：
 
-* [[yii\db\Connection::enableQueryCache|enableQueryCache]]：是否打开或关闭查询缓存。
+* [[Yiisoft\Db\Connection::enableQueryCache|enableQueryCache]]：是否打开或关闭查询缓存。
   它默认为 `true`。 请注意，要有效打开查询缓存，
-  您还需要有一个由 [[yii\db\Connection::queryCache|queryCache]] 所指定的有效缓存。
-* [[yii\db\Connection::queryCacheDuration|queryCacheDuration]]：这表示查询结果在缓存中保持有效的秒数。 
+  您还需要有一个由 [[Yiisoft\Db\Connection::queryCache|queryCache]] 所指定的有效缓存。
+* [[Yiisoft\Db\Connection::queryCacheDuration|queryCacheDuration]]：这表示查询结果在缓存中保持有效的秒数。 
   您可以使用 0 来表示查询结果永久保留在缓存中。
-  该属性是在未指定持续时间的情况下调用 [[yii\db\Connection::cache()]]
+  该属性是在未指定持续时间的情况下调用 [[Yiisoft\Db\Connection::cache()]]
   使用的默认值。
-* [[yii\db\Connection::queryCache|queryCache]]：缓存应用组件的 ID。默认为 `'cache'`。
+* [[Yiisoft\Db\Connection::queryCache|queryCache]]：缓存应用组件的 ID。默认为 `'cache'`。
   只有在设置了一个有效的缓存应用组件时，查询缓存才会有效。
 
 
 ### 使用 <span id="query-caching-usages"></span>
 
-如果您有多个需要利用查询缓存的 SQL 查询，则可以使用 [[yii\db\Connection::cache()]]。
+如果您有多个需要利用查询缓存的 SQL 查询，则可以使用 [[Yiisoft\Db\Connection::cache()]]。
 用法如下，
 
 ```php
@@ -356,10 +356,10 @@ $result = $db->cache(function ($db) {
 在匿名函数里的任何一个 SQL 查询都将使用指定的依赖项缓存指定的持续时间
 如果一个 SQL 查询的结果在缓存中有效，那么这个 SQl 语句将会被跳过而它的查询结果会直接从缓存中读取。
 如果你没有指明 `$duration` 参数，
-那么使用 [[yii\db\Connection::queryCacheDuration|queryCacheDuration]] 属性。
+那么使用 [[Yiisoft\Db\Connection::queryCacheDuration|queryCacheDuration]] 属性。
 
 有时在`cache()`里，你可能不想缓存某些特殊的查询，
-这时你可以用[[yii\db\Connection::noCache()]]。
+这时你可以用[[Yiisoft\Db\Connection::noCache()]]。
 
 ```php
 $result = $db->cache(function ($db) {
@@ -378,7 +378,7 @@ $result = $db->cache(function ($db) {
 });
 ```
 
-如果您只想为单个查询使用查询缓存，则可以在构建命令时调用 [[yii\db\Command::cache()]]。
+如果您只想为单个查询使用查询缓存，则可以在构建命令时调用 [[Yiisoft\Db\Command::cache()]]。
 例如，
 
 ```php
@@ -386,7 +386,7 @@ $result = $db->cache(function ($db) {
 $customer = $db->createCommand('SELECT * FROM customer WHERE id=1')->cache(60)->queryOne();
 ```
 
-您还可以使用 [[yii\db\Command::noCache()]] 禁用单个命令的查询缓存。例如，
+您还可以使用 [[Yiisoft\Db\Command::noCache()]] 禁用单个命令的查询缓存。例如，
 
 ```php
 $result = $db->cache(function ($db) {

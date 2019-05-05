@@ -138,7 +138,7 @@ Vous pouvez utiliser [[yii\di\Container::set()]] pour enregistrer les dépendanc
 $container = new \yii\di\Container;
 
 // enregistre un nom de classe tel quel. Cela peut être sauté. 
-$container->set('yii\db\Connection');
+$container->set('Yiisoft\Db\Connection');
 
 // enregistre une interface
 // Lorsqu'une classe dépend d'une interface, la classe correspondante
@@ -147,11 +147,11 @@ $container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // enregistre un nom d'alias. Vous pouvez utiliser $container->get('foo')
 // pour créer une instance de Connection
-$container->set('foo', 'yii\db\Connection');
+$container->set('foo', 'Yiisoft\Db\Connection');
 
 // enregistre une classe avec une configuration. La configuration
 // est appliquée lorsque la classe est instanciée par  get()
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -161,7 +161,7 @@ $container->set('yii\db\Connection', [
 // enregistre un nom d'alias avec une configuration de classe
 // Dans ce cas, un élément "class" est requis pour spécifier la classe
 $container->set('db', [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -171,7 +171,7 @@ $container->set('db', [
 // enregistre une fonction de rappel PHP 
 // La fonction de rappel est exécutée à chaque fois que $container->get('db') est appelée
 $container->set('db', function ($container, $params, $config) {
-    return new \yii\db\Connection($config);
+    return new \Yiisoft\Db\Connection($config);
 });
 
 // enregistre une interface de composant 
@@ -184,7 +184,7 @@ $container->set('pageCache', new FileCache);
 Une dépendance enregistrée via `set()` génère une instance à chaque fois que la dépendance est nécessaire. Vous pouvez utiliser [[yii\di\Container::setSingleton()]] pour enregistrer une dépendance qui ne génère qu'une seule instance :
 
 ```php
-$container->setSingleton('yii\db\Connection', [
+$container->setSingleton('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -216,7 +216,7 @@ Le code suivant montre un exemple plus sophistiqué. La classe `UserLister` dép
 namespace app\models;
 
 use yii\base\BaseObject;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\di\Container;
 
 interface UserFinderInterface
@@ -251,7 +251,7 @@ class UserLister extends BaseObject
 }
 
 $container = new Container;
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => '...',
 ]);
 $container->set('app\models\UserFinderInterface', [
@@ -263,7 +263,7 @@ $lister = $container->get('userLister');
 
 // qui est équivalent à :
 
-$db = new \yii\db\Connection(['dsn' => '...']);
+$db = new \Yiisoft\Db\Connection(['dsn' => '...']);
 $finder = new UserFinder($db);
 $lister = new UserLister($finder);
 ```

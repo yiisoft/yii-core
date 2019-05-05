@@ -8,7 +8,7 @@
 namespace yii\behaviors;
 
 use yii\helpers\Yii;
-use yii\db\BaseActiveRecord;
+use Yiisoft\Db\BaseActiveRecord;
 
 /**
  * BlameableBehavior automatically fills the specified attributes with the current user ID.

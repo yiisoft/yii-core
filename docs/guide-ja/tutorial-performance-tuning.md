@@ -50,7 +50,7 @@ DB テーブルに関するスキーマ情報 (カラムの名前、カラムの
 スキーマ・キャッシュを有効にすると、取得されたスキーマ情報はキャッシュに保存されて将来のクエリで再利用されるようになります。
 
 スキーマ・キャッシュを有効にするためには、[アプリケーションの構成情報](concept-configurations.md) の中で、
-`cache` [アプリケーション・コンポーネント](structure-application-components.md) にスキーマ情報を保存するように構成し、[[yii\db\Connection::enableSchemaCache]] を `true` に設定します。
+`cache` [アプリケーション・コンポーネント](structure-application-components.md) にスキーマ情報を保存するように構成し、[[Yiisoft\Db\Connection::enableSchemaCache]] を `true` に設定します。
 
 ```php
 return [
@@ -61,7 +61,7 @@ return [
             '__class' => yii\caching\FileCache::class,
         ],
         'db' => [
-            '__class' => yii\db\Connection::class,
+            '__class' => Yiisoft\Db\Connection::class,
             'dsn' => 'mysql:host=localhost;dbname=mydatabase',
             'username' => 'root',
             'password' => '',

@@ -137,7 +137,7 @@ Chacune des données stockée dans le cache est identifiée de manière unique p
 
 Vous pouvez utiliser une chaîne de caractères ou une valeur arbitraire en tant que clé de cache. Lorsqu'il ne s'agit pas d'une chaîne de caractères, elle est automatiquement sérialisée sous forme de chaîne de caractères.
 
-Une stratégie courante pour définir une clé de cache consiste à inclure tous les facteurs déterminants sous forme de tableau. Par exemple,[[yii\db\Schema]] utilise la clé suivante par mettre en cache les informations de schéma d'une table de base de données :
+Une stratégie courante pour définir une clé de cache consiste à inclure tous les facteurs déterminants sous forme de tableau. Par exemple,[[Yiisoft\Db\Schema]] utilise la clé suivante par mettre en cache les informations de schéma d'une table de base de données :
 
 ```php
 [
@@ -223,8 +223,8 @@ Ci-dessous nous présentons un résumé des dépendances de mise en cache dispon
 
 La mise en cache de requêtes est une fonctionnalité spéciale de la mise en cache construite sur la base de la mise en cache de données. Elle est fournie pour permettre la mise en cache du résultat de requêtes de base de données.
 
-La mise en cache de requêtes nécessite une [[yii\db\Connection|connexion à une base de données]] et un  [composant d'application](#cache-components)`cache` valide.
-L'utilisation de base de la mise en cache de requêtes est la suivante, en supposant que `$db` est une instance de [[yii\db\Connection]] :
+La mise en cache de requêtes nécessite une [[Yiisoft\Db\Connection|connexion à une base de données]] et un  [composant d'application](#cache-components)`cache` valide.
+L'utilisation de base de la mise en cache de requêtes est la suivante, en supposant que `$db` est une instance de [[Yiisoft\Db\Connection]] :
 
 ```php
 $result = $db->cache(function ($db) {
@@ -262,18 +262,18 @@ Vous pouvez aussi vider le cache depuis la console en appelant `yii cache/flush`
 
 ### Configurations <span id="query-caching-configs"></span>
 
-La mise en cache de requêtes dispose de trois options globales configurables via [[yii\db\Connection]] :
+La mise en cache de requêtes dispose de trois options globales configurables via [[Yiisoft\Db\Connection]] :
 
-* [[yii\db\Connection::enableQueryCache|enableQueryCache]] : pour activer ou désactiver la mise en cache de requêtes.
-  Valeur par défaut : `true`. Notez que pour activer effectivement la mise en cache de requêtes, vous devez également disposer d'un cache valide, tel que spécifié par [[yii\db\Connection::queryCache|queryCache]].
-* [[yii\db\Connection::queryCacheDuration|queryCacheDuration]] : ceci représente le nombre de secondes durant lesquelles le résultat d'une requête reste valide dans le cache. Vous pouvez utiliser 0 pour indiquer que le résultat de la requête doit rester valide indéfiniment dans le cache. Cette propriété est la valeur par défaut utilisée lors de l'appel [[yii\db\Connection::cache()]] sans spécifier de durée.
-* [[yii\db\Connection::queryCache|queryCache]] : ceci représente l'identifiant du composant d'application de mise en cache.
+* [[Yiisoft\Db\Connection::enableQueryCache|enableQueryCache]] : pour activer ou désactiver la mise en cache de requêtes.
+  Valeur par défaut : `true`. Notez que pour activer effectivement la mise en cache de requêtes, vous devez également disposer d'un cache valide, tel que spécifié par [[Yiisoft\Db\Connection::queryCache|queryCache]].
+* [[Yiisoft\Db\Connection::queryCacheDuration|queryCacheDuration]] : ceci représente le nombre de secondes durant lesquelles le résultat d'une requête reste valide dans le cache. Vous pouvez utiliser 0 pour indiquer que le résultat de la requête doit rester valide indéfiniment dans le cache. Cette propriété est la valeur par défaut utilisée lors de l'appel [[Yiisoft\Db\Connection::cache()]] sans spécifier de durée.
+* [[Yiisoft\Db\Connection::queryCache|queryCache]] : ceci représente l'identifiant du composant d'application de mise en cache.
   Sa valeur par défaut est : `'cache'`. La mise en cache de requêtes est activée seulement s'il existe un composant d'application de mise en cache valide.
 
 
 ### Utilisations <span id="query-caching-usages"></span>
 
-Vous pouvez utiliser [[yii\db\Connection::cache()]] si vous avez de multiples requêtes SQL qui doivent bénéficier de la mise en cache de requêtes. On l'utilise comme suit :
+Vous pouvez utiliser [[Yiisoft\Db\Connection::cache()]] si vous avez de multiples requêtes SQL qui doivent bénéficier de la mise en cache de requêtes. On l'utilise comme suit :
 
 ```php
 $duration = 60;     // mettre le résultat de la requête en cache durant 60 secondes.
@@ -288,9 +288,9 @@ $result = $db->cache(function ($db) {
 }, $duration, $dependency);
 ```
 
-Toutes les requêtes SQL dans la fonction anonyme sont mises en cache pour la durée spécifiée avec la dépendance spécifiée. Si le résultat d'une requête est trouvé valide dans le cache, la requête est ignorée et, à la place, le résultat est servi à partir du cache. Si vous ne spécifiez pas le paramètre `$duration`, la valeur de [[yii\db\Connection::queryCacheDuration|queryCacheDuration]] est utilisée en remplacement.
+Toutes les requêtes SQL dans la fonction anonyme sont mises en cache pour la durée spécifiée avec la dépendance spécifiée. Si le résultat d'une requête est trouvé valide dans le cache, la requête est ignorée et, à la place, le résultat est servi à partir du cache. Si vous ne spécifiez pas le paramètre `$duration`, la valeur de [[Yiisoft\Db\Connection::queryCacheDuration|queryCacheDuration]] est utilisée en remplacement.
 
-Parfois, dans `cache()`, il se peut que vous vouliez désactiver la mise en cache de requêtes pour des requêtes particulières. Dans un tel cas, vous pouvez utiliser [[yii\db\Connection::noCache()]].
+Parfois, dans `cache()`, il se peut que vous vouliez désactiver la mise en cache de requêtes pour des requêtes particulières. Dans un tel cas, vous pouvez utiliser [[Yiisoft\Db\Connection::noCache()]].
 
 ```php
 $result = $db->cache(function ($db) {
@@ -309,14 +309,14 @@ $result = $db->cache(function ($db) {
 });
 ```
 
-Si vous voulez seulement utiliser la mise en cache de requêtes pour une requête unique, vous pouvez appeler la fonction [[yii\db\Command::cache()]] lors de la construction de la commande. Par exemple :
+Si vous voulez seulement utiliser la mise en cache de requêtes pour une requête unique, vous pouvez appeler la fonction [[Yiisoft\Db\Command::cache()]] lors de la construction de la commande. Par exemple :
 
 ```php
 // utilise la mise en cache de requêtes et définit la durée de mise en cache de la requête à 60 secondes
 $customer = $db->createCommand('SELECT * FROM customer WHERE id=1')->cache(60)->queryOne();
 ```
 
-Vous pouvez aussi utiliser la fonction [[yii\db\Command::noCache()]] pour désactiver la mise en cache de requêtes pour une commande unique. Par exemple :
+Vous pouvez aussi utiliser la fonction [[Yiisoft\Db\Command::noCache()]] pour désactiver la mise en cache de requêtes pour une commande unique. Par exemple :
 
 ```php
 $result = $db->cache(function ($db) {

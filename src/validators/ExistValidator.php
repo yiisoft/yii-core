@@ -12,7 +12,7 @@ use yii\exceptions\InvalidConfigException;
 use yii\base\Model;
 use Yiisoft\ActiveRecord\ActiveQuery;
 use Yiisoft\ActiveRecord\ActiveRecord;
-use yii\db\QueryInterface;
+use Yiisoft\Db\QueryInterface;
 
 /**
  * ExistValidator validates that the attribute value exists in a table.
@@ -70,9 +70,9 @@ class ExistValidator extends Validator
     public $targetRelation;
     /**
      * @var string|array|\Closure additional filter to be applied to the DB query used to check the existence of the attribute value.
-     * This can be a string or an array representing the additional query condition (refer to [[\yii\db\Query::where()]]
+     * This can be a string or an array representing the additional query condition (refer to [[\Yiisoft\Db\Query::where()]]
      * on the format of query condition), or an anonymous function with the signature `function ($query)`, where `$query`
-     * is the [[\yii\db\Query|Query]] object that you can modify in the function.
+     * is the [[\Yiisoft\Db\Query|Query]] object that you can modify in the function.
      */
     public $filter;
     /**
@@ -179,7 +179,7 @@ class ExistValidator extends Validator
 
     /**
      * Processes attributes' relations described in $targetAttribute parameter into conditions, compatible with
-     * [[\yii\db\Query::where()|Query::where()]] key-value format.
+     * [[\Yiisoft\Db\Query::where()|Query::where()]] key-value format.
      *
      * @param $targetAttribute array|string $attribute the name of the ActiveRecord attribute that should be used to
      * validate the existence of the current attribute value. If not set, it will use the name
@@ -189,7 +189,7 @@ class ExistValidator extends Validator
      * If the key and the value are the same, you can just specify the value.
      * @param \yii\base\Model $model the data model to be validated
      * @param string $attribute the name of the attribute to be validated in the $model
-     * @return array conditions, compatible with [[\yii\db\Query::where()|Query::where()]] key-value format.
+     * @return array conditions, compatible with [[\Yiisoft\Db\Query::where()|Query::where()]] key-value format.
      * @throws InvalidConfigException
      */
     private function prepareConditions($targetAttribute, $model, $attribute)

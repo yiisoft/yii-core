@@ -177,20 +177,20 @@ Gestionnaire d'événement au niveau de la classe <span id="class-level-event-ha
 
 Les sections précédent décrivent comment attacher un gestionnaire à un événement au *niveau d'une instance*. Parfois, vous désirez répondre à un événement déclenché par *chacune des* instances d'une classe plutôt que par une instance spécifique. Au lieu d'attacher l'événement à chacune des instances, vous pouvez attacher le gestionnaire au *niveau de la classe* en appelant la méthode statique [[yii\base\Event::on()]].
 
-Par exemple, un objet [Active Record](db-active-record.md) déclenche un événement  [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]
+Par exemple, un objet [Active Record](db-active-record.md) déclenche un événement  [[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]
 à chaque fois qu'il insère un nouvel enregistrement dans la base de données. Afin de suivre les insertions faites par tous les objets [Active Record](db-active-record.md), vous pouvez utiliser le code suivant :
 
 ```php
 use yii\helpers\Yii;
 use yii\base\Event;
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 Event::on(ActiveRecord::class, ActiveRecord::EVENT_AFTER_INSERT, function ($event) {
     Yii::trace(get_class($event->sender) . ' is inserted');
 });
 ```
 
-Le gestionnaire d'événement est invoqué à chaque fois qu'une instance de la classe [[yii\db\ActiveRecord|ActiveRecord]], ou d'une de ses classes filles, déclenche l'événement [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]. Dans le gestionnaire, vous pouvez obtenir l'objet qui a déclenché l'événement via `$event->sender`.
+Le gestionnaire d'événement est invoqué à chaque fois qu'une instance de la classe [[Yiisoft\Db\ActiveRecord|ActiveRecord]], ou d'une de ses classes filles, déclenche l'événement [[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]. Dans le gestionnaire, vous pouvez obtenir l'objet qui a déclenché l'événement via `$event->sender`.
 
 Losqu'un objet déclenche un événement, il commence par appeler les gestionnaires attachés au niveau de l'instance, puis les gestionnaires attachés au niveau de la classe. 
 

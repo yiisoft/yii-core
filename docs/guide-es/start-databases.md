@@ -60,7 +60,7 @@ el archivo contiene el siguiente contenido:
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',
@@ -69,7 +69,7 @@ return [
 ```
 
 El archivo `config/db.php` representa la típica [configuración](concept-configurations.md) basada en archivos. Este archivo de configuración en particular
-especifica los parámetros necesarios para crear e inicializar una instancia de [[yii\db\Connection]] a través de la cual puedes realizar
+especifica los parámetros necesarios para crear e inicializar una instancia de [[Yiisoft\Db\Connection]] a través de la cual puedes realizar
 consultas SQL contra la base de datos subyacente.
 
 La conexión a la base de datos realizada anteriormente puede ser accedida mediante `Yii::$app->db`.
@@ -96,18 +96,18 @@ llamada `Country` y guárdala en el archivo `models/Country.php`.
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
 }
 ```
 
-La clase `Country` extiende de [[yii\db\ActiveRecord]]. No necesitas escribir ningún código dentro de ella! Con tan sólo el código de arriba,
+La clase `Country` extiende de [[Yiisoft\Db\ActiveRecord]]. No necesitas escribir ningún código dentro de ella! Con tan sólo el código de arriba,
 Yii adivinará la tabla correspondiente a la clase desde su nombre.
 
 > Info: Si no se puede realizar un emparejamiento entre el nombre de la clase y la tabla, puedes
-sobrescribir el método [[yii\db\ActiveRecord::tableName()]] para especificar explícitamente el nombre de la tabla asiciada.
+sobrescribir el método [[Yiisoft\Db\ActiveRecord::tableName()]] para especificar explícitamente el nombre de la tabla asiciada.
 
 Utilizando la clase `Country`, puedes manipular los datos de la tabla `country` fácilmente, como se muestra en los siguiente ejemplos:
 

@@ -202,22 +202,22 @@ Sometimes, you may want to respond to an event triggered by *every* instance of 
 a specific instance. Instead of attaching an event handler to every instance, you may attach the handler
 on the *class level* by calling the static method [[yii\base\Event::on()]].
 
-For example, an [Active Record](db-active-record.md) object will trigger an [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]
+For example, an [Active Record](db-active-record.md) object will trigger an [[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]
 event whenever it inserts a new record into the database. In order to track insertions done by *every*
 [Active Record](db-active-record.md) object, you may use the following code:
 
 ```php
 use yii\helpers\Yii;
 use yii\base\Event;
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 Event::on(ActiveRecord::class, ActiveRecord::EVENT_AFTER_INSERT, function ($event) {
     Yii::debug(get_class($event->sender) . ' is inserted');
 });
 ```
 
-The event handler will be invoked whenever an instance of [[yii\db\ActiveRecord|ActiveRecord]], or one of its child classes, triggers
-the [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] event. In the handler, you can get the object
+The event handler will be invoked whenever an instance of [[Yiisoft\Db\ActiveRecord|ActiveRecord]], or one of its child classes, triggers
+the [[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] event. In the handler, you can get the object
 that triggered the event through `$event->sender`.
 
 When an object triggers an event, it will first call instance-level handlers, followed by the class-level handlers.

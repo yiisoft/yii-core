@@ -377,12 +377,12 @@ Query Builder
 -------------
 
 Dalam 1.1, query builder itu tersebar di antara beberapa kelas, termasuk `CDbCommand`,
-`CDbCriteria`, dan` CDbCommandBuilder`. Yii 2.0 merepresentasikan sebuah query DB sebagai objek [[yii\db\Query|Query]]
-yang dapat berubah menjadi sebuah pernyataan SQL dengan bantuan [[yii\db\QueryBuilder|QueryBuilder]].
+`CDbCriteria`, dan` CDbCommandBuilder`. Yii 2.0 merepresentasikan sebuah query DB sebagai objek [[Yiisoft\Db\Query|Query]]
+yang dapat berubah menjadi sebuah pernyataan SQL dengan bantuan [[Yiisoft\Db\QueryBuilder|QueryBuilder]].
 Sebagai contoh:
 
 ```php
-$query = new \yii\db\Query();
+$query = new \Yiisoft\Db\Query();
 $query->select('id, name')
       ->from('user')
       ->limit(10);
@@ -403,8 +403,8 @@ Active Record
 Yii 2.0 memperkenalkan banyak perubahan [Active Record](db-active-record.md). Dua yang paling jelas melibatkan
 query builder dan penanganan permintaan relasional.
 
-Kelas `CDbCriteria` di 1.1 digantikan oleh [[yii\db\ActiveQuery]] di Yii 2. Karena kelas tersebut adalah perluasan dari [[yii\db\Query]], dengan demikian
-mewarisi semua metode query builder. Anda bisa memanggil [[yii\db\ActiveRecord::find()]] untuk mulai membangun query:
+Kelas `CDbCriteria` di 1.1 digantikan oleh [[Yiisoft\Db\ActiveQuery]] di Yii 2. Karena kelas tersebut adalah perluasan dari [[Yiisoft\Db\Query]], dengan demikian
+mewarisi semua metode query builder. Anda bisa memanggil [[Yiisoft\Db\ActiveRecord::find()]] untuk mulai membangun query:
 
 ```php
 // Untuk mengambil semua customer yang *active* diurutkan sesuai ID:
@@ -414,12 +414,12 @@ $customers = Customer::find()
     ->all();
 ```
 
-Untuk menyatakan suatu relasi, hanya dengan menentukan metod getter yang mengembalikan sebuah objek [[yii\db\ActiveQuery|ActiveQuery]].
+Untuk menyatakan suatu relasi, hanya dengan menentukan metod getter yang mengembalikan sebuah objek [[Yiisoft\Db\ActiveQuery|ActiveQuery]].
 Nama properti yang didefinisikan oleh getter akan menjadi nama relasi. Misalnya, kode berikut mendeklarasikan
 sebuah relasi `orders` (di 1.1, Anda akan harus menyatakan relasi di tempat `relations()`):
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public function getOrders()
     {
@@ -440,7 +440,7 @@ akan dibuat untuk memilih data utama dan data relasi. Di Yii 2.0, dua pernyataan
 tanpa menggunakan JOIN: pernyataan pertama membawa kembali data utama dan yang kedua membawa kembali data relasi
 dengan menyaring sesuai kunci primer dari data utama.
 
-Alih-alih mengembalikan objek [[yii\db\ActiveRecord|ActiveRecord]], Anda mungkin ingin menyambung dengan [[yii\db\ActiveQuery::asArray()|asArray()]]
+Alih-alih mengembalikan objek [[Yiisoft\Db\ActiveRecord|ActiveRecord]], Anda mungkin ingin menyambung dengan [[Yiisoft\Db\ActiveQuery::asArray()|asArray()]]
 ketika membangun query untuk mendapatkan sejumlah besar data. Hal ini akan menyebabkan hasil query dikembalikan
 sebagai array, yang dapat secara signifikan mengurangi waktu CPU yang dibutuhkan dan memori jika terdapat sejumlah besar data. Sebagai contoh:
 
@@ -460,7 +460,7 @@ public function init()
 ```
 
 Ada beberapa masalah dengan override konstruktor dari kelas ActiveRecord di 1.1. Ini tidak lagi hadir di
-versi 2.0. Perhatikan bahwa ketika menambahkan parameter ke constructor Anda mungkin harus mengganti [[yii\db\ActiveRecord::instantiate()]].
+versi 2.0. Perhatikan bahwa ketika menambahkan parameter ke constructor Anda mungkin harus mengganti [[Yiisoft\Db\ActiveRecord::instantiate()]].
 
 Ada banyak perubahan lain dan perangkat tambahan untuk Rekaman Aktif. Silakan merujuk ke
 bagian [Rekaman Aktif](db-active-record.md) untuk rincian lebih lanjut.
@@ -476,7 +476,7 @@ dari pemilik, Anda harus mengganti method `events()` seperti berikut ini,
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior

@@ -285,7 +285,7 @@ Create new migration using `./yii migrate/create init_rbac` then impement creati
 
 ```php
 <?php
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m170124_084304_init_rbac extends Migration
 {

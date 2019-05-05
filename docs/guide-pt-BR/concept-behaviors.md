@@ -54,7 +54,7 @@ Se um behavior precisar responder a eventos disparados pelo componente ao qual e
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior
@@ -76,7 +76,7 @@ class MyBehavior extends Behavior
 ```
 
 O método [[yii\base\Behavior::events()|events()]] deve retornar uma lista de eventos e seus manipuladores correspondentes.
-O exemplo acima declara o evento [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] existente e define seu manipulador, `beforeValidate()`. Ao especificar um manipulador de evento, você pode utilizar um dos seguintes formatos:
+O exemplo acima declara o evento [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] existente e define seu manipulador, `beforeValidate()`. Ao especificar um manipulador de evento, você pode utilizar um dos seguintes formatos:
 
 * uma string que refere-se ao nome do método da classe behavior, como o exemplo acima
 * um array com o nome do objeto ou classe, e um nome de método como string (sem parênteses), por exemplo, `[$object, 'methodName']`;
@@ -102,7 +102,7 @@ Cada configuração de behavior pode ser tanto um nome da classe behavior ou um 
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use app\components\MyBehavior;
 
 class User extends ActiveRecord
@@ -237,14 +237,14 @@ $component->detachBehaviors();
 Usando `TimestampBehavior` <span id="using-timestamp-behavior"></span>
 -------------------------
 
-Para encerrar, vamos dar uma olhada no [[yii\behaviors\TimestampBehavior]]. Este behavior suporta atualização automática dos atributos timestamp de um [[yii\db\ActiveRecord|Active Record]] toda vez que o model (modelo) for salvo (por exemplo, na inserção ou na alteração).
+Para encerrar, vamos dar uma olhada no [[yii\behaviors\TimestampBehavior]]. Este behavior suporta atualização automática dos atributos timestamp de um [[Yiisoft\Db\ActiveRecord|Active Record]] toda vez que o model (modelo) for salvo (por exemplo, na inserção ou na alteração).
 
-Primeiro, anexe este behavior na classe [[yii\db\ActiveRecord|Active Record]] que você planeja usar:
+Primeiro, anexe este behavior na classe [[Yiisoft\Db\ActiveRecord|Active Record]] que você planeja usar:
 
 ```php
 namespace app\models\User;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord

@@ -53,7 +53,7 @@ Si un comportement a besoin de répondre aux événements déclenchés par le co
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior
@@ -74,7 +74,7 @@ class MyBehavior extends Behavior
 }
 ```
 
-La méthode [[yii\base\Behavior::events()|events()]] doit retourner une liste d'événements avec leur gestionnaire correspondant. L'exemple ci-dessus déclare que l'événement [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] existe et définit son gestionnaire `beforeValidate()`. En spécifiant un gestionnaire d'événement, vous pouvez utiliser un des formats suivants :
+La méthode [[yii\base\Behavior::events()|events()]] doit retourner une liste d'événements avec leur gestionnaire correspondant. L'exemple ci-dessus déclare que l'événement [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] existe et définit son gestionnaire `beforeValidate()`. En spécifiant un gestionnaire d'événement, vous pouvez utiliser un des formats suivants :
  
 * une chaîne de caractères qui fait référence au nom d'une méthode de la classe du comportement, comme dans l'exemple ci-dessus ;
 * un tableau constitué d'un nom d'objet ou de classe et d'un nom de méthode sous forme de chaîne de caractères (sans les parenthèses), p. ex. `[$object, 'methodName']`;
@@ -97,7 +97,7 @@ Pour attacher un comportement de manière statique, redéfinissez la méthode [[
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use app\components\MyBehavior;
 
 class User extends ActiveRecord
@@ -232,14 +232,14 @@ $component->detachBehaviors();
 Utilisation de  `TimestampBehavior` <span id="using-timestamp-behavior"></span>
 -------------------------
 
-Pour aller à l'essentiel, jetons un coup d'œil à [[yii\behaviors\TimestampBehavior]]. Ce comportement prend automatiquement en charge la mise à jour de l'attribut *timestamp* (horodate) d'un modèle [[yii\db\ActiveRecord|enregistrement actif]] à chaque fois qu'il est sauvegardé via les méthodes `insert()`, `update()` ou `save()`.
+Pour aller à l'essentiel, jetons un coup d'œil à [[yii\behaviors\TimestampBehavior]]. Ce comportement prend automatiquement en charge la mise à jour de l'attribut *timestamp* (horodate) d'un modèle [[Yiisoft\Db\ActiveRecord|enregistrement actif]] à chaque fois qu'il est sauvegardé via les méthodes `insert()`, `update()` ou `save()`.
 
-Tout d'abord, attachez ce comportement à la classe [[yii\db\ActiveRecord|Active Record (enregistrement actif)]] que vous envisagez d'utiliser :
+Tout d'abord, attachez ce comportement à la classe [[Yiisoft\Db\ActiveRecord|Active Record (enregistrement actif)]] que vous envisagez d'utiliser :
 
 ```php
 namespace app\models\User;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord

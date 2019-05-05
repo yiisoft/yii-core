@@ -8,7 +8,7 @@
 namespace yii\test;
 
 use yii\base\BaseObject;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\di\Initiable;
 use yii\helpers\Yii;
 

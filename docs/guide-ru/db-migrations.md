@@ -52,7 +52,7 @@ yii migrate/create create_news_table
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -81,7 +81,7 @@ class m150101_185401_create_news_table extends Migration
 }
 ```
 
-Каждая миграция базы данных определяется как PHP класс расширяющийся от [[yii\db\Migration]]. Имя класса миграции автоматически создается в формате `m<YYMMDD_HHMMSS>_<Name>` (`m<ГодМесяцДень_ЧасыМинутыСекунды>_<Имя>`), где
+Каждая миграция базы данных определяется как PHP класс расширяющийся от [[Yiisoft\Db\Migration]]. Имя класса миграции автоматически создается в формате `m<YYMMDD_HHMMSS>_<Name>` (`m<ГодМесяцДень_ЧасыМинутыСекунды>_<Имя>`), где
 
 * `<YYMMDD_HHMMSS>` относится к UTC дате-времени при котором команда создания миграции была выполнена.
 * `<Name>` это тоже самое значение аргумента `name` которое вы прописываете в команду.
@@ -93,8 +93,8 @@ class m150101_185401_create_news_table extends Migration
 ```php
 <?php
 
-use yii\db\Schema;
-use yii\db\Migration;
+use Yiisoft\Db\Schema;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -116,9 +116,9 @@ class m150101_185401_create_news_table extends Migration
 
 > Info: Не все миграции являются обратимыми. Например, если метод `up()` удаляет строку из таблицы, возможно что у вас уже не будет возможности вернуть эту строку методом `down()`. Иногда Вам может быть просто слишком лень реализовывать метод `down()`, в связи с тем, что это не очень распространено - откатывать миграции базы данных. В этом случае вы должны в методе `down()` вернуть `false`, чтобы указать, что миграция не является обратимой.
 
-Базовый класс миграций [[yii\db\Migration]] предоставляет подключение к базе данных через свойство [[yii\db\Migration::db|db]]. Вы можете использовать его для манипулирования схемой базы данных используя методы описанные в [работе со схемой базы данных](db-dao.md#database-schema).
+Базовый класс миграций [[Yiisoft\Db\Migration]] предоставляет подключение к базе данных через свойство [[Yiisoft\Db\Migration::db|db]]. Вы можете использовать его для манипулирования схемой базы данных используя методы описанные в [работе со схемой базы данных](db-dao.md#database-schema).
 
-Вместо использования физических типов данных, при создании таблицы или столбца, следует использовать *абстрактные типы* для того, чтобы ваша миграция являлась независимой от конкретной СУБД. Класс [[yii\db\Schema]] определяет набор констант для предоставления поддержки абстрактных типов. Эти константы называются в следующем формате `TYPE_<Name>`. Например,
+Вместо использования физических типов данных, при создании таблицы или столбца, следует использовать *абстрактные типы* для того, чтобы ваша миграция являлась независимой от конкретной СУБД. Класс [[Yiisoft\Db\Schema]] определяет набор констант для предоставления поддержки абстрактных типов. Эти константы называются в следующем формате `TYPE_<Name>`. Например,
 `TYPE_PK` относится к типу автоинкремента (AUTO_INCREMENT) первичного ключа;
 `TYPE_STRING` относится к строковому типу.
 Когда миграция применяется к конкретной базе данных, абстрактные типы будут переведены в соответствующие физические типы.
@@ -126,7 +126,7 @@ class m150101_185401_create_news_table extends Migration
 
 Вы можете добавить дополнительные ограничения при использовании абстрактных типов. В приведенном выше примере, ` NOT NULL` добавляется к `Schema::TYPE_STRING` чтобы указать, что столбец не может быть `NULL`.
 
-> Info: Сопоставление абстрактных типов и физических типов определяется свойством [[yii\db\QueryBuilder::$typeMap|$typeMap]] в каждом конкретном `QueryBuilder` классе.
+> Info: Сопоставление абстрактных типов и физических типов определяется свойством [[Yiisoft\Db\QueryBuilder::$typeMap|$typeMap]] в каждом конкретном `QueryBuilder` классе.
 
 Начиная с версии 2.0.6, появился новый построитель схем, который является более удобным инструментом для описания структуры столбцов.
 Теперь, при написании миграций, можно использовать такой код:
@@ -134,7 +134,7 @@ class m150101_185401_create_news_table extends Migration
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -154,7 +154,7 @@ class m150101_185401_create_news_table extends Migration
 }
 ```
 
-Весь список методов описания типов столбцов доступен в API документации [[yii\db\SchemaBuilderTrait]].
+Весь список методов описания типов столбцов доступен в API документации [[Yiisoft\Db\SchemaBuilderTrait]].
 
 ## Генерация миграций <span id="generating-migrations"></span>
 
@@ -560,7 +560,7 @@ class m160328_041642_create_junction_table_for_post_and_tag_tables extends Migra
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -596,37 +596,37 @@ class m150101_185401_create_news_table extends Migration
 
 ### Методы доступа к базе данных <span id="db-accessing-methods"></span>
 
-Базовый класс миграции [[yii\db\Migration]] предоставляет набор методов, которые позволяют Вам получить доступ и управлять
-базами данных. Вы можете найти эти методы, их названия аналогичны [методам DAO](db-dao.md), предоставленным в классе [[yii\db\Command]].
-Например, метод [[yii\db\Migration::createTable()]] позволяет создать новую таблицу, подобно методу [[yii\db\Command::createTable()]].
+Базовый класс миграции [[Yiisoft\Db\Migration]] предоставляет набор методов, которые позволяют Вам получить доступ и управлять
+базами данных. Вы можете найти эти методы, их названия аналогичны [методам DAO](db-dao.md), предоставленным в классе [[Yiisoft\Db\Command]].
+Например, метод [[Yiisoft\Db\Migration::createTable()]] позволяет создать новую таблицу, подобно методу [[Yiisoft\Db\Command::createTable()]].
 
-Преимущество методов, описанных при помощи [[yii\db\Migration]] заключается в том, что Вам не нужно явно создавать
-экземпляр/копию [[yii\db\Command]] и исполнение каждого метода будет автоматически отображать полезные сообщения
+Преимущество методов, описанных при помощи [[Yiisoft\Db\Migration]] заключается в том, что Вам не нужно явно создавать
+экземпляр/копию [[Yiisoft\Db\Command]] и исполнение каждого метода будет автоматически отображать полезные сообщения
 говорящие вам, что операции с базой данных выполняются и сколько они идут.
 
 Ниже представлен список всех этих методов доступа к базам данных:
 
-* [[yii\db\Migration::execute()|execute()]]: выполнение SQL инструкции
-* [[yii\db\Migration::insert()|insert()]]: вставка одной строки
-* [[yii\db\Migration::batchInsert()|batchInsert()]]: вставка нескольких строк
-* [[yii\db\Migration::update()|update()]]: обновление строк
-* [[yii\db\Migration::delete()|delete()]]: удаление строк
-* [[yii\db\Migration::createTable()|createTable()]]: создание таблицы
-* [[yii\db\Migration::renameTable()|renameTable()]]: переименование таблицы
-* [[yii\db\Migration::dropTable()|dropTable()]]: удаление таблицы
-* [[yii\db\Migration::truncateTable()|truncateTable()]]: удаление всех строк в таблице
-* [[yii\db\Migration::addColumn()|addColumn()]]: добавление столбца
-* [[yii\db\Migration::renameColumn()|renameColumn()]]: переименование столбца
-* [[yii\db\Migration::dropColumn()|dropColumn()]]: удаление столбца
-* [[yii\db\Migration::alterColumn()|alterColumn()]]: изменения столбца
-* [[yii\db\Migration::addPrimaryKey()|addPrimaryKey()]]: добавление первичного ключа
-* [[yii\db\Migration::dropPrimaryKey()|dropPrimaryKey()]]: удаление первичного ключа
-* [[yii\db\Migration::addForeignKey()|addForeignKey()]]: добавление внешнего ключа
-* [[yii\db\Migration::dropForeignKey()|dropForeignKey()]]: удаление внешнего ключа
-* [[yii\db\Migration::createIndex()|createIndex()]]: создание индекса
-* [[yii\db\Migration::dropIndex()|dropIndex()]]: удаление индекса
+* [[Yiisoft\Db\Migration::execute()|execute()]]: выполнение SQL инструкции
+* [[Yiisoft\Db\Migration::insert()|insert()]]: вставка одной строки
+* [[Yiisoft\Db\Migration::batchInsert()|batchInsert()]]: вставка нескольких строк
+* [[Yiisoft\Db\Migration::update()|update()]]: обновление строк
+* [[Yiisoft\Db\Migration::delete()|delete()]]: удаление строк
+* [[Yiisoft\Db\Migration::createTable()|createTable()]]: создание таблицы
+* [[Yiisoft\Db\Migration::renameTable()|renameTable()]]: переименование таблицы
+* [[Yiisoft\Db\Migration::dropTable()|dropTable()]]: удаление таблицы
+* [[Yiisoft\Db\Migration::truncateTable()|truncateTable()]]: удаление всех строк в таблице
+* [[Yiisoft\Db\Migration::addColumn()|addColumn()]]: добавление столбца
+* [[Yiisoft\Db\Migration::renameColumn()|renameColumn()]]: переименование столбца
+* [[Yiisoft\Db\Migration::dropColumn()|dropColumn()]]: удаление столбца
+* [[Yiisoft\Db\Migration::alterColumn()|alterColumn()]]: изменения столбца
+* [[Yiisoft\Db\Migration::addPrimaryKey()|addPrimaryKey()]]: добавление первичного ключа
+* [[Yiisoft\Db\Migration::dropPrimaryKey()|dropPrimaryKey()]]: удаление первичного ключа
+* [[Yiisoft\Db\Migration::addForeignKey()|addForeignKey()]]: добавление внешнего ключа
+* [[Yiisoft\Db\Migration::dropForeignKey()|dropForeignKey()]]: удаление внешнего ключа
+* [[Yiisoft\Db\Migration::createIndex()|createIndex()]]: создание индекса
+* [[Yiisoft\Db\Migration::dropIndex()|dropIndex()]]: удаление индекса
 
-> Info: [[yii\db\Migration]] не предоставляет методы запросов к базе данных. Это потому, что обычно не требуется отображать дополнительные сообщения об извлечении данных из базы данных. Это также, потому, что можно использовать более мощный [Построитель Запросов](db-query-builder.md) для построения и выполнения сложных запросов.
+> Info: [[Yiisoft\Db\Migration]] не предоставляет методы запросов к базе данных. Это потому, что обычно не требуется отображать дополнительные сообщения об извлечении данных из базы данных. Это также, потому, что можно использовать более мощный [Построитель Запросов](db-query-builder.md) для построения и выполнения сложных запросов.
 
 > Note: при обработке данных внутри миграции, может показаться, что использование существующих классов [Active Record](db-active-record.md), со всей их готовой бизнес логикой, будет разумным решением и упросит код миграции. Однако, следует помнить, что код миграций не должен меняться, по определению. В отличии от миграций, бизнес логика приложений часто изменяется. Это может привести к нарушению работы миграции при определённых изменениях на уровне Active Record. Поэтому рекомендуется делать миграции независимыми от других частей приложения, таких как классы Active Record.
 
@@ -880,7 +880,7 @@ yii migrate --db=db2
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -896,7 +896,7 @@ class m150101_185401_create_news_table extends Migration
 
 Если у вас есть несколько миграций, которые используют ту же другую базу данных, то рекомендуется создать базовый класс миграций выше кода `init()`. Затем каждый класс миграции может расширяться от этого базового класса.
 
-> Совет: Кроме установки свойства [[yii\db\Migration::db|db]], вы также можете работать с разными базами данных путем создания нового соединения с конкретной базой данных в классе Вашей миграции. Можно использовать [DAO методы](db-dao.md) с этими соединениями для манипулирования различными базами данных.
+> Совет: Кроме установки свойства [[Yiisoft\Db\Migration::db|db]], вы также можете работать с разными базами данных путем создания нового соединения с конкретной базой данных в классе Вашей миграции. Можно использовать [DAO методы](db-dao.md) с этими соединениями для манипулирования различными базами данных.
 
 Другая стратегия, которую вы можете выбрать, чтобы перенести (мигрировать) несколько баз данных - это сохранить миграции различных баз данных в разные директории. Затем вы можете перенести эти базы данных в нужные базы следующими командами:
 

@@ -60,7 +60,7 @@ the file contains the following:
 <?php
 
 return [
-    '__class' => yii\db\Connection::class,
+    '__class' => Yiisoft\Db\Connection::class,
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',
@@ -69,7 +69,7 @@ return [
 ```
 
 The `config/db.php` file is a typical file-based [configuration](concept-configurations.md) tool. This particular configuration file specifies the parameters
-needed to create and initialize a [[yii\db\Connection]] instance through which you can make SQL queries
+needed to create and initialize a [[Yiisoft\Db\Connection]] instance through which you can make SQL queries
 against the underlying database.
 
 The DB connection configured above can be accessed in the application code via the expression `Yii::$app->db`.
@@ -96,18 +96,18 @@ class named `Country`, and save it in the file `models/Country.php`.
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
 }
 ```
 
-The `Country` class extends from [[yii\db\ActiveRecord]]. You do not need to write any code inside of it! With just the above code, 
+The `Country` class extends from [[Yiisoft\Db\ActiveRecord]]. You do not need to write any code inside of it! With just the above code, 
 Yii will guess the associated table name from the class name. 
 
 > Info: If no direct match can be made from the class name to the table name, you can
-override the [[yii\db\ActiveRecord::tableName()]] method to explicitly specify the associated table name.
+override the [[Yiisoft\Db\ActiveRecord::tableName()]] method to explicitly specify the associated table name.
 
 Using the `Country` class, you can easily manipulate data in the `country` table, as shown in these snippets:
 

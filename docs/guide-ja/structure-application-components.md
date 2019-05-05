@@ -13,7 +13,7 @@
 \Yii::$app->componentID
 ```
 
-例えば、`\Yii::$app->db` を使って、アプリケーションに登録された [[yii\db\Connection|DB 接続]] を取得することが出来ます。
+例えば、`\Yii::$app->db` を使って、アプリケーションに登録された [[Yiisoft\Db\Connection|DB 接続]] を取得することが出来ます。
 また、`\Yii::$app->cache` を使って、[[yii\caching\Cache|プライマリ・キャッシュ]] を取得できます。
 
 アプリケーション・コンポーネントは、上記の式を使ってアクセスされた最初の時に作成されます。
@@ -31,7 +31,7 @@
 
         // 構成情報の配列を使って "db" コンポーネントを登録
         'db' => [
-            '__class' => yii\db\Connection::class,
+            '__class' => Yiisoft\Db\Connection::class,
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',
@@ -98,8 +98,8 @@ Yii のアプリケーションがユーザ・リクエストを処理出来る�
 
 * [[yii\web\AssetManager|assetManager]]: アセット・バンドルとアセットの発行を管理します。
   詳細は [アセット](structure-assets.md) のセクションを参照してください。
-* [[yii\db\Connection|db]]: データベース接続を表します。これを通じて、DB クエリを実行することが出来ます。
-  このコンポーネントを構成するときは、コンポーネントのクラスはもちろん、[[yii\db\Connection::dsn]]
+* [[Yiisoft\Db\Connection|db]]: データベース接続を表します。これを通じて、DB クエリを実行することが出来ます。
+  このコンポーネントを構成するときは、コンポーネントのクラスはもちろん、[[Yiisoft\Db\Connection::dsn]]
   のような必須のコンポーネント・プロパティを指定しなければならないことに注意してください。
   詳細は [データベース・アクセス・オブジェクト](db-dao.md) のセクションを参照してください。
 * [[yii\base\Application::errorHandler|errorHandler]]: PHP のエラーと例外を処理します。

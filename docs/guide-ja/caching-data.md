@@ -185,7 +185,7 @@ $value2 = $cache['var2'];  // $value2 = $cache->get('var2'); と同等
 キーが文字列でない場合は、自動的に文字列にシリアライズされます。
 
 キャッシュのキーを定義する一般的なやり方として、全ての決定要素を配列の形で含めるという方方があります。
-例えば [[yii\db\Schema]] はデータベース・テーブルのスキーマ情報を以下のキーを使用してキャッシュしています。
+例えば [[Yiisoft\Db\Schema]] はデータベース・テーブルのスキーマ情報を以下のキーを使用してキャッシュしています。
 
 ```php
 [
@@ -289,8 +289,8 @@ $data = $cache->get($key);
 クエリ・キャッシュは、データ・キャッシュ上に構築された特別なキャッシュ機能で、
 データベースのクエリ結果をキャッシュするために提供されています。
 
-クエリ・キャッシュは [[yii\db\Connection|データベース接続]] と有効な `cache` [アプリケーション・コンポーネント](#cache-components) を必要とします。
-`$db` を [[yii\db\Connection]] のインスタンスと仮定した場合、クエリ・キャッシュの基本的な使い方は以下のようになります:
+クエリ・キャッシュは [[Yiisoft\Db\Connection|データベース接続]] と有効な `cache` [アプリケーション・コンポーネント](#cache-components) を必要とします。
+`$db` を [[Yiisoft\Db\Connection]] のインスタンスと仮定した場合、クエリ・キャッシュの基本的な使い方は以下のようになります:
 
 ```php
 $result = $db->cache(function ($db) {
@@ -326,22 +326,22 @@ User::find()->cache(7200)->all();
 
 ### 構成 <span id="query-caching-configs"></span>
 
-クエリ・キャッシュには [[yii\db\Connection]] を通して設定可能な三つのグローバルなオプションがあります:
+クエリ・キャッシュには [[Yiisoft\Db\Connection]] を通して設定可能な三つのグローバルなオプションがあります:
 
-* [[yii\db\Connection::enableQueryCache|enableQueryCache]]: クエリ・キャッシュを可能にするかどうか。デフォルトは `true` です。
-  実効的にクエリ・キャッシュをオンにするには [[yii\db\Connection::queryCache|queryCache]]
+* [[Yiisoft\Db\Connection::enableQueryCache|enableQueryCache]]: クエリ・キャッシュを可能にするかどうか。デフォルトは `true` です。
+  実効的にクエリ・キャッシュをオンにするには [[Yiisoft\Db\Connection::queryCache|queryCache]]
   によって指定される有効なキャッシュを持っている必要があることに注意してください。
-* [[yii\db\Connection::queryCacheDuration|queryCacheDuration]]: これはクエリ結果がキャッシュ内に有効な状態として
+* [[Yiisoft\Db\Connection::queryCacheDuration|queryCacheDuration]]: これはクエリ結果がキャッシュ内に有効な状態として
   持続できる秒数を表します。
   クエリ・キャッシュを永遠にキャッシュに残したい場合は 0 を指定することができます。
-  このプロパティは [[yii\db\Connection::cache()]] が持続時間を指定せず呼び出されたときに使用されるデフォルト値です。
-* [[yii\db\Connection::queryCache|queryCache]]: これはキャッシュ・アプリケーション・コンポーネントの ID を表します。
+  このプロパティは [[Yiisoft\Db\Connection::cache()]] が持続時間を指定せず呼び出されたときに使用されるデフォルト値です。
+* [[Yiisoft\Db\Connection::queryCache|queryCache]]: これはキャッシュ・アプリケーション・コンポーネントの ID を表します。
 デフォルトは `'cache'` です。有効なキャッシュ・コンポーネントが存在する場合にのみ、クエリ・キャッシュが使用可能になります。
 
 
 ### 使い方 <span id="query-caching-usages"></span>
 
-クエリ・キャッシュを使用する必要がある複数の SQL クエリを持っている場合は [[yii\db\Connection::cache()]]
+クエリ・キャッシュを使用する必要がある複数の SQL クエリを持っている場合は [[Yiisoft\Db\Connection::cache()]]
 を使用することができます。使い方は以下のとおりです。
 
 ```php
@@ -359,11 +359,11 @@ $result = $db->cache(function ($db) {
 
 無名関数内の任意の SQL クエリは、指定した依存とともに指定された期間キャッシュされます。
 もしキャッシュ内に有効なクエリ結果が見つかった場合は、クエリはスキップされ、代りに結果がキャッシュから提供されます。
-`$duration` の指定がない場合 [[yii\db\Connection::queryCacheDuration|queryCacheDuration]]
+`$duration` の指定がない場合 [[Yiisoft\Db\Connection::queryCacheDuration|queryCacheDuration]]
 で指定されている値が代りに使用されます。
 
 場合によっては `cache()` 内でいくつかの特定のクエリに対してクエリ・キャッシュを無効にしたいことが有るでしょう。
-そのときは [[yii\db\Connection::noCache()]] を使用します。
+そのときは [[Yiisoft\Db\Connection::noCache()]] を使用します。
 
 ```php
 $result = $db->cache(function ($db) {
@@ -382,7 +382,7 @@ $result = $db->cache(function ($db) {
 });
 ```
 
-単一のクエリのためだけにクエリ・キャッシュを使用したい場合は、コマンドを構築するときに [[yii\db\Command::cache()]]
+単一のクエリのためだけにクエリ・キャッシュを使用したい場合は、コマンドを構築するときに [[Yiisoft\Db\Command::cache()]]
 を呼び出すことができます。例えば、
 
 ```php
@@ -390,7 +390,7 @@ $result = $db->cache(function ($db) {
 $customer = $db->createCommand('SELECT * FROM customer WHERE id=1')->cache(60)->queryOne();
 ```
 
-また、一つのコマンドに対してクエリ・キャッシュを無効にするために [[yii\db\Command::noCache()]] を使用することもできます。例えば、
+また、一つのコマンドに対してクエリ・キャッシュを無効にするために [[Yiisoft\Db\Command::noCache()]] を使用することもできます。例えば、
 
 ```php
 $result = $db->cache(function ($db) {

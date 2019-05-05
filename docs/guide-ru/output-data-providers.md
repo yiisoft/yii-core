@@ -11,7 +11,7 @@
 
 В Yii реализованы следующие классы провайдеров данных:
 
-* [[yii\data\ActiveDataProvider]]: использует [[yii\db\Query]] или [[yii\db\ActiveQuery]] для запроса данных из базы данных,
+* [[yii\data\ActiveDataProvider]]: использует [[Yiisoft\Db\Query]] или [[Yiisoft\Db\ActiveQuery]] для запроса данных из базы данных,
 возвращая их в виде массива или экземпляров [Active Record](db-active-record.md).
 * [[yii\data\SqlDataProvider]]: выполняет запрос SQL к базе данных и возвращает результат в виде массива.
 * [[yii\data\ArrayDataProvider]]: принимает большой массив и возвращает выборку из него с возможностью сортировки и разбивки
@@ -56,7 +56,7 @@ echo yii\grid\GridView::widget([
 ## ActiveDataProvider <span id="active-data-provider"></span> 
 
 Для использования [[yii\data\ActiveDataProvider]], необходимо настроить его свойство [[yii\data\ActiveDataProvider::query|query]].
-Оно принимает любой [[yii\db\Query]] или [[yii\db\ActiveQuery]] объект. Если использовать первый, то данные будут возвращены в 
+Оно принимает любой [[Yiisoft\Db\Query]] или [[Yiisoft\Db\ActiveQuery]] объект. Если использовать первый, то данные будут возвращены в 
 виде массивов, если второй - данные также могут быть возвращены в виде массивов, а также в виде экземпляров 
 [Active Record](db-active-record.md). Например:
 
@@ -85,7 +85,7 @@ $posts = $provider->getModels();
 Если изменить `$query` в этом примере на следующий код, то будут возвращены сырые массивы.
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())->from('post')->where(['status' => 1]); 
 ```
@@ -198,7 +198,7 @@ $posts = $provider->getModels();
 $ids = $provider->getKeys();
 ```
 
-В вышеописанном примере, так как [[yii\data\ActiveDataProvider]] предоставляется один [[yii\db\ActiveQuery]] объект, то
+В вышеописанном примере, так как [[yii\data\ActiveDataProvider]] предоставляется один [[Yiisoft\Db\ActiveQuery]] объект, то
 в этом случае провайдер достаточно умён, чтобы вернуть значения первичных ключей в качестве идентификатора. Также есть
 возможность настроить способ вычисления значения идентификатора, через настройку [[yii\data\ActiveDataProvider::key]], как
 имя колонки или функцию вычисления значений ключа. Например:

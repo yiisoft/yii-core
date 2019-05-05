@@ -133,7 +133,7 @@ Aby API mogło zwrócić jakieś dane, najpierw potrzebujemy ich bazy. Dodaj kon
 ```php
 'components' => [
     'db' => [
-        'class' => 'yii\db\Connection',
+        'class' => 'Yiisoft\Db\Connection',
         'dsn' => 'sqlite:@micro/database.sqlite',
     ],
 ],
@@ -155,7 +155,7 @@ Stwórz folder `models` i plik `Post.php` w tym folderze. Poniżej znajdziesz ko
 
 namespace micro\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Post extends ActiveRecord
 { 

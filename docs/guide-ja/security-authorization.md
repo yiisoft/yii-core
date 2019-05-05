@@ -285,7 +285,7 @@ return [
 
 ```php
 <?php
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m170124_084304_init_rbac extends Migration
 {

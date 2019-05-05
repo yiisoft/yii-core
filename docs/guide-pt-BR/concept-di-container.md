@@ -116,7 +116,7 @@ Você pode usar [[yii\di\Container::set()]] para registrar dependências. O regi
 $container = new \yii\di\Container;
 
 // registrar um nome de classe. Isso pode ser ignorado.
-$container->set('yii\db\Connection');
+$container->set('Yiisoft\Db\Connection');
 
 // registrar uma interface
 // Quando uma classe depende da interface, a classe correspondente
@@ -125,11 +125,11 @@ $container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // registrar um alias. Você pode utilizar $container->get('foo')
 // para criar uma instância de Connection
-$container->set('foo', 'yii\db\Connection');
+$container->set('foo', 'Yiisoft\Db\Connection');
 
 // registrar uma classe com configuração. A configuração
 // será aplicada quando quando a classe for instanciada pelo get()
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -139,7 +139,7 @@ $container->set('yii\db\Connection', [
 // registrar um alias com a configuração de classe
 // neste caso, um elemento "class" é requerido para especificar a classe
 $container->set('db', [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -149,7 +149,7 @@ $container->set('db', [
 // registrar um PHP callable
 // O callable será executado sempre quando $container->get('db') for chamado
 $container->set('db', function ($container, $params, $config) {
-    return new \yii\db\Connection($config);
+    return new \Yiisoft\Db\Connection($config);
 });
 
 // registrar uma instância de componente
@@ -162,7 +162,7 @@ $container->set('pageCache', new FileCache);
 Um registro de dependência através de `set()` irá gerar uma instância a cada vez que a dependência for necessária. Você pode usar [[yii\di\Container::setSingleton()]] para registrar a dependência de forma a gerar apenas uma única instância:
 
 ```php
-$container->setSingleton('yii\db\Connection', [
+$container->setSingleton('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -196,7 +196,7 @@ O código abaixo mostra um exemplo mais sofisticado. A classe `UserLister` depen
 namespace app\models;
 
 use yii\base\BaseObject;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\di\Container;
 
 interface UserFinderInterface
@@ -231,7 +231,7 @@ class UserLister extends BaseObject
 }
 
 $container = new Container;
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => '...',
 ]);
 $container->set('app\models\UserFinderInterface', [
@@ -243,7 +243,7 @@ $lister = $container->get('userLister');
 
 // que é equivalente a:
 
-$db = new \yii\db\Connection(['dsn' => '...']);
+$db = new \Yiisoft\Db\Connection(['dsn' => '...']);
 $finder = new UserFinder($db);
 $lister = new UserLister($finder);
 ```

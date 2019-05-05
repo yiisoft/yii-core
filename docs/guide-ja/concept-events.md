@@ -203,20 +203,20 @@ $foo->off(Foo::EVENT_HELLO);
 *クラス・レベル* でハンドラをアタッチすることができます。
 
 たとえば、[アクティブ・レコード](db-active-record.md) オブジェクトは、データベースに新しいレコードを挿入するたびに、
-[[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] イベントをトリガします。 *すべての*
+[[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] イベントをトリガします。 *すべての*
 [アクティブ・レコード](db-active-record.md) オブジェクトによって行われる挿入を追跡するには、次のコードが使えます：
 
 ```php
 use yii\helpers\Yii;
 use yii\base\Event;
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 Event::on(ActiveRecord::class, ActiveRecord::EVENT_AFTER_INSERT, function ($event) {
     Yii::debug(get_class($event->sender) . ' が挿入されました');
 });
 ```
 
-[[yii\db\ActiveRecord|ActiveRecord]] またはその子クラスのいずれかが、 [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]
+[[Yiisoft\Db\ActiveRecord|ActiveRecord]] またはその子クラスのいずれかが、 [[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]
 をトリガするといつでも、このイベント・ハンドラが呼び出されます。ハンドラの中では、 `$event->sender` を通して、
 イベントをトリガしたオブジェクトを取得することができます。
 

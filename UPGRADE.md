@@ -212,7 +212,7 @@ Upgrade from Yii 2.0.x
   Include it in your composer.json if you use it.
 * Oracle DB package has been moved into separate extension https://github.com/yiisoft/yii-oracle.
   Include it in your composer.json if you use it.
-* CUBRID support has been removed, package `yii\db\cubrid\*` is no longer available.
+* CUBRID support has been removed, package `Yiisoft\Db\cubrid\*` is no longer available.
   If you need to use CUBRID further you should create your own integration for it.
 * Masked input field widget was moved into separate extension https://github.com/yiisoft/yii-masked-input.
   Include it in your composer.json if you use it.
@@ -277,8 +277,8 @@ Upgrade from Yii 2.0.x
 * Result of `yii\web\Request::getBodyParams()` now includes uploaded files (e.g. result of `yii\web\Request::getUploadedFiles()`).
   You should aware that instances of `yii\http\UploadedFile` may appear inside body params.
 * The following method signature have changed. If you override any of them in your code, you have to adjust these places:
-  `yii\db\QueryBuilder::buildGroupBy($columns)` -> `buildGroupBy($columns, &$params)`
-  `yii\db\QueryBuilder::buildOrderByAndLimit($sql, $orderBy, $limit, $offset)` -> `buildOrderByAndLimit($sql, $orderBy, $limit, $offset, &$params)`
+  `Yiisoft\Db\QueryBuilder::buildGroupBy($columns)` -> `buildGroupBy($columns, &$params)`
+  `Yiisoft\Db\QueryBuilder::buildOrderByAndLimit($sql, $orderBy, $limit, $offset)` -> `buildOrderByAndLimit($sql, $orderBy, $limit, $offset, &$params)`
   `yii\widgets\ActiveField::hint($content = null, $options = [])`
   `yii\base\View::renderDynamic($statements)` -> `yii\base\View::renderDynamic($statements, array $params = [])`
 * `yii\filters\AccessControl` has been optimized by only instantiating rules at the moment of use.

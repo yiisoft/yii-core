@@ -8,7 +8,7 @@
 return <<<CODE
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 /**
  * Handles the creation of table `{table}`.

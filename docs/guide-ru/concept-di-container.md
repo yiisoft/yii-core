@@ -284,7 +284,7 @@ $foo = $container->get('Foo');
 $container = new \yii\di\Container;
 
 // регистрация имени класса, как есть. Это может быть пропущено.
-$container->set('yii\db\Connection');
+$container->set('Yiisoft\Db\Connection');
 
 // регистрация интерфейса
 // Когда класс зависит от интерфейса, соответствующий класс
@@ -293,11 +293,11 @@ $container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // регистрация алиаса. Вы можете использовать $container->get('foo')
 // для создания экземпляра Connection
-$container->set('foo', 'yii\db\Connection');
+$container->set('foo', 'Yiisoft\Db\Connection');
 
 // регистрация класса с конфигурацией. Конфигурация
 // будет применена при создании экземпляра класса через get()
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -307,7 +307,7 @@ $container->set('yii\db\Connection', [
 // регистрация алиаса с конфигурацией класса
 // В данном случае, параметр "class" требуется для указания класса
 $container->set('db', [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -317,7 +317,7 @@ $container->set('db', [
 // регистрация PHP callback'a
 // Callback будет выполняться каждый раз при вызове $container->get('db')
 $container->set('db', function ($container, $params, $config) {
-    return new \yii\db\Connection($config);
+    return new \Yiisoft\Db\Connection($config);
 });
 
 // регистрация экземпляра компонента
@@ -331,7 +331,7 @@ $container->set('pageCache', new FileCache);
 Вы можете использовать [[yii\di\Container::setSingleton()]] для регистрации зависимости, которая создаст только один экземпляр:
 
 ```php
-$container->setSingleton('yii\db\Connection', [
+$container->setSingleton('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -376,7 +376,7 @@ $engine = $container->get('app\components\SearchEngine', [$apiKey], ['type' => 1
 namespace app\models;
 
 use yii\base\BaseObject;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\di\Container;
 
 interface UserFinderInterface
@@ -411,7 +411,7 @@ class UserLister extends BaseObject
 }
 
 $container = new Container;
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => '...',
 ]);
 $container->set('app\models\UserFinderInterface', [
@@ -423,7 +423,7 @@ $lister = $container->get('userLister');
 
 // что эквивалентно:
 
-$db = new \yii\db\Connection(['dsn' => '...']);
+$db = new \Yiisoft\Db\Connection(['dsn' => '...']);
 $finder = new UserFinder($db);
 $lister = new UserLister($finder);
 ```

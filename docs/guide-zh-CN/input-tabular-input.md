@@ -55,12 +55,12 @@ class SettingsController extends Controller
 }
 ```
 
-在上面的代码中，当用模型来从数据库获取数据时，我们使用 [[yii\db\ActiveQuery::indexBy()|indexBy()]] 
+在上面的代码中，当用模型来从数据库获取数据时，我们使用 [[Yiisoft\Db\ActiveQuery::indexBy()|indexBy()]] 
 来让模型的主键成为一个数组的索引。其中 [[yii\base\Model::loadMultiple()|Model::loadMultiple()]] 
 用于接收以 POST 方式提交的表单数据并填充多个模型，
 [[yii\base\Model::validateMultiple()|Model::validateMultiple()]] 一次验证多个模型。
 正如我们之前验证的模型，使用了 `validateMultiple()`，现在通过传递 `false` 
-作为 [[yii\db\ActiveRecord::save()|save()]]的一个参数使其不会重复验证两次。
+作为 [[Yiisoft\Db\ActiveRecord::save()|save()]]的一个参数使其不会重复验证两次。
 
 现在在 `update` 视图的表单：
 

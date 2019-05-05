@@ -8,9 +8,9 @@
 namespace yii\i18n;
 
 use Yiisoft\Cache\CacheInterface;
-use yii\db\Connection;
-use yii\db\Expression;
-use yii\db\Query;
+use Yiisoft\Db\Connection;
+use Yiisoft\Db\Expression;
+use Yiisoft\Db\Query;
 use Yiisoft\Arrays\ArrayHelper;
 use yii\helpers\Yii;
 
@@ -104,7 +104,7 @@ class DbMessageSource extends MessageSource
      * @return array the loaded messages. The keys are original messages, and the values
      * are translated messages.
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     * @throws \yii\db\Exception
+     * @throws \Yiisoft\Db\Exception
      */
     protected function loadMessages($category, $language): array
     {
@@ -132,7 +132,7 @@ class DbMessageSource extends MessageSource
      * @param string $category the message category.
      * @param string $language the target language.
      * @return array the messages loaded from database.
-     * @throws \yii\db\Exception
+     * @throws \Yiisoft\Db\Exception
      */
     protected function loadMessagesFromDb($category, $language)
     {

@@ -11,7 +11,7 @@
 
 下面的数据提供者类都包含在Yii的发布版本里面：
 
-* [[yii\data\ActiveDataProvider]]：使用 [[yii\db\Query]] 或者 [[yii\db\ActiveQuery]] 从数据库查询数据并且以数组项的方式或者
+* [[yii\data\ActiveDataProvider]]：使用 [[Yiisoft\Db\Query]] 或者 [[Yiisoft\Db\ActiveQuery]] 从数据库查询数据并且以数组项的方式或者
   [Active Record](db-active-record.md) 实例的方式返回。
 * [[yii\data\SqlDataProvider]]：执行一段SQL语句并且将数据库数据作为数组返回。
 * [[yii\data\ArrayDataProvider]]：将一个大的数组依据分页和排序规格返回一部分数据。
@@ -57,7 +57,7 @@ echo yii\grid\GridView::widget([
 ## 活动数据提供者 <span id="active-data-provider"></span>
 
 为了使用 [[yii\data\ActiveDataProvider]]，你应该配置其 [[yii\data\ActiveDataProvider::query|query]] 的属性。
-它既可以是一个 [[yii\db\Query]] 对象，又可以是一个 [[yii\db\ActiveQuery]] 对象。假如是前者，返回的数据将是数组；
+它既可以是一个 [[Yiisoft\Db\Query]] 对象，又可以是一个 [[Yiisoft\Db\ActiveQuery]] 对象。假如是前者，返回的数据将是数组；
 如果是后者，返回的数据可以是数组也可以是 [Active Record](db-active-record.md) 对象。
 例如，
 
@@ -86,7 +86,7 @@ $posts = $provider->getModels();
 假如在上面的例子中，`$query` 用下面的代码来创建，则数据提供者将返回原始数组。
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())->from('post')->where(['status' => 1]);
 ```
@@ -202,7 +202,7 @@ $posts = $provider->getModels();
 $ids = $provider->getKeys();
 ```
 
-在上面的例子中，因为你提供给 [[yii\data\ActiveDataProvider]] 一个 [[yii\db\ActiveQuery]] 对象，
+在上面的例子中，因为你提供给 [[yii\data\ActiveDataProvider]] 一个 [[Yiisoft\Db\ActiveQuery]] 对象，
 它是足够智能地返回一些主键值作为键。你也可以明确指出键值应该怎样被计算出来，
 计算的方式是通过使用一个字段名或者一个可调用的计算键值来配置。
 例如，

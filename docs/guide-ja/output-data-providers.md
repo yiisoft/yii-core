@@ -11,7 +11,7 @@
 
 Yii のリリースには次のデータ・プロバイダのクラスが含まれています。
 
-* [[yii\data\ActiveDataProvider]]: [[yii\db\Query]] または [[yii\db\ActiveQuery]] を使ってデータベースからデータを取得して、
+* [[yii\data\ActiveDataProvider]]: [[Yiisoft\Db\Query]] または [[Yiisoft\Db\ActiveQuery]] を使ってデータベースからデータを取得して、
   配列または [アクティブ・レコード](db-active-record.md)・インスタンスの形式でデータを返します。
 * [[yii\data\SqlDataProvider]]: SQL 文を実行して、データベースのデータを配列として返します。
 * [[yii\data\ArrayDataProvider]]: 大きな配列を受け取り、ページネーションと並べ替えの指定に基づいて、
@@ -57,7 +57,7 @@ echo yii\grid\GridView::widget([
 ## アクティブ・データ・プロバイダ <span id="active-data-provider"></span> 
 
 [[yii\data\ActiveDataProvider]] を使用するためには、その [[yii\data\ActiveDataProvider::query|query]] プロパティを構成しなければなりません。
-これは、[[yii\db\Query]] または [[yii\db\ActiveQuery]] のオブジェクトを取ることが出来ます。
+これは、[[Yiisoft\Db\Query]] または [[Yiisoft\Db\ActiveQuery]] のオブジェクトを取ることが出来ます。
 前者であれば、返されるデータは配列になります。後者であれば、返されるデータは配列または [アクティブ・レコード](db-active-record.md)
 インスタンスとすることが出来ます。例えば、
 
@@ -86,7 +86,7 @@ $posts = $provider->getModels();
 上記の例における `$query` が次のコードによって作成される場合は、提供されるデータは生の配列になります。
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())->from('post')->where(['status' => 1]); 
 ```
@@ -202,7 +202,7 @@ $posts = $provider->getModels();
 $ids = $provider->getKeys();
 ```
 
-上記の例では、[[yii\data\ActiveDataProvider]] に対して [[yii\db\ActiveQuery]] オブジェクトを供給していますから、
+上記の例では、[[yii\data\ActiveDataProvider]] に対して [[Yiisoft\Db\ActiveQuery]] オブジェクトを供給していますから、
 キーとしてプライマリ・キーの値を返すのが理にかなっています。キーの値の計算方法を明示的に指定するために、
 [[yii\data\ActiveDataProvider::key]] にカラム名を設定したり、キーの値を計算するコーラブルを設定したりすることも出来ます。
 例えば、

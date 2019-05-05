@@ -13,7 +13,7 @@ objetos para generar las consultas que se ejecutarán.
 Un uso típico de Constructor de Consultas puede ser el siguiente:
 
 ```php
-$rows = (new \yii\db\Query())
+$rows = (new \Yiisoft\Db\Query())
     ->select('id, name')
     ->from('user')
     ->limit(10)
@@ -21,7 +21,7 @@ $rows = (new \yii\db\Query())
 
 // que es equivalente al siguiente código:
 
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->select('id, name')
     ->from('user')
     ->limit(10);
@@ -36,20 +36,20 @@ $rows = $command->queryAll();
 Métodos de Consulta
 -------------------
 
-Como se puede observar, primero se debe tratar con [[yii\db\Query]]. En realidad, `Query` sólo se encarga de
+Como se puede observar, primero se debe tratar con [[Yiisoft\Db\Query]]. En realidad, `Query` sólo se encarga de
 representar diversa información de la consulta. La lógica para generar la consulta se efectúa mediante
-[[yii\db\QueryBuilder]] cuando se llama al método `createCommand()`, y la ejecución de la consulta la efectúa
-[[yii\db\Command]].
+[[Yiisoft\Db\QueryBuilder]] cuando se llama al método `createCommand()`, y la ejecución de la consulta la efectúa
+[[Yiisoft\Db\Command]].
 
-Se ha establecido, por convenio, que [[yii\db\Query]] proporcione un conjunto de métodos de consulta comunes que
+Se ha establecido, por convenio, que [[Yiisoft\Db\Query]] proporcione un conjunto de métodos de consulta comunes que
 construirán la consulta, la ejecutarán, y devolverán el resultado. Por ejemplo:
 
-- [[yii\db\Query::all()|all()]]: construye la consulta, la ejecuta y devuelve todos los resultados en formato de array.
-- [[yii\db\Query::one()|one()]]: devuelve la primera fila del resultado.
-- [[yii\db\Query::column()|column()]]: devuelve la primera columna del resultado.
-- [[yii\db\Query::scalar()|scalar()]]: devuelve la primera columna en la primera fila del resultado.
-- [[yii\db\Query::exists()|exists()]]: devuelve un valor indicando si la el resultado devuelve algo.
-- [[yii\db\Query::count()|count()]]: devuelve el resultado de la consulta `COUNT`. Otros métodos similares incluidos
+- [[Yiisoft\Db\Query::all()|all()]]: construye la consulta, la ejecuta y devuelve todos los resultados en formato de array.
+- [[Yiisoft\Db\Query::one()|one()]]: devuelve la primera fila del resultado.
+- [[Yiisoft\Db\Query::column()|column()]]: devuelve la primera columna del resultado.
+- [[Yiisoft\Db\Query::scalar()|scalar()]]: devuelve la primera columna en la primera fila del resultado.
+- [[Yiisoft\Db\Query::exists()|exists()]]: devuelve un valor indicando si la el resultado devuelve algo.
+- [[Yiisoft\Db\Query::count()|count()]]: devuelve el resultado de la consulta `COUNT`. Otros métodos similares incluidos
   son `sum($q)`, `average($q)`, `max($q)`, `min($q)`, que soportan las llamadas funciones de agregación. El parámetro
   `$q` es obligatorio en estos métodos y puede ser el nombre de la columna o expresión.
 
@@ -57,7 +57,7 @@ Construcción de Consultas
 -------------------------
 
 A continuación se explicará como construir una sentencia SQL que incluya varias clausulas. Para simplificarlo, usamos
-`$query` para representar el objeto [[yii\db\Query]]:
+`$query` para representar el objeto [[Yiisoft\Db\Query]]:
 
 ### `SELECT`
 
@@ -201,7 +201,7 @@ WHERE `id` IN (SELECT `id` FROM `user`)
 
 Otra manera de usar el método es el formato de operando que es `[operator, operand1, operand2, ...]`.
 
-El operando puede ser uno de los siguientes (ver también [[yii\db\QueryInterface::where()]]):
+El operando puede ser uno de los siguientes (ver también [[Yiisoft\Db\QueryInterface::where()]]):
 
 - `and`: los operandos deben concatenerase usando `AND`. por ejemplo, `['and', 'id=1', 'id=2']` generará
   `id=1 AND id=2`. Si el operando es un array, se convertirá en una cadena de texto usando las reglas aquí descritas.
@@ -252,7 +252,7 @@ filtrar resultados insensibles a mayúsculas (case-insensitive).
 
 - `or not like`: similar al operando `not like` exceptuando que se usa `OR` para concatenar los predicados `NOT LIKE`.
 
-- `exists`: requiere un operando que debe ser una instancia de [[yii\db\Query]] que represente la subconsulta. Esto
+- `exists`: requiere un operando que debe ser una instancia de [[Yiisoft\Db\Query]] que represente la subconsulta. Esto
   generará una expresión `EXISTS (sub-query)`.
 
 - `not exists`: similar al operando `exists` y genera una expresión `NOT EXISTS (sub-query)`.
@@ -417,7 +417,7 @@ $query->union($anotherQuery);
 Consulta por Lotes
 ---------------
 
-Cuando se trabaja con grandes cantidades de datos, los métodos como [[yii\db\Query::all()]] no son adecuados ya que
+Cuando se trabaja con grandes cantidades de datos, los métodos como [[Yiisoft\Db\Query::all()]] no son adecuados ya que
 requieren la carga de todos los datos en memoria. Para mantener los requerimientos de memoria reducidos, Yii
 proporciona soporte a las llamadas consultas por lotes (batch query). Una consulta por lotes usa un cursor de datos y
 recupera los datos en bloques.
@@ -425,7 +425,7 @@ recupera los datos en bloques.
 Las consultas por lotes se pueden usar del siguiente modo:
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())
     ->from('user')
@@ -441,21 +441,21 @@ foreach ($query->each() as $user) {
 }
 ```
 
-Los métodos [[yii\db\Query::batch()]] y [[yii\db\Query::each()]] devuelven un objeto [[yii\db\BatchQueryResult]] que
+Los métodos [[Yiisoft\Db\Query::batch()]] y [[Yiisoft\Db\Query::each()]] devuelven un objeto [[Yiisoft\Db\BatchQueryResult]] que
 implementa una interfaz `Iterator` y así se puede usar en el constructor `foreach`. Durante la primera iteración, se
 efectúa una consulta SQL a la base de datos. Desde entonces, los datos se recuperan por lotes en las iteraciones. El
 tamaño predeterminado de los lotes es 100, que significa que se recuperan 100 filas de datos en cada lote. Se puede
 modificar el tamaño de los lotes pasando pasando un primer parámetro a los métodos `batch()` o `each()`.
 
-En comparación con [[yii\db\Query::all()]], las consultas por lotes sólo cargan 100 filas de datos en memoria cada
+En comparación con [[Yiisoft\Db\Query::all()]], las consultas por lotes sólo cargan 100 filas de datos en memoria cada
 vez. Si el procesan los datos y después se descartan inmediatamente, las consultas por lotes, pueden ayudar a mantener
 el uso de memora bajo un limite.
 
 Si se especifica que el resultado de la consulta tiene que ser indexado por alguna columna mediante
-[[yii\db\Query::indexBy()]], las consultas por lotes seguirán manteniendo el indice adecuado. Por ejemplo,
+[[Yiisoft\Db\Query::indexBy()]], las consultas por lotes seguirán manteniendo el indice adecuado. Por ejemplo,
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())
     ->from('user')

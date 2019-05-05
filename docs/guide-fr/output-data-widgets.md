@@ -555,7 +555,7 @@ Ensuite vous devez créer l'enregistrement actif qui représente cette vue :
 
 namespace app\models\views\grid;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class UserView extends ActiveRecord
 {

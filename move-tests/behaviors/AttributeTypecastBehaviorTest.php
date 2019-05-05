@@ -34,7 +34,7 @@ class AttributeTypecastBehaviorTest extends TestCase
         $this->mockApplication([
             'components' => [
                 'db' => [
-                    '__class' => \yii\db\Connection::class,
+                    '__class' => \Yiisoft\Db\Connection::class,
                     'dsn' => 'sqlite::memory:',
                 ],
             ],

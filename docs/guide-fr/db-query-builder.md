@@ -5,13 +5,13 @@ Construit sur la base des [objets d'accès aux bases de données (DAO)](db-dao.m
 
 L'utilisation du constructeur de requêtes comprend ordinairement deux étapes :
 
-1. Construire un objet [[yii\db\Query]] pour représenter différentes parties (p. ex. `SELECT`, `FROM`) d'une instruction SQL. 
-2. Exécuter une méthode de requête (p. ex. `all()`) de [[yii\db\Query]] pour retrouver des données dans la base de données. 
+1. Construire un objet [[Yiisoft\Db\Query]] pour représenter différentes parties (p. ex. `SELECT`, `FROM`) d'une instruction SQL. 
+2. Exécuter une méthode de requête (p. ex. `all()`) de [[Yiisoft\Db\Query]] pour retrouver des données dans la base de données. 
 
 Le code suivant montre une manière typique d'utiliser le constructeur de requêtes. 
 
 ```php
-$rows = (new \yii\db\Query())
+$rows = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->where(['last_name' => 'Smith'])
@@ -28,18 +28,18 @@ WHERE `last_name` = :last_name
 LIMIT 10
 ```
 
-> Info: génélalement vous travaillez essentiellement avec [[yii\db\Query]] plutôt qu'avec [[yii\db\QueryBuilder]]. Le dernier est implicitement invoqué par le premier lorsque vous appelez une des méthodes de requête. [[yii\db\QueryBuilder]] est la classe en charge de la génération des instructions SQL dépendantes du système de gestion de base de données (p. ex. entourer les noms de table/colonne par des marques de citation différemment) à partir d'objets [[yii\db\Query]] indifférents au système de gestion de base de données.
+> Info: génélalement vous travaillez essentiellement avec [[Yiisoft\Db\Query]] plutôt qu'avec [[Yiisoft\Db\QueryBuilder]]. Le dernier est implicitement invoqué par le premier lorsque vous appelez une des méthodes de requête. [[Yiisoft\Db\QueryBuilder]] est la classe en charge de la génération des instructions SQL dépendantes du système de gestion de base de données (p. ex. entourer les noms de table/colonne par des marques de citation différemment) à partir d'objets [[Yiisoft\Db\Query]] indifférents au système de gestion de base de données.
 
 
 ## Construction des requêtes <span id="building-queries"></span>
 
-Pour construire un objet [[yii\db\Query]], vous appelez différentes méthodes de construction de requêtes pour spécifier différentes parties de la requête SQL. Les noms de ces méthodes ressemblent aux mots clés de SQL utilisés dans les parties correspondantes de l'instruction SQL. Par exemple, pour spécifier la partie `FROM` d'une requête SQL, vous appelez la méthode [[yii\db\Query::from()|from()]]. Toutes les méthodes de construction de requêtes retournent l'objet *query* lui-même, ce qui vous permet d'enchaîner plusieurs appels.
+Pour construire un objet [[Yiisoft\Db\Query]], vous appelez différentes méthodes de construction de requêtes pour spécifier différentes parties de la requête SQL. Les noms de ces méthodes ressemblent aux mots clés de SQL utilisés dans les parties correspondantes de l'instruction SQL. Par exemple, pour spécifier la partie `FROM` d'une requête SQL, vous appelez la méthode [[Yiisoft\Db\Query::from()|from()]]. Toutes les méthodes de construction de requêtes retournent l'objet *query* lui-même, ce qui vous permet d'enchaîner plusieurs appels.
 
 Dans ce qui suit, nous décrivons l'utilisation de chacune des méthodes de requête.
 
-### [[yii\db\Query::select()|select()]] <span id="select"></span>
+### [[Yiisoft\Db\Query::select()|select()]] <span id="select"></span>
 
-La méthode [[yii\db\Query::select()|select()]] spécifie le fragment `SELECT` d'une instruction SQL. Vous pouvez spécifier les colonnes à sélectionner soit sous forme de chaînes de caractères, soit sous forme de tableaux, comme ci-apès. Les noms de colonne sélectionnées sont automatiquement entourés des marques de citation lorsque l'instruction SQL est générée à partir de l'objet *query* (requête). 
+La méthode [[Yiisoft\Db\Query::select()|select()]] spécifie le fragment `SELECT` d'une instruction SQL. Vous pouvez spécifier les colonnes à sélectionner soit sous forme de chaînes de caractères, soit sous forme de tableaux, comme ci-apès. Les noms de colonne sélectionnées sont automatiquement entourés des marques de citation lorsque l'instruction SQL est générée à partir de l'objet *query* (requête). 
  
 ```php
 $query->select(['id', 'email']);
@@ -65,7 +65,7 @@ Si vous utilisez le format tableau pour spécifier les colonnes, vous pouvez aus
 $query->select(['user_id' => 'user.id', 'email']);
 ```
 
-Si vous n'appelez pas la méthode [[yii\db\Query::select()|select()]] en construisant une requête, `*` est sélectionné, ce qui signifie la sélection de *toutes* les colonnes. 
+Si vous n'appelez pas la méthode [[Yiisoft\Db\Query::select()|select()]] en construisant une requête, `*` est sélectionné, ce qui signifie la sélection de *toutes* les colonnes. 
 
 En plus des noms de colonne, vous pouvez aussi sélectionner des expression de base de données. Vous devez utiliser le format tableau en sélectionnant une expression de base de données qui contient des virgules pour éviter des entourages automatiques incorrects des noms par des marques de citation. Par exemple :
 
@@ -75,7 +75,7 @@ $query->select(["CONCAT(first_name, ' ', last_name) AS full_name", 'email']);
 
 Comme en tout lieu où il est fait appel à du SQL brut, vous devez utiliser la [syntaxe des marques de citation indifférentes au système de gestion de base de données](db-dao.md#quoting-table-and-column-names) pour les noms de table et de colonne lorsque vous écrivez les expressions de base de données dans `select`. 
 
-Depuis la version 2.0.1, vous pouvez aussi sélectionner des sous-requêtes. Vous devez spécifier chacune des sous-requêtes en termes d'objet [[yii\db\Query]]. Par exemple :
+Depuis la version 2.0.1, vous pouvez aussi sélectionner des sous-requêtes. Vous devez spécifier chacune des sous-requêtes en termes d'objet [[Yiisoft\Db\Query]]. Par exemple :
  
 ```php
 $subQuery = (new Query())->select('COUNT(*)')->from('user');
@@ -84,14 +84,14 @@ $subQuery = (new Query())->select('COUNT(*)')->from('user');
 $query = (new Query())->select(['id', 'count' => $subQuery])->from('post');
 ```
 
-Pour sélectionner des lignes distinctes, vous pouvez appeler [[yii\db\Query::distinct()|distinct()]], comme ceci :
+Pour sélectionner des lignes distinctes, vous pouvez appeler [[Yiisoft\Db\Query::distinct()|distinct()]], comme ceci :
 
 ```php
 // SELECT DISTINCT `user_id` ...
 $query->select('user_id')->distinct();
 ```
 
-Vous pouvez appeler [[yii\db\Query::addSelect()|addSelect()]] pour sélectionner des colonnes additionnelles. Par exemple :
+Vous pouvez appeler [[Yiisoft\Db\Query::addSelect()|addSelect()]] pour sélectionner des colonnes additionnelles. Par exemple :
 
 ```php
 $query->select(['id', 'username'])
@@ -99,9 +99,9 @@ $query->select(['id', 'username'])
 ```
 
 
-### [[yii\db\Query::from()|from()]] <span id="from"></span>
+### [[Yiisoft\Db\Query::from()|from()]] <span id="from"></span>
 
-La méthode [[yii\db\Query::from()|from()]] spécifie le fragment `FROM`d'une instruction. Par exemple :
+La méthode [[Yiisoft\Db\Query::from()|from()]] spécifie le fragment `FROM`d'une instruction. Par exemple :
 
 ```php
 // SELECT * FROM `user`
@@ -124,7 +124,7 @@ Si vous utilisez le format tableau, vous pouvez aussi utiliser les clés du tabl
 $query->from(['u' => 'public.user', 'p' => 'public.post']);
 ```
 
-En plus des noms de table, vous pouvez aussi sélectionner à partir de sous-requêtes en les spécifiant en termes d'objets [[yii\db\Query]].
+En plus des noms de table, vous pouvez aussi sélectionner à partir de sous-requêtes en les spécifiant en termes d'objets [[Yiisoft\Db\Query]].
 Par exemple :
 
 ```php
@@ -135,9 +135,9 @@ $query->from(['u' => $subQuery]);
 ```
 
 
-### [[yii\db\Query::where()|where()]] <span id="where"></span>
+### [[Yiisoft\Db\Query::where()|where()]] <span id="where"></span>
 
-La méthode [[yii\db\Query::where()|where()]] spécifie le fragment `WHERE`d'une requête SQL. Vous pouvez utiliser un des trois formats suivants pour spécifier une condition `WHERE` :
+La méthode [[Yiisoft\Db\Query::where()|where()]] spécifie le fragment `WHERE`d'une requête SQL. Vous pouvez utiliser un des trois formats suivants pour spécifier une condition `WHERE` :
 
 - format chaîne de caractères, p. ex. `'status=1'`
 - format haché, p. ex. `['status' => 1, 'type' => 2]`
@@ -164,7 +164,7 @@ N'imbriquez PAS les variables directement dans la condition comme ce qui suit, s
 $query->where("status=$status");
 ```
 
-Lorsque vous utilisez la liaison des paramètres, vous pouvez appeler [[yii\db\Query::params()|params()]] ou [[yii\db\Query::addParams()|addParams()]] pour spécifier les paramètres séparément.
+Lorsque vous utilisez la liaison des paramètres, vous pouvez appeler [[Yiisoft\Db\Query::params()|params()]] ou [[Yiisoft\Db\Query::addParams()|addParams()]] pour spécifier les paramètres séparément.
 
 ```php
 $query->where('status=:status')
@@ -232,7 +232,7 @@ dans lequel chacun des opérandes peut être spécifié au format chaîne de car
 
 - `or not like`: similaire à l'opérateur `not like` sauf que `OR` est utilisé pour concaténer les prédicats `NOT LIKE`.
 
-- `exists`: requiert un opérande que doit être une instance de [[yii\db\Query]] représentant la sous-requête. Il construit une expression `EXISTS (sub-query)`.
+- `exists`: requiert un opérande que doit être une instance de [[Yiisoft\Db\Query]] représentant la sous-requête. Il construit une expression `EXISTS (sub-query)`.
 
 - `not exists`: similaire à l'opérateur `exists` et construit une expression `NOT EXISTS (sub-query)`.
 
@@ -243,7 +243,7 @@ En utilisant le format opérateur, Yii, en interne, utilise la liaison des param
 
 #### Ajout de conditions <span id="appending-conditions"></span>
 
-Vous pouvez utiliser [[yii\db\Query::andWhere()|andWhere()]] ou [[yii\db\Query::orWhere()|orWhere()]] pour ajouter des conditions supplémentaires à une condition existante. Vous pouvez les appeler plusieurs fois pour ajouter plusieurs conditions séparément. Par exemple :
+Vous pouvez utiliser [[Yiisoft\Db\Query::andWhere()|andWhere()]] ou [[Yiisoft\Db\Query::orWhere()|orWhere()]] pour ajouter des conditions supplémentaires à une condition existante. Vous pouvez les appeler plusieurs fois pour ajouter plusieurs conditions séparément. Par exemple :
 
 ```php
 $status = 10;
@@ -265,7 +265,7 @@ WHERE (`status` = 10) AND (`title` LIKE '%yii%')
 
 #### Filtrage des conditions <span id="filter-conditions"></span>
 
-Lors de la construction de conditions  `WHERE` basées sur des entrées de l'utilisateur final, vous voulez généralement ignorer les valeurs entrées qui sont vides. Par exemple, dans un formulaire de recherche par nom d'utilisateur ou par adresse de courriel, vous aimeriez ignorer la condition nom d'utilisateur/adresse de courriel si l'utilisateur n'a rien saisi les champs correspondants. Vous pouvez faire cela en utilisant la méthode [[yii\db\Query::filterWhere()|filterWhere()]] :
+Lors de la construction de conditions  `WHERE` basées sur des entrées de l'utilisateur final, vous voulez généralement ignorer les valeurs entrées qui sont vides. Par exemple, dans un formulaire de recherche par nom d'utilisateur ou par adresse de courriel, vous aimeriez ignorer la condition nom d'utilisateur/adresse de courriel si l'utilisateur n'a rien saisi les champs correspondants. Vous pouvez faire cela en utilisant la méthode [[Yiisoft\Db\Query::filterWhere()|filterWhere()]] :
 
 ```php
 // $username et $email sont entrées par l'utilisateur
@@ -275,13 +275,13 @@ $query->filterWhere([
 ]);
 ```
 
-La seule différence entre [[yii\db\Query::filterWhere()|filterWhere()]] et [[yii\db\Query::where()|where()]] est que la première ignore les valeurs vides fournies dans la condition au [format haché](#hash-format). Ainsi si `$email` est vide alors que `$username` ne l'est pas, le code ci dessus produit la condition SQL `WHERE username=:username`.
+La seule différence entre [[Yiisoft\Db\Query::filterWhere()|filterWhere()]] et [[Yiisoft\Db\Query::where()|where()]] est que la première ignore les valeurs vides fournies dans la condition au [format haché](#hash-format). Ainsi si `$email` est vide alors que `$username` ne l'est pas, le code ci dessus produit la condition SQL `WHERE username=:username`.
 
 > Info: une valeur est considérée comme vide si elle est nulle, un tableau vide, ou un chaîne de caractères vide, ou un chaîne de caractères constituée d'espaces uniquement.
 
-Comme avec [[yii\db\Query::andWhere()|andWhere()]] et [[yii\db\Query::orWhere()|orWhere()]], vous pouvez utiliser [[yii\db\Query::andFilterWhere()|andFilterWhere()]] et [[yii\db\Query::orFilterWhere()|orFilterWhere()]] pour ajouter des conditions de filtrage supplémentaires à une condition existante.
+Comme avec [[Yiisoft\Db\Query::andWhere()|andWhere()]] et [[Yiisoft\Db\Query::orWhere()|orWhere()]], vous pouvez utiliser [[Yiisoft\Db\Query::andFilterWhere()|andFilterWhere()]] et [[Yiisoft\Db\Query::orFilterWhere()|orFilterWhere()]] pour ajouter des conditions de filtrage supplémentaires à une condition existante.
 
-En outre, il y a [[yii\db\Query::andFilterCompare()]] qui peut déterminer intelligemment l'opérateur en se basant sur ce qu'il y a dans les valeurs : 
+En outre, il y a [[Yiisoft\Db\Query::andFilterCompare()]] qui peut déterminer intelligemment l'opérateur en se basant sur ce qu'il y a dans les valeurs : 
 
 ```php
 $query->andFilterCompare('name', 'John Doe');
@@ -295,9 +295,9 @@ Vous pouvez aussi utiliser un opérateur explicitement :
 $query->andFilterCompare('name', 'Doe', 'like');
 ```
 
-### [[yii\db\Query::orderBy()|orderBy()]] <span id="order-by"></span>
+### [[Yiisoft\Db\Query::orderBy()|orderBy()]] <span id="order-by"></span>
 
-La méthode [[yii\db\Query::orderBy()|orderBy()]] spécifie le fragment `ORDER BY` d'une requête SQL. Par exemple :
+La méthode [[Yiisoft\Db\Query::orderBy()|orderBy()]] spécifie le fragment `ORDER BY` d'une requête SQL. Par exemple :
 
 ```php
 // ... ORDER BY `id` ASC, `name` DESC
@@ -317,7 +317,7 @@ $query->orderBy('id ASC, name DESC');
 
 > Note: vous devez utiliser le format tableau si `ORDER BY` fait appel à une expression de base de données.
 
-Vous pouvez appeler [[yii\db\Query::addOrderBy()|addOrderBy()]] pour ajouter des colonnes supplémentaires au fragment `ORDER BY`. Par exemple :
+Vous pouvez appeler [[Yiisoft\Db\Query::addOrderBy()|addOrderBy()]] pour ajouter des colonnes supplémentaires au fragment `ORDER BY`. Par exemple :
 
 ```php
 $query->orderBy('id ASC')
@@ -325,9 +325,9 @@ $query->orderBy('id ASC')
 ```
 
 
-### [[yii\db\Query::groupBy()|groupBy()]] <span id="group-by"></span>
+### [[Yiisoft\Db\Query::groupBy()|groupBy()]] <span id="group-by"></span>
 
-La méthode [[yii\db\Query::groupBy()|groupBy()]] spécifie le fragment `GROUP BY` d'une requête SQL. Par exemple :
+La méthode [[Yiisoft\Db\Query::groupBy()|groupBy()]] spécifie le fragment `GROUP BY` d'une requête SQL. Par exemple :
 
 ```php
 // ... GROUP BY `id`, `status`
@@ -342,7 +342,7 @@ $query->groupBy('id, status');
 
 > Note: vous devez utiliser le format tableau si `GROUP BY` fait appel à une expression de base de données.
  
-Vous pouvez appeler [[yii\db\Query::addGroupBy()|addGroupBy()]] pour ajouter des colonnes au fragment `GROUP BY`. Par exemple :
+Vous pouvez appeler [[Yiisoft\Db\Query::addGroupBy()|addGroupBy()]] pour ajouter des colonnes au fragment `GROUP BY`. Par exemple :
 
 ```php
 $query->groupBy(['id', 'status'])
@@ -350,9 +350,9 @@ $query->groupBy(['id', 'status'])
 ```
 
 
-### [[yii\db\Query::having()|having()]] <span id="having"></span>
+### [[Yiisoft\Db\Query::having()|having()]] <span id="having"></span>
 
-La méthode [[yii\db\Query::having()|having()]] spécifie le fragment `HAVING` d'un requête SQL. Elle accepte une condition qui peut être spécifiée de la même manière que celle pour [where()](#where). Par exemple :
+La méthode [[Yiisoft\Db\Query::having()|having()]] spécifie le fragment `HAVING` d'un requête SQL. Elle accepte une condition qui peut être spécifiée de la même manière que celle pour [where()](#where). Par exemple :
 
 ```php
 // ... HAVING `status` = 1
@@ -361,7 +361,7 @@ $query->having(['status' => 1]);
 
 Reportez-vous à la documentation de [where()](#where) pour plus de détails sur la manière de spécifier une condition. 
 
-Vous pouvez appeler [[yii\db\Query::andHaving()|andHaving()]] ou [[yii\db\Query::orHaving()|orHaving()]] pour ajouter des conditions supplémentaires au fragment `HAVING` fragment. Par exemple :
+Vous pouvez appeler [[Yiisoft\Db\Query::andHaving()|andHaving()]] ou [[Yiisoft\Db\Query::orHaving()|orHaving()]] pour ajouter des conditions supplémentaires au fragment `HAVING` fragment. Par exemple :
 
 ```php
 // ... HAVING (`status` = 1) AND (`age` > 30)
@@ -370,9 +370,9 @@ $query->having(['status' => 1])
 ```
 
 
-### [[yii\db\Query::limit()|limit()]] et [[yii\db\Query::offset()|offset()]] <span id="limit-offset"></span>
+### [[Yiisoft\Db\Query::limit()|limit()]] et [[Yiisoft\Db\Query::offset()|offset()]] <span id="limit-offset"></span>
 
-Les méthodes [[yii\db\Query::limit()|limit()]] et [[yii\db\Query::offset()|offset()]] spécifient les fragments `LIMIT` et `OFFSET` d'une requête SQL. Par exemple : 
+Les méthodes [[Yiisoft\Db\Query::limit()|limit()]] et [[Yiisoft\Db\Query::offset()|offset()]] spécifient les fragments `LIMIT` et `OFFSET` d'une requête SQL. Par exemple : 
 
 ```php
 // ... LIMIT 10 OFFSET 20
@@ -384,16 +384,16 @@ Si vous spécifiez une limite ou un décalage (p. ex. une valeur négative), il 
 > Info: pour les systèmes de gestion de base de données qui prennent en charge `LIMIT` et `OFFSET` (p. ex. MSSQL), le constructeur de requêtes génère une instruction SQL qui émule le comportement `LIMIT`/`OFFSET`.
 
 
-### [[yii\db\Query::join()|join()]] <span id="join"></span>
+### [[Yiisoft\Db\Query::join()|join()]] <span id="join"></span>
 
-La méthode [[yii\db\Query::join()|join()]] spécifie le fragment `JOIN` d'une requête SQL. Par exemple :
+La méthode [[Yiisoft\Db\Query::join()|join()]] spécifie le fragment `JOIN` d'une requête SQL. Par exemple :
 
 ```php
 // ... LEFT JOIN `post` ON `post`.`user_id` = `user`.`id`
 $query->join('LEFT JOIN', 'post', 'post.user_id = user.id');
 ```
 
-La méthode [[yii\db\Query::join()|join()]] accepte quatre paramètres :
+La méthode [[Yiisoft\Db\Query::join()|join()]] accepte quatre paramètres :
 
 - `$type`: type de jointure , p. ex. `'INNER JOIN'`, `'LEFT JOIN'`.
 - `$table`: le nom de la table à joindre.
@@ -402,9 +402,9 @@ La méthode [[yii\db\Query::join()|join()]] accepte quatre paramètres :
 
 Vous pouvez utiliser les méthodes raccourcies suivantes pour spécifier `INNER JOIN`, `LEFT JOIN` et `RIGHT JOIN`, respectivement.
 
-- [[yii\db\Query::innerJoin()|innerJoin()]]
-- [[yii\db\Query::leftJoin()|leftJoin()]]
-- [[yii\db\Query::rightJoin()|rightJoin()]]
+- [[Yiisoft\Db\Query::innerJoin()|innerJoin()]]
+- [[Yiisoft\Db\Query::leftJoin()|leftJoin()]]
+- [[Yiisoft\Db\Query::rightJoin()|rightJoin()]]
 
 Par exemple :
 
@@ -414,27 +414,27 @@ $query->leftJoin('post', 'post.user_id = user.id');
 
 Pour joindre plusieurs tables, appelez les méthodes join ci-dessus plusieurs fois, une fois pour chacune des tables.
 
-En plus de joindre des tables, vous pouvez aussi joindre des sous-requêtes. Pour faire cela, spécifiez les sous-requêtes à joindre sous forme d'objets [[yii\db\Query]]. Par exemple :
+En plus de joindre des tables, vous pouvez aussi joindre des sous-requêtes. Pour faire cela, spécifiez les sous-requêtes à joindre sous forme d'objets [[Yiisoft\Db\Query]]. Par exemple :
 
 ```php
-$subQuery = (new \yii\db\Query())->from('post');
+$subQuery = (new \Yiisoft\Db\Query())->from('post');
 $query->leftJoin(['u' => $subQuery], 'u.id = author_id');
 ```
 
 Dans ce cas, vous devez mettre la sous-requête dans un tableau et utiliser les clés du tableau pour spécifier les alias.
 
 
-### [[yii\db\Query::union()|union()]] <span id="union"></span>
+### [[Yiisoft\Db\Query::union()|union()]] <span id="union"></span>
 
-La méthode [[yii\db\Query::union()|union()]] spécifie le fragment `UNION` d'une requête SQL. Par exemple :
+La méthode [[Yiisoft\Db\Query::union()|union()]] spécifie le fragment `UNION` d'une requête SQL. Par exemple :
 
 ```php
-$query1 = (new \yii\db\Query())
+$query1 = (new \Yiisoft\Db\Query())
     ->select("id, category_id AS type, name")
     ->from('post')
     ->limit(10);
 
-$query2 = (new \yii\db\Query())
+$query2 = (new \Yiisoft\Db\Query())
     ->select('id, type, name')
     ->from('user')
     ->limit(10);
@@ -442,59 +442,59 @@ $query2 = (new \yii\db\Query())
 $query1->union($query2);
 ```
 
-Vous pouvez appeler [[yii\db\Query::union()|union()]] plusieurs fois pour ajouter plus de fragments `UNION`. 
+Vous pouvez appeler [[Yiisoft\Db\Query::union()|union()]] plusieurs fois pour ajouter plus de fragments `UNION`. 
 
 
 ## Méthodes de requête <span id="query-methods"></span>
 
-L'objet [[yii\db\Query]] fournit un jeu complet de méthodes pour différents objectifs de requêtes :
+L'objet [[Yiisoft\Db\Query]] fournit un jeu complet de méthodes pour différents objectifs de requêtes :
 
-- [[yii\db\Query::all()|all()]]: retourne un tableau de lignes dont chacune des lignes est un tableau associatif de paires clé-valeur.
-- [[yii\db\Query::one()|one()]]: retourne la première ligne du résultat. 
-- [[yii\db\Query::column()|column()]]: retourne la première colonne du résultat. 
-- [[yii\db\Query::scalar()|scalar()]]: retourne une valeur scalaire située au croisement de la première ligne et de la première colonne du résultat.
-- [[yii\db\Query::exists()|exists()]]: retourne une valeur précisant si le résultat de la requête contient un résultat.
-- [[yii\db\Query::count()|count()]]: retourne le résultat d'une requête `COUNT`..
-- D'autres méthodes d'agrégation de requêtes, y compris [[yii\db\Query::sum()|sum($q)]], [[yii\db\Query::average()|average($q)]], [[yii\db\Query::max()|max($q)]], [[yii\db\Query::min()|min($q)]]. Le paramètre `$q` est obligatoire pour ces méthodes et peut être soit un nom de colonne, soit une expression de base de données.
+- [[Yiisoft\Db\Query::all()|all()]]: retourne un tableau de lignes dont chacune des lignes est un tableau associatif de paires clé-valeur.
+- [[Yiisoft\Db\Query::one()|one()]]: retourne la première ligne du résultat. 
+- [[Yiisoft\Db\Query::column()|column()]]: retourne la première colonne du résultat. 
+- [[Yiisoft\Db\Query::scalar()|scalar()]]: retourne une valeur scalaire située au croisement de la première ligne et de la première colonne du résultat.
+- [[Yiisoft\Db\Query::exists()|exists()]]: retourne une valeur précisant si le résultat de la requête contient un résultat.
+- [[Yiisoft\Db\Query::count()|count()]]: retourne le résultat d'une requête `COUNT`..
+- D'autres méthodes d'agrégation de requêtes, y compris [[Yiisoft\Db\Query::sum()|sum($q)]], [[Yiisoft\Db\Query::average()|average($q)]], [[Yiisoft\Db\Query::max()|max($q)]], [[Yiisoft\Db\Query::min()|min($q)]]. Le paramètre `$q` est obligatoire pour ces méthodes et peut être soit un nom de colonne, soit une expression de base de données.
 
 Par exemple :
 
 ```php
 // SELECT `id`, `email` FROM `user`
-$rows = (new \yii\db\Query())
+$rows = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->all();
     
 // SELECT * FROM `user` WHERE `username` LIKE `%test%`
-$row = (new \yii\db\Query())
+$row = (new \Yiisoft\Db\Query())
     ->from('user')
     ->where(['like', 'username', 'test'])
     ->one();
 ```
 
-> Note: la méthode [[yii\db\Query::one()|one()]] retourne seulement la première ligne du résultat de la requête. Elle n'ajoute PAS `LIMIT 1` à l'instruction SQL générée. Cela est bon et préférable si vous savez que la requête ne retourne qu'une seule ou quelques lignes de données (p. ex. si vous effectuez une requête avec quelques clés primaires). Néanmoins, si la requête peut potentiellement retourner de nombreuses lignes de données, vous devriez appeler `limit(1)` explicitement pour améliorer la performance, p. ex. `(new \yii\db\Query())->from('user')->limit(1)->one()`.
+> Note: la méthode [[Yiisoft\Db\Query::one()|one()]] retourne seulement la première ligne du résultat de la requête. Elle n'ajoute PAS `LIMIT 1` à l'instruction SQL générée. Cela est bon et préférable si vous savez que la requête ne retourne qu'une seule ou quelques lignes de données (p. ex. si vous effectuez une requête avec quelques clés primaires). Néanmoins, si la requête peut potentiellement retourner de nombreuses lignes de données, vous devriez appeler `limit(1)` explicitement pour améliorer la performance, p. ex. `(new \Yiisoft\Db\Query())->from('user')->limit(1)->one()`.
 
-Toutes ces méthodes de requête accepte un paramètre supplémentaire `$db` représentant la [[yii\db\Connection|connexion à la base de données]] qui doit être utilisée pour effectuer la requête. Si vous omettez ce paramètre, le [composant d'application](structure-application-components.md) `db` est utilisé en tant que connexion à la base de données. Ci-dessous, nous présentons un autre exemple utilisant la méthode [[yii\db\Query::count()|count()]] :
+Toutes ces méthodes de requête accepte un paramètre supplémentaire `$db` représentant la [[Yiisoft\Db\Connection|connexion à la base de données]] qui doit être utilisée pour effectuer la requête. Si vous omettez ce paramètre, le [composant d'application](structure-application-components.md) `db` est utilisé en tant que connexion à la base de données. Ci-dessous, nous présentons un autre exemple utilisant la méthode [[Yiisoft\Db\Query::count()|count()]] :
 
 ```php
 // exécute SQL: SELECT COUNT(*) FROM `user` WHERE `last_name`=:last_name
-$count = (new \yii\db\Query())
+$count = (new \Yiisoft\Db\Query())
     ->from('user')
     ->where(['last_name' => 'Smith'])
     ->count();
 ```
 
-Lorsque vous appelez une méthode de requête de [[yii\db\Query]], elle effectue réellement le travail suivant en interne :
+Lorsque vous appelez une méthode de requête de [[Yiisoft\Db\Query]], elle effectue réellement le travail suivant en interne :
 
-* Appelle [[yii\db\QueryBuilder]] pour générer une instruction SQL basée sur la construction courante de [[yii\db\Query]] ;
-* Crée un objet [[yii\db\Command]] avec l'instruction SQL générée ;
-* Appelle une méthode de requête (p. ex. [[yii\db\Command::queryAll()|queryAll()]]) de [[yii\db\Command]] pour exécuter une instruction SQL et retrouver les données.
+* Appelle [[Yiisoft\Db\QueryBuilder]] pour générer une instruction SQL basée sur la construction courante de [[Yiisoft\Db\Query]] ;
+* Crée un objet [[Yiisoft\Db\Command]] avec l'instruction SQL générée ;
+* Appelle une méthode de requête (p. ex. [[Yiisoft\Db\Command::queryAll()|queryAll()]]) de [[Yiisoft\Db\Command]] pour exécuter une instruction SQL et retrouver les données.
 
-Parfois, vous voulez peut-être examiner ou utiliser une instruction SQL construite à partir d'un objet [[yii\db\Query]]. Vous pouvez faire cela avec le code suivant :
+Parfois, vous voulez peut-être examiner ou utiliser une instruction SQL construite à partir d'un objet [[Yiisoft\Db\Query]]. Vous pouvez faire cela avec le code suivant :
 
 ```php
-$command = (new \yii\db\Query())
+$command = (new \Yiisoft\Db\Query())
     ->select(['id', 'email'])
     ->from('user')
     ->where(['last_name' => 'Smith'])
@@ -513,21 +513,21 @@ $rows = $command->queryAll();
 
 ### Indexation des résultats de la requête <span id="indexing-query-results"></span>
 
-Lorsque vous appelez [[yii\db\Query::all()|all()]], elle retourne un tableau de lignes qui sont indexées par des entiers consécutifs. Parfois, vous désirez peut-être les indexer différemment, comme les indexer par une colonne particulière ou par des expressions donnant une valeur. Vous pouvez le faire en appelant [[yii\db\Query::indexBy()|indexBy()]] avant [[yii\db\Query::all()|all()]]. Par exemple :
+Lorsque vous appelez [[Yiisoft\Db\Query::all()|all()]], elle retourne un tableau de lignes qui sont indexées par des entiers consécutifs. Parfois, vous désirez peut-être les indexer différemment, comme les indexer par une colonne particulière ou par des expressions donnant une valeur. Vous pouvez le faire en appelant [[Yiisoft\Db\Query::indexBy()|indexBy()]] avant [[Yiisoft\Db\Query::all()|all()]]. Par exemple :
 
 ```php
 // retourne [100 => ['id' => 100, 'username' => '...', ...], 101 => [...], 103 => [...], ...]
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->limit(10)
     ->indexBy('id')
     ->all();
 ```
 
-Pour indexer par des valeurs d'expressions, passez une fonction anonyme à la méthode [[yii\db\Query::indexBy()|indexBy()]] :
+Pour indexer par des valeurs d'expressions, passez une fonction anonyme à la méthode [[Yiisoft\Db\Query::indexBy()|indexBy()]] :
 
 ```php
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->indexBy(function ($row) {
         return $row['id'] . $row['username'];
@@ -536,17 +536,17 @@ $query = (new \yii\db\Query())
 
 Le fonction anonyme accepte un paramètre `$row` qui contient les données de la ligne courante et retourne une valeur scalaire qui est utilisée comme la valeur d'index de la ligne courante.
 
-> Note: contrairement aux méthodes de requête telles que [[yii\db\Query::groupBy()|groupBy()]] ou [[yii\db\Query::orderBy()|orderBy()]] qui sont converties en SQL et font partie de la requête, cette méthode ne fait son travail qu'après que les données ont été retrouvées dans la base de données. Cela signifie que seules les noms de colonne qui on fait partie du fragement SELECT dans votre requête peuvent être utilisés. De plus, si vous avez sélectionné une colonne avec un préfixe de table, p. ex. `customer.id`, le jeu de résultats ne contient que `id` c'est pourquoi vous devez appeler `->indexBy('id')` sans  préfixe de table.
+> Note: contrairement aux méthodes de requête telles que [[Yiisoft\Db\Query::groupBy()|groupBy()]] ou [[Yiisoft\Db\Query::orderBy()|orderBy()]] qui sont converties en SQL et font partie de la requête, cette méthode ne fait son travail qu'après que les données ont été retrouvées dans la base de données. Cela signifie que seules les noms de colonne qui on fait partie du fragement SELECT dans votre requête peuvent être utilisés. De plus, si vous avez sélectionné une colonne avec un préfixe de table, p. ex. `customer.id`, le jeu de résultats ne contient que `id` c'est pourquoi vous devez appeler `->indexBy('id')` sans  préfixe de table.
 
 
 ### Requêtes par lots <span id="batch-query"></span>
 
-Lorsque vous travaillez sur de grandes quantités de données, des méthodes telles que [[yii\db\Query::all()]] ne conviennent pas  car elles requièrent le chargement de toutes les données en mémoire. Pour conserver l'exigence de capacité mémoire basse, Yii fournit la prise en charge appelé requêtes par lots.
+Lorsque vous travaillez sur de grandes quantités de données, des méthodes telles que [[Yiisoft\Db\Query::all()]] ne conviennent pas  car elles requièrent le chargement de toutes les données en mémoire. Pour conserver l'exigence de capacité mémoire basse, Yii fournit la prise en charge appelé requêtes par lots.
 
 Les requêtes par lots peuvent être utilisées comme suit :
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())
     ->from('user')
@@ -561,15 +561,15 @@ foreach ($query->each() as $user) {
     // $user représente une ligne de données de la table user.
 ```
 
-Les méthodes [[yii\db\Query::batch()]] et [[yii\db\Query::each()]] retournent un objet [[yii\db\BatchQueryResult]] qui implémente l'interface `Iterator` et qui, par conséquent, peut être utilisé dans une construction `foreach`.
+Les méthodes [[Yiisoft\Db\Query::batch()]] et [[Yiisoft\Db\Query::each()]] retournent un objet [[Yiisoft\Db\BatchQueryResult]] qui implémente l'interface `Iterator` et qui, par conséquent, peut être utilisé dans une construction `foreach`.
 Durant la première iteration, une requête SQL est faite à la base de données. Les données sont retrouvées en lots dans les itérations suivantes. Par défaut, la taille du lot est 100, ce qui signifie que 100 lignes sont retrouvées dans chacun des lots. Vous pouvez changer la taille du lot en passant le premier paramètre des méthodes `batch()` ou `each()`.
 
-Comparée à la requête [[yii\db\Query::all()]], la requête par lots ne charge que 100 lignes de données à la fois en mémoire. Si vous traitez les données et les détruisez tout de suite, la requête par lots réduit l'utilisation de la mémoire. 
+Comparée à la requête [[Yiisoft\Db\Query::all()]], la requête par lots ne charge que 100 lignes de données à la fois en mémoire. Si vous traitez les données et les détruisez tout de suite, la requête par lots réduit l'utilisation de la mémoire. 
 
-Si vous spécifiez l'indexation du résultat de la requête par une colonne via [[yii\db\Query::indexBy()]], la requête par lots conserve l'index approprié. Par exemple :
+Si vous spécifiez l'indexation du résultat de la requête par une colonne via [[Yiisoft\Db\Query::indexBy()]], la requête par lots conserve l'index approprié. Par exemple :
 
 ```php
-$query = (new \yii\db\Query())
+$query = (new \Yiisoft\Db\Query())
     ->from('user')
     ->indexBy('username');
 

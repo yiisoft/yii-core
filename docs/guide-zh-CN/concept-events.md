@@ -203,21 +203,21 @@ $foo->off(Foo::EVENT_HELLO);
 而是通过调用静态方法 [[yii\base\Event::on()]] 在*类级别*附加处理器。
 
 例如，[活动记录](db-active-record.md)对象要在每次往数据库新增一条新记录时触发一个 
-[[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 事件。
+[[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 事件。
 要追踪每个[活动记录](db-active-record.md)对象的新增记录完成情况，应如下写代码：
 
 ```php
 use yii\helpers\Yii;
 use yii\base\Event;
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 Event::on(ActiveRecord::class, ActiveRecord::EVENT_AFTER_INSERT, function ($event) {
     Yii::debug(get_class($event->sender) . ' is inserted');
 });
 ```
 
-每当 [[yii\db\BaseActiveRecord|ActiveRecord]] 或其子类的实例触发 
-[[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 事件时，
+每当 [[Yiisoft\Db\BaseActiveRecord|ActiveRecord]] 或其子类的实例触发 
+[[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] 事件时，
 这个事件处理器都会执行。在这个处理器中，可以通过 `$event->sender` 获取触发事件的对象。
 
 当对象触发事件时，它首先调用实例级别的处理器，然后才会调用类级别处理器。

@@ -10,9 +10,9 @@ namespace yii\tests\framework\behaviors;
 use yii\helpers\Yii;
 use yii\behaviors\TimestampBehavior;
 use Yiisoft\ActiveRecord\ActiveRecord;
-use yii\db\Connection;
-use yii\db\Expression;
-use yii\db\ExpressionInterface;
+use Yiisoft\Db\Connection;
+use Yiisoft\Db\Expression;
+use Yiisoft\Db\ExpressionInterface;
 use yii\tests\TestCase;
 
 /**
@@ -40,7 +40,7 @@ class TimestampBehaviorTest extends TestCase
         $this->mockApplication([
             'components' => [
                 'db' => [
-                    '__class' => \yii\db\Connection::class,
+                    '__class' => \Yiisoft\Db\Connection::class,
                     'dsn' => 'sqlite::memory:',
                 ],
             ],
@@ -159,8 +159,8 @@ class TimestampBehaviorTest extends TestCase
         $model = new ActiveRecordTimestamp();
         $model->save(false);
         if ($expression instanceof ExpressionInterface) {
-            $this->assertInstanceOf('yii\db\ExpressionInterface', $model->created_at);
-            $this->assertInstanceOf('yii\db\ExpressionInterface', $model->updated_at);
+            $this->assertInstanceOf('Yiisoft\Db\ExpressionInterface', $model->created_at);
+            $this->assertInstanceOf('Yiisoft\Db\ExpressionInterface', $model->updated_at);
             $model->refresh();
         }
         $this->assertEquals($expected, $model->created_at);

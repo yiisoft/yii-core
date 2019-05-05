@@ -52,7 +52,7 @@ données de formulaire.
 
 > Info: [[yii\base\Model]] est utilisée en tant que parent pour des classes modèles qui ne sont *pas* associées à des
 tables de base de données.
-[[yii\db\ActiveRecord]] est normalement le parent pour les classes modèles qui correspondent à des tables de bases de
+[[Yiisoft\Db\ActiveRecord]] est normalement le parent pour les classes modèles qui correspondent à des tables de bases de
 données.
 
 La classe `EntryForm` contient deux membres publics, `nom` et `email`, qui sont utilisés pour stocker les données

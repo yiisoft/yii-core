@@ -51,7 +51,7 @@ class SettingsController extends Controller
 }
 ```
 
-В коде выше, для получения из базы данных массива моделей, индексированного по главному ключу, использован метод [[yii\db\ActiveQuery::indexBy()|indexBy()]]. В дальнейшем будем использовать это для идентификации полей формы. Метод [[yii\base\Model::loadMultiple()|Model::loadMultiple()]] загружает данные запроса POST в массив моделей, а метод [[yii\base\Model::validateMultiple()|Model::validateMultiple()]] проводит валидацию всех моделей. Так, как модели уже прошли валидацию, мы передаем методу [[yii\db\ActiveRecord::save()|save()]] параметр `false` для отключения повторной валидации.
+В коде выше, для получения из базы данных массива моделей, индексированного по главному ключу, использован метод [[Yiisoft\Db\ActiveQuery::indexBy()|indexBy()]]. В дальнейшем будем использовать это для идентификации полей формы. Метод [[yii\base\Model::loadMultiple()|Model::loadMultiple()]] загружает данные запроса POST в массив моделей, а метод [[yii\base\Model::validateMultiple()|Model::validateMultiple()]] проводит валидацию всех моделей. Так, как модели уже прошли валидацию, мы передаем методу [[Yiisoft\Db\ActiveRecord::save()|save()]] параметр `false` для отключения повторной валидации.
 
 Теперь займемся формой в представлении `update`:
 

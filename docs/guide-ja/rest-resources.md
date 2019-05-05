@@ -5,14 +5,14 @@ RESTful API は、つまるところ、*リソース* にアクセスし、そ�
 MVC の枠組の中では、リソースは [モデル](structure-models.md) として見ることが出来ます。
 
 リソースをどのように表現すべきかについて制約がある訳ではありませんが、
-Yii においては、通常は、次のような理由によって、リソースを [[yii\base\Model]] またはその子クラス (例えば [[yii\db\ActiveRecord]])
+Yii においては、通常は、次のような理由によって、リソースを [[yii\base\Model]] またはその子クラス (例えば [[Yiisoft\Db\ActiveRecord]])
 のオブジェクトとして表現することになります。
 
 * [[yii\base\Model]] は [[Yiisoft\Arrays\Arrayable]] インタフェイスを実装しています。
   これによって、リソースのデータを RESTful API を通じて公開する仕方をカスタマイズすることが出来ます。
 * [[yii\base\Model]] は [入力値の検証](input-validation.md) をサポートしています。
   これは、RESTful API がデータ入力をサポートする必要がある場合に役に立ちます。
-* [[yii\db\ActiveRecord]] は DB データのアクセスと操作に対する強力なサポートを提供しています。
+* [[Yiisoft\Db\ActiveRecord]] は DB データのアクセスと操作に対する強力なサポートを提供しています。
   リソース・データがデータベースに保存されているときは、アクティブ・レコードが最適の選択です。
 
 このセクションでは、主として、[[yii\base\Model]] クラス (またはその子クラス) から拡張したリソース・クラスにおいて、
@@ -56,7 +56,7 @@ http://localhost/users?fields=id,email&expand=profile
 ### fields()` をオーバーライドする <span id="overriding-fields"></span>
 
 デフォルトでは、[[yii\base\Model::fields()]] は、モデルの全ての属性をフィールドとして返し、
-[[yii\db\ActiveRecord::fields()]] は、DB から投入された属性だけを返します。
+[[Yiisoft\Db\ActiveRecord::fields()]] は、DB から投入された属性だけを返します。
 
 `fields()` をオーバーライドして、フィールドを追加、削除、名前変更、または再定義することが出来ます。
 `fields()` の返り値は配列でなければなりません。
@@ -102,7 +102,7 @@ public function fields()
 
 ### `extraFields()` をオーバーライドする<span id="overriding-extra-fields"></span>
 
-デフォルトでは、[[yii\base\Model::extraFields()]] は空の配列を返し、[[yii\db\ActiveRecord::extraFields()]]
+デフォルトでは、[[yii\base\Model::extraFields()]] は空の配列を返し、[[Yiisoft\Db\ActiveRecord::extraFields()]]
 は DB から取得されたリレーションの名前を返します。
 
 `extraFields()` によって返されるデータの形式は `fields()` のそれと同じです。

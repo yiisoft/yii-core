@@ -94,7 +94,7 @@ public function behaviors()
 方法可在`User`类中简单实现，如下所示：
 
 ```php
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 class User extends ActiveRecord implements IdentityInterface

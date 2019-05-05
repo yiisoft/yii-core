@@ -27,7 +27,7 @@ $locator->set('cache', 'yii\caching\ApcCache');
 
 // регистрирует "db", используя конфигурационный массив, который может быть использован для создания компонента.
 $locator->set('db', [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -69,7 +69,7 @@ return [
     // ...
     'components' => [
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',

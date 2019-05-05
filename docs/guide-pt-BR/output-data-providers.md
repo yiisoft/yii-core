@@ -8,7 +8,7 @@ Um data provider é uma classe que implementa
 
 O Yii fornece as seguintes classes de data provider:
 
-* [[yii\data\ActiveDataProvider]]: Utilize [[yii\db\Query]] ou [[yii\db\ActiveQuery]] para consultar dados de um database e retorná-los na forma de array ou uma instância de [Active Record](db-active-record.md).
+* [[yii\data\ActiveDataProvider]]: Utilize [[Yiisoft\Db\Query]] ou [[Yiisoft\Db\ActiveQuery]] para consultar dados de um database e retorná-los na forma de array ou uma instância de [Active Record](db-active-record.md).
 * [[yii\data\SqlDataProvider]]: executa uma instrução SQL e retorna os dados do banco de dados como array.
 * [[yii\data\ArrayDataProvider]]: pega um grande array e retorna apenas uma parte deste baseado na paginação e ordenação especificada.
 
@@ -47,7 +47,7 @@ Estes data providers variam principalmente conforme a fonte de dados é especifi
 ## Active Data Provider <span id="active-data-provider"></span>
 
 Para usar [[yii\data\ActiveDataProvider]], você deve configurar sua propriedade [[yii\data\ActiveDataProvider::query|query]].
-Ele pode receber qualquer um dos objetos [[yii\db\Query]] ou [[yii\db\ActiveQuery]]. Se for o primeiro, os dados serão retornados em array; se for o último, os dados podem ser retornados em array ou uma instância de [Active Record](db-active-record.md).
+Ele pode receber qualquer um dos objetos [[Yiisoft\Db\Query]] ou [[Yiisoft\Db\ActiveQuery]]. Se for o primeiro, os dados serão retornados em array; se for o último, os dados podem ser retornados em array ou uma instância de [Active Record](db-active-record.md).
 Por exemplo:
 
 ```php
@@ -75,7 +75,7 @@ $posts = $provider->getModels();
 Se `$query` no exemplo acima fosse criada usando o código a seguir, então o data provider retornaria um array.
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())->from('post')->where(['status' => 1]);
 ```
@@ -175,7 +175,7 @@ $posts = $provider->getModels();
 $ids = $provider->getKeys();
 ```
 
-No exemplo abaixo, como você fornece um objeto [[yii\db\ActiveQuery]] para o [[yii\data\ActiveDataProvider]], ele é inteligente o suficiente para retornar os valores de chave primária como chaves no resultado. Você também pode especificar explicitamente como os valores das chaves devem ser calculados configurando a propriedade
+No exemplo abaixo, como você fornece um objeto [[Yiisoft\Db\ActiveQuery]] para o [[yii\data\ActiveDataProvider]], ele é inteligente o suficiente para retornar os valores de chave primária como chaves no resultado. Você também pode especificar explicitamente como os valores das chaves devem ser calculados configurando a propriedade
 [[yii\data\ActiveDataProvider::key]] com um nome de coluna ou com uma função callback que retorna os valores das chaves. Por exemplo:
 
 ```php

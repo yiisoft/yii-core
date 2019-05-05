@@ -52,7 +52,7 @@ comumente usados para representar dados do formulário.
 
 > Informação: O [[yii\base\Model]] é usado como pai das classes modelos que *não* 
 são associadas com tabelas do banco de dados.
-O [[yii\db\ActiveRecord]] é normalmente usado como pai das classes modelos que 
+O [[Yiisoft\Db\ActiveRecord]] é normalmente usado como pai das classes modelos que 
 correspondem a tabelas do banco de dados.
 
 A classe `EntryForm` contém dois atributos públicos, `name` e `email`, que são 

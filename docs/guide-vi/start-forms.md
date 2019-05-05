@@ -47,7 +47,7 @@ class EntryForm extends Model
 Lớp trên được kế thừa từ lớp [[yii\base\Model]], lớp này được Yii cung cấp , thường được dùng cho việc xử lý dữ liệu từ form.
 
 > Lưu ý: [[yii\base\Model]] là lớp cơ sở cho việc tương tác với các lớp dữ liệu và nó *không* liên quan tới các bảng trong CSDL.
-[[yii\db\ActiveRecord]] là lớp thường được dùng với CSDL mỗi lớp này sẽ tương xứng với các bảng trong CSDL.
+[[Yiisoft\Db\ActiveRecord]] là lớp thường được dùng với CSDL mỗi lớp này sẽ tương xứng với các bảng trong CSDL.
 
 Lớp `EntryForm` chứa hai biến ở phạm vi toàn cục (public), `name` và `email`, Các biến này sẽ được dùng để lưu trữ dữ liệu
 khi người dùng nhập và gửi lên. Lớp này đồng thời chứa phương thức là `rules()`, phương thức này trả về tập quy tắc để xác thực

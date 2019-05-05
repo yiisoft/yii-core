@@ -158,7 +158,7 @@ and a dependency definition can be a class name, a configuration array, or a PHP
 $container = new \yii\di\Container;
 
 // register a class name as is. This can be skipped.
-$container->set('yii\db\Connection');
+$container->set('Yiisoft\Db\Connection');
 
 // register an interface
 // When a class depends on the interface, the corresponding class
@@ -167,11 +167,11 @@ $container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // register an alias name. You can use $container->get('foo')
 // to create an instance of Connection
-$container->set('foo', 'yii\db\Connection');
+$container->set('foo', 'Yiisoft\Db\Connection');
 
 // register a class with configuration. The configuration
 // will be applied when the class is instantiated by get()
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -181,7 +181,7 @@ $container->set('yii\db\Connection', [
 // register an alias name with class configuration
 // In this case, a "class" element is required to specify the class
 $container->set('db', [
-    '__class' => \yii\db\Connection::class,
+    '__class' => \Yiisoft\Db\Connection::class,
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -191,7 +191,7 @@ $container->set('db', [
 // register a PHP callable
 // The callable will be executed each time when $container->get('db') is called
 $container->set('db', function ($container, $params, $config) {
-    return new \yii\db\Connection($config);
+    return new \Yiisoft\Db\Connection($config);
 });
 
 // register a component instance
@@ -207,7 +207,7 @@ You can use [[yii\di\Container::setSingleton()]] to register a dependency that o
 a single instance:
 
 ```php
-$container->setSingleton('yii\db\Connection', [
+$container->setSingleton('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -254,7 +254,7 @@ and creates a new `UserLister` instance with a simple call of `get('userLister')
 namespace app\models;
 
 use yii\base\BaseObject;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\di\Container;
 
 interface UserFinderInterface
@@ -289,7 +289,7 @@ class UserLister extends BaseObject
 }
 
 $container = new Container;
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => '...',
 ]);
 $container->set('app\models\UserFinderInterface', [
@@ -301,7 +301,7 @@ $lister = $container->get('userLister');
 
 // which is equivalent to:
 
-$db = new \yii\db\Connection(['dsn' => '...']);
+$db = new \Yiisoft\Db\Connection(['dsn' => '...']);
 $finder = new UserFinder($db);
 $lister = new UserLister($finder);
 ```

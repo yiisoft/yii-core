@@ -9,7 +9,7 @@ namespace yii\behaviors;
 
 use yii\helpers\Yii;
 use yii\exceptions\InvalidConfigException;
-use yii\db\BaseActiveRecord;
+use Yiisoft\Db\BaseActiveRecord;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Inflector\InflectorHelper;
 use yii\validators\UniqueValidator;

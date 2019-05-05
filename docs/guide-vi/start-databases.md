@@ -61,7 +61,7 @@ file sẽ có những đoạn code sau:
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',
@@ -70,7 +70,7 @@ return [
 ```
 
 File `config/db.php` là file điển hình dành cho cấu hình ứng dụng [configuration](concept-configurations.md). Các tham số được mô tả trong file
-cần thiết để tạo mới và khởi tạo các thể hiện [[yii\db\Connection]] và thực hiện các câu lệnh truy vấn
+cần thiết để tạo mới và khởi tạo các thể hiện [[Yiisoft\Db\Connection]] và thực hiện các câu lệnh truy vấn
 
 Các thông tin cấu hình về CSDL ở trên được truy cập qua ứng dụng qua câu lệnh `Yii::$app->db`.
 
@@ -90,18 +90,18 @@ tên là `Country`, và lưu vào file `models/Country.php`.
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
 }
 ```
 
-Lớp `Country` được kế thừa từ [[yii\db\ActiveRecord]]. Bạn không cần viết bất kỳ đoạn mã nào vào phần này! Chỉ với đoạn mã trên, 
+Lớp `Country` được kế thừa từ [[Yiisoft\Db\ActiveRecord]]. Bạn không cần viết bất kỳ đoạn mã nào vào phần này! Chỉ với đoạn mã trên, 
 Yii sẽ biết được tên bảng từ tên của lớp tương ứng. 
 
 > Info: Nếu tên lớp không trùng với tên trong bảng dữ liệu, bạn có thể
-ghi đè phương thức [[yii\db\ActiveRecord::tableName()]] để miêu tả rõ ràng về tên bảng dữ liệu.
+ghi đè phương thức [[Yiisoft\Db\ActiveRecord::tableName()]] để miêu tả rõ ràng về tên bảng dữ liệu.
 
 Dùng lớp `Country`, bạn sẽ dễ dàng hơn trong việc thao tác với bảng `country`, ví dụ:
 

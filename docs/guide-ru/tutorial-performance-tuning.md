@@ -51,7 +51,7 @@ defined('YII_DEBUG') or define('YII_DEBUG', false);
 повторно использована при последующих запросах.
 
 Чтобы включить кеширование схемы, сконфигурируйте [компонент приложения](structure-application-components.md) `cache` 
-для хранения информации о схеме и установите [[yii\db\Connection::enableSchemaCache]] в `true` в [конфигурации приложения](concept-configurations.md):
+для хранения информации о схеме и установите [[Yiisoft\Db\Connection::enableSchemaCache]] в `true` в [конфигурации приложения](concept-configurations.md):
 
 ```php
 return [
@@ -62,7 +62,7 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=mydatabase',
             'username' => 'root',
             'password' => '',

@@ -62,7 +62,7 @@ If a behavior needs to respond to the events triggered by the component it is at
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior
@@ -84,7 +84,7 @@ class MyBehavior extends Behavior
 ```
 
 The [[yii\base\Behavior::events()|events()]] method should return a list of events and their corresponding handlers.
-The above example declares that the [[yii\db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] event exists and defines
+The above example declares that the [[Yiisoft\Db\ActiveRecord::EVENT_BEFORE_VALIDATE|EVENT_BEFORE_VALIDATE]] event exists and defines
 its handler, `beforeValidate()`. When specifying an event handler, you may use one of the following formats:
 
 * a string that refers to the name of a method of the behavior class, like the example above
@@ -111,7 +111,7 @@ Each behavior configuration can be either a behavior class name or a configurati
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use app\components\MyBehavior;
 
 class User extends ActiveRecord
@@ -253,15 +253,15 @@ Using `TimestampBehavior` <span id="using-timestamp-behavior"></span>
 -------------------------
 
 To wrap up, let's take a look at [[yii\behaviors\TimestampBehavior]]. This behavior supports automatically
-updating the timestamp attributes of an [[yii\db\ActiveRecord|Active Record]] model anytime the model is saved via
+updating the timestamp attributes of an [[Yiisoft\Db\ActiveRecord|Active Record]] model anytime the model is saved via
 `insert()`, `update()` or `save()` method.
 
-First, attach this behavior to the [[yii\db\ActiveRecord|Active Record]] class that you plan to use:
+First, attach this behavior to the [[Yiisoft\Db\ActiveRecord|Active Record]] class that you plan to use:
 
 ```php
 namespace app\models\User;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord

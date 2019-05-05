@@ -12,7 +12,7 @@ use yii\base\BaseObject;
 use yii\base\Event;
 use yii\behaviors\BlameableBehavior;
 use Yiisoft\ActiveRecord\ActiveRecord;
-use yii\db\BaseActiveRecord;
+use Yiisoft\Db\BaseActiveRecord;
 use yii\tests\TestCase;
 
 /**
@@ -34,7 +34,7 @@ class BlameableBehaviorTest extends TestCase
         $this->mockApplication([
             'components' => [
                 'db' => [
-                    '__class' => \yii\db\Connection::class,
+                    '__class' => \Yiisoft\Db\Connection::class,
                     'dsn' => 'sqlite::memory:',
                 ],
                 'user' => [

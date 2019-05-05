@@ -13,7 +13,7 @@
 \Yii::$app->componentID
 ```
 
-例如，可以使用 `\Yii::$app->db` 来获取到已注册到应用的 [[yii\db\Connection|DB connection]]，
+例如，可以使用 `\Yii::$app->db` 来获取到已注册到应用的 [[Yiisoft\Db\Connection|DB connection]]，
 使用 `\Yii::$app->cache` 来获取到已注册到应用的 [[yii\caching\Cache|primary cache]]。
 
 第一次使用以上表达式时候会创建应用组件实例，
@@ -31,7 +31,7 @@
 
         // 使用配置数组注册 "db" 组件
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',
@@ -98,9 +98,9 @@ Yii 定义了一组固定ID和默认配置的 *核心* 组件，
 
 * [[yii\web\AssetManager|assetManager]]: 管理资源包和资源发布，
   详情请参考 [管理资源](output-assets.md) 一节。
-* [[yii\db\Connection|db]]: 代表一个可以执行数据库操作的数据库连接，
+* [[Yiisoft\Db\Connection|db]]: 代表一个可以执行数据库操作的数据库连接，
   注意配置该组件时必须指定组件类名和其他相关组件属性，
-  如[[yii\db\Connection::dsn]]。
+  如[[Yiisoft\Db\Connection::dsn]]。
   详情请参考 [数据访问对象](db-dao.md) 一节。
 * [[yii\base\Application::errorHandler|errorHandler]]: 处理 PHP 错误和异常，
   详情请参考 [错误处理](tutorial-handling-errors.md) 一节。

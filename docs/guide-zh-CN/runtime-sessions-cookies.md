@@ -183,7 +183,7 @@ CREATE TABLE session
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m170529_050554_create_table_session extends Migration
 {

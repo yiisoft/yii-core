@@ -59,7 +59,7 @@ Jeśli posiadasz zainstalowane powyższe rozszerzenia, otwórz plik `config/db.p
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',
@@ -68,7 +68,7 @@ return [
 ```
 
 Plik `config/db.php` jest typowym narzędziem [konfiguracyjnym](concept-configurations.md) opartym na plikach.
-Ten szczególny plik konfiguracyjny określa parametry potrzebne do utworzenia oraz zainicjalizowania instancji [[yii\db\Connection|Connection]], dzięki czemu będziesz mógł wywoływać 
+Ten szczególny plik konfiguracyjny określa parametry potrzebne do utworzenia oraz zainicjalizowania instancji [[Yiisoft\Db\Connection|Connection]], dzięki czemu będziesz mógł wywoływać 
 komendy SQL do swojej bazy przez aplikację.
 
 Powyższa konfiguracja może być dostępna z poziomu kodu aplikacji używając wyrażenia `Yii::$app->db`.
@@ -88,17 +88,17 @@ Do pobrania i reprezentowania danych z tabeli `country` utwórz pochodną klasę
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
 }
 ```
 
-Klasa `Country` rozszerza klasę [[yii\db\ActiveRecord|ActiveRecord]]. Nie musisz pisać w niej żadnego kodu! Posiadając tylko powyżej podany kod, Yii odgadnie nazwę powiązanej tabeli 
+Klasa `Country` rozszerza klasę [[Yiisoft\Db\ActiveRecord|ActiveRecord]]. Nie musisz pisać w niej żadnego kodu! Posiadając tylko powyżej podany kod, Yii odgadnie nazwę powiązanej tabeli 
 z nazwy klasy.
 
-> Info: Jeśli nie można dopasować tabeli do nazwy klasy, możesz nadpisać metodę [[yii\db\ActiveRecord::tableName()|tableName()]], aby wskazywała na konkretną powiązaną tabelę.
+> Info: Jeśli nie można dopasować tabeli do nazwy klasy, możesz nadpisać metodę [[Yiisoft\Db\ActiveRecord::tableName()|tableName()]], aby wskazywała na konkretną powiązaną tabelę.
 
 Używając klasy `Country` możesz w łatwy sposób manipulować danymi z tabeli `country`, tak jak pokazano w poniższych przykładach:
 

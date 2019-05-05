@@ -11,9 +11,9 @@ use yii\helpers\Yii;
 use yii\behaviors\OptimisticLockBehavior;
 use yii\web\Request;
 use Yiisoft\ActiveRecord\ActiveRecord;
-use yii\db\Connection;
-use yii\db\Expression;
-use yii\db\ExpressionInterface;
+use Yiisoft\Db\Connection;
+use Yiisoft\Db\Expression;
+use Yiisoft\Db\ExpressionInterface;
 use yii\tests\TestCase;
 
 /**
@@ -41,7 +41,7 @@ class OptimisticLockBehaviorTest extends TestCase
         $this->mockApplication([
             'components' => [
                 'db' => [
-                    'class' => '\yii\db\Connection',
+                    'class' => '\Yiisoft\Db\Connection',
                     'dsn' => 'sqlite::memory:',
                 ],
             ],
@@ -145,7 +145,7 @@ class OptimisticLockBehaviorTest extends TestCase
 
         try {
             $model->save(false);
-        } catch (\yii\db\StaleObjectException $e) {
+        } catch (\Yiisoft\Db\StaleObjectException $e) {
             $this->assertContains('The object being updated is outdated.', $e->getMessage());
             $thrown = true;
         }
@@ -161,7 +161,7 @@ class OptimisticLockBehaviorTest extends TestCase
 
         try {
             $model->save(false);
-        } catch (\yii\db\StaleObjectException $e) {
+        } catch (\Yiisoft\Db\StaleObjectException $e) {
             $this->assertContains('The object being updated is outdated.', $e->getMessage());
             $thrown = true;
         }
@@ -177,7 +177,7 @@ class OptimisticLockBehaviorTest extends TestCase
 
         try {
             $model->save(false);
-        } catch (\yii\db\StaleObjectException $e) {
+        } catch (\Yiisoft\Db\StaleObjectException $e) {
             $this->assertContains('The object being updated is outdated.', $e->getMessage());
             $thrown = true;
         }
@@ -219,7 +219,7 @@ class OptimisticLockBehaviorTest extends TestCase
 
         try {
             $model->delete();
-        } catch (\yii\db\StaleObjectException $e) {
+        } catch (\Yiisoft\Db\StaleObjectException $e) {
             $this->assertContains('The object being deleted is outdated.', $e->getMessage());
             $thrown = true;
         }
@@ -235,7 +235,7 @@ class OptimisticLockBehaviorTest extends TestCase
 
         try {
             $model->delete();
-        } catch (\yii\db\StaleObjectException $e) {
+        } catch (\Yiisoft\Db\StaleObjectException $e) {
             $this->assertContains('The object being deleted is outdated.', $e->getMessage());
             $thrown = true;
         }

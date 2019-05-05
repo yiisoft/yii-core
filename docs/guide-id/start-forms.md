@@ -48,7 +48,7 @@ Class di _extends_ dari [[yii\base\Model]], class standar yang disediakan oleh Y
 untuk representasi data dari form.
 
 > Info: [[yii\base\Model]] digunakan sebagai _parent_ untuk class model yang tidak berhubungan dengan database.
-  [[yii\db\ActiveRecord]] normalnya digunakan sebagai _parent_ untuk class model yang berhubungan dengan tabel di database.
+  [[Yiisoft\Db\ActiveRecord]] normalnya digunakan sebagai _parent_ untuk class model yang berhubungan dengan tabel di database.
 
 Class `EntryForm` terdiri dari dua _public property_, `name` dan `email`, dimana akan digunakan untuk menyimpan
 data yang diinput oleh pengguna. Class ini juga terdapat _method_ yang dinamakan `rules()`, yang akan mengembalikan (_return_) sejumlah

@@ -77,7 +77,7 @@ class ContactForm extends Model
 
 另一种方式是可覆盖 [[yii\base\Model::attributes()]] 
 来定义属性，该方法返回模型的属性名。
-例如 [[yii\db\ActiveRecord]] 返回对应数据表列名作为它的属性名，
+例如 [[Yiisoft\Db\ActiveRecord]] 返回对应数据表列名作为它的属性名，
 注意可能需要覆盖魔术方法如`__get()`,
 `__set()`使属性像普通对象属性被访问。
 
@@ -178,7 +178,7 @@ $model = new User(['scenario' => 'login']);
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {
@@ -195,7 +195,7 @@ class User extends ActiveRecord
 }
 ```
 
-> Info: 在上述和下述的例子中，模型类都是继承[[yii\db\ActiveRecord]]，
+> Info: 在上述和下述的例子中，模型类都是继承[[Yiisoft\Db\ActiveRecord]]，
   因为多场景的使用通常发生在[Active Record](db-active-record.md) 类中.
 
 `scenarios()` 方法返回一个数组，数组的键为场景名，值为对应的 *active attributes活动属性*。
@@ -210,7 +210,7 @@ class User extends ActiveRecord
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {

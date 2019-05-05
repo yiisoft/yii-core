@@ -8,7 +8,7 @@
 namespace yii\test;
 
 use yii\exceptions\InvalidConfigException;
-use yii\db\TableSchema;
+use Yiisoft\Db\TableSchema;
 
 /**
  * ActiveFixture represents a fixture backed up by a [[modelClass|ActiveRecord class]] or a [[tableName|database table]].

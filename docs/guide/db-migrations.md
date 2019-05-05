@@ -72,7 +72,7 @@ a migration class `m150101_185401_create_news_table` with the skeleton code:
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -101,7 +101,7 @@ class m150101_185401_create_news_table extends Migration
 }
 ```
 
-Each database migration is defined as a PHP class extending from [[yii\db\Migration]]. The migration
+Each database migration is defined as a PHP class extending from [[Yiisoft\Db\Migration]]. The migration
 class name is automatically generated in the format of `m<YYMMDD_HHMMSS>_<Name>`, where
 
 * `<YYMMDD_HHMMSS>` refers to the UTC datetime at which the migration creation command is executed.
@@ -115,8 +115,8 @@ The following code shows how you may implement the migration class to create a `
 ```php
 <?php
 
-use yii\db\Schema;
-use yii\db\Migration;
+use Yiisoft\Db\Schema;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -141,12 +141,12 @@ class m150101_185401_create_news_table extends Migration
   the `down()`, because it is not very common to revert database migrations. In this case, you should return
   `false` in the `down()` method to indicate that the migration is not reversible.
 
-The base migration class [[yii\db\Migration]] exposes a database connection via the [[yii\db\Migration::db|db]]
+The base migration class [[Yiisoft\Db\Migration]] exposes a database connection via the [[Yiisoft\Db\Migration::db|db]]
 property. You can use it to manipulate the database schema using the methods as described in
 [Working with Database Schema](db-dao.md#database-schema).
 
 Rather than using physical types, when creating a table or column you should use *abstract types*
-so that your migrations are independent of specific DBMS. The [[yii\db\Schema]] class defines
+so that your migrations are independent of specific DBMS. The [[Yiisoft\Db\Schema]] class defines
 a set of constants to represent the supported abstract types. These constants are named in the format
 of `TYPE_<Name>`. For example, `TYPE_PK` refers to auto-incremental primary key type; `TYPE_STRING`
 refers to a string type. When a migration is applied to a particular database, the abstract types
@@ -157,7 +157,7 @@ You can append additional constraints when using abstract types. In the above ex
 to `Schema::TYPE_STRING` to specify that the column cannot be `null`.
 
 > Info: The mapping between abstract types and physical types is specified by
-  the [[yii\db\QueryBuilder::$typeMap|$typeMap]] property in each concrete `QueryBuilder` class.
+  the [[Yiisoft\Db\QueryBuilder::$typeMap|$typeMap]] property in each concrete `QueryBuilder` class.
 
 Since version 2.0.6, you can make use of the newly introduced schema builder which provides more convenient way of defining column schema.
 So the migration above could be written like the following:
@@ -165,7 +165,7 @@ So the migration above could be written like the following:
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -185,7 +185,7 @@ class m150101_185401_create_news_table extends Migration
 }
 ```
 
-A list of all available methods for defining the column types is available in the API documentation of [[yii\db\SchemaBuilderTrait]].
+A list of all available methods for defining the column types is available in the API documentation of [[Yiisoft\Db\SchemaBuilderTrait]].
 
 
 ## Generating Migrations <span id="generating-migrations"></span>
@@ -638,7 +638,7 @@ In the following example, besides creating the `news` table we also insert an in
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -675,42 +675,42 @@ in `safeDown()` we first delete the row and then drop the table.
 
 ### Database Accessing Methods <span id="db-accessing-methods"></span>
 
-The base migration class [[yii\db\Migration]] provides a set of methods to let you access and manipulate databases.
-You may find these methods are named similarly as the [DAO methods](db-dao.md) provided by the [[yii\db\Command]] class.
-For example, the [[yii\db\Migration::createTable()]] method allows you to create a new table,
-just like [[yii\db\Command::createTable()]] does.
+The base migration class [[Yiisoft\Db\Migration]] provides a set of methods to let you access and manipulate databases.
+You may find these methods are named similarly as the [DAO methods](db-dao.md) provided by the [[Yiisoft\Db\Command]] class.
+For example, the [[Yiisoft\Db\Migration::createTable()]] method allows you to create a new table,
+just like [[Yiisoft\Db\Command::createTable()]] does.
 
-The benefit of using the methods provided by [[yii\db\Migration]] is that you do not need to explicitly
-create [[yii\db\Command]] instances and the execution of each method will automatically display useful messages
+The benefit of using the methods provided by [[Yiisoft\Db\Migration]] is that you do not need to explicitly
+create [[Yiisoft\Db\Command]] instances and the execution of each method will automatically display useful messages
 telling you what database operations are done and how long they take.
 
 Below is the list of all these database accessing methods:
 
-* [[yii\db\Migration::execute()|execute()]]: executing a SQL statement
-* [[yii\db\Migration::insert()|insert()]]: inserting a single row
-* [[yii\db\Migration::batchInsert()|batchInsert()]]: inserting multiple rows
-* [[yii\db\Migration::update()|update()]]: updating rows
-* [[yii\db\Migration::delete()|delete()]]: deleting rows
-* [[yii\db\Migration::createTable()|createTable()]]: creating a table
-* [[yii\db\Migration::renameTable()|renameTable()]]: renaming a table
-* [[yii\db\Migration::dropTable()|dropTable()]]: removing a table
-* [[yii\db\Migration::truncateTable()|truncateTable()]]: removing all rows in a table
-* [[yii\db\Migration::addColumn()|addColumn()]]: adding a column
-* [[yii\db\Migration::renameColumn()|renameColumn()]]: renaming a column
-* [[yii\db\Migration::dropColumn()|dropColumn()]]: removing a column
-* [[yii\db\Migration::alterColumn()|alterColumn()]]: altering a column
-* [[yii\db\Migration::addPrimaryKey()|addPrimaryKey()]]: adding a primary key
-* [[yii\db\Migration::dropPrimaryKey()|dropPrimaryKey()]]: removing a primary key
-* [[yii\db\Migration::addForeignKey()|addForeignKey()]]: adding a foreign key
-* [[yii\db\Migration::dropForeignKey()|dropForeignKey()]]: removing a foreign key
-* [[yii\db\Migration::createIndex()|createIndex()]]: creating an index
-* [[yii\db\Migration::dropIndex()|dropIndex()]]: removing an index
-* [[yii\db\Migration::addCommentOnColumn()|addCommentOnColumn()]]: adding comment to column
-* [[yii\db\Migration::dropCommentFromColumn()|dropCommentFromColumn()]]: dropping comment from column
-* [[yii\db\Migration::addCommentOnTable()|addCommentOnTable()]]: adding comment to table
-* [[yii\db\Migration::dropCommentFromTable()|dropCommentFromTable()]]: dropping comment from table
+* [[Yiisoft\Db\Migration::execute()|execute()]]: executing a SQL statement
+* [[Yiisoft\Db\Migration::insert()|insert()]]: inserting a single row
+* [[Yiisoft\Db\Migration::batchInsert()|batchInsert()]]: inserting multiple rows
+* [[Yiisoft\Db\Migration::update()|update()]]: updating rows
+* [[Yiisoft\Db\Migration::delete()|delete()]]: deleting rows
+* [[Yiisoft\Db\Migration::createTable()|createTable()]]: creating a table
+* [[Yiisoft\Db\Migration::renameTable()|renameTable()]]: renaming a table
+* [[Yiisoft\Db\Migration::dropTable()|dropTable()]]: removing a table
+* [[Yiisoft\Db\Migration::truncateTable()|truncateTable()]]: removing all rows in a table
+* [[Yiisoft\Db\Migration::addColumn()|addColumn()]]: adding a column
+* [[Yiisoft\Db\Migration::renameColumn()|renameColumn()]]: renaming a column
+* [[Yiisoft\Db\Migration::dropColumn()|dropColumn()]]: removing a column
+* [[Yiisoft\Db\Migration::alterColumn()|alterColumn()]]: altering a column
+* [[Yiisoft\Db\Migration::addPrimaryKey()|addPrimaryKey()]]: adding a primary key
+* [[Yiisoft\Db\Migration::dropPrimaryKey()|dropPrimaryKey()]]: removing a primary key
+* [[Yiisoft\Db\Migration::addForeignKey()|addForeignKey()]]: adding a foreign key
+* [[Yiisoft\Db\Migration::dropForeignKey()|dropForeignKey()]]: removing a foreign key
+* [[Yiisoft\Db\Migration::createIndex()|createIndex()]]: creating an index
+* [[Yiisoft\Db\Migration::dropIndex()|dropIndex()]]: removing an index
+* [[Yiisoft\Db\Migration::addCommentOnColumn()|addCommentOnColumn()]]: adding comment to column
+* [[Yiisoft\Db\Migration::dropCommentFromColumn()|dropCommentFromColumn()]]: dropping comment from column
+* [[Yiisoft\Db\Migration::addCommentOnTable()|addCommentOnTable()]]: adding comment to table
+* [[Yiisoft\Db\Migration::dropCommentFromTable()|dropCommentFromTable()]]: dropping comment from table
 
-> Info: [[yii\db\Migration]] does not provide a database query method. This is because you normally do not need
+> Info: [[Yiisoft\Db\Migration]] does not provide a database query method. This is because you normally do not need
 > to display extra message about retrieving data from a database. It is also because you can use the powerful
 > [Query Builder](db-query-builder.md) to build and run complex queries.
 > Using Query Builder in a migration may look like this:
@@ -1019,7 +1019,7 @@ ID that the migration would use, like the following:
 ```php
 <?php
 
-use yii\db\Migration;
+use Yiisoft\Db\Migration;
 
 class m150101_185401_create_news_table extends Migration
 {
@@ -1037,7 +1037,7 @@ option. Note that the migration history will still be recorded in the database s
 If you have multiple migrations that use the same database, it is recommended that you create a base migration class
 with the above `init()` code. Then each migration class can extend from this base class.
 
-> Tip: Besides setting the [[yii\db\Migration::db|db]] property, you can also operate on different databases
+> Tip: Besides setting the [[Yiisoft\Db\Migration::db|db]] property, you can also operate on different databases
   by creating new database connections to them in your migration classes. You then use the [DAO methods](db-dao.md)
   with these connections to manipulate different databases.
 

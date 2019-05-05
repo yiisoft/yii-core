@@ -81,7 +81,7 @@ return [
                 [
                     'class' => 'Yiisoft\Log\EmailTarget',
                     'levels' => ['error'],
-                    'categories' => ['yii\db\*'],
+                    'categories' => ['Yiisoft\Db\*'],
                     'message' => [
                        'from' => ['log@example.com'],
                        'to' => ['admin@example.com', 'developer@example.com'],
@@ -100,7 +100,7 @@ return [
 在上面的代码中，在 [[Yiisoft\Log\Dispatcher::targets]] 属性里有两个日志目标被注册：
 
 * 第一个目标选择的是错误和警告层级的消息，并且在数据库表里保存他们；
-* 第二个目标选择的是错误层级的消息并且是在以 `yii\db\` 开头的分类下，并且在一个邮件里将它们发送到 `admin@example.com`
+* 第二个目标选择的是错误层级的消息并且是在以 `Yiisoft\Db\` 开头的分类下，并且在一个邮件里将它们发送到 `admin@example.com`
   和 `developer@example.com`。
 
 Yii配备了以下的内建日志目标。请参考关于这些类的API文档，
@@ -135,8 +135,8 @@ Yii配备了以下的内建日志目标。请参考关于这些类的API文档�
 一个目标将只处理那些在这个数组中能够找到对应的分类或者其中一个相匹配的模式的消息。
 一个分类模式是一个以星号 `*` 结尾的分类名前缀。假如一个分类名与分类模式具有相同的前缀，
 那么该分类名将和分类模式相匹配。例如，
-`yii\db\Command::execute` 和 `yii\db\Command::query` 都是作为分类名称运用在 [[yii\db\Command]] 类来记录日志消息的。
-它们都是匹配模式 `yii\db\*`。
+`Yiisoft\Db\Command::execute` 和 `Yiisoft\Db\Command::query` 都是作为分类名称运用在 [[Yiisoft\Db\Command]] 类来记录日志消息的。
+它们都是匹配模式 `Yiisoft\Db\*`。
 
 假如你没有指定 [[Yiisoft\Log\Target::categories|categories]] 属性，
 这意味着目标将会处理 *任何* 分类的消息。 
@@ -145,7 +145,7 @@ Yii配备了以下的内建日志目标。请参考关于这些类的API文档�
 属性来设置某些分类作为黑名单。假如一条消息的分类在这个属性中被发现或者是匹配其中一个，
 那么它将不会在目标中被处理。
 
-在下面的目标配置中指明了目标应该只处理错误和警告消息，当分类的名称匹配 `yii\db\*` 或者是 `yii\web\HttpException:*` 的时候，
+在下面的目标配置中指明了目标应该只处理错误和警告消息，当分类的名称匹配 `Yiisoft\Db\*` 或者是 `yii\web\HttpException:*` 的时候，
 但是除了 `yii\web\HttpException:404`。
 
 ```php
@@ -153,7 +153,7 @@ Yii配备了以下的内建日志目标。请参考关于这些类的API文档�
     'class' => 'Yiisoft\Log\FileTarget',
     'levels' => ['error', 'warning'],
     'categories' => [
-        'yii\db\*',
+        'Yiisoft\Db\*',
         'yii\web\HttpException:*',
     ],
     'except' => [
@@ -344,7 +344,7 @@ return [
 ## 性能分析 <span id="performance-profiling"></span>
 
 性能分析是一个特殊的消息记录类型，它通常用在测量某段代码块的时间，
-并且找出性能瓶颈是什么。举个例子，[[yii\db\Command]] 类
+并且找出性能瓶颈是什么。举个例子，[[Yiisoft\Db\Command]] 类
 使用性能分析找出每个数据库查询的时间。
 
 为了使用性能分析，首先确定需要进行分析的代码块。

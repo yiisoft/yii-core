@@ -69,7 +69,7 @@ class AttributesBehavior extends Behavior
      * and the array values are the array of corresponding events(s). For this enclosed array:
      * the array keys are the ActiveRecord events upon which the attributes are to be updated,
      * and the array values are the value that will be assigned to the current attributes. This can be an anonymous function,
-     * callable in array format (e.g. `[$this, 'methodName']`), an [[\yii\db\Expression|Expression]] object representing a DB expression
+     * callable in array format (e.g. `[$this, 'methodName']`), an [[\Yiisoft\Db\Expression|Expression]] object representing a DB expression
      * (e.g. `new Expression('NOW()')`), scalar, string or an arbitrary value. If the former, the return value of the
      * function will be assigned to the attributes.
      *

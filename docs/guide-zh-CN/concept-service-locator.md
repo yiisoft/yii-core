@@ -28,7 +28,7 @@ $locator->set('cache', 'yii\caching\ApcCache');
 
 // 通过一个可用于创建该组件的配置数组，注册 "db" （数据库）组件。
 $locator->set('db', [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -71,7 +71,7 @@ return [
     // ...
     'components' => [
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',

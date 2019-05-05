@@ -305,9 +305,9 @@ function foo($model, $attribute) {
   数组的键和值都是代表字段的属性名，值表示 `targetClass` 的待测数据源字段，而键表示当前模型的待测属性名。
   若键和值相同，你可以只指定值。（如:`['a2']` 就代表 `['a2'=>'a2']`）
 - `filter`：用于检查输入值存在性必然会进行数据库查询，而该属性为用于进一步筛选该查询的过滤条件。
-  可以为代表额外查询条件的字符串或数组（关于查询条件的格式，请参考 [[yii\db\Query::where()]]）；
+  可以为代表额外查询条件的字符串或数组（关于查询条件的格式，请参考 [[Yiisoft\Db\Query::where()]]）；
   或者样式为 `function ($query)` 的匿名函数，
-  `$query` 参数为你希望在该函数内进行修改的 [[yii\db\Query|Query]] 对象。
+  `$query` 参数为你希望在该函数内进行修改的 [[Yiisoft\Db\Query|Query]] 对象。
 - `allowArray`：是否允许输入值为数组。默认为 false。
   若该属性为 true 且输入值为数组，则数组的每个元素都必须在目标字段中存在。
   值得注意的是，若用吧 `targetAttribute` 设为多元素数组来验证被测值在多字段中的存在性时，该属性不能设置为 true。
@@ -653,8 +653,8 @@ IPv4 地址 `192.168.10.128` 同样时允许的，因为这条规则在约束规
   若键和值相同，你可以只指定值。（如:`['a2']` 就代表 `['a2'=>'a2']`）
 - `filter`：用于检查输入值唯一性必然会进行数据库查询，
   而该属性为用于进一步筛选该查询的过滤条件。可以为代表额外查询条件的字符串或数组
-  （关于查询条件的格式，请参考 [[yii\db\Query::where()]]）；或者样式为 `function ($query)` 的匿名函数，
-  `$query` 参数为你希望在该函数内进行修改的 [[yii\db\Query|Query]] 对象。
+  （关于查询条件的格式，请参考 [[Yiisoft\Db\Query::where()]]）；或者样式为 `function ($query)` 的匿名函数，
+  `$query` 参数为你希望在该函数内进行修改的 [[Yiisoft\Db\Query|Query]] 对象。
 
 
 ## [[yii\validators\UrlValidator|url（网址）]] <span id="url"></span>

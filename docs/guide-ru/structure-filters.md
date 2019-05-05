@@ -23,7 +23,7 @@ public function behaviors()
             'class' => 'yii\filters\HttpCache',
             'only' => ['index', 'view'],
             'lastModified' => function ($action, $params) {
-                $q = new \yii\db\Query();
+                $q = new \Yiisoft\Db\Query();
                 return $q->from('user')->max('updated_at');
             },
         ],
@@ -239,7 +239,7 @@ public function behaviors()
             'class' => HttpCache::class,
             'only' => ['index'],
             'lastModified' => function ($action, $params) {
-                $q = new \yii\db\Query();
+                $q = new \Yiisoft\Db\Query();
                 return $q->from('user')->max('updated_at');
             },
         ],

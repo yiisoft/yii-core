@@ -13,7 +13,7 @@ Puedes acceder a un componente de la aplicación con la siguiente expresión:
 \Yii::$app->ComponentID
 ```
 
-Por ejemplo, puedes utilizar `\Yii::$app->db` para obtener la [[yii\db\Connection|conexión a la base de datos]],
+Por ejemplo, puedes utilizar `\Yii::$app->db` para obtener la [[Yiisoft\Db\Connection|conexión a la base de datos]],
 y `\Yii::$app->cache` para obtener el [[yii\caching\Cache|cache primario]] registrado con la aplicación.
 
 Estos componentes pueden ser cualquier objeto. Puedes registrarlos configurando la propiedad [[yii\base\Application::components]]
@@ -28,7 +28,7 @@ Por ejemplo:
 
         // registra el componente "db" utilizando un array de configuración
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',
@@ -62,9 +62,9 @@ si no especificas su nombre de clase, la clase por defecto será utilizada.
 
 * [[yii\web\AssetManager|assetManager]]: maneja los `assets bundles` y su publicación.
   Consulta la sección [Menajando Assets](output-assets.md) para más detalles.
-* [[yii\db\Connection|db]]: representa una conexión a la base de datos a través de la cual puedes realizar consultas a la misma.
+* [[Yiisoft\Db\Connection|db]]: representa una conexión a la base de datos a través de la cual puedes realizar consultas a la misma.
   Ten en cuenta que cuando configuras este componente, debes especificar el nombre de clase así como otras
-  propiedades requeridas por el mismo, como [[yii\db\Connection::dsn]].
+  propiedades requeridas por el mismo, como [[Yiisoft\Db\Connection::dsn]].
   Por favor consulta la sección [Data Access Objects](db-dao.md) para más detalles.
 * [[yii\base\Application::errorHandler|errorHandler]]: maneja errores y excepciones de PHP.
   Por favor consulta la sección [Handling Errors](tutorial-handling-errors.md) para más detalles.

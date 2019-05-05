@@ -73,7 +73,7 @@ use yii\web\Request;
  * `SORT_ASC` for ascending order or `SORT_DESC` for descending order. Note that the type of this property
  * differs in getter and setter. See [[getAttributeOrders()]] and [[setAttributeOrders()]] for details.
  * @property array $orders The columns (keys) and their corresponding sort directions (values). This can be
- * passed to [[\yii\db\Query::orderBy()]] to construct a DB query. This property is read-only.
+ * passed to [[\Yiisoft\Db\Query::orderBy()]] to construct a DB query. This property is read-only.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -225,7 +225,7 @@ class Sort extends BaseObject implements Initiable
      * Returns the columns and their corresponding sort directions.
      * @param bool $recalculate whether to recalculate the sort directions
      * @return array the columns (keys) and their corresponding sort directions (values).
-     * This can be passed to [[\yii\db\Query::orderBy()]] to construct a DB query.
+     * This can be passed to [[\Yiisoft\Db\Query::orderBy()]] to construct a DB query.
      */
     public function getOrders($recalculate = false)
     {

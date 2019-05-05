@@ -61,7 +61,7 @@ return [
               [
                   'class' => 'Yiisoft\Log\EmailTarget',
                   'levels' => ['error'],
-                  'categories' => ['yii\db\*'],
+                  'categories' => ['Yiisoft\Db\*'],
                   'message' => [
                      'from' => ['log@example.com'],
                      'to' => ['admin@example.com', 'developer@example.com'],
@@ -79,7 +79,7 @@ return [
 No código acima, dois destinos de log são registrados na propriedade [[Yiisoft\Log\Dispatcher::targets]]: 
 
 * o primeiro seleciona mensagens de erro e de advertência e os salva em uma tabela de banco de dados;
-* o segundo seleciona mensagens de erro sob as categorias cujos nomes começam com `yii\db\`, e as envia para os e-mails `admin@example.com` e `developer@example.com`.
+* o segundo seleciona mensagens de erro sob as categorias cujos nomes começam com `Yiisoft\Db\`, e as envia para os e-mails `admin@example.com` e `developer@example.com`.
 
 Yii vem com os seguintes destinos de log preparados. Por favor consulte a documentação da API sobre essas classes para aprender como configurar e usá-los. 
 
@@ -105,19 +105,19 @@ A propriedade [[Yiisoft\Log\Target::levels|levels]] é um array que consiste em 
 
 Se você não especificar a propriedade [[Yiisoft\Log\Target::levels|levels]], significa que o alvo de log processará mensagens de *qualquer* nível.
 
-A propriedade [[Yiisoft\Log\Target::categories|categories]] é um array que consiste em categorias de mensagens ou padrões. Um destino de log irá processar apenas mensagens cuja categoria possa ser encontrada ou corresponder a um dos padrões do array. Um padrão de categoria é um prefixo de nome de categoria com um asterisco `*` na sua extremidade. Um nome de categoria corresponde a um padrão de categoria se ela iniciar com o mesmo prefixo do padrão. Por exemplo, `yii\db\Command::execute` e `yii\db\Command::query`
-são usados como nome de categoria para as mensagens de log gravadas na classe [[yii\db\Command]]. Ambos correspondem ao padrão `yii\db\*`. Se você não especificar a propriedade [[Yiisoft\Log\Target::categories|categories]], significa que o destino de log processará mensagens de *qualquer* categoria.
+A propriedade [[Yiisoft\Log\Target::categories|categories]] é um array que consiste em categorias de mensagens ou padrões. Um destino de log irá processar apenas mensagens cuja categoria possa ser encontrada ou corresponder a um dos padrões do array. Um padrão de categoria é um prefixo de nome de categoria com um asterisco `*` na sua extremidade. Um nome de categoria corresponde a um padrão de categoria se ela iniciar com o mesmo prefixo do padrão. Por exemplo, `Yiisoft\Db\Command::execute` e `Yiisoft\Db\Command::query`
+são usados como nome de categoria para as mensagens de log gravadas na classe [[Yiisoft\Db\Command]]. Ambos correspondem ao padrão `Yiisoft\Db\*`. Se você não especificar a propriedade [[Yiisoft\Log\Target::categories|categories]], significa que o destino de log processará mensagens de *qualquer* categoria.
 
 Além de criar uma whitelist de categorias através da propriedade [[Yiisoft\Log\Target::categories|categories]], você também pode criar uma blacklist de categorias através da propriedade [[Yiisoft\Log\Target::except|except]]. Se a categoria da mensagem for encontrada ou corresponder a um dos padrões desta propriedade, ela não será processada pelo destino de log.
 
-A próxima configuração de destino de log especifica que o destino deve processar somente mensagens de erro e alertas das categorias cujos nomes correspondam a `yii\db\*` ou `yii\web\HttpException:*`, mas não correspondam a `yii\web\HttpException:404`.
+A próxima configuração de destino de log especifica que o destino deve processar somente mensagens de erro e alertas das categorias cujos nomes correspondam a `Yiisoft\Db\*` ou `yii\web\HttpException:*`, mas não correspondam a `yii\web\HttpException:404`.
 
 ```php
 [
   'class' => 'Yiisoft\Log\FileTarget',
   'levels' => ['error', 'warning'],
   'categories' => [
-      'yii\db\*',
+      'Yiisoft\Db\*',
       'yii\web\HttpException:*',
   ],
   'except' => [
@@ -277,7 +277,7 @@ Criar uma nova classe de destino de log é muito simples. Você primeiramente pr
 
 ## Perfil de Desempenho<span id="performance-profiling"></span>
 
-Perfil de desempenho é um tipo especial de log de mensagem que é usado para medir o tempo que certos blocos de código demora e para descobrir quais são os gargalos de desempenho. Por exemplo, a classe [[yii\db\Command]] utiliza perfil de desempenho para descobrir o tempo que cada db query leva.
+Perfil de desempenho é um tipo especial de log de mensagem que é usado para medir o tempo que certos blocos de código demora e para descobrir quais são os gargalos de desempenho. Por exemplo, a classe [[Yiisoft\Db\Command]] utiliza perfil de desempenho para descobrir o tempo que cada db query leva.
 
 Para usar perfil de desempenho, primeiro identifique o bloco de código que precisa ser analisado. Então, encapsula cada bloco de código como o seguinte:
 

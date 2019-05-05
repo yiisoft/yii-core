@@ -49,7 +49,7 @@ The class extends from [[yii\base\Model]], a base class provided by Yii, commonl
 represent form data.
 
 > Info: [[yii\base\Model]] is used as a parent for model classes *not* associated with database tables.
-[[yii\db\ActiveRecord]] is normally the parent for model classes that do correspond to database tables.
+[[Yiisoft\Db\ActiveRecord]] is normally the parent for model classes that do correspond to database tables.
 
 The `EntryForm` class contains two public members, `name` and `email`, which are used to store
 the data entered by the user. It also contains a method named `rules()`, which returns a set

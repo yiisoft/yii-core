@@ -58,7 +58,7 @@ AR 模型 [Active Record](db-active-record.md) 实现的一个认证类 [[yii\we
 ```php
 <?php
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 class User extends ActiveRecord implements IdentityInterface

@@ -55,10 +55,10 @@ class SettingsController extends Controller
 }
 ```
 
-W powyższym kodzie używamy [[yii\db\ActiveQuery::indexBy()|indexBy()]] podczas pobierania danych z bazy danych aby zasilić tablicę modelami zaindeksowanymi przez główny klucz.
+W powyższym kodzie używamy [[Yiisoft\Db\ActiveQuery::indexBy()|indexBy()]] podczas pobierania danych z bazy danych aby zasilić tablicę modelami zaindeksowanymi przez główny klucz.
 Będzie to później użyte do zidentyfikowania pól formularza. [[yii\base\Model::loadMultiple()|loadMultiple()]] uzupełnia modele danymi formularza przesłanymi metodą POST 
 a następnie metoda [[yii\base\Model::validateMultiple()|validateMultiple()]] waliduje te modele. 
-Po walidacji przekazujemy parametr `false` do metody [[yii\db\ActiveRecord::save()|save()]], aby nie uruchamiać walidacji ponownie.
+Po walidacji przekazujemy parametr `false` do metody [[Yiisoft\Db\ActiveRecord::save()|save()]], aby nie uruchamiać walidacji ponownie.
 
 Przejdziemy teraz do formularza w widoku `update`:
 

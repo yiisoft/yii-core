@@ -51,7 +51,7 @@ Schema 缓存是一个特殊的缓存功能，
 通过启用 Schema 缓存，检索到的数据库对象的集合将被保存在缓存中并在将来的请求中重用。
 
 要开启 Schema 缓存，需要配置一个 `cache` [应用组件](structure-application-components.md)来储存 Schema 信息，
-并在 [配置](concept-configurations.md) 中设置 [[yii\db\Connection::enableSchemaCache]] 为 `true` :
+并在 [配置](concept-configurations.md) 中设置 [[Yiisoft\Db\Connection::enableSchemaCache]] 为 `true` :
 
 ```php
 return [
@@ -62,7 +62,7 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=mydatabase',
             'username' => 'root',
             'password' => '',

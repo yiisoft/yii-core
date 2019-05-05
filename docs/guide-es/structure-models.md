@@ -76,7 +76,7 @@ class ContactForm extends Model
 ```
 
 Se puede sobrescribir [[yii\base\Model::attributes()]] para definir los atributos de diferente manera. El método debe 
-devolver los nombres de los atributos de un modelo. Por ejemplo [[yii\db\ActiveRecord]] lo hace devolviendo el nombre 
+devolver los nombres de los atributos de un modelo. Por ejemplo [[Yiisoft\Db\ActiveRecord]] lo hace devolviendo el nombre 
 de las columnas de la tabla de la base de datos asociada como el nombre de sus atributos. Hay que tener en cuenta que 
 también puede necesitar sobrescribir los métodos mágicos como `__get()`, `__set()` de modo que se puede acceder a los 
 atributos como a propiedades de objetos normales.
@@ -176,7 +176,7 @@ declaradas en el modelo. Sin embargo, se puede personalizar este comportamiento 
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {
@@ -190,7 +190,7 @@ class User extends ActiveRecord
 }
 ```
 
-> Info: En el anterior y en los siguientes ejemplos, las clases modelo extienden a [[yii\db\ActiveRecord]] 
+> Info: En el anterior y en los siguientes ejemplos, las clases modelo extienden a [[Yiisoft\Db\ActiveRecord]] 
   porque el uso de múltiples escenarios normalmente sucede con clases de [Active Records](db-active-record.md).
 
 El método 'scenarios()' devuelve un array cuyas claves son el nombre de escenario y los valores correspondientes a los 
@@ -206,7 +206,7 @@ introducir nuevos escenarios además de los predeterminados, se puede hacer como
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {

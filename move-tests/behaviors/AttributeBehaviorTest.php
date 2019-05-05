@@ -11,7 +11,7 @@ use yii\helpers\Yii;
 use yii\base\Event;
 use yii\behaviors\AttributeBehavior;
 use Yiisoft\ActiveRecord\ActiveRecord;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\tests\TestCase;
 
 /**
@@ -39,7 +39,7 @@ class AttributeBehaviorTest extends TestCase
         $this->mockApplication([
             'components' => [
                 'db' => [
-                    '__class' => \yii\db\Connection::class,
+                    '__class' => \Yiisoft\Db\Connection::class,
                     'dsn' => 'sqlite::memory:',
                 ],
             ],

@@ -10,7 +10,7 @@ namespace yii\tests\framework\behaviors;
 use yii\helpers\Yii;
 use yii\behaviors\SluggableBehavior;
 use Yiisoft\ActiveRecord\ActiveRecord;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\tests\TestCase;
 
 /**
@@ -38,7 +38,7 @@ class SluggableBehaviorTest extends TestCase
         $this->mockApplication([
             'components' => [
                 'db' => [
-                    '__class' => \yii\db\Connection::class,
+                    '__class' => \Yiisoft\Db\Connection::class,
                     'dsn' => 'sqlite::memory:',
                 ],
             ],

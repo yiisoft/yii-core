@@ -37,7 +37,7 @@ public function behaviors()
             'class' => 'yii\filters\HttpCache',
             'only' => ['index'],
             'lastModified' => function ($action, $params) {
-                $q = new \yii\db\Query();
+                $q = new \Yiisoft\Db\Query();
                 return $q->from('post')->max('updated_at');
             },
         ],

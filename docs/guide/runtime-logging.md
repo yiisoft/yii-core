@@ -75,7 +75,7 @@ return [
             [
                 '__class' => \Yiisoft\Log\EmailTarget::class,
                 'levels' => ['error'],
-                'categories' => ['yii\db\*'],
+                'categories' => ['Yiisoft\Db\*'],
                 'message' => [
                     'from' => ['log@example.com'],
                     'to' => ['admin@example.com', 'developer@example.com'],
@@ -90,7 +90,7 @@ return [
 In the above code, two log targets are registered:
 
 * the first target selects error and warning messages and saves them in a database table;
-* the second target selects error messages under the categories whose names start with `yii\db\`, and sends
+* the second target selects error messages under the categories whose names start with `Yiisoft\Db\`, and sends
   them in an email to both `admin@example.com` and `developer@example.com`.
 
 Yii comes with the following built-in log targets. Please refer to the API documentation about these classes to 
@@ -122,9 +122,9 @@ of *any* severity level.
 The [[Yiisoft\Log\Target::categories|categories]] property takes an array consisting of message category names or patterns.
 A target will only process messages whose category can be found or match one of the patterns in this array.
 A category pattern is a category name prefix with an asterisk `*` at its end. A category name matches a category pattern
-if it starts with the same prefix of the pattern. For example, `yii\db\Command::execute` and `yii\db\Command::query`
-are used as category names for the log messages recorded in the [[yii\db\Command]] class. They both match
-the pattern `yii\db\*`.
+if it starts with the same prefix of the pattern. For example, `Yiisoft\Db\Command::execute` and `Yiisoft\Db\Command::query`
+are used as category names for the log messages recorded in the [[Yiisoft\Db\Command]] class. They both match
+the pattern `Yiisoft\Db\*`.
 
 If you do not specify the [[Yiisoft\Log\Target::categories|categories]] property, it means the target will process
 messages of *any* category.
@@ -134,14 +134,14 @@ blacklist certain categories by the [[Yiisoft\Log\Target::except|except]] proper
 is found or matches one of the patterns in this property, it will NOT be processed by the target.
  
 The following target configuration specifies that the target should only process error and warning messages
-under the categories whose names match either `yii\db\*` or `yii\web\HttpException:*`, but not `yii\web\HttpException:404`.
+under the categories whose names match either `Yiisoft\Db\*` or `yii\web\HttpException:*`, but not `yii\web\HttpException:404`.
 
 ```php
 [
     '__class' => \Yiisoft\Log\FileTarget::class,
     'levels' => ['error', 'warning'],
     'categories' => [
-        'yii\db\*',
+        'Yiisoft\Db\*',
         'yii\web\HttpException:*',
     ],
     'except' => [
@@ -324,7 +324,7 @@ log target classes included in the Yii release.
 ## Performance Profiling <span id="performance-profiling"></span>
 
 Performance profiling is a special type of message logging that is used to measure the time taken by certain
-code blocks and find out what are the performance bottlenecks. For example, the [[yii\db\Command]] class uses
+code blocks and find out what are the performance bottlenecks. For example, the [[Yiisoft\Db\Command]] class uses
 performance profiling to find out the time taken by each DB query.
 
 To use performance profiling, first identify the code blocks that need to be profiled. Then enclose each

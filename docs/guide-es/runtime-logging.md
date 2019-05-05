@@ -87,7 +87,7 @@ return [
                 [
                     'class' => 'Yiisoft\Log\EmailTarget',
                     'levels' => ['error'],
-                    'categories' => ['yii\db\*'],
+                    'categories' => ['Yiisoft\Db\*'],
                     'message' => [
                        'from' => ['log@example.com'],
                        'to' => ['admin@example.com', 'developer@example.com'],
@@ -108,7 +108,7 @@ En el anterior código, se registran dos destinos de registros en la propiedad [
 
 * el primer destino gestiona los errores y las advertencias y las guarda en una tabla de la base de datos;
 * el segundo destino gestiona mensajes los mensajes de error de las categorías cuyos nombres empiecen por
-  `yii\db\` y los envía por email a las direcciones `admin@example.com` y `developer@example.com`.
+  `Yiisoft\Db\` y los envía por email a las direcciones `admin@example.com` y `developer@example.com`.
 
 Yii incluye los siguientes destinos. En la API de documentación se pueden referencias a estas clases e
 información de configuración y uso.
@@ -142,8 +142,8 @@ La propiedad [[Yiisoft\Log\Target::categories|categories]] es un array que const
 destino sólo procesará mensajes de las categorías que se puedan encontrar o si coinciden con algún patrón listado
 en el array. Un patrón de categoría es un nombre de categoría al que se le añade un asterisco `*` al final. Un nombre
 de categoría coincide con un patrón si empieza por el mismo prefijo que el patrón. Por ejemplo,
-`yii\db\Command::execute` y `yii\db\Command::query` que se usan como nombres de categoría para los mensajes
-registrados en la clase [[yii\db\Command]], coinciden con el patrón `yii\db\*`.
+`Yiisoft\Db\Command::execute` y `Yiisoft\Db\Command::query` que se usan como nombres de categoría para los mensajes
+registrados en la clase [[Yiisoft\Db\Command]], coinciden con el patrón `Yiisoft\Db\*`.
 
 Si no se especifica la propiedad [[Yiisoft\Log\Target::categories|categories]], significa que el destino procesará
 los mensajes de *todas* las categorías.
@@ -154,7 +154,7 @@ configurando la propiedad [[Yiisoft\Log\Target::except|except]]. Si se encuentra
 algún patrón con esta propiedad, NO será procesada por el destino.
 
 La siguiente configuración de destinos especifica que el destino solo debe procesar los mensajes de error y
-de advertencia de las categorías que coincidan con alguno de los siguientes patrones `yii\db\*` o
+de advertencia de las categorías que coincidan con alguno de los siguientes patrones `Yiisoft\Db\*` o
 `yii\web\HttpException:*`, pero no con `yii\web\HttpException:404`.
 
 ```php
@@ -162,7 +162,7 @@ de advertencia de las categorías que coincidan con alguno de los siguientes pat
     'class' => 'Yiisoft\Log\FileTarget',
     'levels' => ['error', 'warning'],
     'categories' => [
-        'yii\db\*',
+        'Yiisoft\Db\*',
         'yii\web\HttpException:*',
     ],
     'except' => [
@@ -357,7 +357,7 @@ destinos de registros en las clases incluidas en la distribución de Yii.
 
 El Perfilado de rendimiento es un tipo especial de registro de mensajes que se usa para medir el tiempo que tardan en
 ejecutarse ciertos bloques de código y encontrar donde están los cuellos de botella de rendimiento. Por ejemplo, la
-clase [[yii\db\Command]] utiliza el perfilado de rendimiento para encontrar conocer el tiempo que tarda cada consulta
+clase [[Yiisoft\Db\Command]] utiliza el perfilado de rendimiento para encontrar conocer el tiempo que tarda cada consulta
 a la base de datos.
 
 Para usar el perfilado de rendimiento, primero debemos identificar los bloques de código que tienen que ser

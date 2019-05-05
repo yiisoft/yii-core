@@ -11,7 +11,7 @@ interactively paginate and sort data.
 
 The following data provider classes are included in the Yii releases:
 
-* [[yii\data\ActiveDataProvider]]: uses [[yii\db\Query]] or [[yii\db\ActiveQuery]] to query data from databases
+* [[yii\data\ActiveDataProvider]]: uses [[Yiisoft\Db\Query]] or [[Yiisoft\Db\ActiveQuery]] to query data from databases
   and return them in terms of arrays or [Active Record](db-active-record.md) instances.
 * [[yii\data\SqlDataProvider]]: executes a SQL statement and returns database data as arrays.
 * [[yii\data\ArrayDataProvider]]: takes a big array and returns a slice of it based on the paginating and sorting
@@ -57,7 +57,7 @@ we will explain the detailed usage of each of these data providers.
 ## Active Data Provider <span id="active-data-provider"></span> 
 
 To use [[yii\data\ActiveDataProvider]], you should configure its [[yii\data\ActiveDataProvider::query|query]] property.
-It can take either a [[yii\db\Query]] or [[yii\db\ActiveQuery]] object. If the former, the data returned will be arrays;
+It can take either a [[Yiisoft\Db\Query]] or [[Yiisoft\Db\ActiveQuery]] object. If the former, the data returned will be arrays;
 if the latter, the data returned can be either arrays or [Active Record](db-active-record.md) instances.
 For example,
 
@@ -86,7 +86,7 @@ $posts = $provider->getModels();
 If `$query` in the above example is created using the following code, then the data provider will return raw arrays.
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())->from('post')->where(['status' => 1]); 
 ```
@@ -202,7 +202,7 @@ $posts = $provider->getModels();
 $ids = $provider->getKeys();
 ```
 
-In the above example, because you provide to [[yii\data\ActiveDataProvider]] an [[yii\db\ActiveQuery]] object,
+In the above example, because you provide to [[yii\data\ActiveDataProvider]] an [[Yiisoft\Db\ActiveQuery]] object,
 it is intelligent enough to return primary key values as the keys. You may also explicitly specify how the key
 values should be calculated by configuring [[yii\data\ActiveDataProvider::key]] with a column name or
 a callable calculating key values. For example,

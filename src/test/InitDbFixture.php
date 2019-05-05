@@ -92,7 +92,7 @@ class InitDbFixture extends DbFixture
      */
     public function checkIntegrity($check)
     {
-        if (!$this->db instanceof \yii\db\Connection) {
+        if (!$this->db instanceof \Yiisoft\Db\Connection) {
             return;
         }
         foreach ($this->schemas as $schema) {

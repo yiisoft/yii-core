@@ -76,7 +76,7 @@ class ContactForm extends Model
 
 
 Bạn có thể ghi đè phương thức [[yii\base\Model::attributes()]] để định nghĩa các thuộc tính theo các cách khác. Phương thức nên được trả
-tên của thuộc tính trong Model. Ví dụ, lớp [[yii\db\ActiveRecord]] trả về
+tên của thuộc tính trong Model. Ví dụ, lớp [[Yiisoft\Db\ActiveRecord]] trả về
 danh sách tên của các cột liên quan tới các bảng trong CSDL như tên các thuộc tính. Bạn có thể ghi đè các phương thức như
 `__get()`, `__set()` để có thể truy cập các thuộc tính như các đối tượng thông thường.
 
@@ -177,7 +177,7 @@ như sau:
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {
@@ -194,7 +194,7 @@ class User extends ActiveRecord
 }
 ```
 
-> Lưu ý: Như phần trên và ví dụ vừa rồi, lớp Model được kế thừa từ lớp [[yii\db\ActiveRecord]]
+> Lưu ý: Như phần trên và ví dụ vừa rồi, lớp Model được kế thừa từ lớp [[Yiisoft\Db\ActiveRecord]]
   bởi vì lớp [Active Record](db-active-record.md) thường được sử dụng nhiều kịch bản.
 
 Phương thức `scenarios()` trả về một mảng có chứa các khóa là tên các kịch bản và các giá trị tương ứng là các  
@@ -209,7 +209,7 @@ in addition to the default ones, bạn có thể viết mã như sau:
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {

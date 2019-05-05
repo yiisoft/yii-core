@@ -60,7 +60,7 @@ INSERT INTO `country` VALUES ('US','United States',278357000);
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',
@@ -69,7 +69,7 @@ return [
 ```
 
 `config/db.php` 是一个典型的基于文件的[配置](concept-configurations.md)工具。
-这个文件配置了数据库连接 [[yii\db\Connection]] 的创建和初始化参数，
+这个文件配置了数据库连接 [[Yiisoft\Db\Connection]] 的创建和初始化参数，
 应用的 SQL 查询正是基于这个数据库。
 
 上面配置的数据库连接可以在应用中通过 `Yii::$app->db` 表达式访问。
@@ -96,18 +96,18 @@ return [
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
 }
 ```
 
-这个 `Country` 类继承自 [[yii\db\ActiveRecord]]。你不用在里面写任何代码。
+这个 `Country` 类继承自 [[Yiisoft\Db\ActiveRecord]]。你不用在里面写任何代码。
 只需要像现在这样，Yii 就能根据类名去猜测对应的数据表名。
 
 > Info: 如果类名和数据表名不能直接对应，
-  可以覆写 [[yii\db\ActiveRecord::tableName()|tableName()]] 方法去显式指定相关表名。
+  可以覆写 [[Yiisoft\Db\ActiveRecord::tableName()|tableName()]] 方法去显式指定相关表名。
 
 使用 `Country` 类可以很容易地操作 `country` 表数据，就像这段代码：
 

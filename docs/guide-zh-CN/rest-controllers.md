@@ -115,7 +115,7 @@ public function behaviors()
 
 如果你的控制器继承[[yii\rest\ActiveController]]，
 应设置[[yii\rest\ActiveController::modelClass|modelClass]] 属性
-为通过该控制器返回给用户的资源类名，该类必须继承[[yii\db\ActiveRecord]].
+为通过该控制器返回给用户的资源类名，该类必须继承[[Yiisoft\Db\ActiveRecord]].
 
 
 ### 自定义动作 <span id="customizing-actions"></span>

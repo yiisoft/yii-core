@@ -145,7 +145,7 @@ Você pode usar uma string ou um valor arbitrário como uma chave do cache. Quan
 automaticamente serializada em uma string.
 
 Uma estratégia comum ao definir uma chave de cache é incluir todos os fatores determinantes na forma de um array.
-Por exemplo, [[yii\db\Schema]] usa a seguinte chave para armazenar a informação de um esquema de uma tabela do banco
+Por exemplo, [[Yiisoft\Db\Schema]] usa a seguinte chave para armazenar a informação de um esquema de uma tabela do banco
 de dados.
 
 ```php
@@ -234,8 +234,8 @@ Abaixo um sumário das dependências de cache disponíveis:
 
 Cache de consulta é uma funcionalidade especial de cache construída com o cache de dados. Ela é fornecida para armazenar em cache consultas ao banco de dados.
 
-O cache de consulta requer uma [[yii\db\Connection|conexão ao banco de dados]] e um [componente de aplicação](#cache-components) de `cache` válido.
-A seguir uma utilização básica do cache de consulta, assumindo que `$bd` é uma instância de [[yii\db\Connection]]:
+O cache de consulta requer uma [[Yiisoft\Db\Connection|conexão ao banco de dados]] e um [componente de aplicação](#cache-components) de `cache` válido.
+A seguir uma utilização básica do cache de consulta, assumindo que `$bd` é uma instância de [[Yiisoft\Db\Connection]]:
 
 ```php
 $resultado = $bd->cache(function ($bd) {
@@ -264,21 +264,21 @@ $resultado = Cliente::getDb()->cache(function ($bd) {
 
 ### Configurações <span id="query-caching-configs"></span>
 
-Cache de consulta tem três opções configuráveis globalmente através de [[yii\db\Connection]]:
+Cache de consulta tem três opções configuráveis globalmente através de [[Yiisoft\Db\Connection]]:
 
-* [[yii\db\Connection::enableQueryCache|enableQueryCache]]: Configura se o cache de consulta está habilitado.
-  O padrão é `true`. Observe que para ter efetivamente o cache de consulta habilitado, você também deve ter um cache válido como especificado por [[yii\db\Connection::queryCache|queryCache]].
-* [[yii\db\Connection::queryCacheDuration|queryCacheDuration]]: representa o número de segundos que o resultado de uma  
+* [[Yiisoft\Db\Connection::enableQueryCache|enableQueryCache]]: Configura se o cache de consulta está habilitado.
+  O padrão é `true`. Observe que para ter efetivamente o cache de consulta habilitado, você também deve ter um cache válido como especificado por [[Yiisoft\Db\Connection::queryCache|queryCache]].
+* [[Yiisoft\Db\Connection::queryCacheDuration|queryCacheDuration]]: representa o número de segundos que o resultado de uma  
   consulta pode se manter válido em cache. Você pode usar 0 para indicar que o resultado da consulta deve permanecer no
-  cache indefinidamente. Este é o valor padrão usado quando [[yii\db\Connection::cache()]] é chamado sem nenhuma
+  cache indefinidamente. Este é o valor padrão usado quando [[Yiisoft\Db\Connection::cache()]] é chamado sem nenhuma
   especificação de duração.
-* [[yii\db\Connection::queryCache|queryCache]]: representa a ID do componente de aplicação de cache.
+* [[Yiisoft\Db\Connection::queryCache|queryCache]]: representa a ID do componente de aplicação de cache.
   Seu padrão é `'cache'`. Cache de consulta é habilitado apenas se houver um componente de aplicacão de cache válido.
 
 
 ### Usando o Cache de Consulta <span id="query-caching-usages"></span>
 
-Você pode usar [[yii\db\Connection::cache()]] se tiver múltiplas consultas SQL que precisam ser armazenadas no
+Você pode usar [[Yiisoft\Db\Connection::cache()]] se tiver múltiplas consultas SQL que precisam ser armazenadas no
 cache de consulta. Utilize da seguinte maneira,
 
 ```php
@@ -296,9 +296,9 @@ $result = $db->cache(function ($db) {
 
 Qualquer consulta SQL na função anônima será armazenada em cache pela duração especificada com a dependência informada. Se o resultado da consulta for encontrado em cache e for válido, a consulta não será necessária e o 
 resultado será entregue pelo cache. Se você não especificar o parâmetro `$duracao`, o valor de 
-[[yii\db\Connection::queryCacheDuration|queryCacheDuration]] será usado.
+[[Yiisoft\Db\Connection::queryCacheDuration|queryCacheDuration]] será usado.
 
-Ocasionalmente em `cache()`, você pode precisar desabilitar o cache de consulta para algumas consultas em particular. Você pode usar [[yii\db\Connection::noCache()]] neste caso.
+Ocasionalmente em `cache()`, você pode precisar desabilitar o cache de consulta para algumas consultas em particular. Você pode usar [[Yiisoft\Db\Connection::noCache()]] neste caso.
 
 ```php
 $result = $db->cache(function ($db) {
@@ -317,7 +317,7 @@ $result = $db->cache(function ($db) {
 });
 ```
 
-Se você apenas deseja usar o cache de consulta para apenas uma consulta, você pode chamar [[yii\db\Command::cache()]]
+Se você apenas deseja usar o cache de consulta para apenas uma consulta, você pode chamar [[Yiisoft\Db\Command::cache()]]
 ao construir o comando. Por exemplo,
 
 ```php
@@ -325,7 +325,7 @@ ao construir o comando. Por exemplo,
 $customer = $db->createCommand('SELECT * FROM customer WHERE id=1')->cache(60)->queryOne();
 ```
 
-Você pode também usar [[yii\db\Command::noCache()]] para desabilitar o cache de consulta para um único comando, Por exemplo,
+Você pode também usar [[Yiisoft\Db\Command::noCache()]] para desabilitar o cache de consulta para um único comando, Por exemplo,
 
 ```php
 $result = $db->cache(function ($db) {

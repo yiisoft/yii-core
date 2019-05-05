@@ -377,12 +377,12 @@ Yii 2.0 は [[yii\widgets\ActiveForm]] を使ってフォームを作成する�
 --------------
 
 1.1 においては、クエリの構築が `CDbCommand`、`CDbCriteria`、`CDbCommandBuilder` など、いくつかのクラスに散らばっていました。
-Yii 2.0 は DB クエリを [[yii\db\Query|Query]] オブジェクトの形で表現します。
-このオブジェクトが舞台裏で [[yii\db\QueryBuilder|QueryBuilder]] の助けを得て SQL 文に変換されます。
+Yii 2.0 は DB クエリを [[Yiisoft\Db\Query|Query]] オブジェクトの形で表現します。
+このオブジェクトが舞台裏で [[Yiisoft\Db\QueryBuilder|QueryBuilder]] の助けを得て SQL 文に変換されます。
 例えば、
 
 ```php
-$query = new \yii\db\Query();
+$query = new \Yiisoft\Db\Query();
 $query->select('id, name')
       ->from('user')
       ->limit(10);
@@ -403,8 +403,8 @@ $rows = $command->queryAll();
 Yii 2.0 は [アクティブ・レコード](db-active-record.md) に数多くの変更を導入しました。
 最も顕著な違いは、クエリの構築方法とリレーショナル・クエリの処理の二つです。
 
-1.1 の `CDbCriteria` クラスは Yii 2 では [[yii\db\ActiveQuery]] に置き換えられました。このクラスは [[yii\db\Query]] を拡張したものであり、従って全てのクエリ構築メソッドを継承します。
-以下のように、[[yii\db\ActiveRecord::find()]] を呼んでクエリの構築を開始します。
+1.1 の `CDbCriteria` クラスは Yii 2 では [[Yiisoft\Db\ActiveQuery]] に置き換えられました。このクラスは [[Yiisoft\Db\Query]] を拡張したものであり、従って全てのクエリ構築メソッドを継承します。
+以下のように、[[Yiisoft\Db\ActiveRecord::find()]] を呼んでクエリの構築を開始します。
 
 ```php
 // 全てのアクティブな顧客を読み出し、ID によって並べる
@@ -414,12 +414,12 @@ $customers = Customer::find()
     ->all();
 ```
 
-リレーションを宣言するために必要なことは、[[yii\db\ActiveQuery|ActiveQuery]] オブジェクトを返す getter メソッドを定義するだけのことです。
+リレーションを宣言するために必要なことは、[[Yiisoft\Db\ActiveQuery|ActiveQuery]] オブジェクトを返す getter メソッドを定義するだけのことです。
 getter によって定義されたプロパティの名前がリレーションの名前を表します。例えば、以下のコードは `orders` リレーションを宣言するものです
 (1.1 では `relations()` という一個の中枢でリレーションを宣言しなければなりませんでした)。
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public function getOrders()
     {
@@ -440,7 +440,7 @@ $orders = $customer->getOrders()->andWhere('status=1')->all();
 Yii 2.0 では、JOIN を使わずに二つの SQL 文が実行されます。
 すなわち、第一の SQL 文が主たるレコードを返し、第二の SQL 文は主レコードのプライマリ・キーを使うフィルタリングによって関連レコードを返します。
 
-多数のレコードを返すクエリを構築するときは、[[yii\db\ActiveRecord|ActiveRecord]] オブジェクトを返す代りに、[[yii\db\ActiveQuery::asArray()|asArray()]] メソッドをチェインすることが出来ます。
+多数のレコードを返すクエリを構築するときは、[[Yiisoft\Db\ActiveRecord|ActiveRecord]] オブジェクトを返す代りに、[[Yiisoft\Db\ActiveQuery::asArray()|asArray()]] メソッドをチェインすることが出来ます。
 そうすると、クエリ結果は配列として返されることになり、レコードの数が多い場合は、必要とされる CPU 時間とメモリを著しく削減することが出来ます。
 例えば、
 
@@ -460,7 +460,7 @@ public function init()
 ```
 
 1.1 では、アクティブ・レコード・クラスのコンストラクタをオーバーライドすることについて、いくつか問題がありました。バージョン 2.0 では、もう問題はありません。
-コンストラクタにパラメータを追加する場合は、[[yii\db\ActiveRecord::instantiate()]] をオーバーライドする必要があるかもしれないことに注意してください。
+コンストラクタにパラメータを追加する場合は、[[Yiisoft\Db\ActiveRecord::instantiate()]] をオーバーライドする必要があるかもしれないことに注意してください。
 
 アクティブ・レコードについては、他にも多くの変更と機能強化がなされています。
 詳細については [アクティブ・レコード](db-active-record.md) のセクションを参照してください。
@@ -476,7 +476,7 @@ public function init()
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior

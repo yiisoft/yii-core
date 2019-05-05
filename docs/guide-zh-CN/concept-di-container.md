@@ -158,7 +158,7 @@ $foo = $container->get('Foo');
 $container = new \yii\di\Container;
 
 // 注册一个同类名一样的依赖关系，这个可以省略。
-$container->set('yii\db\Connection');
+$container->set('Yiisoft\Db\Connection');
 
 // 注册一个接口
 // 当一个类依赖这个接口时，
@@ -167,11 +167,11 @@ $container->set('yii\mail\MailInterface', 'Yiisoft\Yii\SwiftMailer\Mailer');
 
 // 注册一个别名。
 // 你可以使用 $container->get('foo') 创建一个 Connection 实例
-$container->set('foo', 'yii\db\Connection');
+$container->set('foo', 'Yiisoft\Db\Connection');
 
 // 通过配置注册一个类
 // 通过 get() 初始化时，配置将会被使用。
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -181,7 +181,7 @@ $container->set('yii\db\Connection', [
 // 通过类的配置注册一个别名
 // 这种情况下，需要通过一个 “class” 元素指定这个类
 $container->set('db', [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -191,7 +191,7 @@ $container->set('db', [
 // 注册一个 PHP 回调
 // 每次调用 $container->get('db') 时，回调函数都会被执行。
 $container->set('db', function ($container, $params, $config) {
-    return new \yii\db\Connection($config);
+    return new \Yiisoft\Db\Connection($config);
 });
 
 // 注册一个组件实例
@@ -207,7 +207,7 @@ $container->set('pageCache', new FileCache);
 注册一个单例的依赖关系：
 
 ```php
-$container->setSingleton('yii\db\Connection', [
+$container->setSingleton('Yiisoft\Db\Connection', [
     'dsn' => 'mysql:host=127.0.0.1;dbname=demo',
     'username' => 'root',
     'password' => '',
@@ -254,7 +254,7 @@ $engine = $container->get('app\components\SearchEngine', [$apiKey], ['type' => 1
 namespace app\models;
 
 use yii\base\BaseObject;
-use yii\db\Connection;
+use Yiisoft\Db\Connection;
 use yii\di\Container;
 
 interface UserFinderInterface
@@ -289,7 +289,7 @@ class UserLister extends BaseObject
 }
 
 $container = new Container;
-$container->set('yii\db\Connection', [
+$container->set('Yiisoft\Db\Connection', [
     'dsn' => '...',
 ]);
 $container->set('app\models\UserFinderInterface', [
@@ -301,7 +301,7 @@ $lister = $container->get('userLister');
 
 // 等价于:
 
-$db = new \yii\db\Connection(['dsn' => '...']);
+$db = new \Yiisoft\Db\Connection(['dsn' => '...']);
 $finder = new UserFinder($db);
 $lister = new UserLister($finder);
 ```

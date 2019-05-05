@@ -13,7 +13,7 @@ di dalam aplikasi yang sama. Anda dapat mengakses _component_ aplikasi melalui _
 \Yii::$app->componentID
 ```
 
-Sebagai contoh, anda dapat menggunakan `\Yii::$app->db` untuk mengambil [[yii\db\Connection|koneksi ke DB]],
+Sebagai contoh, anda dapat menggunakan `\Yii::$app->db` untuk mengambil [[Yiisoft\Db\Connection|koneksi ke DB]],
 dan `\Yii::$app->cache` untuk mengambil [[yii\caching\Cache|cache utama]] yang terdaftar dalam aplikasi.
 
 Sebuah _component_ aplikasi dibuat pertama kali pada saat objek tersebut pertama diakses menggunakan _expression_ di atas. Pengaksesan
@@ -31,7 +31,7 @@ Sebagai contoh,
 
         // mendaftaran component "db" menggunakan konfigurasi array
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',
@@ -88,9 +88,9 @@ jika anda tidak mendefinisikan _class_-nya, maka _class_ default yang akan digun
 
 * [[yii\web\AssetManager|assetManager]]: mengatur bundel aset _(asset bundles)_ dan publikasi aset _(asset publishing)_.
   Harap melihat bagian [Pengelolaan Aset](structure-assets.md) untuk informasi lebih lanjut.
-* [[yii\db\Connection|db]]: merepresentasikan sebuah koneksi database yang bisa anda gunakan untuk melakukan _query_ ke database.
+* [[Yiisoft\Db\Connection|db]]: merepresentasikan sebuah koneksi database yang bisa anda gunakan untuk melakukan _query_ ke database.
   Sebagai catatan, ketika anda mengatur _component_ ini, anda harus menentukan nama _class_ dari _component_ dan _property_ lain dari
-  _component_ yang dibutuhkan, seperti [[yii\db\Connection::dsn]].
+  _component_ yang dibutuhkan, seperti [[Yiisoft\Db\Connection::dsn]].
   Harap melihat bagian [Data Access Objects](db-dao.md) untuk informasi lebih lanjut.
 * [[yii\base\Application::errorHandler|errorHandler]]: menangani error PHP dan _exception_.
   Harap melihat bagian [Menangani Error](runtime-handling-errors.md) untuk informasi lebih lanjut.

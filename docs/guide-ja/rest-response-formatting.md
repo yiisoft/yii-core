@@ -172,4 +172,4 @@ JSON 形式のレスポンスを生成する [[yii\web\JsonResponseFormatter|Jso
 
 [DAO](db-dao.md) データベース・レイヤを使ってデータベースからデータを返す場合は、全てのデータが文字列として表されます。
 しかし、特に数値は JSON では数として表現されなければなりませんので、これは必ずしも期待通りの結果であるとは言えません。
-一方、ActiveRecord レイヤを使ってデータベースからデータを取得する場合は、数値カラムの値は、[[yii\db\ActiveRecord::populateRecord()]] においてデータベースからデータが取得される際に、整数に変換されます。
+一方、ActiveRecord レイヤを使ってデータベースからデータを取得する場合は、数値カラムの値は、[[Yiisoft\Db\ActiveRecord::populateRecord()]] においてデータベースからデータが取得される際に、整数に変換されます。

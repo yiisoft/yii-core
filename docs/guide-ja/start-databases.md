@@ -60,7 +60,7 @@ DB 接続を構成する <span id="configuring-db-connection"></span>
 <?php
 
 return [
-    '__class' => yii\db\Connection::class,
+    '__class' => Yiisoft\Db\Connection::class,
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',
@@ -69,7 +69,7 @@ return [
 ```
 
 この `config/db.php` というファイルは典型的なファイル・ベースの [構成情報](concept-configurations.md) ツールです。
-この構成情報ファイルが、背後のデータベースに対する SQL クエリの実行を可能にする [[yii\db\Connection]]
+この構成情報ファイルが、背後のデータベースに対する SQL クエリの実行を可能にする [[Yiisoft\Db\Connection]]
 インスタンスの作成と初期化に必要なパラメータを指定するものです。
 
 上記のようにして構成された DB 接続は、アプリケーション・コードの中で `Yii::$app->db` という式でアクセスすることが出来ます。
@@ -96,17 +96,17 @@ Yii がサポートを内蔵していないデータベースを扱う必要が�
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
 }
 ```
 
-`Country` クラスは [[yii\db\ActiveRecord]] を拡張しています。この中には一つもコードを書く必要はありません。
+`Country` クラスは [[Yiisoft\Db\ActiveRecord]] を拡張しています。この中には一つもコードを書く必要はありません。
 単に上記のコードだけで、Yii は関連付けられたテーブル名をクラス名から推測します。
 
-> Info: クラス名とテーブル名を直接に合致させることが出来ない場合は、[[yii\db\ActiveRecord::tableName()]]
+> Info: クラス名とテーブル名を直接に合致させることが出来ない場合は、[[Yiisoft\Db\ActiveRecord::tableName()]]
 メソッドをオーバーライドして、関連づけられたテーブル名を明示的に指定することが出来ます。
 
 `Country` クラスを使うことによって、以下のコード断片で示すように、`country` テーブルの中のデータを簡単に操作することが出来ます。

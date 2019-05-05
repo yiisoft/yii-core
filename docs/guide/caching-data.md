@@ -190,7 +190,7 @@ You may use a string or an arbitrary value as a cache key. When a key is not a s
 serialized into a string.
 
 A common strategy of defining a cache key is to include all determining factors in terms of an array.
-For example, [[yii\db\Schema]] uses the following key to cache schema information about a database table:
+For example, [[Yiisoft\Db\Schema]] uses the following key to cache schema information about a database table:
 
 ```php
 [
@@ -296,8 +296,8 @@ Below is a summary of the available cache dependencies:
 Query caching is a special caching feature built on top of data caching. It is provided to cache the result
 of database queries.
 
-Query caching requires a [[yii\db\Connection|DB connection]] and a valid `cache` [application component](#cache-components).
-The basic usage of query caching is as follows, assuming `$db` is a [[yii\db\Connection]] instance:
+Query caching requires a [[Yiisoft\Db\Connection|DB connection]] and a valid `cache` [application component](#cache-components).
+The basic usage of query caching is as follows, assuming `$db` is a [[Yiisoft\Db\Connection]] instance:
 
 ```php
 $result = $db->cache(function ($db) {
@@ -346,22 +346,22 @@ components in your web and console application configs to reach the proper effec
 
 ### Configurations <span id="query-caching-configs"></span>
 
-Query caching has three global configurable options through [[yii\db\Connection]]:
+Query caching has three global configurable options through [[Yiisoft\Db\Connection]]:
 
-* [[yii\db\Connection::enableQueryCache|enableQueryCache]]: whether to turn on or off query caching.
+* [[Yiisoft\Db\Connection::enableQueryCache|enableQueryCache]]: whether to turn on or off query caching.
   It defaults to `true`. Note that to effectively turn on query caching, you also need to have a valid
-  cache, as specified by [[yii\db\Connection::queryCache|queryCache]].
-* [[yii\db\Connection::queryCacheDuration|queryCacheDuration]]: this represents the number of seconds
+  cache, as specified by [[Yiisoft\Db\Connection::queryCache|queryCache]].
+* [[Yiisoft\Db\Connection::queryCacheDuration|queryCacheDuration]]: this represents the number of seconds
   that a query result can remain valid in the cache. You can use 0 to indicate a query result should
-  remain in the cache forever. This property is the default value used when [[yii\db\Connection::cache()]]
+  remain in the cache forever. This property is the default value used when [[Yiisoft\Db\Connection::cache()]]
   is called without specifying a duration.
-* [[yii\db\Connection::queryCache|queryCache]]: this represents the ID of the cache application component.
+* [[Yiisoft\Db\Connection::queryCache|queryCache]]: this represents the ID of the cache application component.
   It defaults to `'cache'`. Query caching is enabled only if there is a valid cache application component.
 
 
 ### Usages <span id="query-caching-usages"></span>
 
-You can use [[yii\db\Connection::cache()]] if you have multiple SQL queries that need to take advantage of
+You can use [[Yiisoft\Db\Connection::cache()]] if you have multiple SQL queries that need to take advantage of
 query caching. The usage is as follows,
 
 ```php
@@ -380,10 +380,10 @@ $result = $db->cache(function ($db) {
 Any SQL queries in the anonymous function will be cached for the specified duration with the specified dependency.
 If the result of a query is found valid in the cache, the query will be skipped and the result will be served
 from the cache instead. If you do not specify the `$duration` parameter, the value of
-[[yii\db\Connection::queryCacheDuration|queryCacheDuration]] will be used instead.
+[[Yiisoft\Db\Connection::queryCacheDuration|queryCacheDuration]] will be used instead.
 
 Sometimes within `cache()`, you may want to disable query caching for some particular queries. You can use
-[[yii\db\Connection::noCache()]] in this case.
+[[Yiisoft\Db\Connection::noCache()]] in this case.
 
 ```php
 $result = $db->cache(function ($db) {
@@ -402,7 +402,7 @@ $result = $db->cache(function ($db) {
 });
 ```
 
-If you just want to use query caching for a single query, you can call [[yii\db\Command::cache()]] when building
+If you just want to use query caching for a single query, you can call [[Yiisoft\Db\Command::cache()]] when building
 the command. For example,
 
 ```php
@@ -410,7 +410,7 @@ the command. For example,
 $customer = $db->createCommand('SELECT * FROM customer WHERE id=1')->cache(60)->queryOne();
 ```
 
-You can also use [[yii\db\Command::noCache()]] to disable query caching for a single command. For example,
+You can also use [[Yiisoft\Db\Command::noCache()]] to disable query caching for a single command. For example,
 
 ```php
 $result = $db->cache(function ($db) {

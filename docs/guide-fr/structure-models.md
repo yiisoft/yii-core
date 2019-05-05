@@ -68,7 +68,7 @@ class ContactForm extends Model
 ```
 
 
-Vous pouvez redéfinir la méthode [[yii\base\Model::attributes()]] pour spécifier les attributs d'une autre manière. La méthode devrait retourner le nom des attributs d'un modèle. Par exemple, [[yii\db\ActiveRecord]] fait cela en retournant le nom des colonnes de la base de données associée en tant que noms d'attribut. Notez que vous pouvez aussi avoir besoin de redéfinir les méthodes magiques telles que `__get()` et `__set()` afin que les attributs puissent être accédés comme les propriétés d'un objet ordinaire. 
+Vous pouvez redéfinir la méthode [[yii\base\Model::attributes()]] pour spécifier les attributs d'une autre manière. La méthode devrait retourner le nom des attributs d'un modèle. Par exemple, [[Yiisoft\Db\ActiveRecord]] fait cela en retournant le nom des colonnes de la base de données associée en tant que noms d'attribut. Notez que vous pouvez aussi avoir besoin de redéfinir les méthodes magiques telles que `__get()` et `__set()` afin que les attributs puissent être accédés comme les propriétés d'un objet ordinaire. 
 
 
 ### Étiquettes d'attribut <span id="attribute-labels"></span>
@@ -153,7 +153,7 @@ Par défaut, les scénarios pris en charge par un modèle sont détérminés par
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {
@@ -170,7 +170,7 @@ class User extends ActiveRecord
 }
 ```
 
-> Info: dans ce qui précède et dans l'exemple qui suit, les classes de modèle étendent la classe [[yii\db\ActiveRecord]] parce que l'utilisation de multiples scénarios intervient ordinairement dans les classes [Active Record](db-active-record.md).
+> Info: dans ce qui précède et dans l'exemple qui suit, les classes de modèle étendent la classe [[Yiisoft\Db\ActiveRecord]] parce que l'utilisation de multiples scénarios intervient ordinairement dans les classes [Active Record](db-active-record.md).
 
 La méthode `scenarios()` retourne un tableau dont les clés sont les noms de scénario et les valeurs les *attributs actifs* correspondants. Les attributs actifs peuvent être [assignés massivement](#massive-assignment) et doivent respecter des règles de [validation](#validation-rules). Dans l'exemple ci-dessus, les attributs `username` et `password`  sont actifs dans le scénario `login`, tandis que dans le scénario `register` , `email` est, en plus de `username` et`password`, également actif.
 
@@ -179,7 +179,7 @@ La mise en œuvre par défaut des `scenarios()` retourne tous les scénarios tro
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {

@@ -76,7 +76,7 @@ class ContactForm extends Model
 
 
 You may override [[yii\base\Model::attributes()]] to define attributes in a different way. The method should
-return the names of the attributes in a model. For example, [[yii\db\ActiveRecord]] does so by returning
+return the names of the attributes in a model. For example, [[Yiisoft\Db\ActiveRecord]] does so by returning
 the column names of the associated database table as its attribute names. Note that you may also need to
 override the magic methods such as `__get()`, `__set()` so that the attributes can be accessed like
 normal object properties.
@@ -178,7 +178,7 @@ like the following:
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {
@@ -195,7 +195,7 @@ class User extends ActiveRecord
 }
 ```
 
-> Info: In the above and following examples, the model classes are extending from [[yii\db\ActiveRecord]]
+> Info: In the above and following examples, the model classes are extending from [[Yiisoft\Db\ActiveRecord]]
   because the usage of multiple scenarios usually happens to [Active Record](db-active-record.md) classes.
 
 The `scenarios()` method returns an array whose keys are the scenario names and values the corresponding
@@ -210,7 +210,7 @@ in addition to the default ones, you may write code like the following:
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {

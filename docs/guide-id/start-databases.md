@@ -60,7 +60,7 @@ isi file konfigurasi tersebut adalah:
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',
@@ -69,7 +69,7 @@ return [
 ```
 
 File `config/db.php` adalah tipikal [konfigurasi](concept-configurations.md) yang menggunakan file. File konfigurasi seperti ini menentukan parameter-parameter
-yang dibutuhkan untuk membuat dan menginisialisasi objek [[yii\db\Connection]], dimana anda dapat menjalankan perintah SQL
+yang dibutuhkan untuk membuat dan menginisialisasi objek [[Yiisoft\Db\Connection]], dimana anda dapat menjalankan perintah SQL
 dengan database yang dituju.
 
 Konfigurasi koneksi database di atas dapat diakses pada kode aplikasi melalui _expression_ `Yii::$app->db`.
@@ -96,18 +96,18 @@ dengan nama `Country`, dan simpan pada file `models/Country.php`.
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
 }
 ```
 
-_Class_ `Country` di _extends_ dari [[yii\db\ActiveRecord]]. Anda tidak perlu untuk menulis kode di dalamnya! Hanya dengan kode di atas,
+_Class_ `Country` di _extends_ dari [[Yiisoft\Db\ActiveRecord]]. Anda tidak perlu untuk menulis kode di dalamnya! Hanya dengan kode di atas,
 Yii akan mengetahui nama tabel yang dimaksud dari nama _class_ tersebut.
 
 > Info: Jika nama _class_ tidak sesuai dengan nama tabel, anda dapat meng-_override_
-  method [[yii\db\ActiveRecord::tableName()]] untuk menentukan nama tabel secara eksplisit.
+  method [[Yiisoft\Db\ActiveRecord::tableName()]] untuk menentukan nama tabel secara eksplisit.
 
 Menggunakan class `Country`, anda bisa memanipulasi data pada tabel `country` dengan mudah, sebagaimana yang ditunjukkan pada kode di bawah ini:
 

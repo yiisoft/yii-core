@@ -77,7 +77,7 @@ class ContactForm extends Model
 
 [[yii\base\Model::attributes()]] をオーバーライドして、属性を異なる方法で定義することが出来ます。
 このメソッドはモデルが持つ属性の名前を返さなくてはなりません。
-例えば、[[yii\db\ActiveRecord]] は、関連付けられたデータベース・テーブルのコラム名を属性の名前として返すことによって、属性を定義しています。
+例えば、[[Yiisoft\Db\ActiveRecord]] は、関連付けられたデータベース・テーブルのコラム名を属性の名前として返すことによって、属性を定義しています。
 ただし、これと同時に、定義された属性に対して通常のオブジェクト・プロパティと同じようにアクセスすることが出来るように、
 `__get()` や `__set()` などのマジック・メソッドをオーバーライドする必要があるかもしれないことに注意してください。
 
@@ -178,7 +178,7 @@ $model = new User(['scenario' => User::SCENARIO_LOGIN]);
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {
@@ -195,7 +195,7 @@ class User extends ActiveRecord
 }
 ```
 
-> Info: 上記の例と後続の例では、モデル・クラスは [[yii\db\ActiveRecord]] を拡張するものとなっています。
+> Info: 上記の例と後続の例では、モデル・クラスは [[Yiisoft\Db\ActiveRecord]] を拡張するものとなっています。
   というのは、複数のシナリオを使用することは、通常は、[アクティブ・レコード](db-active-record.md) クラスで発生するからです。
 
 `seanarios()` メソッドは、キーがシナリオの名前であり、値が対応する *アクティブな属性* である配列を返します。
@@ -210,7 +210,7 @@ class User extends ActiveRecord
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {

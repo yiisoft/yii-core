@@ -75,7 +75,7 @@ return [
             [
                 '__class' => \Yiisoft\Log\EmailTarget::class,
                 'levels' => ['error'],
-                'categories' => ['yii\db\*'],
+                'categories' => ['Yiisoft\Db\*'],
                 'message' => [
                     'from' => ['log@example.com'],
                     'to' => ['admin@example.com', 'developer@example.com'],
@@ -90,7 +90,7 @@ return [
 上記のコードでは、二つのログ・ターゲットが登録されています。
 
 * 最初のターゲットは、エラーと警告のメッセージを選択して、データベース・テーブルに保存します。
-* 第二のターゲットは、名前が `yii\db\` で始まるカテゴリのエラー・メッセージを選んで、`admin@example.com` と `developer@example.com`
+* 第二のターゲットは、名前が `Yiisoft\Db\` で始まるカテゴリのエラー・メッセージを選んで、`admin@example.com` と `developer@example.com`
   の両方にメールで送信します。
 
 Yii は下記のログ・ターゲットをあらかじめ内蔵しています。
@@ -123,8 +123,8 @@ Yii は下記のログ・ターゲットをあらかじめ内蔵しています�
 ターゲットは、カテゴリの名前がこの配列にあるか、または配列にあるパターンに合致する場合にだけ、メッセージを処理します。
 カテゴリ・パターンというのは、最後にアスタリスク `*` を持つカテゴリ名接頭辞です。
 カテゴリ名は、パターンと同じ接頭辞で始まる場合に、カテゴリ・パターンに合致します。
-例えば、`yii\db\Command::execute` と `yii\db\Command::query` は、[[yii\db\Command]] クラスで記録されるログ・メッセージのためのカテゴリ名です。
-そして、両者は共に `yii\db\*` というパターンに合致します。
+例えば、`Yiisoft\Db\Command::execute` と `Yiisoft\Db\Command::query` は、[[Yiisoft\Db\Command]] クラスで記録されるログ・メッセージのためのカテゴリ名です。
+そして、両者は共に `Yiisoft\Db\*` というパターンに合致します。
 
 [[Yiisoft\Log\Target::categories|categories]] プロパティを指定しない場合は、
 ターゲットが *全ての* カテゴリのメッセージを処理することを意味します。
@@ -133,7 +133,7 @@ Yii は下記のログ・ターゲットをあらかじめ内蔵しています�
 一定のカテゴリを [[Yiisoft\Log\Target::except|except]] プロパティによってブラック・リストとして登録することも可能です。
 カテゴリの名前がこの配列にあるか、または配列にあるパターンに合致する場合は、メッセージはターゲットによって処理されません。
 
-次のターゲットの構成は、ターゲットが、`yii\db\*` または `yii\web\HttpException:*` に合致するカテゴリ名を持つエラーおよび警告のメッセージだけを処理すべきこと、
+次のターゲットの構成は、ターゲットが、`Yiisoft\Db\*` または `yii\web\HttpException:*` に合致するカテゴリ名を持つエラーおよび警告のメッセージだけを処理すべきこと、
 ただし、`yii\web\HttpException:404` は除外すべきことを指定するものです。
 
 ```php
@@ -141,7 +141,7 @@ Yii は下記のログ・ターゲットをあらかじめ内蔵しています�
     '__class' => \Yiisoft\Log\FileTarget::class,
     'levels' => ['error', 'warning'],
     'categories' => [
-        'yii\db\*',
+        'Yiisoft\Db\*',
         'yii\web\HttpException:*',
     ],
     'except' => [
@@ -325,7 +325,7 @@ return [
 
 パフォーマンス・プロファイリングは、特定のコード・ブロックに要した時間を測定してパフォーマンスのボトルネックになっている所を見つけ出すために使われる、
 特殊なタイプのメッセージ・ロギングです。
-例えば、[[yii\db\Command]] クラスは、各 DB クエリに要した時間を知るために、パフォーマンス・プロファイリングを使用しています。
+例えば、[[Yiisoft\Db\Command]] クラスは、各 DB クエリに要した時間を知るために、パフォーマンス・プロファイリングを使用しています。
 
 パフォーマンス・プロファイリングを使用するためには、最初に、プロファイリングが必要なコード・ブロックを特定します。
 そして、各コード・ブロックを次のように囲みます。

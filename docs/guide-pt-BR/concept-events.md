@@ -184,19 +184,19 @@ Manipuladores de Eventos de Classe <span id="class-level-event-handlers"></span>
 As subseções acima descreveram como anexar um manipulador para um evento a *nível de instância* (objeto).
 Às vezes, você pode querer responder a um evento acionado por *todas* as instâncias da classe em vez de apenas uma instância específica. Em vez de anexar um manipulador de evento em todas as instâncias, você pode anexar o manipulador a *nível da classe* chamando o método estático [[yii\base\Event::on()]].
 
-Por exemplo, um objeto [Active Record](db-active-record.md) irá disparar um evento [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] sempre que inserir um novo registro no banco de dados. A fim de acompanhar as inserções feitas por *cada* objeto [Active Record](db-active-record.md), você pode usar o seguinte código:
+Por exemplo, um objeto [Active Record](db-active-record.md) irá disparar um evento [[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] sempre que inserir um novo registro no banco de dados. A fim de acompanhar as inserções feitas por *cada* objeto [Active Record](db-active-record.md), você pode usar o seguinte código:
 
 ```php
 use yii\helpers\Yii;
 use yii\base\Event;
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 Event::on(ActiveRecord::class, ActiveRecord::EVENT_AFTER_INSERT, function ($event) {
    Yii::debug(get_class($event->sender) . ' is inserted');
 });
 ```
 
-O manipulador de evento será invocado sempre que uma instância de [[yii\db\ActiveRecord|ActiveRecord]], ou uma de suas classes filhas, disparar o evento [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]. No manipulador, você pode obter o objeto que disparou o evento através de `$event->sender`.
+O manipulador de evento será invocado sempre que uma instância de [[Yiisoft\Db\ActiveRecord|ActiveRecord]], ou uma de suas classes filhas, disparar o evento [[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]. No manipulador, você pode obter o objeto que disparou o evento através de `$event->sender`.
 
 Quando um objecto dispara um evento, ele irá primeiro chamar manipuladores de nível de instância, seguido pelos manipuladores de nível de classe.
 

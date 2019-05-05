@@ -208,22 +208,22 @@ especifica. En lugar de adjuntar un gestor de eventos a una instancia, se puede 
 llamando al método estático [[yii\base\Event::on()]].
 
 Por ejemplo, un objeto de tipo [Active Record](db-active-record.md) lanzará un evento
-[[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] cada vez que inserte un nuevo registro en la base
+[[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]] cada vez que inserte un nuevo registro en la base
 de datos. Para poder registrar las inserciones efectuadas por *todos* los objetos
 [Active Record](db-active-record.md), se puede usar el siguiente código:
 
 ```php
 use yii\helpers\Yii;
 use yii\base\Event;
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 Event::on(ActiveRecord::class, ActiveRecord::EVENT_AFTER_INSERT, function ($event) {
     Yii::debug(get_class($event->sender) . ' is inserted');
 });
 ```
 
-Se invocará al gestor de eventos cada vez que una instancia de [[yii\db\ActiveRecord|ActiveRecord]], o de uno de sus
-clases hijas, lance un evento de tipo [[yii\db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]. Se puede
+Se invocará al gestor de eventos cada vez que una instancia de [[Yiisoft\Db\ActiveRecord|ActiveRecord]], o de uno de sus
+clases hijas, lance un evento de tipo [[Yiisoft\Db\BaseActiveRecord::EVENT_AFTER_INSERT|EVENT_AFTER_INSERT]]. Se puede
 obtener el objeto que ha lanzado el evento mediante `$event->sender` en el gestor.
 
 Cuando un objeto lanza un evento, primero llamará los gestores a nivel de instancia, y a continuación los gestores a

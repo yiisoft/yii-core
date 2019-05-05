@@ -377,12 +377,12 @@ Yii 2.0 引进了**表单栏（field）**的概念，用来创建一个基于 [[
 ------------------------
 
 Yii 1.1 中，查询语句的生成分散在多个类中，包括 `CDbCommand`，`CDbCriteria` 以及 `CDbCommandBuilder`。
-Yii 2.0 以 [[yii\db\Query|Query]] 对象的形式表示一个数据库查询，
-这个对象使用 [[yii\db\QueryBuilder|QueryBuilder]] 在幕后生成 SQL 语句。
+Yii 2.0 以 [[Yiisoft\Db\Query|Query]] 对象的形式表示一个数据库查询，
+这个对象使用 [[Yiisoft\Db\QueryBuilder|QueryBuilder]] 在幕后生成 SQL 语句。
 例如：
 
 ```php
-$query = new \yii\db\Query();
+$query = new \Yiisoft\Db\Query();
 $query->select('id, name')
       ->from('user')
       ->limit(10);
@@ -403,8 +403,8 @@ $rows = $command->queryAll();
 Yii 2.0 的[活动记录](db-active-record.md)改动了很多。
 两个最显而易见的改动分别涉及查询语句的生成（query building）和关联查询的处理（relational query handling）。
 
-1.1 中的 `CDbCriteria` 类在 Yii 2 中被 [[yii\db\ActiveQuery]] 所替代。
-这个类是继承自 [[yii\db\Query]]，因此也继承了所有查询生成方法。开始拼装一个查询可以调用 [[yii\db\ActiveRecord::find()]] 方法进行：
+1.1 中的 `CDbCriteria` 类在 Yii 2 中被 [[Yiisoft\Db\ActiveQuery]] 所替代。
+这个类是继承自 [[Yiisoft\Db\Query]]，因此也继承了所有查询生成方法。开始拼装一个查询可以调用 [[Yiisoft\Db\ActiveRecord::find()]] 方法进行：
 
 ```php
 // 检索所有“活动的”客户和订单，并以 ID 排序：
@@ -414,12 +414,12 @@ $customers = Customer::find()
     ->all();
 ```
 
-要声明一个关联关系，只需简单地定义一个 getter 方法来返回一个 [[yii\db\ActiveQuery|ActiveQuery]] 对象。
+要声明一个关联关系，只需简单地定义一个 getter 方法来返回一个 [[Yiisoft\Db\ActiveQuery|ActiveQuery]] 对象。
 getter 方法定义的属性名代表关联表名称。
 如，以下代码声明了一个名为 `orders` 的关系（1.1 中必须在 `relations()` 方法内声明关系）：
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public function getOrders()
     {
@@ -440,9 +440,9 @@ $orders = $customer->getOrders()->andWhere('status=1')->all();
 在 Yii 2.0 中会使用两个没有 JOIN 的 SQL 语句：第一条语句取回主表记录，
 第二条通过主表记录经主键筛选后查询关联表记录。
 
-当生成返回大量记录的查询时，可以链式书写 [[yii\db\ActiveQuery::asArray()|asArray()]] 方法，
+当生成返回大量记录的查询时，可以链式书写 [[Yiisoft\Db\ActiveQuery::asArray()|asArray()]] 方法，
 这样会以数组的形式返回查询结果，而不必返回
-[[yii\db\ActiveRecord|ActiveRecord]] 对象，这能显著降低因大量记录读取所消耗的 CPU 时间和内存。如：
+[[Yiisoft\Db\ActiveRecord|ActiveRecord]] 对象，这能显著降低因大量记录读取所消耗的 CPU 时间和内存。如：
 
 ```php
 $customers = Customer::find()->asArray()->all();
@@ -460,7 +460,7 @@ public function init()
 ```
 
 曾几何时，在 1.1 中重写一个活动记录类的构造方法会导致一些问题。它们不会在 2.0 中出现了。
-需要注意的是，如果你需要在构造方法中添加一些参数，恐怕必须重写 [[yii\db\ActiveRecord::instantiate()]] 方法。
+需要注意的是，如果你需要在构造方法中添加一些参数，恐怕必须重写 [[Yiisoft\Db\ActiveRecord::instantiate()]] 方法。
 
 活动记录方面还有很多其他的变化与改进，
 请参考[活动记录](db-active-record.md)章节以了解更多细节。
@@ -476,7 +476,7 @@ public function init()
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior

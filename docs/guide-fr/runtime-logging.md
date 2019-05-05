@@ -61,7 +61,7 @@ return [
                 [
                     'class' => 'Yiisoft\Log\EmailTarget',
                     'levels' => ['error'],
-                    'categories' => ['yii\db\*'],
+                    'categories' => ['Yiisoft\Db\*'],
                     'message' => [
                        'from' => ['log@example.com'],
                        'to' => ['admin@example.com', 'developer@example.com'],
@@ -79,7 +79,7 @@ return [
 Dans le code précédent, deux cibles d'enregistrement sont enregistrées dan la propriété [[Yiisoft\Log\Dispatcher::targets]] : 
 
 * la première cible sélectionne les messages d'erreurs et les avertissements et les sauvegarde dans une table de base de données ; 
-* la deuxième cible sélectionne les messages d'erreur dont le nom de la catégorie commence par `yii\db\`, et les envoie dans un courriel à la fois à `admin@example.com` et à `developer@example.com`.
+* la deuxième cible sélectionne les messages d'erreur dont le nom de la catégorie commence par `Yiisoft\Db\`, et les envoie dans un courriel à la fois à `admin@example.com` et à `developer@example.com`.
 
 Yii est fourni avec les cibles pré-construites suivantes. Reportez-vous à la documentation de l'API pour en savoir plus sur ces classes, en particulier comment les configurer et les utiliser. 
 
@@ -108,21 +108,21 @@ Si vous ne spécifiez pas la propriété [[Yiisoft\Log\Target::levels|levels]], 
 La propriété [[Yiisoft\Log\Target::categories|categories]] accepte un tableau constitué de noms ou de motifs de noms de catégorie de messages. Une cible ne traite 
 que les messages dont la catégorie est trouvée ou correspond aux motifs de ce tableau. Un motif de nom de catégorie est un préfixe de nom de catégorie 
 suivi d'une astérisque `*`. Un nom de catégorie correspond à un motif de nom de catégorie s'il commence par le préfixe du motif. 
-Par exemple, `yii\db\Command::execute` et `yii\db\Command::query` sont utilisés comme noms de catégorie pour les messages enregistrés dans la classe [[yii\db\Command]]. Ils correspondent tous deux au motif `yii\db\*`.
+Par exemple, `Yiisoft\Db\Command::execute` et `Yiisoft\Db\Command::query` sont utilisés comme noms de catégorie pour les messages enregistrés dans la classe [[Yiisoft\Db\Command]]. Ils correspondent tous deux au motif `Yiisoft\Db\*`.
 
 Si vous ne spécifiez pas la propriété [[Yiisoft\Log\Target::categories|categories]], cela signifie que le cible traite les messages de *n'importe quelle* catégorie. 
 
 En plus d'inscrire des catégories en liste blanche via la propriété [[Yiisoft\Log\Target::categories|categories]], vous pouvez également inscrire certaines catégories
 en liste noire via la propriété [[Yiisoft\Log\Target::except|except]]. Si la catégorie d'un message est trouvée ou correspond à un des motifs de cette propriété, ce message n'est PAS traité par la cible. 
  
-La configuration suivante de cible spécifie que la cible  traitera les messages d'erreur ou d'avertissement des catégories dont le nom correspond soit à `yii\db\*`, soit `yii\web\HttpException:*`, mais pas `yii\web\HttpException:404`.
+La configuration suivante de cible spécifie que la cible  traitera les messages d'erreur ou d'avertissement des catégories dont le nom correspond soit à `Yiisoft\Db\*`, soit `yii\web\HttpException:*`, mais pas `yii\web\HttpException:404`.
 
 ```php
 [
     'class' => 'Yiisoft\Log\FileTarget',
     'levels' => ['error', 'warning'],
     'categories' => [
-        'yii\db\*',
+        'Yiisoft\Db\*',
         'yii\web\HttpException:*',
     ],
     'except' => [
@@ -280,7 +280,7 @@ La création d'une classe de cible d'enregistrement est très simple. Vous devez
 
 ## Profilage de la performance <span id="performance-profiling"></span>
 
-Le profilage de la performance est un type particulier d'enregistrement de messages qui est utilisé pour mesurer le temps d'exécution de certains blocs de code et pour déterminer les goulots d'étranglement. Par exemple, la classe [[yii\db\Command]] utilise le profilage de performance pour connaître le temps d'exécution de chacune des requêtes de base de données. 
+Le profilage de la performance est un type particulier d'enregistrement de messages qui est utilisé pour mesurer le temps d'exécution de certains blocs de code et pour déterminer les goulots d'étranglement. Par exemple, la classe [[Yiisoft\Db\Command]] utilise le profilage de performance pour connaître le temps d'exécution de chacune des requêtes de base de données. 
 
 Pour utiliser le profilage de la  performance, commencez par identifier les blocs de code qui ont besoin d'être profilés. Puis, entourez-les de la manière suivante :
 

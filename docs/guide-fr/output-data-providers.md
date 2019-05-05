@@ -7,7 +7,7 @@ Un fournisseur de données est une classe qui implémente l'interface [[yii\data
 
 Les classes fournisseurs de données suivantes sont incluses dans les versions publiées de Yii :
 
-* [[yii\data\ActiveDataProvider]]: utilise [[yii\db\Query]] ou [[yii\db\ActiveQuery]] pour demander des données à des bases de données et les retourner sous forme de tableaux ou d'instances d'[enregistrement actif](db-active-record.md).
+* [[yii\data\ActiveDataProvider]]: utilise [[Yiisoft\Db\Query]] ou [[Yiisoft\Db\ActiveQuery]] pour demander des données à des bases de données et les retourner sous forme de tableaux ou d'instances d'[enregistrement actif](db-active-record.md).
 * [[yii\data\SqlDataProvider]]: exécute une instruction SQL et retourne les données sous forme de tableaux. 
 * [[yii\data\ArrayDataProvider]]: prend un gros tableau et en retourne une tranche en se basant sur les spécifications de pagination et de tri.
 
@@ -45,7 +45,7 @@ Ces fournisseurs de données varient essentiellement en fonction de la manière 
 
 ## Fournisseur de données actif <span id="active-data-provider"></span> 
 
-Pour utiliser le [[yii\data\ActiveDataProvider|fournisseur de données actif (classe *ActiveDataProvider*)]], vous devez configurer sa propriété [[yii\data\ActiveDataProvider::query|query]]. Elle accepte soit un objet [[yii\db\Query]], soit un objet [[yii\db\ActiveQuery]]. Avec le premier, les données peuvent être soit des tableaux, soit des instances d'[enregistrement actif](db-active-record.md). Par exemple :
+Pour utiliser le [[yii\data\ActiveDataProvider|fournisseur de données actif (classe *ActiveDataProvider*)]], vous devez configurer sa propriété [[yii\data\ActiveDataProvider::query|query]]. Elle accepte soit un objet [[Yiisoft\Db\Query]], soit un objet [[Yiisoft\Db\ActiveQuery]]. Avec le premier, les données peuvent être soit des tableaux, soit des instances d'[enregistrement actif](db-active-record.md). Par exemple :
 
 
 ```php
@@ -73,7 +73,7 @@ $posts = $provider->getModels();
 Si la requête `$query` de l'exemple ci-dessus est créée en utilisant le code suivant, alors le fournisseur de données retourne des tableaux bruts.
 
 ```php
-use yii\db\Query;
+use Yiisoft\Db\Query;
 
 $query = (new Query())->from('post')->where(['status' => 1]); 
 ```
@@ -168,7 +168,7 @@ $posts = $provider->getModels();
 // retourne les valeurs des clés primaires correspondant à $posts
 ```
 
-Dans l'exemple ci-dessus, comme vous fournissez un objet [[yii\db\ActiveQuery]] à [[yii\data\ActiveDataProvider]]. Il est suffisamment intelligent pour retourner les valeurs de la clé primaire en tant que clés. Vous pouvez aussi spécifier comment les valeurs de la clé sont calculées en configurant [[yii\data\ActiveDataProvider::key]] avec un nom de colonne ou une fonction de rappel qui calcule les valeurs de la clé. Par exemple :
+Dans l'exemple ci-dessus, comme vous fournissez un objet [[Yiisoft\Db\ActiveQuery]] à [[yii\data\ActiveDataProvider]]. Il est suffisamment intelligent pour retourner les valeurs de la clé primaire en tant que clés. Vous pouvez aussi spécifier comment les valeurs de la clé sont calculées en configurant [[yii\data\ActiveDataProvider::key]] avec un nom de colonne ou une fonction de rappel qui calcule les valeurs de la clé. Par exemple :
 
 ```php
 // utilise la colonne "slug" comme valeurs de la clé

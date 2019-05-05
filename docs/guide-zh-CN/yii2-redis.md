@@ -189,7 +189,7 @@ class Customer extends \yii\redis\ActiveRecord
     /**
      * 定义和其它模型的关系
      *
-     * @return \yii\db\ActiveQueryInterface
+     * @return \Yiisoft\Db\ActiveQueryInterface
      */
     public function getOrders()
     {

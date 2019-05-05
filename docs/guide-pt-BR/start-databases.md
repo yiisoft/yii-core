@@ -70,7 +70,7 @@ o seguinte:
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',
@@ -80,7 +80,7 @@ return [
 
 O arquivo `config/db.php` é uma ferramenta de [configuração](concept-configurations.md)
 típica baseada em arquivos. Este arquivo de configuração em particular especifica
-os parâmetros necessários para criar e inicializar uma instância de [[yii\db\Connection]]
+os parâmetros necessários para criar e inicializar uma instância de [[Yiisoft\Db\Connection]]
 através da qual você pode fazer consultas de SQL ao banco de dados subjacente.
 
 A conexão de BD configurada acima pode ser acessada no código da aplicação
@@ -103,19 +103,19 @@ no arquivo `models/Country.php`.
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
 }
 ```
 
-A classe `Country` estende de [[yii\db\ActiveRecord]]. Você não precisa escrever
+A classe `Country` estende de [[Yiisoft\Db\ActiveRecord]]. Você não precisa escrever
 nenhum código nela! Só com o código acima, o Yii adivinhará o nome da tabela
 associada a partir do nome da classe.
 
 > Informação: Se não houver nenhuma correspondência direta do nome da classe com o nome
-  da tabela, você pode sobrescrever o método [[yii\db\ActiveRecord::tableName()]] 
+  da tabela, você pode sobrescrever o método [[Yiisoft\Db\ActiveRecord::tableName()]] 
   para especificar explicitamente o nome da tabela associada.
 
 Usando a classe `Country`, você pode manipular facilmente os dados na tabela

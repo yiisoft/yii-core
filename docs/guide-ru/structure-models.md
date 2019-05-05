@@ -64,7 +64,7 @@ class ContactForm extends Model
 }
 ```
 
-Вы можете переопределить метод [[yii\base\Model::attributes()]], чтобы определять атрибуты другим способом. Метод должен возвращать имена атрибутов в модели. Например [[yii\db\ActiveRecord]] делает так, возвращая имена столбцов из связанной таблицы базы данных в качестве имён атрибутов. Также может понадобиться переопределить магические методы, такие как `__get()`, `__set()` для того, что бы атрибуты могли быть доступны как обычные свойства объекта.
+Вы можете переопределить метод [[yii\base\Model::attributes()]], чтобы определять атрибуты другим способом. Метод должен возвращать имена атрибутов в модели. Например [[Yiisoft\Db\ActiveRecord]] делает так, возвращая имена столбцов из связанной таблицы базы данных в качестве имён атрибутов. Также может понадобиться переопределить магические методы, такие как `__get()`, `__set()` для того, что бы атрибуты могли быть доступны как обычные свойства объекта.
 
 
 ### Метки атрибутов <span id="attribute-labels"></span>
@@ -148,7 +148,7 @@ $model = new User(['scenario' => User::SCENARIO_LOGIN]);
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {
@@ -165,7 +165,7 @@ class User extends ActiveRecord
 }
 ```
 
-> Info: В приведенном выше и следующих примерах, классы моделей расширяются от [[yii\db\ActiveRecord]] потому, что использование нескольких сценариев обычно происходит от классов [Active Record](db-active-record.md).
+> Info: В приведенном выше и следующих примерах, классы моделей расширяются от [[Yiisoft\Db\ActiveRecord]] потому, что использование нескольких сценариев обычно происходит от классов [Active Record](db-active-record.md).
 
 Метод `scenarios()` возвращает массив, ключами которого являются имена сценариев, а значения - соответствующие *активные атрибуты*. Активные атрибуты могут быть [массово присвоены](#massive-assignment) и подлежат [валидации](#validation-rules). В приведенном выше примере, атрибуты `username` и `password` это активные атрибуты сценария `login`, а в сценарии `register` так же активным атрибутом является `email` вместе с `username` и `password`.
 
@@ -174,7 +174,7 @@ class User extends ActiveRecord
 ```php
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class User extends ActiveRecord
 {

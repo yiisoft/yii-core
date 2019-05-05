@@ -613,7 +613,7 @@ CREATE OR REPLACE VIEW vw_user_info AS
 
 namespace app\models\views\grid;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class UserView extends ActiveRecord
 {

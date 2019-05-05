@@ -8,7 +8,7 @@ Chaque composant d'application possède un identifiant unique qui le distingue d
 \Yii::$app->componentID
 ```
 
-Par exemple, vous pouvez utiliser `\Yii::$app->db` pour obtenir la  [[yii\db\Connection|connexion à la base de données]], et `\Yii::$app->cache` pour accéder au  [[yii\caching\Cache|cache primaire]] enregistré dans l'application.
+Par exemple, vous pouvez utiliser `\Yii::$app->db` pour obtenir la  [[Yiisoft\Db\Connection|connexion à la base de données]], et `\Yii::$app->cache` pour accéder au  [[yii\caching\Cache|cache primaire]] enregistré dans l'application.
 
 Un composant d'application est créé la première fois qu'on veut y accéder en utilisant l'expression ci-dessus. Les accès ultérieurs retournent la même instance du composant.
 
@@ -24,7 +24,7 @@ Par exemple,
 
         // enregistre le composant "db" à l'aide d'un tableau de configuration
         'db' => [
-            'class' => 'yii\db\Connection',
+            'class' => 'Yiisoft\Db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
             'password' => '',
@@ -70,8 +70,8 @@ Vous trouverez ci-après la liste des composants d'application prédéfinis du n
 
 * [[yii\web\AssetManager|assetManager (gestionnaire de ressources]]: gère les paquets de ressources et la publication des ressources. 
   Reportez-vous à la section [Gestion des ressources](structure-assets.md) pour plus de détails.
-* [[yii\db\Connection|db (base de données)]]: représente une connexion à une base de données à l'aide de laquelle vous pouvez effectuer des requêtes de base de données. 
-  Notez que lorsque vous configurez ce composant, vous devez spécifier la classe de composant tout comme les autres propriétés de composant, telle que [[yii\db\Connection::dsn]].
+* [[Yiisoft\Db\Connection|db (base de données)]]: représente une connexion à une base de données à l'aide de laquelle vous pouvez effectuer des requêtes de base de données. 
+  Notez que lorsque vous configurez ce composant, vous devez spécifier la classe de composant tout comme les autres propriétés de composant, telle que [[Yiisoft\Db\Connection::dsn]].
   Reportez-vous à la section [Objets d'accès aux données](db-dao.md) pour plus de détails.
 * [[yii\base\Application::errorHandler|errorHandler (gestionnaire d'erreurs) ]]: gère les erreurs PHP et les exceptions.
   Reportez-vous à la section [Gestion des erreurs](runtime-handling-errors.md) pour plus de détails.

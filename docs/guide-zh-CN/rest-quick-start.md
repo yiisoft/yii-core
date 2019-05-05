@@ -19,7 +19,7 @@ Yii 提供了一整套用来简化实现 RESTful 风格的 Web Service 服务的
 如下， 我们用一个例子来说明如何用最少的编码来建立一套RESTful风格的API。
 
 假设你想通过 RESTful 风格的 API 来展示用户数据。用户数据被存储在用户DB表，
-你已经创建了 [[yii\db\ActiveRecord|ActiveRecord]] 类 `app\models\User` 来访问该用户数据.
+你已经创建了 [[Yiisoft\Db\ActiveRecord|ActiveRecord]] 类 `app\models\User` 来访问该用户数据.
 
 
 ## 创建一个控制器 <span id="creating-controller"></span>
@@ -194,7 +194,7 @@ Content-Type: application/json; charset=UTF-8
 控制器来组织末端接口为一个单一的资源类型。
 
 从 [[yii\base\Model]] 类扩展的资源被表示为数据模型。
-如果你在使用（关系或非关系）数据库，推荐你使用 [[yii\db\ActiveRecord|ActiveRecord]]
+如果你在使用（关系或非关系）数据库，推荐你使用 [[Yiisoft\Db\ActiveRecord|ActiveRecord]]
 来表示资源。
 
 你可以使用 [[yii\rest\UrlRule]] 简化路由到你的 API 末端。

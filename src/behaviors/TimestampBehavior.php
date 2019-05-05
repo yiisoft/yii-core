@@ -8,7 +8,7 @@
 namespace yii\behaviors;
 
 use yii\exceptions\InvalidCallException;
-use yii\db\BaseActiveRecord;
+use Yiisoft\Db\BaseActiveRecord;
 use Yiisoft\ActiveRecord\ActiveRecordSaveEvent;
 
 /**
@@ -40,7 +40,7 @@ use Yiisoft\ActiveRecord\ActiveRecordSaveEvent;
  * you may configure the [[createdAtAttribute]], [[updatedAtAttribute]] and [[value]] properties like the following:
  *
  * ```php
- * use yii\db\Expression;
+ * use Yiisoft\Db\Expression;
  *
  * public function behaviors()
  * {
@@ -55,7 +55,7 @@ use Yiisoft\ActiveRecord\ActiveRecordSaveEvent;
  * }
  * ```
  *
- * In case you use an [[\yii\db\Expression]] object as in the example above, the attribute will not hold the timestamp value, but
+ * In case you use an [[\Yiisoft\Db\Expression]] object as in the example above, the attribute will not hold the timestamp value, but
  * the Expression object itself after the record has been saved. If you need the value from DB afterwards you should call
  * the [[\Yiisoft\ActiveRecord\ActiveRecord::refresh()|refresh()]] method of the record.
  *

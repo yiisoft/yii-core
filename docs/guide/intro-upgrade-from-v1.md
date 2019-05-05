@@ -377,12 +377,12 @@ Query Builder
 -------------
 
 In 1.1, query building was scattered among several classes, including `CDbCommand`,
-`CDbCriteria`, and `CDbCommandBuilder`. Yii 2.0 represents a DB query in terms of a [[yii\db\Query|Query]] object
-that can be turned into a SQL statement with the help of [[yii\db\QueryBuilder|QueryBuilder]] behind the scene.
+`CDbCriteria`, and `CDbCommandBuilder`. Yii 2.0 represents a DB query in terms of a [[Yiisoft\Db\Query|Query]] object
+that can be turned into a SQL statement with the help of [[Yiisoft\Db\QueryBuilder|QueryBuilder]] behind the scene.
 For example:
 
 ```php
-$query = new \yii\db\Query();
+$query = new \Yiisoft\Db\Query();
 $query->select('id, name')
       ->from('user')
       ->limit(10);
@@ -403,8 +403,8 @@ Active Record
 Yii 2.0 introduces a lot of changes to [Active Record](db-active-record.md). The two most obvious ones involve
 query building and relational query handling.
 
-The `CDbCriteria` class in 1.1 is replaced by [[yii\db\ActiveQuery]] in Yii 2. That class extends from [[yii\db\Query]], and thus
-inherits all query building methods. You call [[yii\db\ActiveRecord::find()]] to start building a query:
+The `CDbCriteria` class in 1.1 is replaced by [[Yiisoft\Db\ActiveQuery]] in Yii 2. That class extends from [[Yiisoft\Db\Query]], and thus
+inherits all query building methods. You call [[Yiisoft\Db\ActiveRecord::find()]] to start building a query:
 
 ```php
 // To retrieve all *active* customers and order them by their ID:
@@ -414,12 +414,12 @@ $customers = Customer::find()
     ->all();
 ```
 
-To declare a relation, simply define a getter method that returns an [[yii\db\ActiveQuery|ActiveQuery]] object.
+To declare a relation, simply define a getter method that returns an [[Yiisoft\Db\ActiveQuery|ActiveQuery]] object.
 The property name defined by the getter represents the relation name. For example, the following code declares
 an `orders` relation (in 1.1, you would have to declare relations in a central place `relations()`):
 
 ```php
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \Yiisoft\Db\ActiveRecord
 {
     public function getOrders()
     {
@@ -440,7 +440,7 @@ would be created to select both the primary and the relational records. In Yii 2
 without using JOIN: the first statement brings back the primary records and the second brings back the relational
 records by filtering with the primary keys of the primary records.
 
-Instead of returning [[yii\db\ActiveRecord|ActiveRecord]] objects, you may chain the [[yii\db\ActiveQuery::asArray()|asArray()]]
+Instead of returning [[Yiisoft\Db\ActiveRecord|ActiveRecord]] objects, you may chain the [[Yiisoft\Db\ActiveQuery::asArray()|asArray()]]
 method when building a query to return a large number of records. This will cause the query result to be returned
 as arrays, which can significantly reduce the needed CPU time and memory if large number of records . For example:
 
@@ -460,7 +460,7 @@ public function init()
 ```
 
 There were some problems with overriding the constructor of an ActiveRecord class in 1.1. These are not present in
-version 2.0 anymore. Note that when adding parameters to the constructor you might have to override [[yii\db\ActiveRecord::instantiate()]].
+version 2.0 anymore. Note that when adding parameters to the constructor you might have to override [[Yiisoft\Db\ActiveRecord::instantiate()]].
 
 There are many other changes and enhancements to Active Record. Please refer to
 the [Active Record](db-active-record.md) section for more details.
@@ -476,7 +476,7 @@ of the owner, you have to override the `events()` method like the following:
 ```php
 namespace app\components;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior

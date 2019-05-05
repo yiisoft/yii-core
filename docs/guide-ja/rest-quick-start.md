@@ -200,7 +200,7 @@ Yii の RESTful API フレームワークを使う場合は、API エンド・�
 そして、コントローラを使って、単一タイプのリソースに対するエンド・ボイントを実装するアクションを編成します。
 
 リソースは [[yii\base\Model]] クラスを拡張するデータ・モデルとして表現されます。
-データベース (リレーショナルまたは NoSQL) を扱っている場合は、[[yii\db\ActiveRecord|ActiveRecord]]
+データベース (リレーショナルまたは NoSQL) を扱っている場合は、[[Yiisoft\Db\ActiveRecord|ActiveRecord]]
 を使ってリソースを表現することが推奨されます。
 
 [[yii\rest\UrlRule]] を使って API エンド・ボイントへのルーティングを簡単にすることが出来ます。

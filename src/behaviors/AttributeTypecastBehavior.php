@@ -10,7 +10,7 @@ namespace yii\behaviors;
 use yii\base\Behavior;
 use yii\exceptions\InvalidArgumentException;
 use yii\base\Model;
-use yii\db\BaseActiveRecord;
+use Yiisoft\Db\BaseActiveRecord;
 use Yiisoft\Strings\StringHelper;
 use yii\validators\BooleanValidator;
 use yii\validators\NumberValidator;
@@ -22,7 +22,7 @@ use yii\validators\StringValidator;
  * It may also come in handy for regular [[\Yiisoft\ActiveRecord\ActiveRecord]] or even [[\yii\base\Model]], allowing to maintain
  * strict attribute types after model validation.
  *
- * This behavior should be attached to [[\yii\base\Model]] or [[\yii\db\BaseActiveRecord]] descendant.
+ * This behavior should be attached to [[\yii\base\Model]] or [[\Yiisoft\Db\BaseActiveRecord]] descendant.
  *
  * You should specify exact attribute types via [[attributeTypes]].
  *

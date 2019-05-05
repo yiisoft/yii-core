@@ -55,12 +55,12 @@ class SettingsController extends Controller
 }
 ```
 
-In the code above we're using [[yii\db\ActiveQuery::indexBy()|indexBy()]] when retrieving models from the database to populate an array indexed by models primary keys.
+In the code above we're using [[Yiisoft\Db\ActiveQuery::indexBy()|indexBy()]] when retrieving models from the database to populate an array indexed by models primary keys.
 These will be later used to identify form fields. [[yii\base\Model::loadMultiple()|Model::loadMultiple()]] fills multiple
 models with the form data coming from POST
 and [[yii\base\Model::validateMultiple()|Model::validateMultiple()]] validates all models at once.
 As we have validated our models before, using `validateMultiple()`, we're now passing `false` as
-a parameter to [[yii\db\ActiveRecord::save()|save()]] to not run validation twice.
+a parameter to [[Yiisoft\Db\ActiveRecord::save()|save()]] to not run validation twice.
 
 Now the form that's in `update` view:
 

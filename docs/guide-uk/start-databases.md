@@ -61,7 +61,7 @@ INSERT INTO `country` VALUES ('US','United States',322976000);
 <?php
 
 return [
-    'class' => 'yii\db\Connection',
+    'class' => 'Yiisoft\Db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
     'password' => '',
@@ -70,7 +70,7 @@ return [
 ```
 
 Файл конфігурації `config/db.php` є типовим інструментом [налаштування](concept-configurations.md) на основі файлів. 
-Даний файл конфігурації визначає параметри, які необхідні для створення та ініціалізації екземпляру [[yii\db\Connection]],
+Даний файл конфігурації визначає параметри, які необхідні для створення та ініціалізації екземпляру [[Yiisoft\Db\Connection]],
 через який ви можете робити SQL-запити до зазначеної бази даних.
 
 З’єднання з БД, описане вище, може бути доступне в коді додатка за допомогою виразу `Yii::$app->db`.
@@ -91,18 +91,18 @@ return [
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
 }
 ```
 
-Клас `Country` наслідує [[yii\db\ActiveRecord]]. Вам не потрібно писати ніякого коду всередині нього! 
+Клас `Country` наслідує [[Yiisoft\Db\ActiveRecord]]. Вам не потрібно писати ніякого коду всередині нього! 
 Всього лише за допомогою описаного вище коду, Yii самостійно вгадає відповідне імʼя таблиці з імені класу.
 
 > Info: Якщо неможливо отримати прямої відповідності імені класу до імені таблиці, ви можете
-перевизначити метод [[yii\db\ActiveRecord::tableName()]], щоб точно задати відповідне імʼя таблиці.
+перевизначити метод [[Yiisoft\Db\ActiveRecord::tableName()]], щоб точно задати відповідне імʼя таблиці.
 
 Використовуючи клас `Country`, ви можете легко маніпулювати даними з таблиці `country`, як показано у цих фрагментах коду:
 

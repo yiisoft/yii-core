@@ -650,7 +650,7 @@ Then you need to create the ActiveRecord that will be representing this view:
 
 namespace app\models\views\grid;
 
-use yii\db\ActiveRecord;
+use Yiisoft\Db\ActiveRecord;
 
 class UserView extends ActiveRecord
 {
