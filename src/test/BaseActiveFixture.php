@@ -33,7 +33,7 @@ abstract class BaseActiveFixture extends DbFixture implements \IteratorAggregate
     public $data = [];
 
     /**
-     * @var \yii\activerecord\ActiveRecord[] the loaded AR models
+     * @var \Yiisoft\ActiveRecord\ActiveRecord[] the loaded AR models
      */
     private $_models = [];
 
@@ -42,7 +42,7 @@ abstract class BaseActiveFixture extends DbFixture implements \IteratorAggregate
      * Returns the AR model by the specified model name.
      * A model name is the key of the corresponding data row in [[data]].
      * @param string $name the model name.
-     * @return null|\yii\activerecord\ActiveRecord the AR model, or null if the model cannot be found in the database
+     * @return null|\Yiisoft\ActiveRecord\ActiveRecord the AR model, or null if the model cannot be found in the database
      * @throws \yii\exceptions\InvalidConfigException if [[modelClass]] is not set.
      */
     public function getModel($name)
@@ -58,7 +58,7 @@ abstract class BaseActiveFixture extends DbFixture implements \IteratorAggregate
             throw new InvalidConfigException('The "modelClass" property must be set.');
         }
         $row = $this->data[$name];
-        /* @var $modelClass \yii\activerecord\ActiveRecord */
+        /* @var $modelClass \Yiisoft\ActiveRecord\ActiveRecord */
         $modelClass = $this->modelClass;
         $keys = [];
         foreach ($modelClass::primaryKey() as $key) {

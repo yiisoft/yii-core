@@ -9,7 +9,7 @@ namespace yii\tests\framework\behaviors;
 
 use yii\helpers\Yii;
 use yii\behaviors\SluggableBehavior;
-use yii\activerecord\ActiveRecord;
+use Yiisoft\ActiveRecord\ActiveRecord;
 use yii\db\Connection;
 use yii\tests\TestCase;
 

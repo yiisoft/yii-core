@@ -11,7 +11,7 @@ use yii\helpers\Yii;
 use yii\base\BaseObject;
 use yii\base\Event;
 use yii\behaviors\BlameableBehavior;
-use yii\activerecord\ActiveRecord;
+use Yiisoft\ActiveRecord\ActiveRecord;
 use yii\db\BaseActiveRecord;
 use yii\tests\TestCase;
 

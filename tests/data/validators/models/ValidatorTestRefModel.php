@@ -7,7 +7,7 @@
 
 namespace yii\tests\data\validators\models;
 
-use yii\activerecord\tests\data\ActiveRecord;
+use Yiisoft\ActiveRecord\Tests\Data\ActiveRecord;
 
 /**
  * @property int id

@@ -9,7 +9,7 @@ namespace yii\helpers;
 
 use yii\exceptions\InvalidArgumentException;
 use yii\base\Model;
-use yii\activerecord\ActiveRecordInterface;
+use Yiisoft\ActiveRecord\ActiveRecordInterface;
 use yii\validators\StringValidator;
 use yii\web\Request;
 use Yiisoft\Arrays\ArrayHelper;

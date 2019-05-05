@@ -9,10 +9,10 @@ namespace yii\tests\framework\test;
 
 use yii\test\ActiveFixture;
 use yii\test\FixtureTrait;
-use yii\activerecord\tests\data\ActiveRecord;
-use yii\activerecord\tests\data\Animal;
-use yii\activerecord\tests\data\Customer;
-use yii\activerecord\tests\data\Profile;
+use Yiisoft\ActiveRecord\Tests\Data\ActiveRecord;
+use Yiisoft\ActiveRecord\Tests\Data\Animal;
+use Yiisoft\ActiveRecord\Tests\Data\Customer;
+use Yiisoft\ActiveRecord\Tests\Data\Profile;
 use yii\db\tests\unit\DatabaseTestCase;
 
 class ProfileFixture extends ActiveFixture

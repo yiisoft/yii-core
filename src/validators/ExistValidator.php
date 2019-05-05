@@ -10,8 +10,8 @@ namespace yii\validators;
 use yii\helpers\Yii;
 use yii\exceptions\InvalidConfigException;
 use yii\base\Model;
-use yii\activerecord\ActiveQuery;
-use yii\activerecord\ActiveRecord;
+use Yiisoft\ActiveRecord\ActiveQuery;
+use Yiisoft\ActiveRecord\ActiveRecord;
 use yii\db\QueryInterface;
 
 /**
@@ -116,7 +116,7 @@ class ExistValidator extends Validator
 
     /**
      * Validates existence of the current attribute based on relation name
-     * @param \yii\activerecord\ActiveRecord $model the data model to be validated
+     * @param \Yiisoft\ActiveRecord\ActiveRecord $model the data model to be validated
      * @param string $attribute the name of the attribute to be validated.
      */
     private function checkTargetRelationExistence($model, $attribute)
@@ -207,7 +207,7 @@ class ExistValidator extends Validator
         }
 
         $targetModelClass = $this->getTargetClass($model);
-        if (!is_subclass_of($targetModelClass, 'yii\activerecord\ActiveRecord')) {
+        if (!is_subclass_of($targetModelClass, 'Yiisoft\ActiveRecord\ActiveRecord')) {
             return $conditions;
         }
 
@@ -289,11 +289,11 @@ class ExistValidator extends Validator
      * Creates a query instance with the given condition.
      * @param string $targetClass the target AR class
      * @param mixed $condition query condition
-     * @return \yii\activerecord\ActiveQueryInterface the query instance
+     * @return \Yiisoft\ActiveRecord\ActiveQueryInterface the query instance
      */
     protected function createQuery($targetClass, $condition)
     {
-        /* @var $targetClass \yii\activerecord\ActiveRecordInterface */
+        /* @var $targetClass \Yiisoft\ActiveRecord\ActiveRecordInterface */
         $query = $targetClass::find()->andWhere($condition);
         if ($this->filter instanceof \Closure) {
             call_user_func($this->filter, $query);

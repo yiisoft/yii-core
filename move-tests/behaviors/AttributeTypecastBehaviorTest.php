@@ -11,7 +11,7 @@ use yii\helpers\Yii;
 use yii\base\DynamicModel;
 use yii\base\Event;
 use yii\behaviors\AttributeTypecastBehavior;
-use yii\activerecord\ActiveRecord;
+use Yiisoft\ActiveRecord\ActiveRecord;
 use yii\tests\TestCase;
 
 /**

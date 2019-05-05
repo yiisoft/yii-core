@@ -9,7 +9,7 @@ namespace yii\behaviors;
 
 use yii\exceptions\InvalidCallException;
 use yii\db\BaseActiveRecord;
-use yii\activerecord\ActiveRecordSaveEvent;
+use Yiisoft\ActiveRecord\ActiveRecordSaveEvent;
 
 /**
  * TimestampBehavior automatically fills the specified attributes with the current timestamp.
@@ -57,7 +57,7 @@ use yii\activerecord\ActiveRecordSaveEvent;
  *
  * In case you use an [[\yii\db\Expression]] object as in the example above, the attribute will not hold the timestamp value, but
  * the Expression object itself after the record has been saved. If you need the value from DB afterwards you should call
- * the [[\yii\activerecord\ActiveRecord::refresh()|refresh()]] method of the record.
+ * the [[\Yiisoft\ActiveRecord\ActiveRecord::refresh()|refresh()]] method of the record.
  *
  * TimestampBehavior also provides a method named [[touch()]] that allows you to assign the current
  * timestamp to the specified attribute(s) and save them to the database. For example,

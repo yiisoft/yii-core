@@ -141,7 +141,7 @@ class ActiveFixture extends BaseActiveFixture implements \yii\di\Initiable
         $db = $this->db;
         $tableName = $this->tableName;
         if ($tableName === null) {
-            /* @var $modelClass \yii\activerecord\ActiveRecord */
+            /* @var $modelClass \Yiisoft\ActiveRecord\ActiveRecord */
             $modelClass = $this->modelClass;
             $tableName = $modelClass::tableName();
         }

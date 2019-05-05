@@ -9,10 +9,10 @@ namespace yii\validators;
 
 use yii\helpers\Yii;
 use yii\base\Model;
-use yii\activerecord\ActiveQuery;
-use yii\activerecord\ActiveQueryInterface;
-use yii\activerecord\ActiveRecord;
-use yii\activerecord\ActiveRecordInterface;
+use Yiisoft\ActiveRecord\ActiveQuery;
+use Yiisoft\ActiveRecord\ActiveQueryInterface;
+use Yiisoft\ActiveRecord\ActiveRecord;
+use Yiisoft\ActiveRecord\ActiveRecordInterface;
 use Yiisoft\Inflector\InflectorHelper;
 
 /**
@@ -52,7 +52,7 @@ class UniqueValidator extends Validator
      */
     public $targetClass;
     /**
-     * @var string|array the name of the [[\yii\activerecord\ActiveRecord|ActiveRecord]] attribute that should be used to
+     * @var string|array the name of the [[\Yiisoft\ActiveRecord\ActiveRecord|ActiveRecord]] attribute that should be used to
      * validate the uniqueness of the current attribute value. If not set, it will use the name
      * of the attribute currently being validated. You may use an array to validate the uniqueness
      * of multiple columns at the same time. The array values are the attributes that will be
@@ -182,7 +182,7 @@ class UniqueValidator extends Validator
             $exists = $query->exists();
         } else {
             // if current $model is in the database already we can't use exists()
-            if ($query instanceof \yii\activerecord\ActiveQuery) {
+            if ($query instanceof \Yiisoft\ActiveRecord\ActiveQuery) {
                 // only select primary key to optimize query
                 $columnsCondition = array_flip($targetClass::primaryKey());
                 $query->select(array_flip($this->applyTableAlias($query, $columnsCondition)));
@@ -237,7 +237,7 @@ class UniqueValidator extends Validator
      * Processes attributes' relations described in $targetAttribute parameter into conditions, compatible with
      * [[\yii\db\Query::where()|Query::where()]] key-value format.
      *
-     * @param string|array $targetAttribute the name of the [[\yii\activerecord\ActiveRecord|ActiveRecord]] attribute that
+     * @param string|array $targetAttribute the name of the [[\Yiisoft\ActiveRecord\ActiveRecord|ActiveRecord]] attribute that
      * should be used to validate the uniqueness of the current attribute value. You may use an array to validate
      * the uniqueness of multiple columns at the same time. The array values are the attributes that will be
      * used to validate the uniqueness, while the array keys are the attributes whose values are to be validated.
@@ -259,7 +259,7 @@ class UniqueValidator extends Validator
         }
 
         $targetModelClass = $this->getTargetClass($model);
-        if (!is_subclass_of($targetModelClass, 'yii\activerecord\ActiveRecord')) {
+        if (!is_subclass_of($targetModelClass, 'Yiisoft\ActiveRecord\ActiveRecord')) {
             return $conditions;
         }
 

@@ -19,7 +19,7 @@ use yii\validators\StringValidator;
 /**
  * AttributeTypecastBehavior provides an ability of automatic model attribute typecasting.
  * This behavior is very useful in case of usage of ActiveRecord for the schema-less databases like MongoDB or Redis.
- * It may also come in handy for regular [[\yii\activerecord\ActiveRecord]] or even [[\yii\base\Model]], allowing to maintain
+ * It may also come in handy for regular [[\Yiisoft\ActiveRecord\ActiveRecord]] or even [[\yii\base\Model]], allowing to maintain
  * strict attribute types after model validation.
  *
  * This behavior should be attached to [[\yii\base\Model]] or [[\yii\db\BaseActiveRecord]] descendant.
@@ -31,7 +31,7 @@ use yii\validators\StringValidator;
  * ```php
  * use yii\behaviors\AttributeTypecastBehavior;
  *
- * class Item extends \yii\activerecord\ActiveRecord
+ * class Item extends \Yiisoft\ActiveRecord\ActiveRecord
  * {
  *     public function behaviors()
  *     {
@@ -61,7 +61,7 @@ use yii\validators\StringValidator;
  * ```php
  * use yii\behaviors\AttributeTypecastBehavior;
  *
- * class Item extends \yii\activerecord\ActiveRecord
+ * class Item extends \Yiisoft\ActiveRecord\ActiveRecord
  * {
  *
  *     public function rules()
@@ -156,7 +156,7 @@ class AttributeTypecastBehavior extends Behavior
     /**
      * @var bool whether to perform typecasting before saving owner model (insert or update).
      * This option may be disabled in order to achieve better performance.
-     * For example, in case of [[\yii\activerecord\ActiveRecord]] usage, typecasting before save
+     * For example, in case of [[\Yiisoft\ActiveRecord\ActiveRecord]] usage, typecasting before save
      * will grant no benefit an thus can be disabled.
      * Note that changing this option value will have no effect after this behavior has been attached to the model.
      */
@@ -164,7 +164,7 @@ class AttributeTypecastBehavior extends Behavior
     /**
      * @var bool whether to perform typecasting after saving owner model (insert or update).
      * This option may be disabled in order to achieve better performance.
-     * For example, in case of [[\yii\activerecord\ActiveRecord]] usage, typecasting after save
+     * For example, in case of [[\Yiisoft\ActiveRecord\ActiveRecord]] usage, typecasting after save
      * will grant no benefit an thus can be disabled.
      * Note that changing this option value will have no effect after this behavior has been attached to the model.
      * @since 2.0.14
@@ -174,7 +174,7 @@ class AttributeTypecastBehavior extends Behavior
      * @var bool whether to perform typecasting after retrieving owner model data from
      * the database (after find or refresh).
      * This option may be disabled in order to achieve better performance.
-     * For example, in case of [[\yii\activerecord\ActiveRecord]] usage, typecasting after find
+     * For example, in case of [[\Yiisoft\ActiveRecord\ActiveRecord]] usage, typecasting after find
      * will grant no benefit in most cases an thus can be disabled.
      * Note that changing this option value will have no effect after this behavior has been attached to the model.
      */

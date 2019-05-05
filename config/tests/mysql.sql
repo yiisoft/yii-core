@@ -211,8 +211,8 @@ CREATE TABLE `storage` (
 
 CREATE VIEW `animal_view` AS SELECT * FROM `animal`;
 
-INSERT INTO `animal` (`type`) VALUES ('yii\activerecord\tests\data\Cat');
-INSERT INTO `animal` (`type`) VALUES ('yii\activerecord\tests\data\Dog');
+INSERT INTO `animal` (`type`) VALUES ('Yiisoft\ActiveRecord\Tests\Data\Cat');
+INSERT INTO `animal` (`type`) VALUES ('Yiisoft\ActiveRecord\Tests\Data\Dog');
 
 INSERT INTO `profile` (description) VALUES ('profile customer 1');
 INSERT INTO `profile` (description) VALUES ('profile customer 3');

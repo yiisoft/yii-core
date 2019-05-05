@@ -10,7 +10,7 @@ namespace yii\tests\framework\behaviors;
 use yii\helpers\Yii;
 use yii\base\Event;
 use yii\behaviors\AttributeBehavior;
-use yii\activerecord\ActiveRecord;
+use Yiisoft\ActiveRecord\ActiveRecord;
 use yii\db\Connection;
 use yii\tests\TestCase;
 
