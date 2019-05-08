@@ -53,7 +53,7 @@ Yii は次のリレーショナル・データベースに対して、アクテ�
 ### テーブル名を設定する
 
 デフォルトでは、すべてのアクティブ・レコード・クラスはデータベース・テーブルと関連付けられます。
-[[Yiisoft\Db\ActiveRecord::tableName()|tableName()]] メソッドが、クラス名を [[Yiisoft\Inflector\InflectorHelper::camel2id()]] によって変換して、テーブル名を返します。
+[[Yiisoft\Db\ActiveRecord::tableName()|tableName()]] メソッドが、クラス名を [[Yiisoft\Inflector\Inflector::camel2id()]] によって変換して、テーブル名を返します。
 テーブル名がこの規約に従っていない場合は、このメソッドをオーバライドすることが出来ます。
 
 同時に、デフォルトの [[Yiisoft\Db\Connection::$tablePrefix|tablePrefix]] を適用することも可能です。

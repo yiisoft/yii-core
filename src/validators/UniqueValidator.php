@@ -13,7 +13,7 @@ use Yiisoft\ActiveRecord\ActiveQuery;
 use Yiisoft\ActiveRecord\ActiveQueryInterface;
 use Yiisoft\ActiveRecord\ActiveRecord;
 use Yiisoft\ActiveRecord\ActiveRecordInterface;
-use Yiisoft\Inflector\InflectorHelper;
+use Yiisoft\Strings\Inflector;
 
 /**
  * UniqueValidator validates that the attribute value is unique in the specified database table.
@@ -287,7 +287,7 @@ class UniqueValidator extends Validator
             }
         }
         $this->addError($model, $attribute, $this->message, [
-            'attributes' => InflectorHelper::sentence($attributeCombo),
+            'attributes' => Inflector::sentence($attributeCombo),
             'values' => implode('-', $valueCombo),
         ]);
     }

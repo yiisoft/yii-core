@@ -53,7 +53,7 @@ To get started, declare an Active Record class by extending [[Yiisoft\Db\ActiveR
 ### Setting a table name
 
 By default each Active Record class is associated with its database table.
-The [[Yiisoft\Db\ActiveRecord::tableName()|tableName()]] method returns the table name by converting the class name via [[Yiisoft\Inflector\InflectorHelper::camel2id()]].
+The [[Yiisoft\Db\ActiveRecord::tableName()|tableName()]] method returns the table name by converting the class name via [[Yiisoft\Inflector\Inflector::camel2id()]].
 You may override this method if the table is not named after this convention.
 
 Also a default [[Yiisoft\Db\Connection::$tablePrefix|tablePrefix]] can be applied. For example if

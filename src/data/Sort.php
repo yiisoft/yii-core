@@ -12,7 +12,7 @@ use yii\base\BaseObject;
 use yii\di\Initiable;
 use yii\exceptions\InvalidConfigException;
 use yii\helpers\Html;
-use Yiisoft\Inflector\InflectorHelper;
+use Yiisoft\Strings\Inflector;
 use yii\web\Request;
 
 /**
@@ -109,7 +109,7 @@ class Sort extends BaseObject implements Initiable
      *     'asc' => ['age' => SORT_ASC],
      *     'desc' => ['age' => SORT_DESC],
      *     'default' => SORT_ASC,
-     *     'label' => InflectorHelper::camel2words('age'),
+     *     'label' => Inflector::camel2words('age'),
      * ]
      * ```
      *
@@ -132,7 +132,7 @@ class Sort extends BaseObject implements Initiable
      * - The `default` element specifies by which direction the attribute should be sorted
      *   if it is not currently sorted (the default value is ascending order).
      * - The `label` element specifies what label should be used when calling [[link()]] to create
-     *   a sort link. If not set, [[InflectorHelper::camel2words()]] will be called to get a label.
+     *   a sort link. If not set, [[Inflector::camel2words()]] will be called to get a label.
      *   Note that it will not be HTML-encoded.
      *
      * Note that if the Sort object is already created, you can only use the full format
@@ -365,7 +365,7 @@ class Sort extends BaseObject implements Initiable
      * @param array $options additional HTML attributes for the hyperlink tag.
      * There is one special attribute `label` which will be used as the label of the hyperlink.
      * If this is not set, the label defined in [[attributes]] will be used.
-     * If no label is defined, [[\Yiisoft\Inflector\InflectorHelper::camel2words()]] will be called to get a label.
+     * If no label is defined, [[\Yiisoft\Inflector\Inflector::camel2words()]] will be called to get a label.
      * Note that it will not be HTML-encoded.
      * @return string the generated hyperlink
      * @throws InvalidConfigException if the attribute is unknown
@@ -391,7 +391,7 @@ class Sort extends BaseObject implements Initiable
             if (isset($this->attributes[$attribute]['label'])) {
                 $label = $this->attributes[$attribute]['label'];
             } else {
-                $label = InflectorHelper::camel2words($attribute);
+                $label = Inflector::camel2words($attribute);
             }
         }
 

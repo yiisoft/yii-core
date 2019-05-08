@@ -19,7 +19,7 @@ use yii\validators\RequiredValidator;
 use yii\validators\Validator;
 use Yiisoft\Arrays\Arrayable;
 use Yiisoft\Arrays\ArrayableTrait;
-use Yiisoft\Inflector\InflectorHelper;
+use Yiisoft\Strings\Inflector;
 
 /**
  * Model is the base class for data models.
@@ -680,7 +680,7 @@ class Model extends Component implements StaticInstanceInterface, IteratorAggreg
      */
     public function generateAttributeLabel($name)
     {
-        return InflectorHelper::camel2words($name, true);
+        return Inflector::camel2words($name, true);
     }
 
     /**

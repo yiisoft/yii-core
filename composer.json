@@ -69,7 +69,6 @@
         "ext-ctype": "*",
         "lib-pcre": "*",
         "yiisoft/arrays": "^3.0@dev",
-        "yiisoft/inflector": "^3.0@dev",
         "yiisoft/strings": "^3.0@dev",
         "psr/log-implementation": "^1.0",
         "psr/container-implementation": "^1.0",

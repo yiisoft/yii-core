@@ -47,7 +47,7 @@ $articles = Article::find()
     'asc' => ['age' => SORT_ASC],
     'desc' => ['age' => SORT_DESC],
     'default' => SORT_ASC,
-    'label' => InflectorHelper::camel2words('age'),
+    'label' => Inflector::camel2words('age'),
 ]
 ```
 
@@ -61,7 +61,7 @@ $articles = Article::find()
   デフォルト値は昇順です。
   つまり、以前に並べ替えられたことがない状態でこの属性による並べ替えをリクエストすると、この属性の昇順に従ってデータが並べ替えられることになります。
 - `label` 要素は、並べ替えのリンクを作成するために [[yii\data\Sort::link()]] を呼んだときに、どういうラベルを使用すべきかを指定するものです。
-  設定されていない場合は、[[Yiisoft\Inflector\InflectorHelper::camel2words()]] が呼ばれて、属性名からラベルが生成されます。
+  設定されていない場合は、[[Yiisoft\Inflector\Inflector::camel2words()]] が呼ばれて、属性名からラベルが生成されます。
   ラベルは HTML エンコードされないことに注意してください。
 
 > Info: [[yii\data\Sort::$orders|orders]] の値をデータベースのクエリに直接に供給して、

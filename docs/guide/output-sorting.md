@@ -47,7 +47,7 @@ It is equivalent to the following declaration:
     'asc' => ['age' => SORT_ASC],
     'desc' => ['age' => SORT_DESC],
     'default' => SORT_ASC,
-    'label' => InflectorHelper::camel2words('age'),
+    'label' => Inflector::camel2words('age'),
 ]
 ```
 
@@ -61,7 +61,7 @@ using the following array structure:
   It defaults to ascending order, meaning if it is not sorted before and you request to sort by this attribute, 
   the data will be sorted by this attribute in ascending order.
 - The `label` element specifies what label should be used when calling [[yii\data\Sort::link()]] to create a sort link.
-  If not set, [[Yiisoft\Inflector\InflectorHelper::camel2words()]] will be called to generate a label from the attribute name.
+  If not set, [[Yiisoft\Inflector\Inflector::camel2words()]] will be called to generate a label from the attribute name.
   Note that it will not be HTML-encoded.
 
 > Info: You can directly feed the value of [[yii\data\Sort::$orders|orders]] to the database query to build
