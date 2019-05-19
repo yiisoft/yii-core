@@ -13,7 +13,7 @@ use yii\base\Application;
 use yii\di\FactoryInterface;
 use yii\exceptions\InvalidArgumentException;
 use yii\exceptions\InvalidConfigException;
-use yii\i18n\I18N;
+use yii\i18n\Translator;
 
 /**
  * BaseYii is the core helper class for the Yii framework.
@@ -230,7 +230,7 @@ class BaseYii
             return static::getApp()->t($category, $message, $params, $language);
         }
 
-        return I18N::substitute($message, $params);
+        return Translator::substitute($message, $params);
     }
 
     /**
