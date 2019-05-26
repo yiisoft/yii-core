@@ -205,7 +205,7 @@ class Module extends Component
         if ($this->_controllerNamespace === null) {
             $class = \get_class($this);
             if (($pos = strrpos($class, '\\')) !== false) {
-                $this->_controllerNamespace = substr($class, 0, $pos) . '\\controllers';
+                $this->_controllerNamespace = substr($class, 0, $pos) . '\\Controllers';
             }
         }
 
