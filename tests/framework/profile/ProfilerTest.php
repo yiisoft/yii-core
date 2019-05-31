@@ -7,6 +7,7 @@
 
 namespace yii\tests\framework\profile;
 
+use Psr\Log\NullLogger;
 use yii\profile\LogTarget;
 use yii\profile\Profiler;
 use yii\profile\Target;
@@ -25,7 +26,7 @@ class ProfilerTest extends TestCase
     {
         $profiler = new Profiler();
 
-        $target = new LogTarget();
+        $target = new LogTarget(new NullLogger());
         $profiler->setTargets([$target]);
 
         $this->assertEquals([$target], $profiler->getTargets());
@@ -34,6 +35,7 @@ class ProfilerTest extends TestCase
         $profiler->setTargets([
             [
                 '__class' => LogTarget::class,
+                '__construct()' => [new NullLogger()],
                 'logLevel' => 'test',
             ],
         ]);

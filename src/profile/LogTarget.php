@@ -10,6 +10,7 @@ namespace yii\profile;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use yii\helpers\Yii;
+use yii\log\Logger;
 
 /**
  * LogTarget saves profiling messages as a log messages.
@@ -29,11 +30,6 @@ use yii\helpers\Yii;
  *     // ...
  * ];
  * ```
- *
- * @property LoggerInterface $logger logger to be used for message export.
- *
- * @author Paul Klimov <klimov-paul@gmail.com>
- * @since 3.0.0
  */
 class LogTarget extends Target
 {
@@ -45,38 +41,23 @@ class LogTarget extends Target
     /**
      * @var LoggerInterface logger to be used for message export.
      */
-    private $_logger;
+    private $logger;
 
-
-    /**
-     * @return LoggerInterface logger to be used for message saving.
-     */
-    public function getLogger()
+    public function __construct(LoggerInterface $logger)
     {
-        if ($this->_logger === null) {
-            $this->_logger = Yii::getContainer()->get('logger');
-        }
-        return $this->_logger;
+        $this->logger = $logger;
     }
 
-    /**
-     * @param LoggerInterface|\Closure|array $logger logger instance or its DI compatible configuration.
-     */
-    public function setLogger($logger)
+    public function getLogger(): LoggerInterface
     {
-        if ($logger === null) {
-            $this->_logger = null;
-            return;
-        }
-        if ($logger instanceof \Closure) {
-            $logger = call_user_func($logger);
-        }
-        $this->_logger = Yii::ensureObject($logger, LoggerInterface::class);
+        return $this->logger;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    public function setLogger(LoggerInterface $logger): void
+    {
+        $this->logger = $logger;
+    }
+
     public function export(array $messages)
     {
         $logger = $this->getLogger();

@@ -70,20 +70,6 @@ class BaseYii
     }
 
     /**
-     * Resolves the specified reference into the actual object and makes sure it is of the specified type.
-     *
-     * @param object|string|array|\yii\di\Reference $reference an object, configuration or a reference to the desired object.
-     * @param string $type the class/interface name to be checked. If null, type check will not be performed.
-     * @param ContainerInterface $container the container. This will be passed to [[get()]].
-     * @return object the object referenced by the Reference, or `$reference` itself if it is an object.
-     * @see \yii\di\Factory::ensure()
-     */
-    public static function ensureObject($reference, string $type = null, ContainerInterface $container = null)
-    {
-        return static::get('factory', $container)->ensure($reference, $type);
-    }
-
-    /**
      * @return ContainerInterface|null
      */
     public static function getContainer(): ?ContainerInterface

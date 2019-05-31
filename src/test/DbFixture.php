@@ -38,6 +38,6 @@ abstract class DbFixture extends Fixture implements Initiable
      */
     public function init(): void
     {
-        $this->db = \yii\helpers\Yii::ensureObject($this->db, BaseObject::class);
+        $this->db = Yii::getContainer()->get($this->db);
     }
 }

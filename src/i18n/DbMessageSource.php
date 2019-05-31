@@ -7,6 +7,7 @@
 
 namespace yii\i18n;
 
+use yii\cache\Cache;
 use Yiisoft\Cache\CacheInterface;
 use Yiisoft\Db\Connection;
 use Yiisoft\Db\Expression;
@@ -44,7 +45,7 @@ class DbMessageSource extends MessageSource
      *
      * Starting from version 2.0.2, this can also be a configuration array for creating the object.
      */
-    public $db = 'db';
+    public $db;
     /**
      * @var CacheInterface|array|string the cache object or the application component ID of the cache object.
      * The messages data will be cached using this cache object.
@@ -57,7 +58,7 @@ class DbMessageSource extends MessageSource
      * @see cachingDuration
      * @see enableCaching
      */
-    public $cache = 'cache';
+    public $cache;
     /**
      * @var string the name of the source message table.
      */
@@ -77,19 +78,19 @@ class DbMessageSource extends MessageSource
      */
     public $enableCaching = false;
 
+    public function __construct(Connection $db, CacheInterface $cache)
+    {
+        $this->db = $db;
+        $this->cache = $cache;
+    }
+
     private function getConnection(): Connection
     {
-        if (!$this->db instanceof Connection) {
-            $this->db = Yii::ensureObject($this->db, Connection::class);
-        }
         return $this->db;
     }
 
     private function getCache(): CacheInterface
     {
-        if (!$this->cache instanceof CacheInterface) {
-            $this->cache = Yii::ensureObject($this->cache, CacheInterface::class);
-        }
         return $this->cache;
     }
 

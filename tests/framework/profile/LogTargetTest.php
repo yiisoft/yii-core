@@ -21,18 +21,10 @@ class LogTargetTest extends TestCase
      */
     public function testSetupLogger()
     {
-        $target = new LogTarget();
-
         $logger = new NullLogger();
-        $target->setLogger($logger);
+        $target = new LogTarget($logger);
+
         $this->assertSame($logger, $target->getLogger());
-
-        $target->setLogger(['__class' => NullLogger::class]);
-        $this->assertNotSame($logger, $target->getLogger());
-        $this->assertTrue($target->getLogger() instanceof NullLogger);
-
-        $target->setLogger(null);
-        $this->assertSame(Yii::getContainer()->get('logger'), $target->getLogger());
     }
 
     /**
@@ -49,8 +41,7 @@ class LogTargetTest extends TestCase
             ])
             ->getMockForAbstractClass();
 
-        $target = new LogTarget();
-        $target->setLogger($logger);
+        $target = new LogTarget($logger);
         $target->logLevel = 'test-level';
 
         $logger->expects($this->once())

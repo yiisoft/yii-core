@@ -279,19 +279,6 @@ abstract class Application extends Module implements Initiable
     }
 
     /**
-     * Resolves the specified reference into the actual object and makes sure it is of the specified type.
-     *
-     * @param object|string|array|Reference $reference an object, configuration or a reference to the desired object.
-     * @param string $type the class/interface name to be checked. If null, type check will not be performed.
-     * @return object the object referenced by the Reference, or `$reference` itself if it is an object.
-     * @see \yii\di\Factory::ensure()
-     */
-    public function ensureObject($reference, string $type = null)
-    {
-        return $this->get('factory')->ensure($reference, $type);
-    }
-
-    /**
      * Translates a message to the specified language.
      *
      * This is a shortcut method of [[\yii\i18n\I18N::translate()]].
