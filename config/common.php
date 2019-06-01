@@ -3,8 +3,7 @@
 use yii\di\Reference;
 
 return [
-    Psr\Container\ContainerInterface::class => Reference::to('container'),
-    'container' => function ($container) {
+    'container' => function (\Psr\Container\ContainerInterface $container) {
         return $container;
     },
 
@@ -16,6 +15,7 @@ return [
         '__class' => yii\di\Factory::class,
         '__construct()' => [
             'definitions' => [],
+            'providers' => [],
             'parent' => Reference::to('container'),
         ],
     ],
