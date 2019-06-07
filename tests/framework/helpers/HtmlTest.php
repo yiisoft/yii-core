@@ -686,7 +686,7 @@ EOD;
             'separator' => "<br>\n",
             'unselect' => '0',
         ]));
-        
+
         $expected = <<<'EOD'
 <input type="hidden" name="test" value="0" disabled><div><label><input type="checkbox" name="test[]" value="value1"> text1</label><br>
 <label><input type="checkbox" name="test[]" value="value2"> text2</label></div>
@@ -767,7 +767,7 @@ EOD;
             'separator' => "<br>\n",
             'unselect' => '0',
         ]));
-        
+
         $expected = <<<'EOD'
 <input type="hidden" name="test" value="0" disabled><div><label><input type="radio" name="test" value="value1"> text1</label><br>
 <label><input type="radio" name="test" value="value2"> text2</label></div>
@@ -1611,7 +1611,7 @@ EOD;
         $model = $this->factory->create(HtmlTestModel::class);
         $actual = Html::activeFileInput($model, 'types', ['name' => 'foo']);
         $this->assertEqualsWithoutLE($expected, $actual);
-        
+
         $expected = '<input type="hidden" name="foo" value="" disabled><input type="file" id="htmltestmodel-types" name="foo" disabled>';
         $model = $this->factory->create(HtmlTestModel::class);
         $actual = Html::activeFileInput($model, 'types', ['name' => 'foo', 'disabled' => true]);
@@ -1782,8 +1782,9 @@ HTML;
  * @property array types
  * @property string description
  */
-class HtmlTestModel extends DynamicModel implements \yii\di\Initiable
+class HtmlTestModel extends DynamicModel
 {
+    // TODO: should be constructor now?
     public function init(): void
     {
         foreach (['name', 'types', 'description', 'radio', 'checkbox'] as $attribute) {

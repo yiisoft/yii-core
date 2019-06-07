@@ -8,7 +8,6 @@
 namespace yii\profile;
 
 use yii\base\Component;
-use yii\di\Initiable;
 use yii\exceptions\InvalidArgumentException;
 use yii\helpers\Yii;
 
@@ -28,7 +27,7 @@ use yii\helpers\Yii;
  * @author Paul Klimov <klimov-paul@gmail.com>
  * @since 3.0.0
  */
-class Profiler extends Component implements ProfilerInterface, Initiable
+class Profiler extends Component implements ProfilerInterface
 {
     /**
      * @var bool whether to profiler is enabled. Defaults to true.
@@ -73,7 +72,7 @@ class Profiler extends Component implements ProfilerInterface, Initiable
     /**
      * Initializes the profiler by registering [[flush()]] as a shutdown function.
      */
-    public function init(): void
+    public function __construct()
     {
         register_shutdown_function([$this, 'flush']);
     }

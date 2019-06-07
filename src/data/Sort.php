@@ -9,7 +9,6 @@ namespace yii\data;
 
 use yii\base\Application;
 use yii\base\BaseObject;
-use yii\di\Initiable;
 use yii\exceptions\InvalidConfigException;
 use yii\helpers\Html;
 use Yiisoft\Strings\Inflector;
@@ -78,7 +77,7 @@ use yii\web\Request;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Sort extends BaseObject implements Initiable
+class Sort extends BaseObject
 {
     /**
      * @var bool whether the sorting can be applied to multiple attributes simultaneously.
@@ -195,12 +194,15 @@ class Sort extends BaseObject implements Initiable
     public function __construct(Application $app)
     {
         $this->app = $app;
+
+        // TODO: attributes should be set by this moment, make it constructor argument?
+        $this->normalizeAttributes();
     }
 
     /**
      * Normalizes the [[attributes]] property.
      */
-    public function init(): void
+    public function normalizeAttributes(): void
     {
         $attributes = [];
         foreach ($this->attributes as $name => $attribute) {

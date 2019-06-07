@@ -218,7 +218,7 @@ class JsonTest extends TestCase
     }
 }
 
-class JsonModel extends DynamicModel implements \JsonSerializable, \yii\di\Initiable
+class JsonModel extends DynamicModel implements \JsonSerializable
 {
     public $data = ['json' => 'serializable'];
 
@@ -235,6 +235,7 @@ class JsonModel extends DynamicModel implements \JsonSerializable, \yii\di\Initi
         ];
     }
 
+    // TODO: should be constructor now?
     public function init(): void
     {
         $this->defineAttribute('name');

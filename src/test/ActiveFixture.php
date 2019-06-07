@@ -30,7 +30,7 @@ use Yiisoft\Db\TableSchema;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class ActiveFixture extends BaseActiveFixture implements \yii\di\Initiable
+class ActiveFixture extends BaseActiveFixture
 {
     /**
      * @var string the name of the database table that this fixture is about. If this property is not set,
@@ -52,15 +52,12 @@ class ActiveFixture extends BaseActiveFixture implements \yii\di\Initiable
     private $_table;
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public function init(): void
+    public function __construct()
     {
-        parent::init();
-        if ($this->modelClass === null && $this->tableName === null) {
-            throw new InvalidConfigException('Either "modelClass" or "tableName" must be set.');
-        }
+        // TODO: check it
+//        if ($this->modelClass === null && $this->tableName === null) {
+//            throw new InvalidConfigException('Either "modelClass" or "tableName" must be set.');
+//        }
     }
 
     /**

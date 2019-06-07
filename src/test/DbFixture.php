@@ -7,9 +7,8 @@
 
 namespace yii\test;
 
-use yii\base\BaseObject;
+
 use Yiisoft\Db\Connection;
-use yii\di\Initiable;
 use yii\helpers\Yii;
 
 /**
@@ -22,7 +21,7 @@ use yii\helpers\Yii;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-abstract class DbFixture extends Fixture implements Initiable
+abstract class DbFixture extends Fixture
 {
     /**
      * @var Connection|array|string the DB connection object or the application component ID of the DB connection.
@@ -32,12 +31,8 @@ abstract class DbFixture extends Fixture implements Initiable
      */
     public $db = 'db';
 
-
-    /**
-     * {@inheritdoc}
-     */
-    public function init(): void
+    public function __construct(Connection $db)
     {
-        $this->db = Yii::getContainer()->get($this->db);
+        $this->db = $db;
     }
 }

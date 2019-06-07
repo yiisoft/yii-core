@@ -11,7 +11,6 @@ use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Yiisoft\Db\Connection;
-use yii\di\Initiable;
 use yii\exceptions\ExitException;
 use yii\exceptions\InvalidConfigException;
 use yii\exceptions\InvalidArgumentException;
@@ -58,16 +57,12 @@ use yii\profile\ProfilerInterface;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-abstract class Application extends Module implements Initiable
+abstract class Application extends Module
 {
     /**
      * Application state used by [[state]]: application just started.
      */
     const STATE_BEGIN = 0;
-    /**
-     * Application state used by [[state]]: application is initializing.
-     */
-    const STATE_INIT = 1;
     /**
      * Application state used by [[state]]: application is triggering [[RequestEvent::BEFORE]].
      */
@@ -189,14 +184,7 @@ abstract class Application extends Module implements Initiable
         $this->_container = $container;
 
         $this->state = self::STATE_BEGIN;
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function init(): void
-    {
-        $this->state = self::STATE_INIT;
         $this->bootstrap();
     }
 
