@@ -7,7 +7,6 @@
 
 namespace yii\test;
 
-
 use Yiisoft\Db\Connection;
 use yii\helpers\Yii;
 
