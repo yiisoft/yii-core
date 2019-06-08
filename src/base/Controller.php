@@ -9,8 +9,8 @@ namespace yii\base;
 
 use yii\exceptions\InvalidArgumentException;
 use yii\exceptions\InvalidRouteException;
-use yii\view\View;
-use yii\view\ViewContextInterface;
+use Yiisoft\View\View;
+use Yiisoft\View\ViewContextInterface;
 
 /**
  * Controller is the base class for classes containing controller logic.
@@ -434,7 +434,7 @@ class Controller extends Component implements ViewContextInterface
      * [[viewPath]] directory.
      * @return string the directory containing the view files for this controller.
      */
-    public function getViewPath()
+    public function getViewPath(): string
     {
         if ($this->_viewPath === null) {
             $this->_viewPath = $this->module->getViewPath() . DIRECTORY_SEPARATOR . $this->id;

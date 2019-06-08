@@ -9,7 +9,7 @@ namespace yii\tests\framework\mail;
 
 use yii\helpers\Yii;
 use yii\mail\Composer;
-use yii\view\View;
+use Yiisoft\View\View;
 use yii\mail\Template;
 use yii\tests\TestCase;
 

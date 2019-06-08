@@ -8,7 +8,7 @@
 namespace yii\mail;
 
 use yii\base\BaseObject;
-use yii\view\ViewContextInterface;
+use Yiisoft\View\ViewContextInterface;
 
 /**
  * Template composes the message from view templates, ensuring isolated view rendering. It allows
