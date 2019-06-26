@@ -1,6 +1,7 @@
 <?php
 
-use Yiisoft\Factory\{Factory, Definitions\Reference};
+use Yiisoft\Factory\Factory;
+use Yiisoft\Factory\Definitions\Reference;
 
 return [
     'container' => function (\Psr\Container\ContainerInterface $container) {
