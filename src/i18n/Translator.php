@@ -8,7 +8,7 @@
 namespace yii\i18n;
 
 use yii\base\Component;
-use yii\di\Factory;
+use Yiisoft\Factory\Factory;
 use yii\exceptions\InvalidConfigException;
 
 /**

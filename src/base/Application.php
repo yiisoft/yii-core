@@ -259,7 +259,7 @@ abstract class Application extends Module
      * @param string|array|callable $config the object configuration.
      * @param array $params the constructor parameters.
      * @return object the created object.
-     * @see \yii\di\Factory::create()
+     * @see \Yiisoft\Factory\Factory::create()
      */
     public function createObject($config, array $params = [])
     {

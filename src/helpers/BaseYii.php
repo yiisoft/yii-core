@@ -10,7 +10,7 @@ namespace yii\helpers;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LogLevel;
 use yii\base\Application;
-use yii\di\FactoryInterface;
+use Yiisoft\FactoryInterface;
 use yii\exceptions\InvalidArgumentException;
 use yii\exceptions\InvalidConfigException;
 use yii\i18n\Translator;
@@ -62,7 +62,7 @@ class BaseYii
      * @param array $params the constructor parameters.
      * @param ContainerInterface $container the container, default one will be used if not given.
      * @return object the created object.
-     * @see \yii\di\Factory::create()
+     * @see \Yiisoft\Factory\Factory::create()
      */
     public static function createObject($config, array $params = [], ContainerInterface $container = null)
     {

@@ -29,7 +29,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected $container;
 
     /**
-     * @var null|\yii\di\Factory
+     * @var null|\Yiisoft\Factory\Factory
      */
     protected $factory;
 
