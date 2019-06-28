@@ -4,4 +4,3 @@ finder:
   exclude:
     - docs
     - vendor
-    - requirements
