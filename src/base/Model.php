@@ -17,7 +17,7 @@ use yii\exceptions\InvalidConfigException;
 use yii\helpers\Yii;
 use yii\validators\RequiredValidator;
 use yii\validators\Validator;
-use Yiisoft\Arrays\Arrayable;
+use Yiisoft\Arrays\ArrayableInterface;
 use Yiisoft\Arrays\ArrayableTrait;
 use Yiisoft\Strings\Inflector;
 
@@ -58,7 +58,7 @@ use Yiisoft\Strings\Inflector;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Model extends Component implements StaticInstanceInterface, IteratorAggregate, ArrayAccess, Arrayable
+class Model extends Component implements StaticInstanceInterface, IteratorAggregate, ArrayAccess, ArrayableInterface
 {
     use ArrayableTrait;
     use StaticInstanceTrait;

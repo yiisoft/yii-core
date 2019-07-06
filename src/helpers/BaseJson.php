@@ -10,7 +10,7 @@ namespace yii\helpers;
 use yii\exceptions\InvalidArgumentException;
 use yii\web\JsExpression;
 use yii\base\Model;
-use Yiisoft\Arrays\Arrayable;
+use Yiisoft\Arrays\ArrayableInterface;
 use Yiisoft\Arrays\ArrayHelper;
 
 /**
@@ -157,7 +157,7 @@ class BaseJson
                 return $token;
             } elseif ($data instanceof \JsonSerializable) {
                 return static::processData($data->jsonSerialize(), $expressions, $expPrefix);
-            } elseif ($data instanceof Arrayable) {
+            } elseif ($data instanceof ArrayableInterface) {
                 $data = $data->toArray();
             } elseif ($data instanceof \SimpleXMLElement) {
                 $data = (array) $data;
