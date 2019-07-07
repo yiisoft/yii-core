@@ -40,7 +40,6 @@ use yii\profile\ProfilerInterface;
  * @property \yii\i18n\I18N $i18n The internationalization application component. This property is read-only.
  * @property \PSR\Log\LoggerInterface $logger The logger. This property is read-only.
  * @property \yii\profile\ProfilerInterface $profiler The profiler. This property is read-only.
- * @property \yii\mail\MailerInterface $mailer The mailer application component. This property is read-only.
  * @property \yii\web\Request|\Yiisoft\Yii\Console\Request $request The request component. This property is read-only.
  * @property \yii\web\Response|\Yiisoft\Yii\Console\Response $response The response component. This property is
  * read-only.
