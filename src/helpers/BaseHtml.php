@@ -15,9 +15,9 @@ use yii\web\Request;
 use Yiisoft\Arrays\ArrayHelper;
 
 /**
- * BaseHtml provides concrete implementation for [[Html]].
+ * BaseHtml provides concrete implementation for {@see Html}.
  *
- * Do not use BaseHtml. Use [[Html]] instead.
+ * Do not use BaseHtml. Use {@see Html} instead.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -53,7 +53,7 @@ class BaseHtml
     ];
     /**
      * @var array the preferred order of attributes in a tag. This mainly affects the order of the attributes
-     * that are rendered by [[renderTagAttributes()]].
+     * that are rendered by {@see renderTagAttributes()}.
      */
     public static $attributeOrder = [
         'type',
@@ -98,7 +98,7 @@ class BaseHtml
 
     /**
      * Encodes special characters into HTML entities.
-     * The [[\yii\base\Application::charset|application charset]] will be used for encoding.
+     * The {@see \yii\base\Application::charset|application charset} will be used for encoding.
      * @param string $content the content to be encoded
      * @param bool $doubleEncode whether to encode HTML entities in `$content`. If false,
      * HTML entities in `$content` will not be further encoded.
@@ -113,7 +113,7 @@ class BaseHtml
 
     /**
      * Decodes special HTML entities back to the corresponding characters.
-     * This is the opposite of [[encode()]].
+     * This is the opposite of {@see encode()}.
      * @param string $content the content to be decoded
      * @return string the decoded content
      * @see encode()
@@ -128,15 +128,15 @@ class BaseHtml
      * Generates a complete HTML tag.
      * @param string|bool|null $name the tag name. If $name is `null` or `false`, the corresponding content will be rendered without any tag.
      * @param string $content the content to be enclosed between the start and end tags. It will not be HTML-encoded.
-     * If this is coming from end users, you should consider [[encode()]] it to prevent XSS attacks.
+     * If this is coming from end users, you should consider {@see encode()} it to prevent XSS attacks.
      * @param array $options the HTML tag attributes (HTML options) in terms of name-value pairs.
-     * These will be rendered as the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * These will be rendered as the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
      *
      * For example when using `['class' => 'my-class', 'target' => '_blank', 'value' => null]` it will result in the
      * html attributes rendered like this: `class="my-class" target="_blank"`.
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated HTML tag
      * @see beginTag()
@@ -155,9 +155,9 @@ class BaseHtml
      * Generates a start tag.
      * @param string|bool|null $name the tag name. If $name is `null` or `false`, the corresponding content will be rendered without any tag.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated start tag
      * @see endTag()
      * @see tag()
@@ -191,9 +191,9 @@ class BaseHtml
      * Generates a style tag.
      * @param string $content the style content
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated style tag
      */
     public static function style($content, $options = [])
@@ -205,9 +205,9 @@ class BaseHtml
      * Generates a script tag.
      * @param string $content the script content
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated script tag
      */
     public static function script($content, $options = [])
@@ -217,7 +217,7 @@ class BaseHtml
 
     /**
      * Generates a link tag that refers to an external CSS file.
-     * @param array|string $url the URL of the external CSS file. This parameter will be processed by [[Url::to()]].
+     * @param array|string $url the URL of the external CSS file. This parameter will be processed by {@see Url::to()}.
      * @param array $options the tag options in terms of name-value pairs. The following options are specially handled:
      *
      * - condition: specifies the conditional comments for IE, e.g., `lt IE 9`. When this is specified,
@@ -226,8 +226,8 @@ class BaseHtml
      * - noscript: if set to true, `link` tag will be wrapped into `<noscript>` tags.
      *
      * The rest of the options will be rendered as the attributes of the resulting link tag. The values will
-     * be HTML-encoded using [[encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * be HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated link tag
      * @see Url::to()
      */
@@ -252,7 +252,7 @@ class BaseHtml
 
     /**
      * Generates a script tag that refers to an external JavaScript file.
-     * @param string $url the URL of the external JavaScript file. This parameter will be processed by [[Url::to()]].
+     * @param string $url the URL of the external JavaScript file. This parameter will be processed by {@see Url::to()}.
      * @param array $options the tag options in terms of name-value pairs. The following option is specially handled:
      *
      * - condition: specifies the conditional comments for IE, e.g., `lt IE 9`. When this is specified,
@@ -260,8 +260,8 @@ class BaseHtml
      *   for supporting old versions of IE browsers.
      *
      * The rest of the options will be rendered as the attributes of the resulting script tag. The values will
-     * be HTML-encoded using [[encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * be HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated script tag
      * @see Url::to()
      */
@@ -310,15 +310,15 @@ class BaseHtml
 
     /**
      * Generates a form start tag.
-     * @param array|string $action the form action URL. This parameter will be processed by [[Url::to()]].
+     * @param array|string $action the form action URL. This parameter will be processed by {@see Url::to()}.
      * @param string $method the form submission method, such as "post", "get", "put", "delete" (case-insensitive).
      * Since most browsers only support "post" and "get", if other methods are given, they will
      * be simulated using "post", and a hidden input will be added which contains the actual method type.
-     * See [[\yii\web\Request::methodParam]] for more details.
+     * See {@see \yii\web\Request::methodParam} for more details.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * Special options:
      *
@@ -386,13 +386,13 @@ class BaseHtml
     /**
      * Generates a hyperlink tag.
      * @param string $text link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code
-     * such as an image tag. If this is coming from end users, you should consider [[encode()]]
+     * such as an image tag. If this is coming from end users, you should consider {@see encode()}
      * it to prevent XSS attacks.
-     * @param array|string|null $url the URL for the hyperlink tag. This parameter will be processed by [[Url::to()]]
+     * @param array|string|null $url the URL for the hyperlink tag. This parameter will be processed by {@see Url::to()}
      * and will be used for the "href" attribute of the tag. If this parameter is null, the "href" attribute
      * will not be generated.
      *
-     * If you want to use an absolute url you can call [[Url::to()]] yourself, before passing the URL to this method,
+     * If you want to use an absolute url you can call {@see Url::to()} yourself, before passing the URL to this method,
      * like this:
      *
      * ```php
@@ -400,9 +400,9 @@ class BaseHtml
      * ```
      *
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated hyperlink
      * @see \yii\helpers\Url::to()
      */
@@ -418,14 +418,14 @@ class BaseHtml
     /**
      * Generates a mailto hyperlink.
      * @param string $text link body. It will NOT be HTML-encoded. Therefore you can pass in HTML code
-     * such as an image tag. If this is coming from end users, you should consider [[encode()]]
+     * such as an image tag. If this is coming from end users, you should consider {@see encode()}
      * it to prevent XSS attacks.
      * @param string $email email address. If this is null, the first parameter (link body) will be treated
      * as the email address and used.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated mailto link
      */
     public static function mailto($text, $email = null, $options = [])
@@ -436,14 +436,14 @@ class BaseHtml
 
     /**
      * Generates an image tag.
-     * @param array|string $src the image URL. This parameter will be processed by [[Url::to()]].
+     * @param array|string $src the image URL. This parameter will be processed by {@see Url::to()}.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * Since version 2.0.12 It is possible to pass the `srcset` option as an array which keys are
-     * descriptors and values are URLs. All URLs will be processed by [[Url::to()]].
+     * descriptors and values are URLs. All URLs will be processed by {@see Url::to()}.
      * @return string the generated image tag.
      */
     public static function img($src, $options = [])
@@ -468,14 +468,14 @@ class BaseHtml
     /**
      * Generates a label tag.
      * @param string $content label text. It will NOT be HTML-encoded. Therefore you can pass in HTML code
-     * such as an image tag. If this is is coming from end users, you should [[encode()]]
+     * such as an image tag. If this is is coming from end users, you should {@see encode()}
      * it to prevent XSS attacks.
      * @param string $for the ID of the HTML element that this label is associated with.
      * If this is null, the "for" attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated label tag
      */
     public static function label($content, $for = null, $options = [])
@@ -488,11 +488,11 @@ class BaseHtml
      * Generates a button tag.
      * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded.
      * Therefore you can pass in HTML code such as an image tag. If this is is coming from end users,
-     * you should consider [[encode()]] it to prevent XSS attacks.
+     * you should consider {@see encode()} it to prevent XSS attacks.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated button tag
      */
     public static function button($content = 'Button', $options = [])
@@ -512,11 +512,11 @@ class BaseHtml
      *
      * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded.
      * Therefore you can pass in HTML code such as an image tag. If this is is coming from end users,
-     * you should consider [[encode()]] it to prevent XSS attacks.
+     * you should consider {@see encode()} it to prevent XSS attacks.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated submit button tag
      */
     public static function submitButton($content = 'Submit', $options = [])
@@ -529,11 +529,11 @@ class BaseHtml
      * Generates a reset button tag.
      * @param string $content the content enclosed within the button tag. It will NOT be HTML-encoded.
      * Therefore you can pass in HTML code such as an image tag. If this is is coming from end users,
-     * you should consider [[encode()]] it to prevent XSS attacks.
+     * you should consider {@see encode()} it to prevent XSS attacks.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated reset button tag
      */
     public static function resetButton($content = 'Reset', $options = [])
@@ -548,9 +548,9 @@ class BaseHtml
      * @param string $name the name attribute. If it is null, the name attribute will not be generated.
      * @param string $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated input tag
      */
     public static function input($type, $name = null, $value = null, $options = [])
@@ -567,9 +567,9 @@ class BaseHtml
      * Generates an input button.
      * @param string $label the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated button tag
      */
     public static function buttonInput($label = 'Button', $options = [])
@@ -587,9 +587,9 @@ class BaseHtml
      *
      * @param string $label the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated button tag
      */
     public static function submitInput($label = 'Submit', $options = [])
@@ -602,9 +602,9 @@ class BaseHtml
     /**
      * Generates a reset input button.
      * @param string $label the value attribute. If it is null, the value attribute will not be generated.
-     * @param array $options the attributes of the button tag. The values will be HTML-encoded using [[encode()]].
+     * @param array $options the attributes of the button tag. The values will be HTML-encoded using {@see encode()}.
      * Attributes whose value is null will be ignored and not put in the tag returned.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated button tag
      */
     public static function resetInput($label = 'Reset', $options = [])
@@ -619,9 +619,9 @@ class BaseHtml
      * @param string $name the name attribute.
      * @param string $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated text input tag
      */
     public static function textInput($name, $value = null, $options = [])
@@ -634,9 +634,9 @@ class BaseHtml
      * @param string $name the name attribute.
      * @param string $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated hidden input tag
      */
     public static function hiddenInput($name, $value = null, $options = [])
@@ -649,9 +649,9 @@ class BaseHtml
      * @param string $name the name attribute.
      * @param string $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated password input tag
      */
     public static function passwordInput($name, $value = null, $options = [])
@@ -667,9 +667,9 @@ class BaseHtml
      * @param string $name the name attribute.
      * @param string $value the value attribute. If it is null, the value attribute will not be generated.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated file input tag
      */
     public static function fileInput($name, $value = null, $options = [])
@@ -680,11 +680,11 @@ class BaseHtml
     /**
      * Generates a text area input.
      * @param string $name the input name
-     * @param string $value the input value. Note that it will be encoded using [[encode()]].
+     * @param string $value the input value. Note that it will be encoded using {@see encode()}.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * The following special options are recognized:
      *
      * - `doubleEncode`: whether to double encode HTML entities in `$value`. If `false`, HTML entities in `$value` will not
@@ -704,7 +704,7 @@ class BaseHtml
      * @param string $name the name attribute.
      * @param bool $checked whether the radio button should be checked.
      * @param array $options the tag options in terms of name-value pairs.
-     * See [[booleanInput()]] for details about accepted attributes.
+     * See {@see booleanInput()} for details about accepted attributes.
      *
      * @return string the generated radio button tag
      */
@@ -718,7 +718,7 @@ class BaseHtml
      * @param string $name the name attribute.
      * @param bool $checked whether the checkbox should be checked.
      * @param array $options the tag options in terms of name-value pairs.
-     * See [[booleanInput()]] for details about accepted attributes.
+     * See {@see booleanInput()} for details about accepted attributes.
      *
      * @return string the generated checkbox tag
      */
@@ -738,13 +738,13 @@ class BaseHtml
      *   is present, a hidden input will be generated so that if the checkbox is not checked and is submitted,
      *   the value of this attribute will still be submitted to the server via the hidden input.
      * - label: string, a label displayed next to the checkbox.  It will NOT be HTML-encoded. Therefore you can pass
-     *   in HTML code such as an image tag. If this is is coming from end users, you should [[encode()]] it to prevent XSS attacks.
+     *   in HTML code such as an image tag. If this is is coming from end users, you should {@see encode()} it to prevent XSS attacks.
      *   When this option is specified, the checkbox will be enclosed by a label tag.
      * - labelOptions: array, the HTML attributes for the label tag. Do not set this option unless you set the "label" option.
      *
      * The rest of the options will be rendered as the attributes of the resulting checkbox tag. The values will
-     * be HTML-encoded using [[encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * be HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated checkbox tag
      * @since 2.0.9
@@ -787,7 +787,7 @@ class BaseHtml
      * are the corresponding option labels. The array can also be nested (i.e. some array values are arrays too).
      * For each sub-array, an option group will be generated whose label is the key associated with the sub-array.
      * If you have a list of data models, you may convert them into the format described above using
-     * [[\Yiisoft\Arrays\ArrayHelper::map()]].
+     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
      *
      * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in
      * the labels will also be HTML-encoded.
@@ -818,8 +818,8 @@ class BaseHtml
      *   Defaults to `true`. This option is available since 2.0.3.
      *
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will
-     * be HTML-encoded using [[encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * be HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated drop-down list tag
      */
@@ -842,7 +842,7 @@ class BaseHtml
      * are the corresponding option labels. The array can also be nested (i.e. some array values are arrays too).
      * For each sub-array, an option group will be generated whose label is the key associated with the sub-array.
      * If you have a list of data models, you may convert them into the format described above using
-     * [[\Yiisoft\Arrays\ArrayHelper::map()]].
+     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
      *
      * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in
      * the labels will also be HTML-encoded.
@@ -876,8 +876,8 @@ class BaseHtml
      *   Defaults to `true`. This option is available since 2.0.3.
      *
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will
-     * be HTML-encoded using [[encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * be HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated list box tag
      */
@@ -911,7 +911,7 @@ class BaseHtml
 
     /**
      * Generates a list of checkboxes.
-     * A checkbox list allows multiple selection, like [[listBox()]].
+     * A checkbox list allows multiple selection, like {@see listBox()}.
      * As a result, the corresponding submitted value is an array.
      * @param string $name the name attribute of each checkbox.
      * @param string|array|null $selection the selected value(s). String for single or array for multiple selection(s).
@@ -921,13 +921,13 @@ class BaseHtml
      * The following options are specially handled:
      *
      * - tag: string|false, the tag name of the container element. False to render checkbox without container.
-     *   See also [[tag()]].
+     *   See also {@see tag()}.
      * - unselect: string, the value that should be submitted when none of the checkboxes is selected.
      *   By setting this option, a hidden input will be generated.
      * - encode: boolean, whether to HTML-encode the checkbox labels. Defaults to true.
      *   This option is ignored if `item` option is set.
      * - separator: string, the HTML code that separates items.
-     * - itemOptions: array, the options for generating the checkbox tag using [[checkbox()]].
+     * - itemOptions: array, the options for generating the checkbox tag using {@see checkbox()}.
      * - item: callable, a callback that can be used to customize the generation of the HTML code
      *   corresponding to a single item in $items. The signature of this callback must be:
      *
@@ -939,7 +939,7 @@ class BaseHtml
      *   is the label for the checkbox; and $name, $value and $checked represent the name,
      *   value and the checked status of the checkbox input, respectively.
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated checkbox list
      */
@@ -1009,13 +1009,13 @@ class BaseHtml
      * The following options are specially handled:
      *
      * - tag: string|false, the tag name of the container element. False to render radio buttons without container.
-     *   See also [[tag()]].
+     *   See also {@see tag()}.
      * - unselect: string, the value that should be submitted when none of the radio buttons is selected.
      *   By setting this option, a hidden input will be generated.
      * - encode: boolean, whether to HTML-encode the checkbox labels. Defaults to true.
      *   This option is ignored if `item` option is set.
      * - separator: string, the HTML code that separates items.
-     * - itemOptions: array, the options for generating the radio button tag using [[radio()]].
+     * - itemOptions: array, the options for generating the radio button tag using {@see radio()}.
      * - item: callable, a callback that can be used to customize the generation of the HTML code
      *   corresponding to a single item in $items. The signature of this callback must be:
      *
@@ -1027,7 +1027,7 @@ class BaseHtml
      *   is the label for the radio button; and $name, $value and $checked represent the name,
      *   value and the checked status of the radio button input, respectively.
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated radio button list
      */
@@ -1101,7 +1101,7 @@ class BaseHtml
      *   where $index is the array key corresponding to `$item` in `$items`. The callback should return
      *   the whole list item tag.
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated unordered list. An empty list tag will be returned if `$items` is empty.
      */
@@ -1152,7 +1152,7 @@ class BaseHtml
      *   where $index is the array key corresponding to `$item` in `$items`. The callback should return
      *   the whole list item tag.
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated ordered list. An empty string is returned if `$items` is empty.
      */
@@ -1164,20 +1164,20 @@ class BaseHtml
 
     /**
      * Generates a label tag for the given model attribute.
-     * The label text is the label associated with the attribute, obtained via [[Model::getAttributeLabel()]].
+     * The label text is the label associated with the attribute, obtained via {@see Model::getAttributeLabel()}.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * The following options are specially handled:
      *
-     * - label: this specifies the label to be displayed. Note that this will NOT be [[encode()|encoded]].
-     *   If this is not set, [[Model::getAttributeLabel()]] will be called to get the label for display
+     * - label: this specifies the label to be displayed. Note that this will NOT be {@see encode()|encoded}.
+     *   If this is not set, {@see Model::getAttributeLabel()} will be called to get the label for display
      *   (after encoding).
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated label tag
      */
@@ -1191,21 +1191,21 @@ class BaseHtml
 
     /**
      * Generates a hint tag for the given model attribute.
-     * The hint text is the hint associated with the attribute, obtained via [[Model::getAttributeHint()]].
+     * The hint text is the hint associated with the attribute, obtained via {@see Model::getAttributeHint()}.
      * If no hint content can be obtained, method will return an empty string.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * If a value is null, the corresponding attribute will not be rendered.
      * The following options are specially handled:
      *
-     * - hint: this specifies the hint to be displayed. Note that this will NOT be [[encode()|encoded]].
-     *   If this is not set, [[Model::getAttributeHint()]] will be called to get the hint for display
+     * - hint: this specifies the hint to be displayed. Note that this will NOT be {@see encode()|encoded}.
+     *   If this is not set, {@see Model::getAttributeHint()} will be called to get the hint for display
      *   (without encoding).
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated hint tag
      * @since 2.0.4
@@ -1295,21 +1295,21 @@ class BaseHtml
      * Generates a tag that contains the first validation error of the specified model attribute.
      * Note that even if there is no validation error, this method will still return an empty error tag.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs. The values will be HTML-encoded
-     * using [[encode()]]. If a value is null, the corresponding attribute will not be rendered.
+     * using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
      *
      * The following options are specially handled:
      *
      * - tag: this specifies the tag name. If not set, "div" will be used.
-     *   See also [[tag()]].
+     *   See also {@see tag()}.
      * - encode: boolean, if set to false then the error message won't be encoded.
      * - errorSource (since 2.0.14): \Closure|callable, callback that will be called to obtain an error message.
      *   The signature of the callback must be: `function ($model, $attribute)` and return a string.
      *   When not set, the `$model->getFirstError()` method will be called.
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated label tag
      */
@@ -1333,11 +1333,11 @@ class BaseHtml
      * unless they are explicitly specified in `$options`.
      * @param string $type the input type (e.g. 'text', 'password')
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated input tag
      */
     public static function activeInput($type, $model, $attribute, $options = [])
@@ -1355,7 +1355,7 @@ class BaseHtml
 
     /**
      * If `maxlength` option is set true and the model attribute is validated by a string validator,
-     * the `maxlength` option will take the value of [[\yii\validators\StringValidator::max]].
+     * the `maxlength` option will take the value of {@see \yii\validators\StringValidator::max}.
      * @param Model $model the model object
      * @param string $attribute the attribute name or expression.
      * @param array $options the tag options in terms of name-value pairs.
@@ -1379,15 +1379,15 @@ class BaseHtml
      * This method will generate the "name" and "value" tag attributes automatically for the model attribute
      * unless they are explicitly specified in `$options`.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * The following special options are recognized:
      *
      * - maxlength: integer|boolean, when `maxlength` is set true and the model attribute is validated
-     *   by a string validator, the `maxlength` option will take the value of [[\yii\validators\StringValidator::max]].
+     *   by a string validator, the `maxlength` option will take the value of {@see \yii\validators\StringValidator::max}.
      *   This is available since version 2.0.3.
      * - placeholder: string|boolean, when `placeholder` equals `true`, the attribute label from the $model will be used
      *   as a placeholder (this behavior is available since version 2.0.14).
@@ -1404,10 +1404,10 @@ class BaseHtml
      * Generate placeholder from model attribute label.
      *
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
      * @since 2.0.14
      */
     protected static function setActivePlaceholder($model, $attribute, &$options = [])
@@ -1423,11 +1423,11 @@ class BaseHtml
      * This method will generate the "name" and "value" tag attributes automatically for the model attribute
      * unless they are explicitly specified in `$options`.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * @return string the generated input tag
      */
     public static function activeHiddenInput($model, $attribute, $options = [])
@@ -1440,15 +1440,15 @@ class BaseHtml
      * This method will generate the "name" and "value" tag attributes automatically for the model attribute
      * unless they are explicitly specified in `$options`.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * The following special options are recognized:
      *
      * - maxlength: integer|boolean, when `maxlength` is set true and the model attribute is validated
-     *   by a string validator, the `maxlength` option will take the value of [[\yii\validators\StringValidator::max]].
+     *   by a string validator, the `maxlength` option will take the value of {@see \yii\validators\StringValidator::max}.
      *   This option is available since version 2.0.6.
      * - placeholder: string|boolean, when `placeholder` equals `true`, the attribute label from the $model will be used
      *   as a placeholder (this behavior is available since version 2.0.14).
@@ -1468,11 +1468,11 @@ class BaseHtml
      * Additionally, if a separate set of HTML options array is defined inside `$options` with a key named `hiddenOptions`,
      * it will be passed to the `activeHiddenInput` field as its own `$options` parameter.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * If `hiddenOptions` parameter which is another set of HTML options array is defined, it will be extracted
      * from `$options` to be used for the hidden input.
      * @return string the generated input tag
@@ -1502,15 +1502,15 @@ class BaseHtml
      * Generates a textarea tag for the given model attribute.
      * The model attribute value will be used as the content in the textarea.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
-     * the attributes of the resulting tag. The values will be HTML-encoded using [[encode()]].
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * the attributes of the resulting tag. The values will be HTML-encoded using {@see encode()}.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      * The following special options are recognized:
      *
      * - maxlength: integer|boolean, when `maxlength` is set true and the model attribute is validated
-     *   by a string validator, the `maxlength` option will take the value of [[\yii\validators\StringValidator::max]].
+     *   by a string validator, the `maxlength` option will take the value of {@see \yii\validators\StringValidator::max}.
      *   This option is available since version 2.0.6.
      * - placeholder: string|boolean, when `placeholder` equals `true`, the attribute label from the $model will be used
      *   as a placeholder (this behavior is available since version 2.0.14).
@@ -1538,10 +1538,10 @@ class BaseHtml
      * Generates a radio button tag together with a label for the given model attribute.
      * This method will generate the "checked" tag attribute according to the model attribute value.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs.
-     * See [[booleanInput()]] for details about accepted attributes.
+     * See {@see booleanInput()} for details about accepted attributes.
      *
      * @return string the generated radio button tag
      */
@@ -1554,10 +1554,10 @@ class BaseHtml
      * Generates a checkbox tag together with a label for the given model attribute.
      * This method will generate the "checked" tag attribute according to the model attribute value.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs.
-     * See [[booleanInput()]] for details about accepted attributes.
+     * See {@see booleanInput()} for details about accepted attributes.
      *
      * @return string the generated checkbox tag
      */
@@ -1568,13 +1568,13 @@ class BaseHtml
 
     /**
      * Generates a boolean input
-     * This method is mainly called by [[activeCheckbox()]] and [[activeRadio()]].
+     * This method is mainly called by {@see activeCheckbox()} and {@see activeRadio()}.
      * @param string $type the input type. This can be either `radio` or `checkbox`.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $options the tag options in terms of name-value pairs.
-     * See [[booleanInput()]] for details about accepted attributes.
+     * See {@see booleanInput()} for details about accepted attributes.
      * @return string the generated input element
      * @since 2.0.9
      */
@@ -1610,13 +1610,13 @@ class BaseHtml
      * Generates a drop-down list for the given model attribute.
      * The selection of the drop-down list is taken from the value of the model attribute.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $items the option data items. The array keys are option values, and the array values
      * are the corresponding option labels. The array can also be nested (i.e. some array values are arrays too).
      * For each sub-array, an option group will be generated whose label is the key associated with the sub-array.
      * If you have a list of data models, you may convert them into the format described above using
-     * [[\Yiisoft\Arrays\ArrayHelper::map()]].
+     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
      *
      * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in
      * the labels will also be HTML-encoded.
@@ -1647,8 +1647,8 @@ class BaseHtml
      *   Defaults to `true`. This option is available since 2.0.3.
      *
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will
-     * be HTML-encoded using [[encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * be HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated drop-down list tag
      */
@@ -1665,13 +1665,13 @@ class BaseHtml
      * Generates a list box.
      * The selection of the list box is taken from the value of the model attribute.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $items the option data items. The array keys are option values, and the array values
      * are the corresponding option labels. The array can also be nested (i.e. some array values are arrays too).
      * For each sub-array, an option group will be generated whose label is the key associated with the sub-array.
      * If you have a list of data models, you may convert them into the format described above using
-     * [[\Yiisoft\Arrays\ArrayHelper::map()]].
+     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
      *
      * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in
      * the labels will also be HTML-encoded.
@@ -1705,8 +1705,8 @@ class BaseHtml
      *   Defaults to `true`. This option is available since 2.0.3.
      *
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will
-     * be HTML-encoded using [[encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * be HTML-encoded using {@see encode()}. If a value is null, the corresponding attribute will not be rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated list box tag
      */
@@ -1717,11 +1717,11 @@ class BaseHtml
 
     /**
      * Generates a list of checkboxes.
-     * A checkbox list allows multiple selection, like [[listBox()]].
+     * A checkbox list allows multiple selection, like {@see listBox()}.
      * As a result, the corresponding submitted value is an array.
      * The selection of the checkbox list is taken from the value of the model attribute.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $items the data item used to generate the checkboxes.
      * The array keys are the checkbox values, and the array values are the corresponding labels.
@@ -1730,14 +1730,14 @@ class BaseHtml
      * The following options are specially handled:
      *
      * - tag: string|false, the tag name of the container element. False to render checkbox without container.
-     *   See also [[tag()]].
+     *   See also {@see tag()}.
      * - unselect: string, the value that should be submitted when none of the checkboxes is selected.
      *   You may set this option to be null to prevent default value submission.
      *   If this option is not set, an empty string will be submitted.
      * - encode: boolean, whether to HTML-encode the checkbox labels. Defaults to true.
      *   This option is ignored if `item` option is set.
      * - separator: string, the HTML code that separates items.
-     * - itemOptions: array, the options for generating the checkbox tag using [[checkbox()]].
+     * - itemOptions: array, the options for generating the checkbox tag using {@see checkbox()}.
      * - item: callable, a callback that can be used to customize the generation of the HTML code
      *   corresponding to a single item in $items. The signature of this callback must be:
      *
@@ -1749,7 +1749,7 @@ class BaseHtml
      *   is the label for the checkbox; and $name, $value and $checked represent the name,
      *   value and the checked status of the checkbox input.
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated checkbox list
      */
@@ -1763,7 +1763,7 @@ class BaseHtml
      * A radio button list is like a checkbox list, except that it only allows single selection.
      * The selection of the radio buttons is taken from the value of the model attribute.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $items the data item used to generate the radio buttons.
      * The array keys are the radio values, and the array values are the corresponding labels.
@@ -1772,14 +1772,14 @@ class BaseHtml
      * The following options are specially handled:
      *
      * - tag: string|false, the tag name of the container element. False to render radio button without container.
-     *   See also [[tag()]].
+     *   See also {@see tag()}.
      * - unselect: string, the value that should be submitted when none of the radio buttons is selected.
      *   You may set this option to be null to prevent default value submission.
      *   If this option is not set, an empty string will be submitted.
      * - encode: boolean, whether to HTML-encode the checkbox labels. Defaults to true.
      *   This option is ignored if `item` option is set.
      * - separator: string, the HTML code that separates items.
-     * - itemOptions: array, the options for generating the radio button tag using [[radio()]].
+     * - itemOptions: array, the options for generating the radio button tag using {@see radio()}.
      * - item: callable, a callback that can be used to customize the generation of the HTML code
      *   corresponding to a single item in $items. The signature of this callback must be:
      *
@@ -1791,7 +1791,7 @@ class BaseHtml
      *   is the label for the radio button; and $name, $value and $checked represent the name,
      *   value and the checked status of the radio button input.
      *
-     * See [[renderTagAttributes()]] for details on how attributes are being rendered.
+     * See {@see renderTagAttributes()} for details on how attributes are being rendered.
      *
      * @return string the generated radio button list
      */
@@ -1802,10 +1802,10 @@ class BaseHtml
 
     /**
      * Generates a list of input fields.
-     * This method is mainly called by [[activeListBox()]], [[activeRadioList()]] and [[activeCheckboxList()]].
+     * This method is mainly called by {@see activeListBox()}, {@see activeRadioList()} and {@see activeCheckboxList()}.
      * @param string $type the input type. This can be 'listBox', 'radioList', or 'checkBoxList'.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for the format
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for the format
      * about attribute expression.
      * @param array $items the data item used to generate the input fields.
      * The array keys are the input values, and the array values are the corresponding labels.
@@ -1829,19 +1829,19 @@ class BaseHtml
     }
 
     /**
-     * Renders the option tags that can be used by [[dropDownList()]] and [[listBox()]].
+     * Renders the option tags that can be used by {@see dropDownList()} and {@see listBox()}.
      * @param string|array|null $selection the selected value(s). String for single or array for multiple selection(s).
      * @param array $items the option data items. The array keys are option values, and the array values
      * are the corresponding option labels. The array can also be nested (i.e. some array values are arrays too).
      * For each sub-array, an option group will be generated whose label is the key associated with the sub-array.
      * If you have a list of data models, you may convert them into the format described above using
-     * [[\Yiisoft\Arrays\ArrayHelper::map()]].
+     * {@see \Yiisoft\Arrays\ArrayHelper::map()}.
      *
      * Note, the values and labels will be automatically HTML-encoded by this method, and the blank spaces in
      * the labels will also be HTML-encoded.
-     * @param array $tagOptions the $options parameter that is passed to the [[dropDownList()]] or [[listBox()]] call.
+     * @param array $tagOptions the $options parameter that is passed to the {@see dropDownList()} or {@see listBox()} call.
      * This method will take out these elements, if any: "prompt", "options" and "groups". See more details
-     * in [[dropDownList()]] for the explanation of these elements.
+     * in {@see dropDownList()} for the explanation of these elements.
      *
      * @return string the generated list options
      */
@@ -1911,7 +1911,7 @@ class BaseHtml
      *
      * Attributes whose values are null will not be rendered.
      *
-     * The values of attributes will be HTML-encoded using [[encode()]].
+     * The values of attributes will be HTML-encoded using {@see encode()}.
      *
      * The "data" attribute is specially handled when it is receiving an array value. In this case,
      * the array will be "expanded" and a list data attributes will be rendered. For example,
@@ -1920,7 +1920,7 @@ class BaseHtml
      * Additionally `'data' => ['params' => ['id' => 1, 'name' => 'yii'], 'status' => 'ok']` will be rendered as:
      * `data-params='{"id":1,"name":"yii"}' data-status="ok"`.
      *
-     * @param array $attributes attributes to be rendered. The attribute values will be HTML-encoded using [[encode()]].
+     * @param array $attributes attributes to be rendered. The attribute values will be HTML-encoded using {@see encode()}.
      * @return string the rendering result. If the attributes are not empty, they will be rendered
      * into a string with a leading white space (so that it can be directly appended to the tag name
      * in a tag. If there is no attribute, an empty string will be returned.
@@ -2202,9 +2202,9 @@ class BaseHtml
      * Returns the value of the specified attribute name or expression.
      *
      * For an attribute expression like `[0]dates[0]`, this method will return the value of `$model->dates[0]`.
-     * See [[getAttributeName()]] for more details about attribute expression.
+     * See {@see getAttributeName()} for more details about attribute expression.
      *
-     * If an attribute value is an instance of [[ActiveRecordInterface]] or an array of such instances,
+     * If an attribute value is an instance of {@see ActiveRecordInterface} or an array of such instances,
      * the primary value(s) of the AR instance(s) will be returned instead.
      *
      * @param Model $model the model object
@@ -2250,11 +2250,11 @@ class BaseHtml
      * Generates an appropriate input name for the specified attribute name or expression.
      *
      * This method generates a name that can be used as the input name to collect user input
-     * for the specified attribute. The name is generated according to the [[Model::formName|form name]]
+     * for the specified attribute. The name is generated according to the {@see Model::formName|form name}
      * of the model and the given attribute name. For example, if the form name of the `Post` model
      * is `Post`, then the input name generated for the `content` attribute would be `Post[content]`.
      *
-     * See [[getAttributeName()]] for explanation of attribute expression.
+     * See {@see getAttributeName()} for explanation of attribute expression.
      *
      * @param Model $model the model object
      * @param string $attribute the attribute name or expression
@@ -2282,10 +2282,10 @@ class BaseHtml
     /**
      * Generates an appropriate input ID for the specified attribute name or expression.
      *
-     * This method converts the result [[getInputName()]] into a valid input ID.
-     * For example, if [[getInputName()]] returns `Post[content]`, this method will return `post-content`.
+     * This method converts the result {@see getInputName()} into a valid input ID.
+     * For example, if {@see getInputName()} returns `Post[content]`, this method will return `post-content`.
      * @param Model $model the model object
-     * @param string $attribute the attribute name or expression. See [[getAttributeName()]] for explanation of attribute expression.
+     * @param string $attribute the attribute name or expression. See {@see getAttributeName()} for explanation of attribute expression.
      * @return string the generated input ID
      * @throws InvalidArgumentException if the attribute name contains non-word characters.
      */

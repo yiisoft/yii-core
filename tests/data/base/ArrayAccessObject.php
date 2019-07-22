@@ -9,7 +9,7 @@ namespace yii\tests\data\base;
 
 /**
  * ArrayAccessObject
- * Object that extends [[TraversableObject]] and implements `\ArrayAccess`
+ * Object that extends {@see TraversableObject} and implements `\ArrayAccess`
  * Used for testing support for ArrayAccess object instead of arrays.
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  * @since 2.0.14.1

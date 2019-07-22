@@ -17,7 +17,7 @@ use yii\helpers\Yii;
  *
  * - Each PHP script contains one array which stores the message translations in one particular
  *   language and for a single message category;
- * - Each PHP script is saved as a file named as "[[basePath]]/LanguageID/CategoryName.php";
+ * - Each PHP script is saved as a file named as "{@see PhpMessageSource::basePath}/LanguageID/CategoryName.php";
  * - Within each PHP script, the message translations are returned as an array like the following:
  *
  * ```php
@@ -27,7 +27,7 @@ use yii\helpers\Yii;
  * ];
  * ```
  *
- * You may use [[fileMap]] to customize the association between category names and the file names.
+ * You may use {@see PhpMessageSource::fileMap} to customize the association between category names and the file names.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -40,7 +40,7 @@ class PhpMessageSource extends MessageSource
     public $basePath = '@yii/messages';
     /**
      * @var array mapping between message categories and the corresponding message file paths.
-     * The file paths are relative to [[basePath]]. For example,
+     * The file paths are relative to {@see basePath}. For example,
      *
      * ```php
      * [
@@ -65,9 +65,9 @@ class PhpMessageSource extends MessageSource
      * Loads the message translation for the specified $language and $category.
      * If translation for specific locale code such as `en-US` isn't found it
      * tries more generic `en`. When both are present, the `en-US` messages will be merged
-     * over `en`. See [[loadFallbackMessages]] for details.
-     * If the $language is less specific than [[sourceLanguage]], the method will try to
-     * load the messages for [[sourceLanguage]]. For example: [[sourceLanguage]] is `en-GB`,
+     * over `en`. See {@see loadFallbackMessages} for details.
+     * If the $language is less specific than {@see sourceLanguage}, the method will try to
+     * load the messages for {@see sourceLanguage}. For example: {@see sourceLanguage} is `en-GB`,
      * $language is `en`. The method will load the messages for `en` and merge them over `en-GB`.
      *
      * @param string $category the message category
@@ -98,7 +98,7 @@ class PhpMessageSource extends MessageSource
     }
 
     /**
-     * The method is normally called by [[loadMessages]] to load the fallback messages for the language.
+     * The method is normally called by {@see loadMessages} to load the fallback messages for the language.
      * Method tries to load the $category messages for the $fallbackLanguage and adds them to the $messages array.
      *
      * @param string $category the message category

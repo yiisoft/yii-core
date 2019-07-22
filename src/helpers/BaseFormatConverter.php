@@ -11,9 +11,9 @@ use IntlDateFormatter;
 use yii\helpers\Yii;
 
 /**
- * BaseFormatConverter provides concrete implementation for [[FormatConverter]].
+ * BaseFormatConverter provides concrete implementation for {@see FormatConverter}.
  *
- * Do not use BaseFormatConverter. Use [[FormatConverter]] instead.
+ * Do not use BaseFormatConverter. Use {@see FormatConverter} instead.
  *
  * @author Carsten Brandt <mail@cebe.cc>
  * @author Enrica Ruedin <e.ruedin@guggach.com>

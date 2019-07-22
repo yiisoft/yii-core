@@ -11,9 +11,9 @@ use yii\exceptions\InvalidConfigException;
 use Yiisoft\Strings\StringHelper;
 
 /**
- * BaseHtmlPurifier provides concrete implementation for [[HtmlPurifier]].
+ * BaseHtmlPurifier provides concrete implementation for {@see HtmlPurifier}.
  *
- * Do not use BaseHtmlPurifier. Use [[HtmlPurifier]] instead.
+ * Do not use BaseHtmlPurifier. Use {@see HtmlPurifier} instead.
  *
  * This helper requires `ezyang/htmlpurifier` library to be installed. This can be done via composer:
  *

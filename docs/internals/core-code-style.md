@@ -382,7 +382,7 @@ Documentation
      * Returns the errors for all attribute or a single attribute.
      * @param string $attribute attribute name. Use null to retrieve errors for all attributes.
      * @property array An array of errors for all attributes. Empty array is returned if no error.
-     * The result is a two-dimensional array. See [[getErrors()]] for detailed description.
+     * The result is a two-dimensional array. See {@see getErrors()} for detailed description.
      * @return array errors for all attributes or the specified attribute. Empty array is returned if no error.
      * Note that when returning errors for all attributes, the result is a two-dimensional array, like the following:
      * ...
@@ -421,7 +421,7 @@ class Component extends \yii\base\BaseObject
 ```php
 /**
  * Returns the list of attached event handlers for an event.
- * You may manipulate the returned [[Vector]] object by adding or removing handlers.
+ * You may manipulate the returned {@see Vector} object by adding or removing handlers.
  * For example,
  *
  * ```
@@ -448,15 +448,15 @@ As you can see in the examples above we use markdown to format the phpDoc commen
 
 There is additional syntax for cross linking between classes, methods and properties in the documentation:
 
-- `[[canSetProperty]]` will create a link to the `canSetProperty` method or property of the same class.
-- `[[Component::canSetProperty]]` will create a link to `canSetProperty` method of the class `Component` in the same namespace.
-- `[[yii\base\Component::canSetProperty]]` will create a link to `canSetProperty` method of the class `Component` in namespace `yii\base`.
-- `[[Component]]` will create a link to the `Component` class in the same namespace. Adding namespace to the class name is also possible here.
+- `{@see canSetProperty}` will create a link to the `canSetProperty` method or property of the same class.
+- `{@see Component::canSetProperty}` will create a link to `canSetProperty` method of the class `Component` in the same namespace.
+- `{@see yii\base\Component::canSetProperty}` will create a link to `canSetProperty` method of the class `Component` in namespace `yii\base`.
+- `{@see Component}` will create a link to the `Component` class in the same namespace. Adding namespace to the class name is also possible here.
 
 To give one of the above mentioned links another label than the class or method name you can use the syntax shown in the following example:
 
 ```
-... as displayed in the [[header|header cell]].
+... as displayed in the {@see header|header cell}.
 ```
 
 The part before the | is the method, property or class reference while the part after | is the link label.

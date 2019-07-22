@@ -185,9 +185,9 @@ class UrlTest extends TestCase
         $this->assertEquals('http://example.com/base/index.php&r=site%2Fcurrent&id=42', Url::to('', true));
         $this->assertEquals('https://example.com/base/index.php&r=site%2Fcurrent&id=42', Url::to('', 'https'));
 
-        // is a non-empty string: it will first be processed by [[$this->app->getAlias()]]. If the result
+        // is a non-empty string: it will first be processed by {@see $this->app->getAlias()}. If the result
         // is an absolute URL, it will be returned either without any change or, if schema was specified, with schema
-        // replaced; Otherwise, the result will be prefixed with [[\yii\web\Request::baseUrl]] and returned.
+        // replaced; Otherwise, the result will be prefixed with {@see \yii\web\Request::baseUrl} and returned.
         $this->app->setAlias('@web1', 'http://test.example.com/test/me1');
         $this->app->setAlias('@web2', 'test/me2');
         $this->app->setAlias('@web3', '');

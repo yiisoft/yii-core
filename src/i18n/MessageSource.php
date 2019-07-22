@@ -14,7 +14,7 @@ use yii\base\Component;
  *
  * A message source stores message translations in some persistent storage.
  *
- * Child classes should override [[loadMessages()]] to provide translated messages.
+ * Child classes should override {@see MessageSource::loadMessages()} to provide translated messages.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -28,7 +28,7 @@ abstract class MessageSource extends Component
     public $forceTranslation = false;
     /**
      * @var string the language that the original messages are in. If not set, it will use the value of
-     * [[\yii\base\Application::sourceLanguage]].
+     * {@see \yii\base\Application::sourceLanguage}.
      */
     public $sourceLanguage = 'en-US';
 
@@ -69,11 +69,11 @@ abstract class MessageSource extends Component
     /**
      * Translates a message to the specified language.
      *
-     * Note that unless [[forceTranslation]] is true, if the target language
-     * is the same as the [[sourceLanguage|source language]], the message
+     * Note that unless {@see forceTranslation} is true, if the target language
+     * is the same as the {@see sourceLanguage|source language}, the message
      * will NOT be translated.
      *
-     * If a translation is not found, a [[TranslationEvent::MISSING|missingTranslation]] event will be triggered.
+     * If a translation is not found, a {@see TranslationEvent::MISSING|missingTranslation} event will be triggered.
      *
      * @param string $category the message category
      * @param string $message the message to be translated
@@ -91,8 +91,8 @@ abstract class MessageSource extends Component
 
     /**
      * Translates the specified message.
-     * If the message is not found, a [[TranslationEvent::MISSING|missingTranslation]] event will be triggered.
-     * If there is an event handler, it may provide a [[MissingTranslationEvent::$translatedMessage|fallback translation]].
+     * If the message is not found, a {@see TranslationEvent::MISSING|missingTranslation} event will be triggered.
+     * If there is an event handler, it may provide a {@see MissingTranslationEvent::$translatedMessage|fallback translation}.
      * If no fallback translation is provided this method will return `false`.
      * @param string $category the category that the message belongs to.
      * @param string $message the message to be translated.

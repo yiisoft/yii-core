@@ -14,9 +14,9 @@ use Yiisoft\Arrays\ArrayableInterface;
 use Yiisoft\Arrays\ArrayHelper;
 
 /**
- * BaseJson provides concrete implementation for [[Json]].
+ * BaseJson provides concrete implementation for {@see Json}.
  *
- * Do not use BaseJson. Use [[Json]] instead.
+ * Do not use BaseJson. Use {@see Json} instead.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -45,7 +45,7 @@ class BaseJson
      *
      * The method enhances `json_encode()` by supporting JavaScript expressions.
      * In particular, the method will not encode a JavaScript expression that is
-     * represented in terms of a [[JsExpression]] object.
+     * represented in terms of a {@see JsExpression} object.
      *
      * Note that data encoded as JSON must be UTF-8 encoded according to the JSON specification.
      * You must ensure strings passed to this method have proper encoding before passing them.
@@ -76,7 +76,7 @@ class BaseJson
      *
      * The method enhances `json_encode()` by supporting JavaScript expressions.
      * In particular, the method will not encode a JavaScript expression that is
-     * represented in terms of a [[JsExpression]] object.
+     * represented in terms of a {@see JsExpression} object.
      *
      * Note that data encoded as JSON must be UTF-8 encoded according to the JSON specification.
      * You must ensure strings passed to this method have proper encoding before passing them.
@@ -114,7 +114,7 @@ class BaseJson
     }
 
     /**
-     * Handles [[encode()]] and [[decode()]] errors by throwing exceptions with the respective error message.
+     * Handles {@see encode()} and {@see decode()} errors by throwing exceptions with the respective error message.
      *
      * @param int $lastError error code from [json_last_error()](http://php.net/manual/en/function.json-last-error.php).
      * @throws InvalidArgumentException if there is any encoding/decoding error.

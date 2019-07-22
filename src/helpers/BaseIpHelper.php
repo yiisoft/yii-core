@@ -8,9 +8,9 @@
 namespace yii\helpers;
 
 /**
- * Class BaseIpHelper provides concrete implementation for [[IpHelper]]
+ * Class BaseIpHelper provides concrete implementation for {@see IpHelper}
  *
- * Do not use BaseIpHelper, use [[IpHelper]] instead.
+ * Do not use BaseIpHelper, use {@see IpHelper} instead.
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  * @since 2.0.14
@@ -33,7 +33,7 @@ class BaseIpHelper
      * Gets the IP version. Does not perform IP address validation.
      *
      * @param string $ip the valid IPv4 or IPv6 address.
-     * @return int [[IPV4]] or [[IPV6]]
+     * @return int {@see BaseIpHelper::IPV4} or {@see BaseIpHelper::IPV6}
      */
     public static function getIpVersion($ip)
     {

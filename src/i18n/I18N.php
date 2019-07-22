@@ -122,7 +122,7 @@ class I18N
     }
 
     /**
-     * Formats a message using [[MessageFormatter]].
+     * Formats a message using {@see MessageFormatter}.
      *
      * @param string $message the message to be formatted.
      * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.

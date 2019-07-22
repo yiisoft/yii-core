@@ -158,7 +158,7 @@ class HtmlTest extends TestCase
     }
 
     /**
-     * Data provider for [[testBeginFormSimulateViaPost()]].
+     * Data provider for {@see testBeginFormSimulateViaPost()}.
      * @return array test data
      */
     public function dataProviderBeginFormSimulateViaPost()
@@ -1168,7 +1168,7 @@ EOD;
     }
 
     /**
-     * Data provider for [[testActiveTextInput()]].
+     * Data provider for {@see testActiveTextInput()}.
      * @return array test data
      */
     public function dataProviderActiveTextInput()
@@ -1211,7 +1211,7 @@ EOD;
     }
 
     /**
-     * Data provider for [[testActivePasswordInput()]].
+     * Data provider for {@see testActivePasswordInput()}.
      * @return array test data
      */
     public function dataProviderActivePasswordInput()
@@ -1376,7 +1376,7 @@ EOD;
     }
 
     /**
-     * Data provider for [[testActiveTextArea()]].
+     * Data provider for {@see testActiveTextArea()}.
      * @return array test data
      */
     public function dataProviderActiveTextArea()
@@ -1445,7 +1445,7 @@ EOD;
     }
 
     /**
-     * Data provider for [[testActiveRadio()]].
+     * Data provider for {@see testActiveRadio()}.
      * @return array test data
      */
     public function dataProviderActiveRadio()
@@ -1489,7 +1489,7 @@ EOD;
     }
 
     /**
-     * Data provider for [[testActiveCheckbox()]].
+     * Data provider for {@see testActiveCheckbox()}.
      * @return array test data
      */
     public function dataProviderActiveCheckbox()
@@ -1533,7 +1533,7 @@ EOD;
     }
 
     /**
-     * Data provider for [[testAttributeNameValidation()]].
+     * Data provider for {@see testAttributeNameValidation()}.
      * @return array test data
      */
     public function validAttributeNamesProvider()
@@ -1566,7 +1566,7 @@ EOD;
     }
 
     /**
-     * Data provider for [[testAttributeNameValidation()]].
+     * Data provider for {@see testAttributeNameValidation()}.
      * @return array test data
      */
     public function invalidAttributeNamesProvider()
