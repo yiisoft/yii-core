@@ -1,1 +1,0 @@
-// Let's imagine this is a jQuery plugin :)
